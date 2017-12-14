@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		469492791FE24E38008D19CC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 469492781FE24E38008D19CC /* main.cpp */; };
 		4694927C1FE25061008D19CC /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927B1FE25061008D19CC /* libglfw3.a */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
 		469492821FE25305008D19CC /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469492811FE252FB008D19CC /* IOKit.framework */; };
 		469492841FE25314008D19CC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469492831FE2530E008D19CC /* CoreVideo.framework */; };
+		4694928B1FE26CB5008D19CC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4694928A1FE26CB5008D19CC /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4694925C1FE24978008D19CC /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		469492781FE24E38008D19CC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = "<group>"; };
 		4694927B1FE25061008D19CC /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = libs/glfw3/prebuilt/mac/libglfw3.a; sourceTree = "<group>"; };
 		4694927D1FE2529E008D19CC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4694927F1FE252E3008D19CC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		469492811FE252FB008D19CC /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		469492831FE2530E008D19CC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		4694928A1FE26CB5008D19CC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +44,7 @@
 		469492531FE24978008D19CC = {
 			isa = PBXGroup;
 			children = (
-				469492781FE24E38008D19CC /* main.cpp */,
+				469492891FE26C96008D19CC /* tests */,
 				4694925D1FE24978008D19CC /* Products */,
 				4694927A1FE25061008D19CC /* Frameworks */,
 			);
@@ -68,6 +68,14 @@
 				4694927B1FE25061008D19CC /* libglfw3.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		469492891FE26C96008D19CC /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				4694928A1FE26CB5008D19CC /* main.cpp */,
+			);
+			path = tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				469492791FE24E38008D19CC /* main.cpp in Sources */,
+				4694928B1FE26CB5008D19CC /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
