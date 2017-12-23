@@ -24,3 +24,5 @@
         type& operator =(type &&) = delete;
 //#endif // DISALLOW_COPY_ASSIGN_AND_MOVE
 
+#define CC_UINT    unsigned int
+
