@@ -127,6 +127,7 @@ private:
     
     // TODO: uniforms
     
+    friend class IndexBuffer;
 };
 
 GFX_END
