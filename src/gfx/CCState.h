@@ -24,21 +24,10 @@
 
 #pragma once
 
-#ifndef GFX_BEGIN
-#define GFX_BEGIN namespace cocos2d { namespace gfx {
-#endif // GFX_BEGIN
+#include "../macro.h"
 
-#ifndef GFX_END
-#define GFX_END }}
-#endif // GFX_END
+GFX_BEGIN
 
-//#ifndef DISALLOW_COPY_ASSIGN_AND_MOVE
-    #define CC_DISALLOW_COPY_ASSIGN_AND_MOVE(type) \
-        type(const type&) = delete; \
-        type& operator =(const type&) = delete; \
-        type(type &&) = delete; \
-        type& operator =(type &&) = delete;
-//#endif // DISALLOW_COPY_ASSIGN_AND_MOVE
 
-#define CC_UINT    unsigned int
 
+GFX_END

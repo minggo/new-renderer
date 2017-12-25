@@ -26,7 +26,7 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/gl3.h>
 
-CC_BEGIN
+GFX_BEGIN
 
 void Device::setViewport(int x, int y, int w, int h)
 {
@@ -148,4 +148,4 @@ void Device::initStates()
 }
 
 
-CC_END
+GFX_END

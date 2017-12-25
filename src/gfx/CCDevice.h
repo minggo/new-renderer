@@ -33,7 +33,7 @@
 // header files from cocos2d-x
 #include "../files-from-cocos2dx/ccTypes.h"
 
-CC_BEGIN
+GFX_BEGIN
 
 class FrameBuffer;
 class VertexBuffer;
@@ -125,4 +125,4 @@ private:
     
 };
 
-CC_END
+GFX_END

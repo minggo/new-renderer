@@ -27,10 +27,10 @@
 
 #include "../macro.h"
 
-CC_BEGIN
+GFX_BEGIN
 
 class FrameBuffer
 {
 };
 
-CC_END
+GFX_END

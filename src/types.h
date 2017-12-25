@@ -27,7 +27,7 @@
 #include <stdint.h>
 #include "macro.h"
 
-CC_BEGIN
+GFX_BEGIN
 
 enum ClearFlag : uint8_t
 {
@@ -108,4 +108,4 @@ enum class PrimitiveType : uint8_t
     TRIANGLE_FAN
 };
 
-CC_END
+GFX_END
