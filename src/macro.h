@@ -37,7 +37,7 @@
         type(const type&) = delete; \
         type& operator =(const type&) = delete; \
         type(type &&) = delete; \
-        type& operator =(type &&) = delete;
+        type& operator =(const type &&) = delete;
 //#endif // DISALLOW_COPY_ASSIGN_AND_MOVE
 
 #define CC_UINT    unsigned int

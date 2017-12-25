@@ -24,10 +24,74 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <vector>
 #include "../macro.h"
+#include "../types.h"
 
 GFX_BEGIN
 
+class VertexBuffer;
+class IndexBuffer;
+class Program;
 
+struct State
+{
+    // TODO: adjust memeber position to reduce size??
+    
+    State();
+    State& operator =(const State& rhs);
+    State(const State&) = delete;
+    State& operator =(const State&& rhs) = delete;
+    State(const State &&) = delete;
+    
+    void reset();
+    
+    static State DEFAULT;
+    
+    // blend
+    bool blend;
+    bool blendSepartion;
+    uint32_t blendColor;
+    BlendOp blendEq;
+    BlendOp blendAlphaEq;
+    BlendFactor blendSrc;
+    BlendFactor blendDst;
+    BlendFactor blendSrcAlpha;
+    BlendFactor blendDstAlpha;
+    
+    // depth
+    bool depthTest;
+    bool depthWrite;
+    DepthFunc depthFunc;
+    
+    // stencil
+    bool stencilTest;
+    bool blendSeparation;
+    StencilFunc stencilFuncFront;
+    int stencilRefFront;
+    unsigned int stencilMaskFront;
+    StencilOp stencilFailOpFront;
+    StencilOp stencilZFailOpFront;
+    StencilOp stencilZPassOpFront;
+    unsigned int stencilWriteMaskFront;
+    StencilFunc stencilFuncBack;
+    int stencilRefBack;
+    StencilOp stencilFailOpBack;
+    StencilOp stencilZFailOpBack;
+    StencilOp stencilZPassOpBack;
+    unsigned int stencilWriteMaskBack;
+    
+    CullMode cullMode;
+    
+    PrimitiveType primitiveType;
+    
+    int maxStream;
+    std::vector<VertexBuffer*> vertexBuffers;
+    std::vector<int> vertexBufferOffsets;
+    IndexBuffer *indexBuffer;
+    std::vector<int> textureUintes;
+    Program *program;
+};
 
 GFX_END
