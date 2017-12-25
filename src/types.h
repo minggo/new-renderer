@@ -29,7 +29,7 @@
 
 CC_BEGIN
 
-enum class ClearFlag : uint8_t
+enum ClearFlag : uint8_t
 {
     NONE        = UINT8_C(0x0000),      // No clear flags.
     COLOR       = UINT8_C(0x0001),      // Clear color.

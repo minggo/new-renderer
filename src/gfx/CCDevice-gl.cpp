@@ -58,9 +58,30 @@ void Device::setScissor(int x, int y, int w, int h)
     }
 }
 
-void Device::clear(cocos2d::ClearFlag flags, Color4F *color, uint8_t depth, uint8_t stencil)
+void Device::clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8_t stencil)
 {
+    if (flags & ClearFlag::COLOR)
+        glClearColor(color->r, color->g, color->b, color->a);
     
+    if (flags & ClearFlag::DEPTH)
+    {
+        glClearDepth(depth);
+        
+        glEnable(GL_DEPTH_TEST);
+        glDepthMask(true);
+        glDepthFunc(GL_ALWAYS);
+    }
+    
+    if (flags & ClearFlag::STENCIL)
+        glClearStencil(stencil);
+    
+    glClear(flags);
+    
+    // Restore depth related state.
+    if (flags & ClearFlag::DEPTH)
+    {
+        //TODO
+    }
 }
 
 
