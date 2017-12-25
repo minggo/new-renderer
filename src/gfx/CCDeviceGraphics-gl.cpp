@@ -23,8 +23,6 @@
  ****************************************************************************/
 
 #include "CCDeviceGraphics.h"
-#include <OpenGL/gl.h>
-#include <OpenGL/gl3.h>
 
 GFX_BEGIN
 
@@ -147,5 +145,9 @@ void DeviceGraphics::initStates()
     glDisable(GL_SCISSOR_TEST);
 }
 
+void DeviceGraphics::restoreIndexBuffer()
+{
+
+}
 
 GFX_END

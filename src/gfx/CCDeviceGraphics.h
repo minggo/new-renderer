@@ -122,7 +122,8 @@ private:
     std::vector<int> _newAttributes;
     
     // TODO: State info, uniforms
-    
+
+    friend class IndexBuffer;
 };
 
 GFX_END

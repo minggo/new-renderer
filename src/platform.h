@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2018 Chukong Technologies
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -21,30 +21,11 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
 #pragma once
 
-#ifndef GFX_BEGIN
-#define GFX_BEGIN namespace cocos2d { namespace gfx {
-#endif // GFX_BEGIN
+#define CC_PLATFORM_MAC 1
 
-#ifndef GFX_END
-#define GFX_END }}
-#endif // GFX_END
-
-//#ifndef DISALLOW_COPY_ASSIGN_AND_MOVE
-    #define CC_DISALLOW_COPY_ASSIGN_AND_MOVE(type) \
-        type(const type&) = delete; \
-        type& operator =(const type&) = delete; \
-        type(type &&) = delete; \
-        type& operator =(const type &&) = delete;
-//#endif // DISALLOW_COPY_ASSIGN_AND_MOVE
-
-#define CC_UINT    unsigned int
-
-#define GFX_LOGD printf
-#define GFX_LOGI printf
-#define GFX_LOGW printf
-#define GFX_LOGE printf
-
-#define GFX_DEBUG 1 // TODO: remove this
+#if CC_PLATFORM_MAC
+#include <OpenGL/gl.h>
+#include <OpenGL/gl3.h>
+#endif
