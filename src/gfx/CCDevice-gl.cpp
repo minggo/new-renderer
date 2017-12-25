@@ -28,6 +28,46 @@
 
 CC_BEGIN
 
+void Device::setViewport(int x, int y, int w, int h)
+{
+    if (_vx != x ||
+        _vy != y ||
+        _vw != w ||
+        _vh != h)
+    {
+        _vx = x;
+        _vy = y;
+        _vw = w;
+        _vh = h;
+        glViewport(_vx, _vy, _vw, _vh);
+    }
+}
+
+void Device::setScissor(int x, int y, int w, int h)
+{
+    if (_sx != x ||
+        _sy != y ||
+        _sw != w ||
+        _sh != h)
+    {
+        _sx = x;
+        _sy = y;
+        _sw = w;
+        _sh = h;
+        glScissor(_sx, _sy, _sw, _sh);
+    }
+}
+
+void Device::clear(cocos2d::ClearFlag flags, Color4F *color, uint8_t depth, uint8_t stencil)
+{
+    
+}
+
+
+//
+// Priviate funcitons.
+//
+
 Device::Device()
 : _vx(0)
 , _vy(0)
@@ -78,6 +118,12 @@ void Device::initStates()
     glStencilFunc(GL_ALWAYS, 0, 0xff);
     glStencilMask(0xff);
     glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+    
+    glClearDepth(1);
+    glClearColor(0, 0, 0, 0);
+    glClearStencil(0);
+    
+    glDisable(GL_SCISSOR_TEST);
 }
 
 

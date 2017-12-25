@@ -30,6 +30,9 @@
 #include "../macro.h"
 #include "../types.h"
 
+// header files from cocos2d-x
+#include "../files-from-cocos2dx/ccTypes.h"
+
 CC_BEGIN
 
 class FrameBuffer;
@@ -44,7 +47,7 @@ public:
     void setFrameBuffer(const FrameBuffer* fb);
     void setViewport(int x, int y, int w, int h);
     void setScissor(int x, int y, int w, int h);
-    void clear(ClearFlag flags, uint32_t rgba, uint8_t depth, uint8_t stencil);
+    void clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8_t stencil);
     
     void enableBlend();
     void enableDepthTest();
