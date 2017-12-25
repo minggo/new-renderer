@@ -29,6 +29,7 @@
 #include <vector>
 #include "../macro.h"
 #include "../types.h"
+#include "CCState.h"
 
 // header files from cocos2d-x
 #include "../files-from-cocos2dx/ccTypes.h"
@@ -63,14 +64,14 @@ public:
     void setstencilOpFront(StencilOp failOp, StencilOp zFailOp, StencilOp zPassOp, unsigned int writeMask);
     void setStencilOpBack(StencilOp failOp, StencilOp zFailOp, StencilOp zPassOp, unsigned int writeMask);
     
-    void setDepthTest(DepthFunc func);
+    void setDepthFunc(DepthFunc func);
     
     void setBlendColor(uint32_t rgba);
     void setBlendColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
     void setBlendFunc(BlendFactor src, BlendFactor dst);
     void setBlendFuncSeparate(BlendFactor srcRGB, BlendFactor dstRGB, BlendFactor srcAlpha, BlendFactor dstAlpha);
     void setBlendEquation(BlendOp mode);
-    void setBlendEquationSeparate(BlendOp modeRGB, BlendFactor modeAlpha);
+    void setBlendEquationSeparate(BlendOp modeRGB, BlendOp modeAlpha);
     
     void setCullMode(CullMode mode);
     
@@ -121,7 +122,10 @@ private:
     std::vector<int> _enabledAtrributes;
     std::vector<int> _newAttributes;
     
-    // TODO: State info, uniforms
+    State _nextState;
+    State _currentState;
+    
+    // TODO: uniforms
     
 };
 

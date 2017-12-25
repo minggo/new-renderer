@@ -40,14 +40,13 @@ struct State
     // TODO: adjust memeber position to reduce size??
     
     State();
-    State& operator =(const State& rhs);
+    const State& operator =(const State& rhs);
     State(const State&) = delete;
     State& operator =(const State&& rhs) = delete;
     State(const State &&) = delete;
     
     void reset();
-    
-    static State DEFAULT;
+    void set(const State& cpy);
     
     // blend
     bool blend;
@@ -67,7 +66,7 @@ struct State
     
     // stencil
     bool stencilTest;
-    bool blendSeparation;
+    bool stencilSeparation;
     StencilFunc stencilFuncFront;
     int stencilRefFront;
     unsigned int stencilMaskFront;
@@ -77,6 +76,7 @@ struct State
     unsigned int stencilWriteMaskFront;
     StencilFunc stencilFuncBack;
     int stencilRefBack;
+    unsigned int stencilMaskBack;
     StencilOp stencilFailOpBack;
     StencilOp stencilZFailOpBack;
     StencilOp stencilZPassOpBack;
@@ -92,6 +92,9 @@ struct State
     IndexBuffer *indexBuffer;
     std::vector<int> textureUintes;
     Program *program;
+    
+private:
+    void init();
 };
 
 GFX_END

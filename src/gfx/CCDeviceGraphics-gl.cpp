@@ -84,6 +84,161 @@ void DeviceGraphics::clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8
     }
 }
 
+void DeviceGraphics::enableBlend()
+{
+    _nextState.blend = true;
+}
+
+void DeviceGraphics::enableDepthTest()
+{
+    _nextState.depthTest = true;
+}
+
+void DeviceGraphics::enableDepthWrite()
+{
+    _nextState.depthWrite = true;
+}
+
+void DeviceGraphics::enableStencilTest()
+{
+    _nextState.stencilTest = true;
+}
+
+void DeviceGraphics::setStencilFunc(StencilFunc func, int ref, unsigned int mask)
+{
+    _nextState.stencilSeparation = false;
+    _nextState.stencilFuncFront = _nextState.stencilFuncBack = func;
+    _nextState.stencilRefFront = _nextState.stencilRefBack = ref;
+    _nextState.stencilMaskFront = _nextState.stencilMaskBack = mask;
+}
+
+void DeviceGraphics::setStencilFuncFront(StencilFunc func, int ref, unsigned int mask)
+{
+    _nextState.stencilSeparation = true;
+    _nextState.stencilFuncFront = func;
+    _nextState.stencilRefFront = ref;
+    _nextState.stencilMaskFront = mask;
+}
+
+void DeviceGraphics::setStencilFuncBack(StencilFunc func, int ref, unsigned int mask)
+{
+    _nextState.stencilSeparation = true;
+    _nextState.stencilFuncBack = func;
+    _nextState.stencilRefBack = ref;
+    _nextState.stencilMaskBack = mask;
+}
+
+void DeviceGraphics::setStencilOp(StencilOp failOp, StencilOp zFailOp, StencilOp zPassOp, unsigned int writeMask)
+{
+    _nextState.stencilFailOpFront = _nextState.stencilFailOpBack = failOp;
+    _nextState.stencilZFailOpFront = _nextState.stencilZFailOpBack = zFailOp;
+    _nextState.stencilZPassOpFront = _nextState.stencilZPassOpBack = zPassOp;
+    _nextState.stencilWriteMaskFront = _nextState.stencilWriteMaskBack = writeMask;
+}
+
+void DeviceGraphics::setstencilOpFront(StencilOp failOp, StencilOp zFailOp, StencilOp zPassOp, unsigned int writeMask)
+{
+    _nextState.stencilSeparation = true;
+    _nextState.stencilFailOpFront = failOp;
+    _nextState.stencilZFailOpFront = zFailOp;
+    _nextState.stencilZPassOpFront = zPassOp;
+    _nextState.stencilWriteMaskFront = writeMask;
+}
+
+void DeviceGraphics::setStencilOpBack(StencilOp failOp, StencilOp zFailOp, StencilOp zPassOp, unsigned int writeMask)
+{
+    _nextState.stencilSeparation = true;
+    _nextState.stencilFailOpBack = failOp;
+    _nextState.stencilZFailOpBack = zFailOp;
+    _nextState.stencilZPassOpBack = zPassOp;
+    _nextState.stencilWriteMaskBack = writeMask;
+}
+
+void DeviceGraphics::setDepthFunc(DepthFunc func)
+{
+    _nextState.depthFunc = func;
+}
+
+void DeviceGraphics::setBlendColor(uint32_t rgba)
+{
+    _nextState.blendColor = rgba;
+}
+
+void DeviceGraphics::setBlendColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+    _nextState.blendColor = (r << 24) | (g << 16) | (b << 8) | a;
+}
+
+void DeviceGraphics::setBlendFunc(BlendFactor src, BlendFactor dst)
+{
+    _nextState.blendSepartion = false;
+    _nextState.blendSrc = src;
+    _nextState.blendDst = dst;
+}
+
+void DeviceGraphics::setBlendFuncSeparate(BlendFactor srcRGB, BlendFactor dstRGB, BlendFactor srcAlpha, BlendFactor dstAlpha)
+{
+    _nextState.blendSepartion = true;
+    _nextState.blendSrc = srcRGB;
+    _nextState.blendDst = dstRGB;
+    _nextState.blendSrcAlpha = srcAlpha;
+    _nextState.blendDstAlpha = dstAlpha;
+}
+
+void DeviceGraphics::setBlendEquation(BlendOp mode)
+{
+    _nextState.blendSepartion = false;
+    _nextState.blendEq = mode;
+}
+
+void DeviceGraphics::setBlendEquationSeparate(BlendOp modeRGB, BlendOp modeAlpha)
+{
+    _nextState.blendSepartion = true;
+    _nextState.blendEq = modeRGB;
+    _nextState.blendAlphaEq = modeAlpha;
+}
+
+void DeviceGraphics::setCullMode(CullMode mode)
+{
+    _nextState.cullMode = mode;
+}
+
+void DeviceGraphics::setVertexBuffer(int stream, VertexBuffer* buffer, int start /*= 0*/)
+{
+    
+}
+
+void DeviceGraphics::setIndexBuffer(IndexBuffer *buffer)
+{
+    
+}
+
+void DeviceGraphics::setProgram(Program *program)
+{
+    
+}
+
+void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int slot)
+{
+    
+}
+
+void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots)
+{
+    
+}
+
+//TODO
+// setUniform
+void DeviceGraphics::setPrimitiveType(PrimitiveType type)
+{
+    
+}
+
+void DeviceGraphics::draw(int base, size_t count)
+{
+    
+}
 
 //
 // Priviate funcitons.

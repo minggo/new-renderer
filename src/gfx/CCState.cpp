@@ -23,3 +23,27 @@
  ****************************************************************************/
 
 #include "CCState.h"
+
+GFX_BEGIN
+
+State::State()
+{
+    init();
+}
+
+const State& State::operator=(const State& rhs)
+{
+    return *this;
+}
+
+void State::reset()
+{
+    init();
+}
+
+void State::init()
+{
+    
+}
+
+GFX_END
