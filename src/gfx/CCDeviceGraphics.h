@@ -41,7 +41,7 @@ class IndexBuffer;
 class Program;
 class Texture;
 
-class Device
+class DeviceGraphics
 {
 public:
     void setFrameBuffer(const FrameBuffer* fb);
@@ -97,8 +97,8 @@ private:
         int maxColorAttatchments;
     };
     
-    Device();
-    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(Device);
+    DeviceGraphics();
+    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(DeviceGraphics);
     
     void initStates();
     void initCaps();

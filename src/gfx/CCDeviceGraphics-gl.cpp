@@ -22,13 +22,13 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCDevice.h"
+#include "CCDeviceGraphics.h"
 #include <OpenGL/gl.h>
 #include <OpenGL/gl3.h>
 
 GFX_BEGIN
 
-void Device::setViewport(int x, int y, int w, int h)
+void DeviceGraphics::setViewport(int x, int y, int w, int h)
 {
     if (_vx != x ||
         _vy != y ||
@@ -43,7 +43,7 @@ void Device::setViewport(int x, int y, int w, int h)
     }
 }
 
-void Device::setScissor(int x, int y, int w, int h)
+void DeviceGraphics::setScissor(int x, int y, int w, int h)
 {
     if (_sx != x ||
         _sy != y ||
@@ -58,7 +58,7 @@ void Device::setScissor(int x, int y, int w, int h)
     }
 }
 
-void Device::clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8_t stencil)
+void DeviceGraphics::clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8_t stencil)
 {
     if (flags & ClearFlag::COLOR)
         glClearColor(color->r, color->g, color->b, color->a);
@@ -89,7 +89,7 @@ void Device::clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8_t stenc
 // Priviate funcitons.
 //
 
-Device::Device()
+DeviceGraphics::DeviceGraphics()
 : _vx(0)
 , _vy(0)
 , _vw(0)
@@ -106,7 +106,7 @@ Device::Device()
     initStates();
 }
 
-void Device::initCaps()
+void DeviceGraphics::initCaps()
 {
     glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &_caps.maxVextexTextures);
     glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &_caps.maxVertexAttributes);
@@ -117,7 +117,7 @@ void Device::initCaps()
     glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments);
 }
 
-void Device::initStates()
+void DeviceGraphics::initStates()
 {
     glDisable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ZERO);
