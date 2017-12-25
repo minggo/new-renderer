@@ -1,15 +1,32 @@
-//
-//  Device.hpp
-//  Test
-//
-//  Created by minggo on 12/14/17.
-//  Copyright © 2017 cocos. All rights reserved.
-//
+/****************************************************************************
+ Copyright (c) 2018 Chukong Technologies
+ 
+ http://www.cocos2d-x.org
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
 
 #pragma once
 
 #include <stdint.h>
 #include <string>
+#include <vector>
 #include "../macro.h"
 #include "../types.h"
 
@@ -25,8 +42,8 @@ class Device
 {
 public:
     void setFrameBuffer(const FrameBuffer* fb);
-    void setViewport(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
-    void setScissor(uint16_t x, uint16_t y, uint16_t w, uint16_t h);
+    void setViewport(int x, int y, int w, int h);
+    void setScissor(int x, int y, int w, int h);
     void clear(ClearFlag flags, uint32_t rgba, uint8_t depth, uint8_t stencil);
     
     void enableBlend();
@@ -65,11 +82,42 @@ public:
     void draw(int base, size_t count);
     
 private:
+    
+    struct Capacity
+    {
+        int maxVextexTextures;
+        int maxFragUniforms;
+        int maxTextureUints;
+        int maxVertexAttributes;
+        int maxDrawBuffers;
+        int maxColorAttatchments;
+    };
+    
+    Device();
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(Device);
     
     void initStates();
+    void initCaps();
     void restoreTexture(uint32_t index);
     void restoreIndexBuffer();
+    
+    int _vx;
+    int _vy;
+    int _vw;
+    int _vh;
+    
+    int _sx;
+    int _sy;
+    int _sw;
+    int _sh;
+    
+    Capacity _caps;
+    
+    FrameBuffer *_frameBuffer;
+    std::vector<int> _enabledAtrributes;
+    std::vector<int> _newAttributes;
+    
+    // TODO: State info
 };
 
 CC_END

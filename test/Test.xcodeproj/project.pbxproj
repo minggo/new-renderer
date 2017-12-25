@@ -13,8 +13,8 @@
 		469492821FE25305008D19CC /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469492811FE252FB008D19CC /* IOKit.framework */; };
 		469492841FE25314008D19CC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469492831FE2530E008D19CC /* CoreVideo.framework */; };
 		4694928B1FE26CB5008D19CC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4694928A1FE26CB5008D19CC /* main.cpp */; };
-		469492971FE270F2008D19CC /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 469492961FE270F2008D19CC /* Device.cpp */; };
-		4694929A1FE2775C008D19CC /* FrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 469492981FE2775C008D19CC /* FrameBuffer.cpp */; };
+		469492971FE270F2008D19CC /* CCDevice-gl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 469492961FE270F2008D19CC /* CCDevice-gl.cpp */; };
+		4694929A1FE2775C008D19CC /* CCFrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 469492981FE2775C008D19CC /* CCFrameBuffer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,10 +26,10 @@
 		469492831FE2530E008D19CC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		4694928A1FE26CB5008D19CC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		469492931FE270F2008D19CC /* macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macro.h; sourceTree = "<group>"; };
-		469492951FE270F2008D19CC /* Device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.h; sourceTree = "<group>"; };
-		469492961FE270F2008D19CC /* Device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Device.cpp; sourceTree = "<group>"; };
-		469492981FE2775C008D19CC /* FrameBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FrameBuffer.cpp; sourceTree = "<group>"; };
-		469492991FE2775C008D19CC /* FrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FrameBuffer.h; sourceTree = "<group>"; };
+		469492951FE270F2008D19CC /* CCDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDevice.h; sourceTree = "<group>"; };
+		469492961FE270F2008D19CC /* CCDevice-gl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "CCDevice-gl.cpp"; sourceTree = "<group>"; };
+		469492981FE2775C008D19CC /* CCFrameBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCFrameBuffer.cpp; sourceTree = "<group>"; };
+		469492991FE2775C008D19CC /* CCFrameBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCFrameBuffer.h; sourceTree = "<group>"; };
 		4694929B1FE28190008D19CC /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,10 +101,10 @@
 		469492941FE270F2008D19CC /* gfx */ = {
 			isa = PBXGroup;
 			children = (
-				469492951FE270F2008D19CC /* Device.h */,
-				469492961FE270F2008D19CC /* Device.cpp */,
-				469492981FE2775C008D19CC /* FrameBuffer.cpp */,
-				469492991FE2775C008D19CC /* FrameBuffer.h */,
+				469492951FE270F2008D19CC /* CCDevice.h */,
+				469492961FE270F2008D19CC /* CCDevice-gl.cpp */,
+				469492981FE2775C008D19CC /* CCFrameBuffer.cpp */,
+				469492991FE2775C008D19CC /* CCFrameBuffer.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -178,8 +178,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4694928B1FE26CB5008D19CC /* main.cpp in Sources */,
-				4694929A1FE2775C008D19CC /* FrameBuffer.cpp in Sources */,
-				469492971FE270F2008D19CC /* Device.cpp in Sources */,
+				4694929A1FE2775C008D19CC /* CCFrameBuffer.cpp in Sources */,
+				469492971FE270F2008D19CC /* CCDevice-gl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

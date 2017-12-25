@@ -22,23 +22,29 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
+#include "CCDevice.h"
 
-#ifndef CC_BEGIN
-    #define CC_BEGIN namespace cocos2d {
-#endif // CC_BEGIN
+CC_BEGIN
 
-#ifndef CC_END
-    #define CC_END }
-#endif // CC_END
+Device::Device()
+: _vx(0)
+, _vy(0)
+, _vw(0)
+, _vh(0)
+, _sx(0)
+, _sy(0)
+, _sw(0)
+, _sh(0)
+, _frameBuffer(nullptr)
+{
+    initCaps();
+    initStates();
+}
 
-//#ifndef DISALLOW_COPY_ASSIGN_AND_MOVE
-    #define CC_DISALLOW_COPY_ASSIGN_AND_MOVE(type) \
-        type(const type&) = delete; \
-        type& operator =(const type&) = delete; \
-        type(type &&) = delete; \
-        type& operator =(type &&) = delete;
-//#endif // DISALLOW_COPY_ASSIGN_AND_MOVE
+void Device::initCaps()
+{
+    glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &_caps.maxVextexTextures);
+}
 
-#define CC_UINT    unsigned int
 
+CC_END
