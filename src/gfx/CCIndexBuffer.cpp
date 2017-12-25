@@ -23,11 +23,11 @@
  ****************************************************************************/
 
 #include "CCIndexBuffer.h"
-#include "CCDevice.h"
+#include "CCDeviceGraphics.h"
 
-CC_BEGIN
+GFX_BEGIN
 
-IndexBuffer::IndexBuffer(Device* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices)
+IndexBuffer::IndexBuffer(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices)
 : _device(device)
 , _format(format)
 , _usage(usage)
@@ -103,4 +103,4 @@ void IndexBuffer::update(uint32_t offset, void* data, size_t dataByteLength)
     _device->restoreIndexBuffer();
 }
 
-CC_END
+GFX_END

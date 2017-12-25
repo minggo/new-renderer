@@ -24,7 +24,7 @@
 
 #include "CCVertexFormat.h"
 
-CC_BEGIN
+GFX_BEGIN
 
 static uint32_t attrTypeBytes(AttribType attrType)
 {
@@ -138,4 +138,4 @@ const VertexFormat::Element& VertexFormat::getElement(const std::string& attrNam
     return INVALID_ELEMENT_VALUE;
 }
 
-CC_END
+GFX_END

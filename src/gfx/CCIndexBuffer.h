@@ -27,21 +27,21 @@
 #include "../types.h"
 #include "../platform.h"
 
-CC_BEGIN
+GFX_BEGIN
 
-class Device;
+class DeviceGraphics;
 
 class IndexBuffer final
 {
 public:
-    IndexBuffer(Device* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
+    IndexBuffer(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
     ~IndexBuffer();
 
     void update(uint32_t offset, void* data, size_t dataByteLength);
     uint32_t getCount() const { return _numIndices; }
 
 private:
-    Device* _device;
+    DeviceGraphics* _device;
     IndexFormat _format;
     Usage _usage;
     uint32_t _numIndices;
@@ -53,4 +53,4 @@ private:
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(IndexBuffer)
 };
 
-CC_END
+GFX_END

@@ -23,11 +23,11 @@
  ****************************************************************************/
 
 #include "CCVertexBuffer.h"
-#include "CCDevice.h"
+#include "CCDeviceGraphics.h"
 
-CC_BEGIN
+GFX_BEGIN
 
-VertexBuffer::VertexBuffer(Device* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numVertices)
+VertexBuffer::VertexBuffer(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numVertices)
 : _device(device)
 , _format(format)
 , _usage(usage)
@@ -93,7 +93,7 @@ static void testVertexBuffer()
         { ATTRIB_NAME_POSITION, AttribType::FLOAT32, 2 }
     });
 
-    Device* device = nullptr;
+    DeviceGraphics* device = nullptr;
     float vertex[] = {
         -1, 0, 0
         -1, 1, 1
@@ -102,4 +102,4 @@ static void testVertexBuffer()
 }
 #endif
 
-CC_END
+GFX_END

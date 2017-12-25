@@ -145,7 +145,7 @@ void DeviceGraphics::initStates()
     glDisable(GL_SCISSOR_TEST);
 }
 
-void Device::restoreIndexBuffer()
+void DeviceGraphics::restoreIndexBuffer()
 {
 
 }

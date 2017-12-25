@@ -29,21 +29,21 @@
 #include "../platform.h"
 #include "CCVertexFormat.h"
 
-CC_BEGIN
+GFX_BEGIN
 
-class Device;
+class DeviceGraphics;
 
 class VertexBuffer final
 {
 public:
-    VertexBuffer(Device* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
+    VertexBuffer(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
     ~VertexBuffer();
 
     void update(uint32_t offset, void* data, size_t dataByteLength);
     inline uint32_t getCount() const { return _numVertices; }
 
 private:
-    Device* _device;
+    DeviceGraphics* _device;
     VertexFormat _format;
     Usage _usage;
     uint32_t _numVertices;
@@ -54,4 +54,4 @@ private:
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
 };
 
-CC_END
+GFX_END

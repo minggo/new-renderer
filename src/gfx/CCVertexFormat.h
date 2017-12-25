@@ -30,7 +30,7 @@
 #include <vector>
 #include <unordered_map>
 
-CC_BEGIN
+GFX_BEGIN
 
 class VertexFormat
 {
@@ -96,4 +96,4 @@ private:
 #endif
 };
 
-CC_END
+GFX_END
