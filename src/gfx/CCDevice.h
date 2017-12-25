@@ -117,7 +117,8 @@ private:
     std::vector<int> _enabledAtrributes;
     std::vector<int> _newAttributes;
     
-    // TODO: State info
+    // TODO: State info, uniforms
+    
 };
 
 CC_END

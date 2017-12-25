@@ -23,6 +23,8 @@
  ****************************************************************************/
 
 #include "CCDevice.h"
+#include <OpenGL/gl.h>
+#include <OpenGL/gl3.h>
 
 CC_BEGIN
 
@@ -37,6 +39,8 @@ Device::Device()
 , _sh(0)
 , _frameBuffer(nullptr)
 {
+    // initExtensions?
+    
     initCaps();
     initStates();
 }
@@ -44,6 +48,36 @@ Device::Device()
 void Device::initCaps()
 {
     glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &_caps.maxVextexTextures);
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &_caps.maxVertexAttributes);
+    glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &_caps.maxFragUniforms);
+    glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUints);
+    
+    glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers);
+    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments);
+}
+
+void Device::initStates()
+{
+    glDisable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ZERO);
+    glBlendEquation(GL_FUNC_ADD);
+    glBlendColor(1, 1, 1, 1);
+    
+    glColorMask(true, true, true, true);
+    
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    
+    glDisable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glDepthMask(false);
+    glDisable(GL_POLYGON_OFFSET_FILL);
+    glDepthRange(0, 1);
+    
+    glDisable(GL_STENCIL_TEST);
+    glStencilFunc(GL_ALWAYS, 0, 0xff);
+    glStencilMask(0xff);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 }
 
 
