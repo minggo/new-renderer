@@ -88,7 +88,7 @@ void DeviceGraphics::clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8
             if (!_currentState.depthWrite)
                 glDepthMask(false);
             if (_currentState.depthFunc != DepthFunc::ALWAYS)
-                glDepthFunc(_currentState.depthFunc);
+                glDepthFunc(static_cast<GLenum>(_currentState.depthFunc));
         }
     }
 }
@@ -345,7 +345,8 @@ void DeviceGraphics::initStates()
 
 void DeviceGraphics::restoreIndexBuffer()
 {
-
+    auto ib = _currentState.indexBuffer;
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib ? ib->getHandle(): 0);
 }
 
 GFX_END
