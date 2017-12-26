@@ -32,7 +32,7 @@
 #include "CCState.h"
 
 // header files from cocos2d-x
-#include "../files-from-cocos2dx/ccTypes.h"
+#include "base/ccTypes.h"
 
 GFX_BEGIN
 

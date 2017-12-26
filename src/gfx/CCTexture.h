@@ -29,26 +29,44 @@
 
 #include "CCGraphicsHandle.h"
 
+#include <vector>
+
 GFX_BEGIN
 
 class DeviceGraphics;
+class Image;
 
 class Texture : public GraphicsHandle
 {
-public:
+protected:
+    struct InitOptions
+    {
+        std::vector<Image*> images;
+    };
+
     Texture();
     virtual ~Texture();
 
+    bool init(DeviceGraphics* device);
     inline GLuint getTarget() const { return _target; }
 
 protected:
     DeviceGraphics* _device;
+    GLint _anisotropy;
+    GLuint _target;
+    
+    TextureWrapMode _wrapS;
+    TextureWrapMode _wrapT;
     uint16_t _width;
-    uint16_t _heigth;
+    uint16_t _height;
+
+    TextureFilter _minFilter;
+    TextureFilter _magFilter;
+    TextureFilter _mipFilter;
+    TextureFormat _format;
+
     bool _hasMipmap;
     bool _compressed;
-
-    GLuint _target;
 };
 
 GFX_END

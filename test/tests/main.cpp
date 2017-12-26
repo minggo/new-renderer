@@ -6,7 +6,7 @@
 //  Copyright © 2017 cocos. All rights reserved.
 //
 
-#include <glfw3.h>
+#include "glfw3/glfw3.h"
 
 int main(int argc, char** argv)
 {

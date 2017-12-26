@@ -26,5 +26,57 @@
 
 GFX_BEGIN
 
+Texture::Texture()
+: _device(nullptr)
+, _anisotropy(1)
+, _target(INVALID)
+, _wrapS(TextureWrapMode::REPEAT)
+, _wrapT(TextureWrapMode::REPEAT)
+, _width(4)
+, _height(4)
+, _minFilter(TextureFilter::LINEAR)
+, _magFilter(TextureFilter::LINEAR)
+, _mipFilter(TextureFilter::LINEAR)
+, _format(TextureFormat::RGBA8)
+, _hasMipmap(false)
+, _compressed(false)
+{
+
+}
+
+Texture::~Texture()
+{
+    if (_glID == INVALID) {
+        GFX_LOGE("Invalid texture: %p", this);
+        return;
+    }
+
+    glDeleteTextures(1, &_glID);
+
+    //TODO:    this._device._stats.tex -= this.bytes;
+}
+
+bool Texture::init(DeviceGraphics* device)
+{
+    _device = device;
+    _width = 4;
+    _height = 4;
+    _hasMipmap = false;
+    _compressed = false;
+
+    _anisotropy = 1;
+    _minFilter = TextureFilter::LINEAR;
+    _magFilter = TextureFilter::LINEAR;
+    _mipFilter = TextureFilter::LINEAR;
+    _wrapS = TextureWrapMode::REPEAT;
+    _wrapT = TextureWrapMode::REPEAT;
+    // wrapR available in webgl2
+    // _wrapR = TextureWrapMode::REPEAT;
+    _format = TextureFormat::RGBA8;
+
+    _target = -1;
+    return true;
+}
+
 GFX_END
 

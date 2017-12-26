@@ -1,6 +1,6 @@
 /****************************************************************************
 Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2017 Chukong Technologies
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -23,43 +23,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
 
-#include "CCRef.h"
+#ifndef __PLATFORM_CCPLATFORMDEFINE_H__
+#define __PLATFORM_CCPLATFORMDEFINE_H__
+/// @cond DO_NOT_SHOW
 
+#include "platform/CCPlatformConfig.h"
 
-Ref::Ref()
-: _referenceCount(1) // when the Ref is created, the reference count of it is 1
-{
-}
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#include "platform/mac/CCPlatformDefine-mac.h"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#include "platform/ios/CCPlatformDefine-ios.h"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#include "platform/android/CCPlatformDefine-android.h"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#include "platform/win32/CCPlatformDefine-win32.h"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
+#include "platform/winrt/CCPlatformDefine-winrt.h"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_LINUX
+#include "platform/linux/CCPlatformDefine-linux.h"
+#endif
 
-Ref::~Ref()
-{
-}
-
-void Ref::retain()
-{
-    ++_referenceCount;
-}
-
-void Ref::release()
-{
-    --_referenceCount;
-
-    if (_referenceCount == 0)
-    {
-        delete this;
-    }
-}
-
-Ref* Ref::autorelease()
-{
-    //TODO:    release();
-//    return this;
-//    PoolManager::getInstance()->getCurrentPool()->addObject(this);
-//    return this;
-    return nullptr;
-}
-
-unsigned int Ref::getReferenceCount() const
-{
-    return _referenceCount;
-}
+/// @endcond
+#endif /* __PLATFORM_CCPLATFORMDEFINE_H__*/

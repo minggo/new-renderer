@@ -35,6 +35,7 @@ class Texture2D : public Texture
 {
 public:
 
+//    bool init(DeviceGraphics* device, Texture)
 };
 
 GFX_END
