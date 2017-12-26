@@ -22,41 +22,40 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
-
-#include "../macro.h"
-#include "../types.h"
-#include "../platform.h"
-#include "CCVertexFormat.h"
-#include "CCGraphicsHandle.h"
-
-// Should change when integration.
-#include "../files-from-cocos2dx/CCRef.h"
+#include "CCRenderTarget.h"
+#include "CCRenderBuffer.h"
 
 GFX_BEGIN
 
-class DeviceGraphics;
-
-class VertexBuffer final : public GraphicsHandle
+RenderTarget::RenderTarget(Texture2D* tex)
+: _tex(tex)
+, _rb(nullptr)
 {
-public:
-    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, DeviceGraphics*, const VertexFormat&, Usage, void*, size_t, uint32_t)
 
-    VertexBuffer();
-    virtual ~VertexBuffer();
+}
 
-    bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
-    void update(uint32_t offset, void* data, size_t dataByteLength);
-    inline uint32_t getCount() const { return _numVertices; }
+RenderTarget::RenderTarget(RenderBuffer* rb)
+: _tex(nullptr)
+, _rb(rb)
+{
 
-private:
-    DeviceGraphics* _device;
-    VertexFormat _format;
-    Usage _usage;
-    uint32_t _numVertices;
-    uint32_t _bytes;
+}
 
-    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
-};
+RenderTarget::~RenderTarget()
+{
+    //TODO:    GFX_SAFE_RELEASE(_tex);
+    GFX_SAFE_RELEASE(_rb);
+}
+
+GLuint RenderTarget::getHandle() const
+{
+    //TODO: Texture2D
+    if (_rb != nullptr)
+    {
+        return _rb->getHandle();
+    }
+
+    return 0;
+}
 
 GFX_END

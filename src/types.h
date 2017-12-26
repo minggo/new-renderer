@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include <new>
 #include <stdint.h>
 #include <stdio.h>
 #include <assert.h>

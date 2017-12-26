@@ -27,36 +27,46 @@
 
 GFX_BEGIN
 
-VertexBuffer::VertexBuffer(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numVertices)
-: _device(device)
-, _format(format)
-, _usage(usage)
-, _numVertices(numVertices)
+VertexBuffer::VertexBuffer()
+: _device(nullptr)
+, _usage(Usage::STATIC)
+, _numVertices(0)
 {
+
+}
+
+VertexBuffer::~VertexBuffer()
+{
+    if (_glID == INVALID)
+    {
+        GFX_LOGE("The vertex buffer is invalid!");
+        return;
+    }
+
+    glDeleteBuffers(1, &_glID);
+    //TODO:    _device._stats.ib -= _bytes;
+}
+
+bool VertexBuffer::init(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numVertices)
+{
+    _device = device;
+    _format = format;
+    _usage = usage;
+    _numVertices = numVertices;
+
     // update
     glGenBuffers(1, &_glID);
     update(0, data, dataByteLength);
 
     // stats
     //TODO:    device._stats.ib += _bytes;
-}
 
-VertexBuffer::~VertexBuffer()
-{
-    if (_glID == -1)
-    {
-        GFX_LOGE("The buffer already destroyed");
-        return;
-    }
-
-    glDeleteBuffers(1, &_glID);
-    //TODO:    _device._stats.ib -= _bytes;
-    _glID = -1;
+    return true;
 }
 
 void VertexBuffer::update(uint32_t offset, void* data, size_t dataByteLength)
 {
-    if (_glID == -1) {
+    if (_glID == INVALID) {
         GFX_LOGE("The buffer is destroyed");
         return;
     }
@@ -98,7 +108,8 @@ static void testVertexBuffer()
         -1, 0, 0
         -1, 1, 1
     };
-    VertexBuffer* buffer = new VertexBuffer(device, vertexFmt, Usage::STATIC, vertex, sizeof(vertex), 3);
+    VertexBuffer* buffer = new VertexBuffer();
+    buffer->init(device, vertexFmt, Usage::STATIC, vertex, sizeof(vertex), 3);
 }
 #endif
 

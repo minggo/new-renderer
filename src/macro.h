@@ -48,3 +48,97 @@
 #define GFX_LOGE printf
 
 #define GFX_DEBUG 1 // TODO: remove this
+
+#define GFX_SAFE_RELEASE(p) do { if((p) != nullptr) (p)->release(); } while(false)
+#define GFX_SAFE_RETAIN(p) do { if((p) != nullptr) (p)->retain(); } while(false)
+
+#define GFX_DEFINE_CREATE_METHOD_0(clsName) \
+static clsName* create() \
+{ \
+    clsName* ret = new (std::nothrow) clsName(); \
+    if (ret && ret->init()) \
+    { \
+        ret->autorelease(); \
+        return ret; \
+    } \
+    delete ret; \
+    return nullptr; \
+}
+
+#define GFX_DEFINE_CREATE_METHOD_1(clsName, arg0Type) \
+static clsName* create(arg0Type arg0) \
+{ \
+    clsName* ret = new (std::nothrow) clsName(); \
+    if (ret && ret->init(arg0)) \
+    { \
+        ret->autorelease(); \
+        return ret; \
+    } \
+    delete ret; \
+    return nullptr; \
+}
+
+#define GFX_DEFINE_CREATE_METHOD_2(clsName, arg0Type, arg1Type) \
+static clsName* create(arg0Type arg0, arg1Type arg1) \
+{ \
+    clsName* ret = new (std::nothrow) clsName(); \
+    if (ret && ret->init(arg0, arg1)) \
+    { \
+        ret->autorelease(); \
+        return ret; \
+    } \
+    delete ret; \
+    return nullptr; \
+}
+
+#define GFX_DEFINE_CREATE_METHOD_3(clsName, arg0Type, arg1Type, arg2Type) \
+static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2) \
+{ \
+    clsName* ret = new (std::nothrow) clsName(); \
+    if (ret && ret->init(arg0, arg1, arg2)) \
+    { \
+        ret->autorelease(); \
+        return ret; \
+    } \
+    delete ret; \
+    return nullptr; \
+}
+
+#define GFX_DEFINE_CREATE_METHOD_4(clsName, arg0Type, arg1Type, arg2Type, arg3Type) \
+static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3) \
+{ \
+    clsName* ret = new (std::nothrow) clsName(); \
+    if (ret && ret->init(arg0, arg1, arg2, arg3)) \
+    { \
+        ret->autorelease(); \
+        return ret; \
+    } \
+    delete ret; \
+    return nullptr; \
+}
+
+#define GFX_DEFINE_CREATE_METHOD_5(clsName, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type) \
+static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3, arg4Type arg4) \
+{ \
+    clsName* ret = new (std::nothrow) clsName(); \
+    if (ret && ret->init(arg0, arg1, arg2, arg3, arg4)) \
+    { \
+        ret->autorelease(); \
+        return ret; \
+    } \
+    delete ret; \
+    return nullptr; \
+}
+
+#define GFX_DEFINE_CREATE_METHOD_6(clsName, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type, arg5Type) \
+static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3, arg4Type arg4, arg5Type arg5) \
+{ \
+    clsName* ret = new (std::nothrow) clsName(); \
+    if (ret && ret->init(arg0, arg1, arg2, arg3, arg4, arg5)) \
+    { \
+        ret->autorelease(); \
+        return ret; \
+    } \
+    delete ret; \
+    return nullptr; \
+}

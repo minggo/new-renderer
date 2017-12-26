@@ -25,38 +25,36 @@
 #pragma once
 
 #include "../macro.h"
-#include "../types.h"
-#include "../platform.h"
-#include "CCVertexFormat.h"
-#include "CCGraphicsHandle.h"
+#include "types.h"
 
-// Should change when integration.
-#include "../files-from-cocos2dx/CCRef.h"
+#include "CCGraphicsHandle.h"
 
 GFX_BEGIN
 
 class DeviceGraphics;
 
-class VertexBuffer final : public GraphicsHandle
+class RenderBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, DeviceGraphics*, const VertexFormat&, Usage, void*, size_t, uint32_t)
+    // render-buffer format
+    enum class Format : uint32_t
+    {
+        RGBA4 = GL_RGBA4,
+        RGB5_A1 = GL_RGB5_A1,
+        RGB565 = GL_RGB565,
+        D16 = GL_DEPTH_COMPONENT16,
+        S8 = GL_STENCIL_INDEX8,
+        D24S8 = GL_DEPTH_STENCIL
+    };
 
-    VertexBuffer();
-    virtual ~VertexBuffer();
-
-    bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
-    void update(uint32_t offset, void* data, size_t dataByteLength);
-    inline uint32_t getCount() const { return _numVertices; }
+    RenderBuffer(DeviceGraphics* device, Format format, uint16_t width, uint16_t height);
+    virtual ~RenderBuffer();
 
 private:
     DeviceGraphics* _device;
-    VertexFormat _format;
-    Usage _usage;
-    uint32_t _numVertices;
-    uint32_t _bytes;
-
-    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
+    Format _format;
+    uint16_t _width;
+    uint16_t _height;
 };
 
 GFX_END

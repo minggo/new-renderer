@@ -10,6 +10,9 @@
 		1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */; };
 		1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */; };
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
+		1A69F0741FF102A300B224DF /* CCRenderBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0721FF102A300B224DF /* CCRenderBuffer.cpp */; };
+		1A69F0771FF1E19D00B224DF /* CCGraphicsHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0751FF1E19D00B224DF /* CCGraphicsHandle.cpp */; };
+		1A69F07A1FF1E41A00B224DF /* CCRenderTarget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0781FF1E41A00B224DF /* CCRenderTarget.cpp */; };
 		466C44DE1FF0A67A00AA277B /* ccTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DD1FF0A67A00AA277B /* ccTypes.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		466C44E41FF1DB8F00AA277B /* CCRef.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44E31FF1DB8F00AA277B /* CCRef.cpp */; };
@@ -30,6 +33,12 @@
 		1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVertexBuffer.cpp; sourceTree = "<group>"; };
 		1A69F06C1FF0FB4200B224DF /* CCVertexFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVertexFormat.h; sourceTree = "<group>"; };
 		1A69F06D1FF0FB4200B224DF /* CCIndexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCIndexBuffer.h; sourceTree = "<group>"; };
+		1A69F0721FF102A300B224DF /* CCRenderBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCRenderBuffer.cpp; sourceTree = "<group>"; };
+		1A69F0731FF102A300B224DF /* CCRenderBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCRenderBuffer.h; sourceTree = "<group>"; };
+		1A69F0751FF1E19D00B224DF /* CCGraphicsHandle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCGraphicsHandle.cpp; sourceTree = "<group>"; };
+		1A69F0761FF1E19D00B224DF /* CCGraphicsHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCGraphicsHandle.h; sourceTree = "<group>"; };
+		1A69F0781FF1E41A00B224DF /* CCRenderTarget.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCRenderTarget.cpp; sourceTree = "<group>"; };
+		1A69F0791FF1E41A00B224DF /* CCRenderTarget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCRenderTarget.h; sourceTree = "<group>"; };
 		466C44DC1FF0A67A00AA277B /* ccTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccTypes.h; sourceTree = "<group>"; };
 		466C44DD1FF0A67A00AA277B /* ccTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ccTypes.cpp; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
@@ -143,6 +152,12 @@
 				469492991FE2775C008D19CC /* CCFrameBuffer.h */,
 				466C44DF1FF0D98F00AA277B /* CCState.cpp */,
 				466C44E01FF0D98F00AA277B /* CCState.h */,
+				1A69F0721FF102A300B224DF /* CCRenderBuffer.cpp */,
+				1A69F0731FF102A300B224DF /* CCRenderBuffer.h */,
+				1A69F0751FF1E19D00B224DF /* CCGraphicsHandle.cpp */,
+				1A69F0761FF1E19D00B224DF /* CCGraphicsHandle.h */,
+				1A69F0781FF1E41A00B224DF /* CCRenderTarget.cpp */,
+				1A69F0791FF1E41A00B224DF /* CCRenderTarget.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -217,6 +232,9 @@
 			files = (
 				1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */,
 				1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */,
+				1A69F0771FF1E19D00B224DF /* CCGraphicsHandle.cpp in Sources */,
+				1A69F07A1FF1E41A00B224DF /* CCRenderTarget.cpp in Sources */,
+				1A69F0741FF102A300B224DF /* CCRenderBuffer.cpp in Sources */,
 				4694928B1FE26CB5008D19CC /* main.cpp in Sources */,
 				466C44E41FF1DB8F00AA277B /* CCRef.cpp in Sources */,
 				4694929A1FE2775C008D19CC /* CCFrameBuffer.cpp in Sources */,

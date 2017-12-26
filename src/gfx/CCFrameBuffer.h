@@ -26,11 +26,39 @@
 #pragma once
 
 #include "../macro.h"
+#include "../types.h"
+#include "CCGraphicsHandle.h"
+
+#include <vector>
 
 GFX_BEGIN
 
-class FrameBuffer
+class DeviceGraphics;
+class RenderTarget;
+
+class FrameBuffer final : public GraphicsHandle
 {
+public:
+    GFX_DEFINE_CREATE_METHOD_3(FrameBuffer, DeviceGraphics*, uint16_t, uint16_t)
+
+    FrameBuffer();
+    bool init(DeviceGraphics* device, uint16_t width, uint16_t height);
+
+    void setRenderTarget(RenderTarget* rt, uint32_t index);
+    void setDepthTarget(RenderTarget* rt);
+    void setStencilTarget(RenderTarget* rt);
+    void setDepthStencilTarget(RenderTarget* rt);
+
+private:
+    virtual ~FrameBuffer();
+
+    DeviceGraphics* _device;
+    std::vector<RenderTarget*> _colors;
+    RenderTarget* _depth;
+    RenderTarget* _stencil;
+    RenderTarget* _depthStencil;
+    uint16_t _width;
+    uint16_t _height;
 };
 
 GFX_END

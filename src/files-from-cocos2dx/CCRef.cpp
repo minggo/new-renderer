@@ -50,13 +50,14 @@ void Ref::release()
     }
 }
 
-//Ref* Ref::autorelease()
-//{
-//    release();
+Ref* Ref::autorelease()
+{
+    //TODO:    release();
 //    return this;
-////    PoolManager::getInstance()->getCurrentPool()->addObject(this);
-////    return this;
-//}
+//    PoolManager::getInstance()->getCurrentPool()->addObject(this);
+//    return this;
+    return nullptr;
+}
 
 unsigned int Ref::getReferenceCount() const
 {

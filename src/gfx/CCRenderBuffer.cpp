@@ -22,41 +22,34 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
-
-#include "../macro.h"
-#include "../types.h"
-#include "../platform.h"
-#include "CCVertexFormat.h"
-#include "CCGraphicsHandle.h"
-
-// Should change when integration.
-#include "../files-from-cocos2dx/CCRef.h"
+#include "CCRenderBuffer.h"
 
 GFX_BEGIN
 
-class DeviceGraphics;
-
-class VertexBuffer final : public GraphicsHandle
+RenderBuffer::RenderBuffer(DeviceGraphics* device, Format format, uint16_t width, uint16_t height)
+: _device(device)
+, _format(format)
+, _width(width)
+, _height(height)
 {
-public:
-    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, DeviceGraphics*, const VertexFormat&, Usage, void*, size_t, uint32_t)
+    glGenRenderbuffers(1, &_glID);
+    glBindRenderbuffer(GL_RENDERBUFFER, _glID);
+    glRenderbufferStorage(GL_RENDERBUFFER, (GLenum)format, width, height);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+}
 
-    VertexBuffer();
-    virtual ~VertexBuffer();
+RenderBuffer::~RenderBuffer()
+{
+    if (_glID == 0)
+    {
+        GFX_LOGE("The render-buffer already destroyed");
+        return;
+    }
 
-    bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
-    void update(uint32_t offset, void* data, size_t dataByteLength);
-    inline uint32_t getCount() const { return _numVertices; }
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    glDeleteRenderbuffers(1, &_glID);
 
-private:
-    DeviceGraphics* _device;
-    VertexFormat _format;
-    Usage _usage;
-    uint32_t _numVertices;
-    uint32_t _bytes;
-
-    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
-};
+    _glID = 0;
+}
 
 GFX_END

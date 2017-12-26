@@ -26,37 +26,26 @@
 
 #include "../macro.h"
 #include "../types.h"
-#include "../platform.h"
-#include "CCVertexFormat.h"
-#include "CCGraphicsHandle.h"
 
-// Should change when integration.
 #include "../files-from-cocos2dx/CCRef.h"
 
 GFX_BEGIN
 
-class DeviceGraphics;
+class Texture2D;
+class RenderBuffer;
 
-class VertexBuffer final : public GraphicsHandle
+class RenderTarget final : public Ref
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, DeviceGraphics*, const VertexFormat&, Usage, void*, size_t, uint32_t)
+    RenderTarget(Texture2D* tex);
+    RenderTarget(RenderBuffer* rb);
+    virtual ~RenderTarget();
 
-    VertexBuffer();
-    virtual ~VertexBuffer();
-
-    bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
-    void update(uint32_t offset, void* data, size_t dataByteLength);
-    inline uint32_t getCount() const { return _numVertices; }
+    GLuint getHandle() const;
 
 private:
-    DeviceGraphics* _device;
-    VertexFormat _format;
-    Usage _usage;
-    uint32_t _numVertices;
-    uint32_t _bytes;
-
-    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
+    Texture2D* _tex;
+    RenderBuffer* _rb;
 };
 
 GFX_END

@@ -48,6 +48,10 @@ static uint32_t attrTypeBytes(AttribType attrType)
     return 0;
 }
 
+VertexFormat::VertexFormat()
+{
+}
+
 VertexFormat::VertexFormat(const std::vector<Info>& infos)
 {
 #if GFX_DEBUG > 0
