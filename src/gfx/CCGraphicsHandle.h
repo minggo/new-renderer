@@ -33,6 +33,8 @@ GFX_BEGIN
 class GraphicsHandle : public Ref
 {
 public:
+    static const GLuint INVALID;
+
     GraphicsHandle();
     virtual ~GraphicsHandle();
     inline GLuint getHandle() const { return _glID; }

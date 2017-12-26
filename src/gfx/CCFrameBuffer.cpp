@@ -23,10 +23,11 @@
  ****************************************************************************/
 
 #include "CCFrameBuffer.h"
+#include "CCRenderTarget.h"
 
 GFX_BEGIN
 
-FrameBuffer::FrameBuffer(DeviceGraphics* device, uint16_t width, uint16_t height)
+FrameBuffer::FrameBuffer()
 : _device(nullptr)
 , _depth(nullptr)
 , _stencil(nullptr)
@@ -37,7 +38,25 @@ FrameBuffer::FrameBuffer(DeviceGraphics* device, uint16_t width, uint16_t height
 
 FrameBuffer::~FrameBuffer()
 {
+    if (_glID == INVALID)
+    {
+        GFX_LOGE("The frame-buffer is invalid!");
+        return;
+    }
 
+    glDeleteBuffers(1, &_glID);
+    //TODO:    _device._stats.ib -= _bytes;
+}
+
+bool FrameBuffer::init(DeviceGraphics* device, uint16_t width, uint16_t height)
+{
+    _device = device;
+    _width = width;
+    _height = height;
+
+    glGenFramebuffers(1, &_glID);
+
+    return true;
 }
 
 void FrameBuffer::setRenderTarget(RenderTarget* rt, uint32_t index)
@@ -46,22 +65,31 @@ void FrameBuffer::setRenderTarget(RenderTarget* rt, uint32_t index)
     {
         _colors.resize(index + 1);
     }
+
+    GFX_SAFE_RETAIN(rt);
+    GFX_SAFE_RELEASE(_colors[index]);
     _colors[index] = rt;
 }
 
 void FrameBuffer::setDepthTarget(RenderTarget* rt)
 {
-
+    GFX_SAFE_RETAIN(rt);
+    GFX_SAFE_RELEASE(_depth);
+    _depth = rt;
 }
 
 void FrameBuffer::setStencilTarget(RenderTarget* rt)
 {
-
+    GFX_SAFE_RETAIN(rt);
+    GFX_SAFE_RELEASE(_stencil);
+    _stencil = rt;
 }
 
 void FrameBuffer::setDepthStencilTarget(RenderTarget* rt)
 {
-    
+    GFX_SAFE_RETAIN(rt);
+    GFX_SAFE_RELEASE(_depthStencil);
+    _depthStencil = rt;
 }
 
 GFX_END

@@ -48,7 +48,7 @@ public:
     };
 
     RenderBuffer(DeviceGraphics* device, Format format, uint16_t width, uint16_t height);
-    ~RenderBuffer();
+    virtual ~RenderBuffer();
 
 private:
     DeviceGraphics* _device;

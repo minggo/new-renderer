@@ -28,10 +28,6 @@
 #include "../platform.h"
 #include "CCGraphicsHandle.h"
 
-
-// Should change when integration.
-#include "../files-from-cocos2dx/CCRef.h"
-
 GFX_BEGIN
 
 class DeviceGraphics;
@@ -39,8 +35,12 @@ class DeviceGraphics;
 class IndexBuffer final : public GraphicsHandle
 {
 public:
-    IndexBuffer(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
-    ~IndexBuffer();
+    GFX_DEFINE_CREATE_METHOD_6(IndexBuffer, DeviceGraphics*, IndexFormat, Usage, void*, size_t, uint32_t)
+
+    IndexBuffer();
+    virtual ~IndexBuffer();
+
+    bool init(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
 
     void update(uint32_t offset, void* data, size_t dataByteLength);
     uint32_t getCount() const { return _numIndices; }

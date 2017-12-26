@@ -79,6 +79,7 @@ public:
         bool normalize;
     };
 
+    VertexFormat();
     VertexFormat(const std::vector<Info>& infos);
     VertexFormat(const VertexFormat& o);
     VertexFormat(VertexFormat&& o);

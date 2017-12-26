@@ -27,16 +27,19 @@
 #include "../macro.h"
 #include "../types.h"
 
+#include "../files-from-cocos2dx/CCRef.h"
+
 GFX_BEGIN
 
 class Texture2D;
 class RenderBuffer;
 
-class RenderTarget final
+class RenderTarget final : public Ref
 {
 public:
     RenderTarget(Texture2D* tex);
     RenderTarget(RenderBuffer* rb);
+    virtual ~RenderTarget();
 
     GLuint getHandle() const;
 

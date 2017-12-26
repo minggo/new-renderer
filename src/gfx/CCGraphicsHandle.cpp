@@ -26,8 +26,10 @@
 
 GFX_BEGIN
 
+const GLuint GraphicsHandle::INVALID = 0xFFFFFFFF;
+
 GraphicsHandle::GraphicsHandle()
-: _glID(0)
+: _glID(INVALID)
 {
 
 }

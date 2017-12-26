@@ -27,13 +27,35 @@
 
 GFX_BEGIN
 
-IndexBuffer::IndexBuffer(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices)
-: _device(device)
-, _format(format)
-, _usage(usage)
-, _numIndices(numIndices)
+IndexBuffer::IndexBuffer()
+: _device(nullptr)
+, _format(IndexFormat::UINT16)
+, _usage(Usage::STATIC)
+, _numIndices(0)
 , _bytesPerIndex(0)
 {
+}
+
+IndexBuffer::~IndexBuffer()
+{
+    if (_glID == INVALID)
+    {
+        GFX_LOGE("The index buffer is invalid!");
+        return;
+    }
+
+    glDeleteBuffers(1, &_glID);
+    //TODO:    _device._stats.ib -= _bytes;
+}
+
+bool IndexBuffer::init(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices)
+{
+    _device = device;
+    _format = format;
+    _usage = usage;
+    _numIndices = numIndices;
+    _bytesPerIndex = 0;
+
     // calculate bytes
     if (format == IndexFormat::UINT8)
     {
@@ -56,24 +78,13 @@ IndexBuffer::IndexBuffer(DeviceGraphics* device, IndexFormat format, Usage usage
 
     // stats
     //TODO:    device._stats.ib += _bytes;
-}
 
-IndexBuffer::~IndexBuffer()
-{
-    if (_glID == -1)
-    {
-        GFX_LOGE("The buffer already destroyed");
-        return;
-    }
-
-    glDeleteBuffers(1, &_glID);
-    //TODO:    _device._stats.ib -= _bytes;
-    _glID = -1;
+    return true;
 }
 
 void IndexBuffer::update(uint32_t offset, void* data, size_t dataByteLength)
 {
-    if (_glID == -1) {
+    if (_glID == INVALID) {
         GFX_LOGE("The buffer is destroyed");
         return;
     }

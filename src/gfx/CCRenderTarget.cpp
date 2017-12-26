@@ -41,6 +41,12 @@ RenderTarget::RenderTarget(RenderBuffer* rb)
 
 }
 
+RenderTarget::~RenderTarget()
+{
+    //TODO:    GFX_SAFE_RELEASE(_tex);
+    GFX_SAFE_RELEASE(_rb);
+}
+
 GLuint RenderTarget::getHandle() const
 {
     //TODO: Texture2D
