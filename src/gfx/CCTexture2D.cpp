@@ -23,7 +23,228 @@
  ****************************************************************************/
 
 #include "CCTexture2D.h"
+#include "CCDeviceGraphics.h"
+
+namespace {
+    GLuint GL_UNPACK_FLIP_Y_WEBGL = 0x9240;
+    GLuint GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL = 0x9241;
+    GLuint GL_UNPACK_COLORSPACE_CONVERSION_WEBGL = 0x9243;
+}
 
 GFX_BEGIN
+
+Texture2D::Texture2D()
+{
+
+}
+
+Texture2D::~Texture2D()
+{
+
+}
+
+bool Texture2D::init(DeviceGraphics* device, const Options& options)
+{
+    bool ok = Texture::init(device);
+    if (ok)
+    {
+        _target = GL_TEXTURE_2D;
+        glGenTextures(1, &_glID);
+        update(options);
+    }
+    return ok;
+}
+
+void Texture2D::update(const Options& options)
+{
+    bool genMipmap = _hasMipmap;
+
+     _width = options.width;
+    _height = options.height;
+    _anisotropy = options.anisotropy;
+    _minFilter = options.minFilter;
+    _magFilter = options.magFilter;
+    _mipFilter = options.mipFilter;
+    _wrapS = options.wrapS;
+    _wrapT = options.wrapT;
+    _format = options.format;
+    _compressed = _format >= TextureFormat::RGB_DXT1 && _format <= TextureFormat::RGBA_PVRTC_4BPPV1;
+
+    // check if generate mipmap
+    _hasMipmap = options.hasMipmap;
+    genMipmap = options.hasMipmap;
+
+    if (options.images.size() > 1)
+    {
+        genMipmap = false; //TODO: is it true here?
+        uint16_t maxLength = options.width > options.height ? options.width : options.height;
+        if (maxLength >> (options.images.size() - 1) != 1) {
+            GFX_LOGE("texture-2d mipmap is invalid, should have a 1x1 mipmap.");
+        }
+    }
+
+    // NOTE: get pot after _width, _height has been assigned.
+    bool pot = isPow2(_width) && isPow2(_height);
+    if (!pot) {
+        genMipmap = false;
+    }
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _glID);
+    if (!options.images.empty()) {
+        setMipmap(options.images, options.isFlipY, options.isPremultiplyAlpha);
+    }
+
+    setTexInfo();
+
+    if (genMipmap) {
+        glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    _device->restoreTexture(0);
+}
+
+void Texture2D::updateSubImage(const SubImageOption& option)
+{
+    const GLTextureFmt& glFmt = glTextureFmt(_format);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _glID);
+    setSubImage(glFmt, option);
+    _device->restoreTexture(0);
+}
+
+void Texture2D::updateImage(const ImageOption& option)
+{
+    const GLTextureFmt& glFmt = glTextureFmt(_format);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _glID);
+    setImage(glFmt, option);
+    _device->restoreTexture(0);
+}
+
+// Private methods:
+
+void Texture2D::setSubImage(const GLTextureFmt& glFmt, const SubImageOption& option)
+{
+    bool flipY = option.isFlipY;
+    bool premultiplyAlpha = option.isPremultiplyAlpha;
+    const auto& img = option.image;
+
+    glPixelStorei(GL_UNPACK_FLIP_Y_WEBGL, flipY);
+    glPixelStorei(GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL, premultiplyAlpha);
+
+    if (_compressed)
+    {
+        glCompressedTexSubImage2D(GL_TEXTURE_2D,
+                                   option.level,
+                                   option.x,
+                                   option.y,
+                                   option.width,
+                                   option.height,
+                                   glFmt.format,
+                                   (GLsizei)img.getSize(),
+                                   img.getBytes()
+                                   );
+    }
+    else
+    {
+        glTexSubImage2D( GL_TEXTURE_2D,
+                         option.level,
+                         option.x,
+                         option.y,
+                         option.width,
+                         option.height,
+                         glFmt.format,
+                         glFmt.pixelType,
+                         img.getBytes()
+                         );
+    }
+}
+
+void Texture2D::setImage(const GLTextureFmt& glFmt, const ImageOption& option)
+{
+    bool flipY = option.isFlipY;
+    bool premultiplyAlpha = option.isPremultiplyAlpha;
+    const auto& img = option.image;
+
+    glPixelStorei(GL_UNPACK_FLIP_Y_WEBGL, flipY);
+    glPixelStorei(GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL, premultiplyAlpha);
+
+    if (_compressed) {
+        glCompressedTexImage2D(
+                                GL_TEXTURE_2D,
+                                option.level,
+                                glFmt.internalFormat,
+                                option.width,
+                                option.height,
+                                0,
+                                (GLsizei)img.getSize(),
+                                img.getBytes()
+                                );
+    } else {
+        glTexImage2D( GL_TEXTURE_2D,
+                      option.level,
+                      glFmt.internalFormat,
+                      option.width,
+                      option.height,
+                      0,
+                      glFmt.format,
+                      glFmt.pixelType,
+                      img.getBytes()
+                      );
+    }
+}
+
+void Texture2D::setMipmap(const std::vector<cocos2d::Data>& images, bool isFlipY, bool isPremultiplyAlpha)
+{
+    const auto& glFmt = glTextureFmt(_format);
+    ImageOption options;
+    options.width = _width;
+    options.height = _height;
+    options.isFlipY = isFlipY;
+    options.isPremultiplyAlpha = isPremultiplyAlpha;
+    options.level = 0;
+
+    for (size_t i = 0, len = images.size(); i < len; ++i)
+    {
+        options.level = (GLint)i;
+        options.width = _width >> i;
+        options.height = _height >> i;
+        options.image = images[i];
+        setImage(glFmt, options);
+    }
+}
+
+void Texture2D::setTexInfo()
+{
+    bool pot = isPow2(_width) && isPow2(_height);
+
+    // WebGL1 doesn't support all wrap modes with NPOT textures
+    if (!pot && (_wrapS != TextureWrapMode::CLAMP || _wrapT != TextureWrapMode::CLAMP))
+    {
+        GFX_LOGW("WebGL1 doesn\'t support all wrap modes with NPOT textures");
+        _wrapS = TextureWrapMode::CLAMP;
+        _wrapT = TextureWrapMode::CLAMP;
+    }
+
+    TextureFilter mipFilter = _hasMipmap ? _mipFilter : TextureFilter::NONE;
+    if (!pot && mipFilter != TextureFilter::NONE)
+    {
+        GFX_LOGW("NPOT textures do not support mipmap filter");
+        mipFilter = TextureFilter::NONE;
+    }
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glFilter(_minFilter, mipFilter));
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glFilter(_magFilter, TextureFilter::NONE));
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLint)_wrapS);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLint)_wrapT);
+
+    //TODO:    let ext = this._device.ext('EXT_texture_filter_anisotropic');
+//    if (ext) {
+//        glTexParameteri(GL_TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT, this._anisotropy);
+//    }
+}
 
 GFX_END

@@ -129,6 +129,7 @@ private:
     // TODO: uniforms
     
     friend class IndexBuffer;
+    friend class Texture2D;
 };
 
 GFX_END
