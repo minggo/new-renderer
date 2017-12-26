@@ -27,16 +27,9 @@
 
 GFX_BEGIN
 
-RenderTarget::RenderTarget(Texture2D* tex)
-: _tex(tex)
-, _rb(nullptr)
-{
-
-}
-
-RenderTarget::RenderTarget(RenderBuffer* rb)
+RenderTarget::RenderTarget()
 : _tex(nullptr)
-, _rb(rb)
+, _rb(nullptr)
 {
 
 }
@@ -45,6 +38,18 @@ RenderTarget::~RenderTarget()
 {
     //TODO:    GFX_SAFE_RELEASE(_tex);
     GFX_SAFE_RELEASE(_rb);
+}
+
+bool RenderTarget::initWithTexture(Texture2D* tex)
+{
+    _tex = tex;
+    return true;
+}
+
+bool RenderTarget::initWithRenderBuffer(RenderBuffer* rb)
+{
+    _rb = rb;
+    return true;
 }
 
 GLuint RenderTarget::getHandle() const

@@ -52,11 +52,11 @@
 #define GFX_SAFE_RELEASE(p) do { if((p) != nullptr) (p)->release(); } while(false)
 #define GFX_SAFE_RETAIN(p) do { if((p) != nullptr) (p)->retain(); } while(false)
 
-#define GFX_DEFINE_CREATE_METHOD_0(clsName) \
+#define GFX_DEFINE_CREATE_METHOD_0(clsName, initMethod) \
 static clsName* create() \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
-    if (ret && ret->init()) \
+    if (ret && ret->initMethod()) \
     { \
         ret->autorelease(); \
         return ret; \
@@ -65,11 +65,11 @@ static clsName* create() \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_1(clsName, arg0Type) \
+#define GFX_DEFINE_CREATE_METHOD_1(clsName, initMethod, arg0Type) \
 static clsName* create(arg0Type arg0) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
-    if (ret && ret->init(arg0)) \
+    if (ret && ret->initMethod(arg0)) \
     { \
         ret->autorelease(); \
         return ret; \
@@ -78,11 +78,11 @@ static clsName* create(arg0Type arg0) \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_2(clsName, arg0Type, arg1Type) \
+#define GFX_DEFINE_CREATE_METHOD_2(clsName, initMethod, arg0Type, arg1Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
-    if (ret && ret->init(arg0, arg1)) \
+    if (ret && ret->initMethod(arg0, arg1)) \
     { \
         ret->autorelease(); \
         return ret; \
@@ -91,11 +91,11 @@ static clsName* create(arg0Type arg0, arg1Type arg1) \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_3(clsName, arg0Type, arg1Type, arg2Type) \
+#define GFX_DEFINE_CREATE_METHOD_3(clsName, initMethod, arg0Type, arg1Type, arg2Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
-    if (ret && ret->init(arg0, arg1, arg2)) \
+    if (ret && ret->initMethod(arg0, arg1, arg2)) \
     { \
         ret->autorelease(); \
         return ret; \
@@ -104,11 +104,11 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2) \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_4(clsName, arg0Type, arg1Type, arg2Type, arg3Type) \
+#define GFX_DEFINE_CREATE_METHOD_4(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
-    if (ret && ret->init(arg0, arg1, arg2, arg3)) \
+    if (ret && ret->initMethod(arg0, arg1, arg2, arg3)) \
     { \
         ret->autorelease(); \
         return ret; \
@@ -117,11 +117,11 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_5(clsName, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type) \
+#define GFX_DEFINE_CREATE_METHOD_5(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3, arg4Type arg4) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
-    if (ret && ret->init(arg0, arg1, arg2, arg3, arg4)) \
+    if (ret && ret->initMethod(arg0, arg1, arg2, arg3, arg4)) \
     { \
         ret->autorelease(); \
         return ret; \
@@ -130,11 +130,11 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_6(clsName, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type, arg5Type) \
+#define GFX_DEFINE_CREATE_METHOD_6(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type, arg5Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3, arg4Type arg4, arg5Type arg5) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
-    if (ret && ret->init(arg0, arg1, arg2, arg3, arg4, arg5)) \
+    if (ret && ret->initMethod(arg0, arg1, arg2, arg3, arg4, arg5)) \
     { \
         ret->autorelease(); \
         return ret; \
