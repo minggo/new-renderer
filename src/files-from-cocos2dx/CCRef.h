@@ -71,7 +71,7 @@ public:
      * @js NA
      * @lua NA
      */
-//    Ref* autorelease();
+     Ref* autorelease();
 
     /**
      * Returns the Ref's current reference count.
