@@ -165,8 +165,9 @@ enum class AttribType : uint16_t
 };
 
 // texture filter
-enum class TextureFilter : uint8_t
+enum class TextureFilter : int8_t
 {
+    NONE = -1,
     NEAREST = 0,
     LINEAR = 1
 };
@@ -182,6 +183,7 @@ enum class TextureWrapMode : uint16_t
 // texture format
 enum class TextureFormat : uint8_t
 {
+    BEGIN = 0,
 // compress formats
     RGB_DXT1 = 0,
     RGBA_DXT1 = 1,
@@ -214,7 +216,8 @@ enum class TextureFormat : uint8_t
 // depth formats
     D16 = 25,
     D32 = 26,
-    D24S8 = 27
+    D24S8 = 27,
+    END = 27
 //
 };
 
