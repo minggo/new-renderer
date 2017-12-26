@@ -44,6 +44,7 @@ struct State final
     State(const State&) = delete;
     State& operator =(const State&& rhs) = delete;
     State(const State &&) = delete;
+    ~State();
     
     void reset();
     void set(const State& cpy);
@@ -86,7 +87,7 @@ struct State final
     
     PrimitiveType primitiveType;
     
-    int maxStream;
+//    int maxStream;
     std::vector<VertexBuffer*> vertexBuffers;
     std::vector<int> vertexBufferOffsets;
     IndexBuffer *indexBuffer;

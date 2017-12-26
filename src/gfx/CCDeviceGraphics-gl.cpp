@@ -23,6 +23,9 @@
  ****************************************************************************/
 
 #include "CCDeviceGraphics.h"
+#include "CCVertexBuffer.h"
+#include "CCIndexBuffer.h"
+#include "CCFrameBuffer.h"
 
 GFX_BEGIN
 
@@ -78,7 +81,15 @@ void DeviceGraphics::clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8
     // Restore depth related state.
     if (flags & ClearFlag::DEPTH)
     {
-        //TODO
+        if (!_currentState.depthTest)
+            glDisable(GL_DEPTH_TEST);
+        else
+        {
+            if (!_currentState.depthWrite)
+                glDepthMask(false);
+            if (_currentState.depthFunc != DepthFunc::ALWAYS)
+                glDepthFunc(_currentState.depthFunc);
+        }
     }
 }
 
@@ -203,34 +214,62 @@ void DeviceGraphics::setCullMode(CullMode mode)
 
 void DeviceGraphics::setVertexBuffer(int stream, VertexBuffer* buffer, int start /*= 0*/)
 {
+    //Is this function should be private, and only to be invoked by renderer?
+    // If so, then don't have to do reference count.
     
+    _nextState.vertexBuffers.reserve(stream + 1);
+    
+    auto currentBuffer = _nextState.vertexBuffers[stream];
+    if (currentBuffer != buffer)
+    {
+        if (currentBuffer)
+            currentBuffer->release();
+        
+        _nextState.vertexBuffers[stream] = buffer;
+        if (buffer)
+            buffer->retain();
+    }
+    
+    _nextState.vertexBufferOffsets.reserve(stream + 1);
+    _nextState.vertexBufferOffsets[stream] = start;
 }
 
 void DeviceGraphics::setIndexBuffer(IndexBuffer *buffer)
 {
+    //Is this function should be private, and only to be invoked by renderer?
+    // If so, then don't have to do reference count.
     
+    if (_nextState.indexBuffer == buffer)
+        return;
+    
+    if (_nextState.indexBuffer)
+        _nextState.indexBuffer->release();
+    
+    _nextState.indexBuffer = buffer;
+    if (buffer)
+        buffer->retain();
 }
 
 void DeviceGraphics::setProgram(Program *program)
 {
-    
+    //TODO
 }
 
 void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int slot)
 {
-    
+    //TODO
 }
 
 void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots)
 {
-    
+    //TODO
 }
 
 //TODO
 // setUniform
 void DeviceGraphics::setPrimitiveType(PrimitiveType type)
 {
-    
+    _nextState.primitiveType = type;
 }
 
 void DeviceGraphics::draw(int base, size_t count)
@@ -257,6 +296,10 @@ DeviceGraphics::DeviceGraphics()
     
     initCaps();
     initStates();
+}
+
+DeviceGraphics::~DeviceGraphics()
+{
 }
 
 void DeviceGraphics::initCaps()

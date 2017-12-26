@@ -41,75 +41,78 @@ enum ClearFlag : uint8_t
     STENCIL     = UINT8_C(0x0004)       // Clear stencil.
 };
 
-enum class ComparisonFunc : uint8_t
+enum class ComparisonFunc : uint16_t
 {
-    ALWAYS,
-    NEVER,
-    LESS,
-    LESS_EQUAL,
-    GREATOR,
-    GREATOR_EQUAL,
-    EQUAL,
-    NOT_EQUAL
+    NEVER               = GL_NEVER,
+    LESS                = GL_LESS,
+    EQUAL               = GL_EQUAL,
+    LESS_EQUAL          = GL_LEQUAL,
+    GREATER             = GL_GREATER,
+    NOT_EQUAL           = GL_NOTEQUAL,
+    GREATOR_EQUAL       = GL_GEQUAL,
+    ALWAYS              = GL_ALWAYS
 };
 typedef ComparisonFunc DepthFunc;
 typedef ComparisonFunc StencilFunc;
 typedef ComparisonFunc SamplerFunc;
 
-enum class StencilOp : uint8_t
+enum class StencilOp : uint16_t
 {
-    KEEP,
-    ZERO,
-    REPLACE,
-    INCREMENT,
-    INCREMENT_WRAP,
-    DECREMENT,
-    DECREMENT_WRAP,
-    INVERT
+    ZERO                    = GL_ZERO,
+    KEEP                    = GL_KEEP,
+    REPLACE                 = GL_REPLACE,
+    INCR                    = GL_INCR,
+    DECR                    = GL_DECR,
+    INVERT                  = GL_INVERT,
+    
+    // Does these two belongs to stencil operation?
+    INCR_WRAP                = GL_INCR_WRAP,
+    DECR_WRAP                = GL_DECR_WRAP
 };
 
 enum class BlendFactor : uint16_t
 {
-    ZERO,
-    ONE,
-    SRC_COLOR,
-    ONE_MINUS_SRC_COLOR,
-    DST_COLOR,
-    ONE_MINUS_DST_COLOR,
-    SRC_ALPHA,
-    ONE_MINUS_SRC_ALPAH,
-    DST_ALPHA,
-    ONE_MINUS_DST_ALPHA,
-    CONSTANT_COLOR,
-    ONE_MINUS_CONSTANT_COLOR,
-    CONSTANT_ALPHA,
-    ONE_MINUS_CONSTANT_ALPHA,
-    SRC_ALPHA_SATURATE
+    ZERO                        = GL_ZERO,
+    ONE                         = GL_ONE,
+    SRC_COLOR                   = GL_SRC_COLOR,
+    ONE_MINUS_SRC_COLOR         = GL_ONE_MINUS_SRC_COLOR,
+    SRC_ALPHA                   = GL_SRC_ALPHA,
+    ONE_MINUS_SRC_ALPAH         = GL_ONE_MINUS_SRC_ALPHA,
+    DST_ALPHA                   = GL_DST_ALPHA,
+    ONE_MINUS_DST_ALPHA         = GL_ONE_MINUS_DST_ALPHA,
+    DST_COLOR                   = GL_DST_COLOR,
+    ONE_MINUS_DST_COLOR         = GL_ONE_MINUS_DST_COLOR,
+    SRC_ALPHA_SATURATE          = GL_SRC_ALPHA_SATURATE,
+    
+    CONSTANT_COLOR              = GL_CONSTANT_COLOR,
+    ONE_MINUS_CONSTANT_COLOR    = GL_ONE_MINUS_CONSTANT_COLOR,
+    CONSTANT_ALPHA              = GL_CONSTANT_ALPHA,
+    ONE_MINUS_CONSTANT_ALPHA    = GL_ONE_MINUS_CONSTANT_ALPHA
 };
-enum class BlendOp : uint8_t
+enum class BlendOp : uint16_t
 {
-    ADD,
-    SUBTRACT,
-    REV_SUBTRACT
-};
-
-enum class CullMode : uint8_t
-{
-    NONE,
-    BACK,
-    FRONT,
-    FRONT_AND_BACK
+    ADD                 = GL_FUNC_ADD,
+    SUBTRACT            = GL_FUNC_SUBTRACT,
+    REVERSE_SUBTRACT    = GL_FUNC_REVERSE_SUBTRACT
 };
 
-enum class PrimitiveType : uint8_t
+enum class CullMode : uint16_t
 {
-    POINTS,
-    LINES,
-    LINE_LOOP,
-    LINE_STRIP,
-    TRIANGLES,
-    TRIANGLE_STRIP,
-    TRIANGLE_FAN
+    NONE                    = GL_NONE,
+    BACK                    = GL_BACK,
+    FRONT                   = GL_FRONT,
+    FRONT_AND_BACK          = GL_FRONT_AND_BACK
+};
+
+enum class PrimitiveType : uint16_t
+{
+    POINTS                  = GL_POINTS,
+    LINES                   = GL_LINES,
+    LINE_LOOP               = GL_LINE_LOOP,
+    LINE_STRIP              = GL_LINE_STRIP,
+    TRIANGLES               = GL_TRIANGLES,
+    TRIANGLE_STRIP          = GL_TRIANGLE_STRIP,
+    TRIANGLE_FAN            = GL_TRIANGLE_FAN
 };
 
 enum class Usage : uint16_t

@@ -99,6 +99,7 @@ private:
     };
     
     DeviceGraphics();
+    ~DeviceGraphics();
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(DeviceGraphics);
     
     void initStates();

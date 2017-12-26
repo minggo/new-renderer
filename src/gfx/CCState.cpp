@@ -31,6 +31,11 @@ State::State()
     init();
 }
 
+State::~State()
+{
+    //TODO: release vertex buffers and index buffers.
+}
+
 const State& State::operator=(const State& rhs)
 {
     return *this;
