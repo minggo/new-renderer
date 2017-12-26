@@ -26,8 +26,55 @@
 #include "CCVertexBuffer.h"
 #include "CCIndexBuffer.h"
 #include "CCFrameBuffer.h"
+#include "CCGraphicsHandle.h"
+#include "CCTexture2D.h"
+#include "CCRenderTarget.h"
 
 GFX_BEGIN
+
+namespace
+{
+    template <typename T>
+    void attach(GLenum location, const T* renderTarget)
+    {
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, location, GL_RENDERBUFFER, renderTarget->getHandle());
+    }
+    
+    void attachColorBuffer(GLenum location, const RenderTarget* texture)
+    {
+        glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, texture->getHandle(), 0);
+    }
+}
+
+void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
+{
+    if (fb == _frameBuffer)
+        return;
+    
+    _frameBuffer = const_cast<FrameBuffer*>(fb);
+    GFX_SAFE_RETAIN(_frameBuffer);
+    
+    if (nullptr == fb)
+    {
+        glBindBuffer(GL_FRAMEBUFFER, 0);
+        return;
+    }
+    
+    glBindBuffer(GL_FRAMEBUFFER, fb->getHandle());
+    
+    int i = 0;
+    const auto& colorBuffers = fb->getColorBuffers();
+    for (const auto& colorBuffer : colorBuffers)
+        attachColorBuffer(GL_COLOR_ATTACHMENT0 + i, colorBuffer);
+    for (i = static_cast<int>(colorBuffers.size()); i < _caps.maxColorAttatchments; ++i)
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, 0, 0);
+    
+    if (_frameBuffer->getStencilBuffer())
+        attach(GL_STENCIL_ATTACHMENT, _frameBuffer->getStencilBuffer());
+    
+    if (_frameBuffer->getDepthStencilBuffer())
+        attach(GL_DEPTH_STENCIL_ATTACHMENT, _frameBuffer->getDepthStencilBuffer());
+}
 
 void DeviceGraphics::setViewport(int x, int y, int w, int h)
 {
@@ -222,12 +269,9 @@ void DeviceGraphics::setVertexBuffer(int stream, VertexBuffer* buffer, int start
     auto currentBuffer = _nextState.vertexBuffers[stream];
     if (currentBuffer != buffer)
     {
-        if (currentBuffer)
-            currentBuffer->release();
-        
+        GFX_SAFE_RELEASE(currentBuffer);
         _nextState.vertexBuffers[stream] = buffer;
-        if (buffer)
-            buffer->retain();
+        GFX_SAFE_RETAIN(buffer);
     }
     
     _nextState.vertexBufferOffsets.reserve(stream + 1);
@@ -242,12 +286,9 @@ void DeviceGraphics::setIndexBuffer(IndexBuffer *buffer)
     if (_nextState.indexBuffer == buffer)
         return;
     
-    if (_nextState.indexBuffer)
-        _nextState.indexBuffer->release();
-    
+    GFX_SAFE_RELEASE(_nextState.indexBuffer);
     _nextState.indexBuffer = buffer;
-    if (buffer)
-        buffer->retain();
+    GFX_SAFE_RETAIN(buffer);
 }
 
 void DeviceGraphics::setProgram(Program *program)
@@ -257,7 +298,18 @@ void DeviceGraphics::setProgram(Program *program)
 
 void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int slot)
 {
-    //TODO
+    if (slot >= _caps.maxTextureUints)
+    {
+        // TODO: add log
+        return;
+    }
+    
+    // textureUintes's capacity is reserved as _caps.maxTextureUints in DeviceGraphics's constructore.
+    GFX_SAFE_RELEASE(_nextState.textureUintes[slot]);
+    _nextState.textureUintes[slot] = texture;
+    GFX_SAFE_RETAIN(texture);
+    
+//    setUniform(name, slot);
 }
 
 void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots)
@@ -296,10 +348,13 @@ DeviceGraphics::DeviceGraphics()
     
     initCaps();
     initStates();
+    
+    _nextState.textureUintes.reserve(_caps.maxTextureUints);
 }
 
 DeviceGraphics::~DeviceGraphics()
 {
+    GFX_SAFE_RELEASE(_frameBuffer);
 }
 
 void DeviceGraphics::initCaps()

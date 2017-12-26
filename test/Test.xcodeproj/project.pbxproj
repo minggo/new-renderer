@@ -44,6 +44,26 @@
 		1A69F1061FF22B0200B224DF /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A69F0FC1FF22B0200B224DF /* libglfw3.a */; };
 		1A69F1071FF22B0200B224DF /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A69F0FD1FF22B0200B224DF /* libjpeg.a */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
+		466C45061FF2378E00AA277B /* Quaternion.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44E81FF2378E00AA277B /* Quaternion.inl */; };
+		466C45071FF2378E00AA277B /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 466C44E91FF2378E00AA277B /* CMakeLists.txt */; };
+		466C45081FF2378E00AA277B /* MathUtilNeon64.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44EA1FF2378E00AA277B /* MathUtilNeon64.inl */; };
+		466C45091FF2378E00AA277B /* Mat4.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44EB1FF2378E00AA277B /* Mat4.inl */; };
+		466C450A1FF2378E00AA277B /* Vec3.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44EC1FF2378E00AA277B /* Vec3.inl */; };
+		466C450B1FF2378E00AA277B /* Vec2.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44ED1FF2378E00AA277B /* Vec2.inl */; };
+		466C450C1FF2378E00AA277B /* MathUtilSSE.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44EE1FF2378E00AA277B /* MathUtilSSE.inl */; };
+		466C450D1FF2378E00AA277B /* MathUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44F11FF2378E00AA277B /* MathUtil.cpp */; };
+		466C450E1FF2378E00AA277B /* Vec4.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44F21FF2378E00AA277B /* Vec4.inl */; };
+		466C450F1FF2378E00AA277B /* CCGeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44F31FF2378E00AA277B /* CCGeometry.cpp */; };
+		466C45101FF2378E00AA277B /* Mat4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44F61FF2378E00AA277B /* Mat4.cpp */; };
+		466C45111FF2378E00AA277B /* TransformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44F81FF2378E00AA277B /* TransformUtils.cpp */; };
+		466C45121FF2378E00AA277B /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44F91FF2378E00AA277B /* Quaternion.cpp */; };
+		466C45131FF2378E00AA277B /* CCVertex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44FB1FF2378E00AA277B /* CCVertex.cpp */; };
+		466C45141FF2378E00AA277B /* Vec4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44FC1FF2378E00AA277B /* Vec4.cpp */; };
+		466C45151FF2378E00AA277B /* MathUtil.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44FF1FF2378E00AA277B /* MathUtil.inl */; };
+		466C45161FF2378E00AA277B /* Vec2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C45011FF2378E00AA277B /* Vec2.cpp */; };
+		466C45171FF2378E00AA277B /* Vec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C45031FF2378E00AA277B /* Vec3.cpp */; };
+		466C45181FF2378E00AA277B /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C45041FF2378E00AA277B /* CCAffineTransform.cpp */; };
+		466C45191FF2378E00AA277B /* MathUtilNeon.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C45051FF2378E00AA277B /* MathUtilNeon.inl */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
 		469492821FE25305008D19CC /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469492811FE252FB008D19CC /* IOKit.framework */; };
@@ -139,6 +159,38 @@
 		1A69F0FD1FF22B0200B224DF /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
+		466C44E61FF2378E00AA277B /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
+		466C44E71FF2378E00AA277B /* Mat4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mat4.h; sourceTree = "<group>"; };
+		466C44E81FF2378E00AA277B /* Quaternion.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Quaternion.inl; sourceTree = "<group>"; };
+		466C44E91FF2378E00AA277B /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		466C44EA1FF2378E00AA277B /* MathUtilNeon64.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MathUtilNeon64.inl; sourceTree = "<group>"; };
+		466C44EB1FF2378E00AA277B /* Mat4.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mat4.inl; sourceTree = "<group>"; };
+		466C44EC1FF2378E00AA277B /* Vec3.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vec3.inl; sourceTree = "<group>"; };
+		466C44ED1FF2378E00AA277B /* Vec2.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vec2.inl; sourceTree = "<group>"; };
+		466C44EE1FF2378E00AA277B /* MathUtilSSE.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MathUtilSSE.inl; sourceTree = "<group>"; };
+		466C44EF1FF2378E00AA277B /* Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quaternion.h; sourceTree = "<group>"; };
+		466C44F01FF2378E00AA277B /* TransformUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformUtils.h; sourceTree = "<group>"; };
+		466C44F11FF2378E00AA277B /* MathUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MathUtil.cpp; sourceTree = "<group>"; };
+		466C44F21FF2378E00AA277B /* Vec4.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vec4.inl; sourceTree = "<group>"; };
+		466C44F31FF2378E00AA277B /* CCGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCGeometry.cpp; sourceTree = "<group>"; };
+		466C44F41FF2378E00AA277B /* Vec4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec4.h; sourceTree = "<group>"; };
+		466C44F51FF2378E00AA277B /* CCAffineTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAffineTransform.h; sourceTree = "<group>"; };
+		466C44F61FF2378E00AA277B /* Mat4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mat4.cpp; sourceTree = "<group>"; };
+		466C44F71FF2378E00AA277B /* CCGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCGeometry.h; sourceTree = "<group>"; };
+		466C44F81FF2378E00AA277B /* TransformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransformUtils.cpp; sourceTree = "<group>"; };
+		466C44F91FF2378E00AA277B /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quaternion.cpp; sourceTree = "<group>"; };
+		466C44FA1FF2378E00AA277B /* CCVertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVertex.h; sourceTree = "<group>"; };
+		466C44FB1FF2378E00AA277B /* CCVertex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVertex.cpp; sourceTree = "<group>"; };
+		466C44FC1FF2378E00AA277B /* Vec4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec4.cpp; sourceTree = "<group>"; };
+		466C44FD1FF2378E00AA277B /* Vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec3.h; sourceTree = "<group>"; };
+		466C44FE1FF2378E00AA277B /* CCMathBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMathBase.h; sourceTree = "<group>"; };
+		466C44FF1FF2378E00AA277B /* MathUtil.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MathUtil.inl; sourceTree = "<group>"; };
+		466C45001FF2378E00AA277B /* MathUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathUtil.h; sourceTree = "<group>"; };
+		466C45011FF2378E00AA277B /* Vec2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec2.cpp; sourceTree = "<group>"; };
+		466C45021FF2378E00AA277B /* CCMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMath.h; sourceTree = "<group>"; };
+		466C45031FF2378E00AA277B /* Vec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec3.cpp; sourceTree = "<group>"; };
+		466C45041FF2378E00AA277B /* CCAffineTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAffineTransform.cpp; sourceTree = "<group>"; };
+		466C45051FF2378E00AA277B /* MathUtilNeon.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MathUtilNeon.inl; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4694927B1FE25061008D19CC /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = libs/glfw3/prebuilt/mac/libglfw3.a; sourceTree = "<group>"; };
 		4694927D1FE2529E008D19CC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -369,10 +421,50 @@
 		466C44DB1FF0A67A00AA277B /* files-from-cocos2dx */ = {
 			isa = PBXGroup;
 			children = (
+				466C44E51FF2378E00AA277B /* math */,
 				1A69F0881FF21E1900B224DF /* base */,
 				1A69F0901FF21E1900B224DF /* platform */,
 			);
 			path = "files-from-cocos2dx";
+			sourceTree = "<group>";
+		};
+		466C44E51FF2378E00AA277B /* math */ = {
+			isa = PBXGroup;
+			children = (
+				466C44E61FF2378E00AA277B /* Vec2.h */,
+				466C44E71FF2378E00AA277B /* Mat4.h */,
+				466C44E81FF2378E00AA277B /* Quaternion.inl */,
+				466C44E91FF2378E00AA277B /* CMakeLists.txt */,
+				466C44EA1FF2378E00AA277B /* MathUtilNeon64.inl */,
+				466C44EB1FF2378E00AA277B /* Mat4.inl */,
+				466C44EC1FF2378E00AA277B /* Vec3.inl */,
+				466C44ED1FF2378E00AA277B /* Vec2.inl */,
+				466C44EE1FF2378E00AA277B /* MathUtilSSE.inl */,
+				466C44EF1FF2378E00AA277B /* Quaternion.h */,
+				466C44F01FF2378E00AA277B /* TransformUtils.h */,
+				466C44F11FF2378E00AA277B /* MathUtil.cpp */,
+				466C44F21FF2378E00AA277B /* Vec4.inl */,
+				466C44F31FF2378E00AA277B /* CCGeometry.cpp */,
+				466C44F41FF2378E00AA277B /* Vec4.h */,
+				466C44F51FF2378E00AA277B /* CCAffineTransform.h */,
+				466C44F61FF2378E00AA277B /* Mat4.cpp */,
+				466C44F71FF2378E00AA277B /* CCGeometry.h */,
+				466C44F81FF2378E00AA277B /* TransformUtils.cpp */,
+				466C44F91FF2378E00AA277B /* Quaternion.cpp */,
+				466C44FA1FF2378E00AA277B /* CCVertex.h */,
+				466C44FB1FF2378E00AA277B /* CCVertex.cpp */,
+				466C44FC1FF2378E00AA277B /* Vec4.cpp */,
+				466C44FD1FF2378E00AA277B /* Vec3.h */,
+				466C44FE1FF2378E00AA277B /* CCMathBase.h */,
+				466C44FF1FF2378E00AA277B /* MathUtil.inl */,
+				466C45001FF2378E00AA277B /* MathUtil.h */,
+				466C45011FF2378E00AA277B /* Vec2.cpp */,
+				466C45021FF2378E00AA277B /* CCMath.h */,
+				466C45031FF2378E00AA277B /* Vec3.cpp */,
+				466C45041FF2378E00AA277B /* CCAffineTransform.cpp */,
+				466C45051FF2378E00AA277B /* MathUtilNeon.inl */,
+			);
+			path = math;
 			sourceTree = "<group>";
 		};
 		469492531FE24978008D19CC = {
@@ -517,8 +609,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				466C45071FF2378E00AA277B /* CMakeLists.txt in Resources */,
+				466C450E1FF2378E00AA277B /* Vec4.inl in Resources */,
+				466C450B1FF2378E00AA277B /* Vec2.inl in Resources */,
+				466C45081FF2378E00AA277B /* MathUtilNeon64.inl in Resources */,
 				1A69F1031FF22B0200B224DF /* package.json in Resources */,
+				466C45191FF2378E00AA277B /* MathUtilNeon.inl in Resources */,
+				466C450C1FF2378E00AA277B /* MathUtilSSE.inl in Resources */,
+				466C450A1FF2378E00AA277B /* Vec3.inl in Resources */,
+				466C45061FF2378E00AA277B /* Quaternion.inl in Resources */,
 				1A69F1021FF22B0200B224DF /* COPYING in Resources */,
+				466C45151FF2378E00AA277B /* MathUtil.inl in Resources */,
+				466C45091FF2378E00AA277B /* Mat4.inl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +632,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A69F0B01FF2230D00B224DF /* ccRandom.cpp in Sources */,
+				466C45181FF2378E00AA277B /* CCAffineTransform.cpp in Sources */,
 				1A69F0981FF21E1900B224DF /* CCRef.cpp in Sources */,
 				1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */,
 				1A69F09C1FF21E1900B224DF /* CCFileUtils.cpp in Sources */,
@@ -539,14 +642,22 @@
 				1A69F0771FF1E19D00B224DF /* CCGraphicsHandle.cpp in Sources */,
 				1A69F0AB1FF2229200B224DF /* TGAlib.cpp in Sources */,
 				1A69F09B1FF21E1900B224DF /* CCImage.cpp in Sources */,
+				466C45111FF2378E00AA277B /* TransformUtils.cpp in Sources */,
+				466C45161FF2378E00AA277B /* Vec2.cpp in Sources */,
+				466C45171FF2378E00AA277B /* Vec3.cpp in Sources */,
 				1A69F07A1FF1E41A00B224DF /* CCRenderTarget.cpp in Sources */,
 				1A69F0741FF102A300B224DF /* CCRenderBuffer.cpp in Sources */,
+				466C45131FF2378E00AA277B /* CCVertex.cpp in Sources */,
+				466C45141FF2378E00AA277B /* Vec4.cpp in Sources */,
 				4694928B1FE26CB5008D19CC /* main.cpp in Sources */,
 				1A69F0FE1FF22B0200B224DF /* ioapi_mem.cpp in Sources */,
 				1A69F07D1FF1F50D00B224DF /* CCTexture.cpp in Sources */,
 				1A69F09F1FF21F3100B224DF /* CCData.cpp in Sources */,
 				4694929A1FE2775C008D19CC /* CCFrameBuffer.cpp in Sources */,
+				466C450F1FF2378E00AA277B /* CCGeometry.cpp in Sources */,
+				466C45101FF2378E00AA277B /* Mat4.cpp in Sources */,
 				1A69F0BC1FF2248500B224DF /* ZipUtils.cpp in Sources */,
+				466C450D1FF2378E00AA277B /* MathUtil.cpp in Sources */,
 				1A69F0CA1FF2261A00B224DF /* CCConfiguration.cpp in Sources */,
 				1A69F0AA1FF2229200B224DF /* etc1.cpp in Sources */,
 				1A69F0FF1FF22B0200B224DF /* ioapi.cpp in Sources */,
@@ -558,6 +669,7 @@
 				1A69F0D71FF2290100B224DF /* CCFileUtils-apple.mm in Sources */,
 				469492971FE270F2008D19CC /* CCDeviceGraphics-gl.cpp in Sources */,
 				1A69F0B31FF223AF00B224DF /* CCSAXParser.cpp in Sources */,
+				466C45121FF2378E00AA277B /* Quaternion.cpp in Sources */,
 				466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

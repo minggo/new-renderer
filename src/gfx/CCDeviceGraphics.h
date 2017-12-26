@@ -80,8 +80,16 @@ public:
     void setProgram(Program *program);
     void setTexture(const std::string& name, Texture* texture, int slot);
     void setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots);
+    
     //TODO
     // setUniform
+//    void setUniform(const std::string& name, int i1);
+//    void setUniform(const std::string& name, int i1, int i2);
+//    void setUniform(const std::string& name, int i1, int i2, int i3);
+//    void setUniform(const std::string& name, int i1, int i2, int i3, int i4);
+//    void setUniform(const std::string& name, int count, int* value);
+    
+    
     void setPrimitiveType(PrimitiveType type);
     
     void draw(int base, size_t count);
@@ -96,6 +104,35 @@ private:
         int maxVertexAttributes;
         int maxDrawBuffers;
         int maxColorAttatchments;
+    };
+    
+    enum class UniformType
+    {
+        INT,
+        INT_VEC2,
+        INT_VEC3,
+        INT_VEC4,
+        
+        FLOAT,
+        FLOAT_VEC2,
+        FLOAT_VEC3,
+        FLOAT_VEC4,
+        FLOAT_MAT2,
+        FLOAT_MAT3,
+        FLOAT_MAT4,
+        
+        BOOLEAN,
+        BOOLEAN_VEC2,
+        BOOLEAN_VEC3,
+        BOOLEAN_VEC4,
+    };
+    
+    template<typename T>
+    struct Uniform
+    {
+        bool dirty;
+        T value;
+        UniformType type;
     };
     
     DeviceGraphics();
@@ -125,8 +162,6 @@ private:
     
     State _nextState;
     State _currentState;
-    
-    // TODO: uniforms
     
     friend class IndexBuffer;
 };

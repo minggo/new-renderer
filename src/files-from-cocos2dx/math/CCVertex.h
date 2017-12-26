@@ -1,6 +1,8 @@
 /****************************************************************************
- Copyright (c) 2018 Chukong Technologies
- 
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2011 ForzeField Studios S.L
+ Copyright (c) 2013-2017 Chukong Technologies Inc.
+
  http://www.cocos2d-x.org
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,49 +23,35 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#ifndef __CCVERTEX_H__
+#define __CCVERTEX_H__
+
+#include "platform/CCPlatformMacros.h"
+#include "Vec2.h"
+
+/**
+ * @addtogroup base
+ * @{
+ */
+
+NS_CC_BEGIN
+
+/** @file CCVertex.h */
+
+/** converts a line to a polygon */
+void CC_DLL ccVertexLineToPolygon(Vec2 *points, float stroke, Vec2 *vertices, unsigned int offset, unsigned int nuPoints);
+
+/** returns whether or not the line intersects */
+bool CC_DLL ccVertexLineIntersect(float Ax, float Ay,
+                             float Bx, float By,
+                             float Cx, float Cy,
+                             float Dx, float Dy, float *T);
+
+NS_CC_END
 
 
-#pragma once
+// end of base group
+/// @}
 
-#include "../macro.h"
-#include "../types.h"
-#include "CCGraphicsHandle.h"
+#endif /* __CCVERTEX_H__ */
 
-#include <vector>
-
-GFX_BEGIN
-
-class DeviceGraphics;
-class RenderTarget;
-
-class FrameBuffer final : public GraphicsHandle
-{
-public:
-    GFX_DEFINE_CREATE_METHOD_3(FrameBuffer, init,  DeviceGraphics*, uint16_t, uint16_t)
-
-    FrameBuffer();
-    bool init(DeviceGraphics* device, uint16_t width, uint16_t height);
-
-    void setRenderTarget(RenderTarget* rt, uint32_t index);
-    void setDepthTarget(RenderTarget* rt);
-    void setStencilTarget(RenderTarget* rt);
-    void setDepthStencilTarget(RenderTarget* rt);
-    
-    const std::vector<RenderTarget*>& getColorBuffers() const;
-    const RenderTarget* getDepthBuffer() const;
-    const RenderTarget* getStencilBuffer() const;
-    const RenderTarget* getDepthStencilBuffer() const;
-
-private:
-    virtual ~FrameBuffer();
-
-    DeviceGraphics* _device;
-    std::vector<RenderTarget*> _colorBuffers;
-    RenderTarget* _depthBuffer;
-    RenderTarget* _stencilBuffer;
-    RenderTarget* _depthStencilBuffer;
-    uint16_t _width;
-    uint16_t _height;
-};
-
-GFX_END

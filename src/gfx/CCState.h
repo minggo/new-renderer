@@ -34,6 +34,7 @@ GFX_BEGIN
 class VertexBuffer;
 class IndexBuffer;
 class Program;
+class Texture;
 
 struct State final
 {
@@ -91,7 +92,7 @@ struct State final
     std::vector<VertexBuffer*> vertexBuffers;
     std::vector<int> vertexBufferOffsets;
     IndexBuffer *indexBuffer;
-    std::vector<int> textureUintes;
+    std::vector<Texture*> textureUintes;
     Program *program;
     
 private:

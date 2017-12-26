@@ -29,9 +29,9 @@ GFX_BEGIN
 
 FrameBuffer::FrameBuffer()
 : _device(nullptr)
-, _depth(nullptr)
-, _stencil(nullptr)
-, _depthStencil(nullptr)
+, _depthBuffer(nullptr)
+, _stencilBuffer(nullptr)
+, _depthStencilBuffer(nullptr)
 {
 
 }
@@ -61,35 +61,55 @@ bool FrameBuffer::init(DeviceGraphics* device, uint16_t width, uint16_t height)
 
 void FrameBuffer::setRenderTarget(RenderTarget* rt, uint32_t index)
 {
-    if (index >= _colors.size())
+    if (index >= _colorBuffers.size())
     {
-        _colors.resize(index + 1);
+        _colorBuffers.resize(index + 1);
     }
 
     GFX_SAFE_RETAIN(rt);
-    GFX_SAFE_RELEASE(_colors[index]);
-    _colors[index] = rt;
+    GFX_SAFE_RELEASE(_colorBuffers[index]);
+    _colorBuffers[index] = rt;
 }
 
 void FrameBuffer::setDepthTarget(RenderTarget* rt)
 {
     GFX_SAFE_RETAIN(rt);
-    GFX_SAFE_RELEASE(_depth);
-    _depth = rt;
+    GFX_SAFE_RELEASE(_depthBuffer);
+    _depthBuffer = rt;
 }
 
 void FrameBuffer::setStencilTarget(RenderTarget* rt)
 {
     GFX_SAFE_RETAIN(rt);
-    GFX_SAFE_RELEASE(_stencil);
-    _stencil = rt;
+    GFX_SAFE_RELEASE(_stencilBuffer);
+    _stencilBuffer = rt;
 }
 
 void FrameBuffer::setDepthStencilTarget(RenderTarget* rt)
 {
     GFX_SAFE_RETAIN(rt);
-    GFX_SAFE_RELEASE(_depthStencil);
-    _depthStencil = rt;
+    GFX_SAFE_RELEASE(_depthStencilBuffer);
+    _depthStencilBuffer = rt;
+}
+
+const std::vector<RenderTarget*>& FrameBuffer::getColorBuffers() const
+{
+    return _colorBuffers;
+}
+
+const RenderTarget* FrameBuffer::getDepthBuffer() const
+{
+    return _depthBuffer;
+}
+
+const RenderTarget* FrameBuffer::getStencilBuffer() const
+{
+    return _stencilBuffer;
+}
+
+const RenderTarget* FrameBuffer::getDepthStencilBuffer() const
+{
+    return _depthStencilBuffer;
 }
 
 GFX_END
