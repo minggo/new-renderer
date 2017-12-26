@@ -44,6 +44,30 @@ namespace
     {
         glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, texture->getHandle(), 0);
     }
+    
+//    enum class UniformType
+//    {
+//        INT,
+//        INT_VEC2,
+//        INT_VEC3,
+//        INT_VEC4,
+//
+//        FLOAT,
+//        FLOAT_VEC2,
+//        FLOAT_VEC3,
+//        FLOAT_VEC4,
+//        FLOAT_MAT2,
+//        FLOAT_MAT3,
+//        FLOAT_MAT4,
+//
+//        MAT2,
+//        MAT3,
+//        MAT4,
+//
+//        COUNT
+//    };
+    
+//    void glSetUniform(const
 }
 
 void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
@@ -309,16 +333,27 @@ void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int s
     _nextState.textureUintes[slot] = texture;
     GFX_SAFE_RETAIN(texture);
     
+    //TODO
 //    setUniform(name, slot);
 }
 
 void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots)
 {
-    //TODO
+    auto len = texutres.size();
+    if (len >= _caps.maxTextureUints)
+    {
+        //TODO: add log
+        return;
+    }
+//    for (size_t i = 0; i < len; ++i)
+//    {
+//        auto slot = slots[i];
+//        _nextState.
+//    }
 }
 
-//TODO
-// setUniform
+
+
 void DeviceGraphics::setPrimitiveType(PrimitiveType type)
 {
     _nextState.primitiveType = type;
@@ -328,6 +363,27 @@ void DeviceGraphics::draw(int base, size_t count)
 {
     
 }
+
+//void setUniform(const std::string& name, int i1);
+//void setUniform(const std::string& name, int i1, int i2);
+//void setUniform(const std::string& name, int i1, int i2, int i3);
+//void setUniform(const std::string& name, int i1, int i2, int i3, int i4);
+//void setUnifrom(const std::string& name, int count, int* value);
+//void setUniform(const std::string& name, float f1);
+//
+//void setUniform(const std::string& name, float f1, float f2);
+//void setUniform(const std::string& name, float f1, float f2, float f3);
+//void setUniform(const std::string& name, float f1, float f2, float f3, float f4);
+//void setUniform(const std::string& name, int count, float* value);
+//void setUniform(const std::string& name, const cocos2d::Vec2& value);
+//void setUniform(const std::string& name, const cocos2d::Vec3& value);
+//void setUniform(const std::string& name, const cocos2d::Vec4& value);
+//
+//
+//void setUniformMat2(const std::string& name, float* value);
+//void setUniformMat3(const std::string& name, float* value);
+//void setUniformMat4(const std::string& name, float* value);
+//void setUniformMat(contst std::string& name, const cocos2d::Mat4& value);
 
 //
 // Priviate funcitons.
@@ -398,10 +454,80 @@ void DeviceGraphics::initStates()
     glDisable(GL_SCISSOR_TEST);
 }
 
+void DeviceGraphics::restoreTexture(uint32_t index)
+{
+    
+}
+
 void DeviceGraphics::restoreIndexBuffer()
 {
     auto ib = _currentState.indexBuffer;
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib ? ib->getHandle(): 0);
+}
+
+//
+// Uniform
+//
+namespace
+{
+    void initializeUniform(void* src, void* dst, size_t bytes)
+    {
+        dst = malloc(bytes);
+        memcpy(dst, src, bytes);
+    }
+}
+
+DeviceGraphics::Uniform::Uniform(void* v, UniformType t)
+: type(t)
+, dirty(true)
+{
+    auto sizeOfInt = sizeof(int);
+    auto sizeOfFloat = sizeof(float);
+    switch (type)
+    {
+        case UniformType::INT:
+            initializeUniform(v, value, 1 * sizeOfInt);
+            break;
+        case UniformType::INT_VEC2:
+            initializeUniform(v, value, 2 * sizeOfInt);
+            break;
+        case UniformType::INT_VEC3:
+            initializeUniform(v, value, 3 * sizeOfInt);
+            break;
+        case UniformType::INT_VEC4:
+            initializeUniform(v, value, 4 * sizeOfInt);
+            break;
+        case UniformType::FLOAT:
+            initializeUniform(v, value, 1 * sizeOfFloat);
+            break;
+        case UniformType::FLOAT_VEC2:
+            initializeUniform(v, value, 2 * sizeOfFloat);
+            break;
+        case UniformType::FLOAT_VEC3:
+            initializeUniform(v, value, 3 * sizeOfFloat);
+            break;
+        case UniformType::FLOAT_VEC4:
+            initializeUniform(v, value, 4 * sizeOfFloat);
+            break;
+        case UniformType::MAT2:
+            initializeUniform(v, value, 4 * sizeOfFloat);
+            break;
+        case UniformType::MAT3:
+            initializeUniform(v, value, 9 * sizeOfFloat);
+            break;
+        case UniformType::MAT4:
+            initializeUniform(v, value, 16 * sizeOfFloat);
+            break;
+        default:
+            // error
+            break;
+    }
+}
+
+DeviceGraphics::Uniform::~Uniform()
+{
+    free(value);
+    value = nullptr;
 }
 
 GFX_END

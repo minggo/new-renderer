@@ -27,12 +27,15 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
+#include "base/ccTypes.h"
+#include "math/Vec2.h"
+#include "math/Vec3.h"
+#include "Vec4.h"
+#include "math/Mat4.h"
 #include "../macro.h"
 #include "../types.h"
 #include "CCState.h"
 
-// header files from cocos2d-x
-#include "base/ccTypes.h"
 
 GFX_BEGIN
 
@@ -81,13 +84,26 @@ public:
     void setTexture(const std::string& name, Texture* texture, int slot);
     void setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots);
     
-    //TODO
-    // setUniform
-//    void setUniform(const std::string& name, int i1);
-//    void setUniform(const std::string& name, int i1, int i2);
-//    void setUniform(const std::string& name, int i1, int i2, int i3);
-//    void setUniform(const std::string& name, int i1, int i2, int i3, int i4);
-//    void setUniform(const std::string& name, int count, int* value);
+    void setUniform(const std::string& name, int i1);
+    void setUniform(const std::string& name, int i1, int i2);
+    void setUniform(const std::string& name, int i1, int i2, int i3);
+    void setUniform(const std::string& name, int i1, int i2, int i3, int i4);
+    void setUnifrom(const std::string& name, int count, int* value);
+    void setUniform(const std::string& name, float f1);
+    
+    void setUniform(const std::string& name, float f1, float f2);
+    void setUniform(const std::string& name, float f1, float f2, float f3);
+    void setUniform(const std::string& name, float f1, float f2, float f3, float f4);
+    void setUniform(const std::string& name, int count, float* value);
+    void setUniform(const std::string& name, const cocos2d::Vec2& value);
+    void setUniform(const std::string& name, const cocos2d::Vec3& value);
+    void setUniform(const std::string& name, const cocos2d::Vec4& value);
+
+    
+    void setUniformMat2(const std::string& name, float* value);
+    void setUniformMat3(const std::string& name, float* value);
+    void setUniformMat4(const std::string& name, float* value);
+    void setUniformMat(const std::string& name, const cocos2d::Mat4& value);
     
     
     void setPrimitiveType(PrimitiveType type);
@@ -121,17 +137,20 @@ private:
         FLOAT_MAT3,
         FLOAT_MAT4,
         
-        BOOLEAN,
-        BOOLEAN_VEC2,
-        BOOLEAN_VEC3,
-        BOOLEAN_VEC4,
+        MAT2,
+        MAT3,
+        MAT4,
+        
+        COUNT
     };
     
-    template<typename T>
     struct Uniform
     {
+        Uniform(void* v, UniformType t);
+        ~Uniform();
+        
         bool dirty;
-        T value;
+        void* value;
         UniformType type;
     };
     
@@ -159,6 +178,7 @@ private:
     FrameBuffer *_frameBuffer;
     std::vector<int> _enabledAtrributes;
     std::vector<int> _newAttributes;
+    std::vector<Uniform*> _uniforms;
     
     State _nextState;
     State _currentState;
