@@ -27,11 +27,14 @@
 #include "../types.h"
 #include "../platform.h"
 
+// Should change when integration.
+#include "../files-from-cocos2dx/CCRef.h"
+
 GFX_BEGIN
 
 class DeviceGraphics;
 
-class IndexBuffer final
+class IndexBuffer final : public Ref
 {
 public:
     IndexBuffer(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);

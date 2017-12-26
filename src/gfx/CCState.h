@@ -35,7 +35,7 @@ class VertexBuffer;
 class IndexBuffer;
 class Program;
 
-struct State
+struct State final
 {
     // TODO: adjust memeber position to reduce size??
     

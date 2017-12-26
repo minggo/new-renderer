@@ -29,11 +29,14 @@
 #include "../platform.h"
 #include "CCVertexFormat.h"
 
+// Should change when integration.
+#include "../files-from-cocos2dx/CCRef.h"
+
 GFX_BEGIN
 
 class DeviceGraphics;
 
-class VertexBuffer final
+class VertexBuffer final : public Ref
 {
 public:
     VertexBuffer(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);

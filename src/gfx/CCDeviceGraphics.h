@@ -42,7 +42,7 @@ class IndexBuffer;
 class Program;
 class Texture;
 
-class DeviceGraphics
+class DeviceGraphics final
 {
 public:
     void setFrameBuffer(const FrameBuffer* fb);

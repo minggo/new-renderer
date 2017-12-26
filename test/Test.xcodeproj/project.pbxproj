@@ -12,6 +12,7 @@
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
 		466C44DE1FF0A67A00AA277B /* ccTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DD1FF0A67A00AA277B /* ccTypes.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
+		466C44E41FF1DB8F00AA277B /* CCRef.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44E31FF1DB8F00AA277B /* CCRef.cpp */; };
 		4694927C1FE25061008D19CC /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927B1FE25061008D19CC /* libglfw3.a */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -33,6 +34,8 @@
 		466C44DD1FF0A67A00AA277B /* ccTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ccTypes.cpp; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
+		466C44E21FF104D300AA277B /* CCRef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCRef.h; sourceTree = "<group>"; };
+		466C44E31FF1DB8F00AA277B /* CCRef.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCRef.cpp; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4694927B1FE25061008D19CC /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = libs/glfw3/prebuilt/mac/libglfw3.a; sourceTree = "<group>"; };
 		4694927D1FE2529E008D19CC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -67,6 +70,8 @@
 		466C44DB1FF0A67A00AA277B /* files-from-cocos2dx */ = {
 			isa = PBXGroup;
 			children = (
+				466C44E31FF1DB8F00AA277B /* CCRef.cpp */,
+				466C44E21FF104D300AA277B /* CCRef.h */,
 				466C44DC1FF0A67A00AA277B /* ccTypes.h */,
 				466C44DD1FF0A67A00AA277B /* ccTypes.cpp */,
 			);
@@ -213,6 +218,7 @@
 				1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */,
 				1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */,
 				4694928B1FE26CB5008D19CC /* main.cpp in Sources */,
+				466C44E41FF1DB8F00AA277B /* CCRef.cpp in Sources */,
 				4694929A1FE2775C008D19CC /* CCFrameBuffer.cpp in Sources */,
 				1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */,
 				469492971FE270F2008D19CC /* CCDeviceGraphics-gl.cpp in Sources */,
