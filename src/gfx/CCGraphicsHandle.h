@@ -26,7 +26,8 @@
 
 #include "../macro.h"
 #include "../types.h"
-#include "../files-from-cocos2dx/CCRef.h"
+
+#include "base/CCRef.h"
 
 GFX_BEGIN
 

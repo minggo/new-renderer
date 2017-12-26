@@ -30,9 +30,6 @@
 #include "CCVertexFormat.h"
 #include "CCGraphicsHandle.h"
 
-// Should change when integration.
-#include "../files-from-cocos2dx/CCRef.h"
-
 GFX_BEGIN
 
 class DeviceGraphics;

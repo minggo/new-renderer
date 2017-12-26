@@ -25,6 +25,10 @@ THE SOFTWARE.
 
 #pragma once
 
+#include "platform/CCPlatformMacros.h"
+
+NS_CC_BEGIN
+
 /**
  * Ref is used for reference count management. If a class inherits from Ref,
  * then it is easy to be shared in different places.
@@ -104,3 +108,4 @@ protected:
     unsigned int _referenceCount;
 };
 
+NS_CC_END

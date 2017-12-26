@@ -165,14 +165,14 @@ enum class AttribType : uint16_t
 };
 
 // texture filter
-enum class TextureFilter
+enum class TextureFilter : uint8_t
 {
     NEAREST = 0,
     LINEAR = 1
 };
 
 // texture wrap mode
-enum class TextureWrapMode
+enum class TextureWrapMode : uint16_t
 {
     REPEAT = GL_REPEAT,
     CLAMP = GL_CLAMP_TO_EDGE,
@@ -180,7 +180,7 @@ enum class TextureWrapMode
 };
 
 // texture format
-enum class TextureFormat
+enum class TextureFormat : uint8_t
 {
 // compress formats
     RGB_DXT1 = 0,
@@ -214,7 +214,7 @@ enum class TextureFormat
 // depth formats
     D16 = 25,
     D32 = 26,
-    D24S8 = 27,
+    D24S8 = 27
 //
 };
 
