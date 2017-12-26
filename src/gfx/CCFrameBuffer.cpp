@@ -23,3 +23,47 @@
  ****************************************************************************/
 
 #include "CCFrameBuffer.h"
+
+GFX_BEGIN
+
+FrameBuffer::FrameBuffer(DeviceGraphics* device, uint16_t width, uint16_t height)
+: _device(nullptr)
+, _depth(nullptr)
+, _stencil(nullptr)
+, _depthStencil(nullptr)
+{
+
+}
+
+FrameBuffer::~FrameBuffer()
+{
+
+}
+
+void FrameBuffer::setRenderTarget(RenderTarget* rt, uint32_t index)
+{
+    if (index >= _colors.size())
+    {
+        _colors.resize(index + 1);
+    }
+    _colors[index] = rt;
+}
+
+void FrameBuffer::setDepthTarget(RenderTarget* rt)
+{
+
+}
+
+void FrameBuffer::setStencilTarget(RenderTarget* rt)
+{
+
+}
+
+void FrameBuffer::setDepthStencilTarget(RenderTarget* rt)
+{
+    
+}
+
+GFX_END
+
+

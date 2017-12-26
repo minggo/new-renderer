@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2018 Chukong Technologies
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,37 +22,34 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-
-#pragma once
-
-#include "../macro.h"
-#include "../types.h"
-#include "CCGraphicsHandle.h"
-
-#include <vector>
+#include "CCRenderTarget.h"
+#include "CCRenderBuffer.h"
 
 GFX_BEGIN
 
-class DeviceGraphics;
-class RenderTarget;
-
-class FrameBuffer final : public GraphicsHandle
+RenderTarget::RenderTarget(Texture2D* tex)
+: _tex(tex)
+, _rb(nullptr)
 {
-public:
-    FrameBuffer(DeviceGraphics* device, uint16_t width, uint16_t height);
-    ~FrameBuffer();
 
-    void setRenderTarget(RenderTarget* rt, uint32_t index);
-    void setDepthTarget(RenderTarget* rt);
-    void setStencilTarget(RenderTarget* rt);
-    void setDepthStencilTarget(RenderTarget* rt);
+}
 
-private:
-    DeviceGraphics* _device;
-    std::vector<RenderTarget*> _colors;
-    RenderTarget* _depth;
-    RenderTarget* _stencil;
-    RenderTarget* _depthStencil;
-};
+RenderTarget::RenderTarget(RenderBuffer* rb)
+: _tex(nullptr)
+, _rb(rb)
+{
+
+}
+
+GLuint RenderTarget::getHandle() const
+{
+    //TODO: Texture2D
+    if (_rb != nullptr)
+    {
+        return _rb->getHandle();
+    }
+
+    return 0;
+}
 
 GFX_END

@@ -28,6 +28,7 @@
 #include "../types.h"
 #include "../platform.h"
 #include "CCVertexFormat.h"
+#include "CCGraphicsHandle.h"
 
 // Should change when integration.
 #include "../files-from-cocos2dx/CCRef.h"
@@ -36,7 +37,7 @@ GFX_BEGIN
 
 class DeviceGraphics;
 
-class VertexBuffer final : public Ref
+class VertexBuffer final : public GraphicsHandle
 {
 public:
     VertexBuffer(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
@@ -51,8 +52,6 @@ private:
     Usage _usage;
     uint32_t _numVertices;
     uint32_t _bytes;
-
-    GLuint _glID;
 
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
 };

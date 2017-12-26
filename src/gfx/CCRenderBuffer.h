@@ -27,11 +27,13 @@
 #include "../macro.h"
 #include "types.h"
 
+#include "CCGraphicsHandle.h"
+
 GFX_BEGIN
 
 class DeviceGraphics;
 
-class RenderBuffer
+class RenderBuffer final : public GraphicsHandle
 {
 public:
     // render-buffer format
@@ -53,7 +55,6 @@ private:
     Format _format;
     uint16_t _width;
     uint16_t _height;
-    GLuint _glID;
 };
 
 GFX_END

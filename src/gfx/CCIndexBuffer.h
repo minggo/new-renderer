@@ -26,6 +26,8 @@
 #include "../macro.h"
 #include "../types.h"
 #include "../platform.h"
+#include "CCGraphicsHandle.h"
+
 
 // Should change when integration.
 #include "../files-from-cocos2dx/CCRef.h"
@@ -34,7 +36,7 @@ GFX_BEGIN
 
 class DeviceGraphics;
 
-class IndexBuffer final : public Ref
+class IndexBuffer final : public GraphicsHandle
 {
 public:
     IndexBuffer(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
@@ -50,8 +52,6 @@ private:
     uint32_t _numIndices;
     uint32_t _bytesPerIndex;
     uint32_t _bytes;
-
-    GLuint _glID;
 
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(IndexBuffer)
 };
