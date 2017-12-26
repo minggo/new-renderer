@@ -39,7 +39,7 @@ class RenderTarget;
 class FrameBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_3(FrameBuffer, DeviceGraphics*, uint16_t, uint16_t)
+    GFX_DEFINE_CREATE_METHOD_3(FrameBuffer, init,  DeviceGraphics*, uint16_t, uint16_t)
 
     FrameBuffer();
     bool init(DeviceGraphics* device, uint16_t width, uint16_t height);

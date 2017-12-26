@@ -35,7 +35,7 @@ class DeviceGraphics;
 class IndexBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(IndexBuffer, DeviceGraphics*, IndexFormat, Usage, void*, size_t, uint32_t)
+    GFX_DEFINE_CREATE_METHOD_6(IndexBuffer, init, DeviceGraphics*, IndexFormat, Usage, void*, size_t, uint32_t)
 
     IndexBuffer();
     virtual ~IndexBuffer();

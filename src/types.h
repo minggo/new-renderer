@@ -164,4 +164,58 @@ enum class AttribType : uint16_t
     FLOAT32 = GL_FLOAT
 };
 
+// texture filter
+enum class TextureFilter
+{
+    NEAREST = 0,
+    LINEAR = 1
+};
+
+// texture wrap mode
+enum class TextureWrapMode
+{
+    REPEAT = GL_REPEAT,
+    CLAMP = GL_CLAMP_TO_EDGE,
+    MIRROR = GL_MIRRORED_REPEAT
+};
+
+// texture format
+enum class TextureFormat
+{
+// compress formats
+    RGB_DXT1 = 0,
+    RGBA_DXT1 = 1,
+    RGBA_DXT3 = 2,
+    RGBA_DXT5 = 3,
+    RGB_ETC1 = 4,
+    RGB_PVRTC_2BPPV1 = 5,
+    RGBA_PVRTC_2BPPV1 = 6,
+    RGB_PVRTC_4BPPV1 = 7,
+    RGBA_PVRTC_4BPPV1 = 8,
+//
+// normal formats
+    A8 = 9,
+    L8 = 10,
+    L8_A8 = 11,
+    R5_G6_B5 = 12,
+    R5_G5_B5_A1 = 13,
+    R4_G4_B4_A4 = 14,
+    RGB8 = 15,
+    RGBA8 = 16,
+    RGB16F = 17,
+    RGBA16F = 18,
+    RGB32F = 19,
+    RGBA32F = 20,
+    R32F = 21,
+    _111110F = 22,
+    SRGB = 23,
+    SRGBA = 24,
+//
+// depth formats
+    D16 = 25,
+    D32 = 26,
+    D24S8 = 27,
+//
+};
+
 GFX_END

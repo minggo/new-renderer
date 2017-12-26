@@ -37,9 +37,14 @@ class RenderBuffer;
 class RenderTarget final : public Ref
 {
 public:
-    RenderTarget(Texture2D* tex);
-    RenderTarget(RenderBuffer* rb);
+    GFX_DEFINE_CREATE_METHOD_1(RenderTarget, initWithTexture, Texture2D*)
+    GFX_DEFINE_CREATE_METHOD_1(RenderTarget, initWithRenderBuffer, RenderBuffer*)
+
+    RenderTarget();
     virtual ~RenderTarget();
+
+    bool initWithTexture(Texture2D* tex);
+    bool initWithRenderBuffer(RenderBuffer* rb);
 
     GLuint getHandle() const;
 

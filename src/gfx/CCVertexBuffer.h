@@ -40,7 +40,7 @@ class DeviceGraphics;
 class VertexBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, DeviceGraphics*, const VertexFormat&, Usage, void*, size_t, uint32_t)
+    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, init,  DeviceGraphics*, const VertexFormat&, Usage, void*, size_t, uint32_t)
 
     VertexBuffer();
     virtual ~VertexBuffer();

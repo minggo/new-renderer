@@ -22,44 +22,33 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCRenderBuffer.h"
+#pragma once
+
+#include "../macro.h"
+#include "../types.h"
+
+#include "CCGraphicsHandle.h"
 
 GFX_BEGIN
 
-RenderBuffer::RenderBuffer()
-: _device(nullptr)
-, _format(Format::RGBA4)
-, _width(0)
-, _height(0)
+class DeviceGraphics;
+
+class Texture : public GraphicsHandle
 {
+public:
+    Texture();
+    virtual ~Texture();
 
-}
+    inline GLuint getTarget() const { return _target; }
 
-RenderBuffer::~RenderBuffer()
-{
-    if (_glID == 0)
-    {
-        GFX_LOGE("The render-buffer already destroyed");
-        return;
-    }
+protected:
+    DeviceGraphics* _device;
+    uint16_t _width;
+    uint16_t _heigth;
+    bool _hasMipmap;
+    bool _compressed;
 
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
-    glDeleteRenderbuffers(1, &_glID);
-
-    _glID = 0;
-}
-
-bool RenderBuffer::init(DeviceGraphics* device, Format format, uint16_t width, uint16_t height)
-{
-    _device = device;
-    _format = format;
-    _width = width;
-    _height = height;
-    glGenRenderbuffers(1, &_glID);
-    glBindRenderbuffer(GL_RENDERBUFFER, _glID);
-    glRenderbufferStorage(GL_RENDERBUFFER, (GLenum)format, width, height);
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
-    return true;
-}
+    GLuint _target;
+};
 
 GFX_END

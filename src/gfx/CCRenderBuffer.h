@@ -47,8 +47,12 @@ public:
         D24S8 = GL_DEPTH_STENCIL
     };
 
-    RenderBuffer(DeviceGraphics* device, Format format, uint16_t width, uint16_t height);
+    GFX_DEFINE_CREATE_METHOD_4(RenderBuffer, init,  DeviceGraphics*, Format, uint16_t, uint16_t)
+
+    RenderBuffer();
     virtual ~RenderBuffer();
+
+    bool init(DeviceGraphics* device, Format format, uint16_t width, uint16_t height);
 
 private:
     DeviceGraphics* _device;
