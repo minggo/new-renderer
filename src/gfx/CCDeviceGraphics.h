@@ -106,7 +106,7 @@ public:
     
     void setPrimitiveType(PrimitiveType type);
     
-    void draw(int base, size_t count);
+    void draw(int base, GLsizei count);
     
 private:
     
@@ -169,6 +169,13 @@ private:
     void restoreTexture(uint32_t index);
     void restoreIndexBuffer();
     inline void setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes);
+    
+    inline void commitBlendStates();
+    inline void commitDepthStates();
+    inline void commitStencilStates();
+    inline void commitCullMode();
+    inline void commitVertexBuffer();
+    inline void commitTextures();
     
     int _vx;
     int _vy;

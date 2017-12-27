@@ -285,34 +285,13 @@ void DeviceGraphics::setCullMode(CullMode mode)
 
 void DeviceGraphics::setVertexBuffer(int stream, VertexBuffer* buffer, int start /*= 0*/)
 {
-    //Is this function should be private, and only to be invoked by renderer?
-    // If so, then don't have to do reference count.
-    
-    _nextState.vertexBuffers.reserve(stream + 1);
-    
-    auto currentBuffer = _nextState.vertexBuffers[stream];
-    if (currentBuffer != buffer)
-    {
-        GFX_SAFE_RELEASE(currentBuffer);
-        _nextState.vertexBuffers[stream] = buffer;
-        GFX_SAFE_RETAIN(buffer);
-    }
-    
-    _nextState.vertexBufferOffsets.reserve(stream + 1);
-    _nextState.vertexBufferOffsets[stream] = start;
+    _nextState.setVertexBuffer(stream, buffer);
+    _nextState.setVertexBufferOffset(stream, start);
 }
 
 void DeviceGraphics::setIndexBuffer(IndexBuffer *buffer)
 {
-    //Is this function should be private, and only to be invoked by renderer?
-    // If so, then don't have to do reference count.
-    
-    if (_nextState.indexBuffer == buffer)
-        return;
-    
-    GFX_SAFE_RELEASE(_nextState.indexBuffer);
-    _nextState.indexBuffer = buffer;
-    GFX_SAFE_RETAIN(buffer);
+    _nextState.setIndexBuffer(buffer);
 }
 
 void DeviceGraphics::setProgram(Program *program)
@@ -328,11 +307,7 @@ void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int s
         return;
     }
     
-    // textureUintes's capacity is reserved as _caps.maxTextureUints in DeviceGraphics's constructore.
-    GFX_SAFE_RELEASE(_nextState.textureUintes[slot]);
-    _nextState.textureUintes[slot] = texture;
-    GFX_SAFE_RETAIN(texture);
-    
+    _nextState.setTexture(slot, texture);
     setUniform(name, slot);
 }
 
@@ -347,9 +322,7 @@ void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<
     for (size_t i = 0; i < len; ++i)
     {
         auto slot = slots[i];
-        GFX_SAFE_RELEASE(_nextState.textureUintes[slot]);
-        _nextState.textureUintes[slot] = texutres[i];
-        GFX_SAFE_RETAIN(texutres[i]);
+        _nextState.setTexture(slot, texutres[i]);
     }
     
     setUniformiv(name, slots.size(), slots.data());
@@ -360,9 +333,30 @@ void DeviceGraphics::setPrimitiveType(PrimitiveType type)
     _nextState.primitiveType = type;
 }
 
-void DeviceGraphics::draw(int base, size_t count)
+void DeviceGraphics::draw(int base, GLsizei count)
 {
+    commitBlendStates();
+    commitDepthStates();
+    commitStencilStates();
+    commitCullMode();
+    commitVertexBuffer();
     
+    auto nextIndexBuffer = _nextState.getIndexBuffer();
+    if (_currentState.getIndexBuffer() != nextIndexBuffer)
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, nextIndexBuffer ? nextIndexBuffer->getHandle() : 0);
+    
+    //TODO: commit program
+    
+    commitTextures();
+    
+    //TODO: commit uniforms
+    
+    // draw primitives
+    if (nextIndexBuffer)
+    {
+    }
+    else
+        glDrawArrays(static_cast<GLenum>(_nextState.primitiveType), base, count);
 }
 
 void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes)
@@ -492,8 +486,6 @@ DeviceGraphics::DeviceGraphics()
     
     initCaps();
     initStates();
-    
-    _nextState.textureUintes.reserve(_caps.maxTextureUints);
 }
 
 DeviceGraphics::~DeviceGraphics()
@@ -549,8 +541,37 @@ void DeviceGraphics::restoreTexture(uint32_t index)
 
 void DeviceGraphics::restoreIndexBuffer()
 {
-    auto ib = _currentState.indexBuffer;
+    auto ib = _currentState.getIndexBuffer();
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib ? ib->getHandle(): 0);
+}
+
+void DeviceGraphics::commitBlendStates()
+{
+    //TODO
+}
+
+void DeviceGraphics::commitDepthStates()
+{
+    //TODO
+}
+
+void DeviceGraphics::commitStencilStates()
+{
+    //TODO
+}
+
+void DeviceGraphics::commitCullMode()
+{
+    //TODO
+}
+void DeviceGraphics::commitVertexBuffer()
+{
+    //TODO
+}
+
+void DeviceGraphics::commitTextures()
+{
+    //TODO
 }
 
 //
