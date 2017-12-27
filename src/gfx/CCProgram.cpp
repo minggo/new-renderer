@@ -26,6 +26,8 @@
 
 namespace {
 
+    uint32_t _genID = 0;
+
     std::string logForOpenGLShader(GLuint shader)
     {
         GLint logLength = 0;
@@ -96,6 +98,9 @@ namespace {
 GFX_BEGIN
 
 Program::Program()
+: _device(nullptr)
+, _id(0)
+, _linked(false)
 {
 
 }
@@ -107,12 +112,21 @@ Program::~Program()
 
 bool Program::init(DeviceGraphics* device, const char* vertSource, const char* fragSource)
 {
+    assert(device);
+    assert(vertSource);
+    assert(fragSource);
+
+    _device = device;
+    _vertSource = vertSource;
+    _fragSource = fragSource;
+    _id = _genID++;
+    _linked = false;
     return true;
 }
 
 uint32_t Program::getID()
 {
-    return 0;
+    return _id;
 }
 
 void Program::link()
