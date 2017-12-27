@@ -111,6 +111,8 @@ static void testVertexBuffer()
     };
     VertexBuffer* buffer = new VertexBuffer();
     buffer->init(device, vertexFmt, Usage::STATIC, vertex, sizeof(vertex), 3);
+
+    buffer->release();
 }
 #endif
 
