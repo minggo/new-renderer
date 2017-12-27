@@ -27,6 +27,7 @@
 #include <stdint.h>
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include "base/ccTypes.h"
 #include "math/Vec2.h"
 #include "math/Vec3.h"
@@ -88,18 +89,15 @@ public:
     void setUniform(const std::string& name, int i1, int i2);
     void setUniform(const std::string& name, int i1, int i2, int i3);
     void setUniform(const std::string& name, int i1, int i2, int i3, int i4);
-    void setUnifrom(const std::string& name, int count, int* value);
+    void setUniformiv(const std::string& name, size_t count, const int* value);
     void setUniform(const std::string& name, float f1);
-    
     void setUniform(const std::string& name, float f1, float f2);
     void setUniform(const std::string& name, float f1, float f2, float f3);
     void setUniform(const std::string& name, float f1, float f2, float f3, float f4);
-    void setUniform(const std::string& name, int count, float* value);
+    void setUniformfv(const std::string& name, size_t count, const float* value);
     void setUniform(const std::string& name, const cocos2d::Vec2& value);
     void setUniform(const std::string& name, const cocos2d::Vec3& value);
     void setUniform(const std::string& name, const cocos2d::Vec4& value);
-
-    
     void setUniformMat2(const std::string& name, float* value);
     void setUniformMat3(const std::string& name, float* value);
     void setUniformMat4(const std::string& name, float* value);
@@ -122,36 +120,44 @@ private:
         int maxColorAttatchments;
     };
     
-    enum class UniformType
-    {
-        INT,
-        INT_VEC2,
-        INT_VEC3,
-        INT_VEC4,
-        
-        FLOAT,
-        FLOAT_VEC2,
-        FLOAT_VEC3,
-        FLOAT_VEC4,
-        FLOAT_MAT2,
-        FLOAT_MAT3,
-        FLOAT_MAT4,
-        
-        MAT2,
-        MAT3,
-        MAT4,
-        
-        COUNT
-    };
-    
     struct Uniform
     {
-        Uniform(void* v, UniformType t);
+        enum class Type
+        {
+            UNKNOWN,
+            INT,
+            INT_VEC2,
+            INT_VEC3,
+            INT_VEC4,
+            INT_ARRAY,
+            
+            FLOAT,
+            FLOAT_VEC2,
+            FLOAT_VEC3,
+            FLOAT_VEC4,
+            FLOAT_MAT2,
+            FLOAT_MAT3,
+            FLOAT_MAT4,
+            FLOAT_ARRAY,
+            
+            MAT2,
+            MAT3,
+            MAT4,
+            
+            COUNT
+        };
+        
+        Uniform(const void* v, Type t, size_t bytes);
+        Uniform();
+        Uniform(Uniform&& h);
         ~Uniform();
+        Uniform& operator=(Uniform&& h);
+        
+        void setValue(const void* v, size_t bytes);
         
         bool dirty;
         void* value;
-        UniformType type;
+        Type type;
     };
     
     DeviceGraphics();
@@ -162,6 +168,7 @@ private:
     void initCaps();
     void restoreTexture(uint32_t index);
     void restoreIndexBuffer();
+    inline void setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes);
     
     int _vx;
     int _vy;
@@ -178,7 +185,7 @@ private:
     FrameBuffer *_frameBuffer;
     std::vector<int> _enabledAtrributes;
     std::vector<int> _newAttributes;
-    std::vector<Uniform*> _uniforms;
+    std::unordered_map<std::string, Uniform> _uniforms;
     
     State _nextState;
     State _currentState;
