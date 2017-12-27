@@ -156,15 +156,22 @@ State& State::operator=(const State& o)
         GFX_SAFE_RELEASE(vertexBuf);
     }
 
-    _vertexBuffers.resize(o._vertexBuffers.size());
-
-    for (size_t i = 0, len = o._vertexBuffers.size(); i < len; ++i)
+    if (o._vertexBuffers.empty())
     {
-        _vertexBuffers[i] = o._vertexBuffers[i];
-        _vertexBuffers[i]->retain();
+        _vertexBuffers.clear();
+    }
+    else
+    {
+        _vertexBuffers.resize(o._vertexBuffers.size());
+
+        for (size_t i = 0, len = o._vertexBuffers.size(); i < len; ++i)
+        {
+            _vertexBuffers[i] = o._vertexBuffers[i];
+            _vertexBuffers[i]->retain();
+        }
     }
 
-    o._indexBuffer->retain();
+    GFX_SAFE_RETAIN(o._indexBuffer);
     GFX_SAFE_RELEASE(_indexBuffer);
     _indexBuffer = o._indexBuffer;
 
@@ -173,14 +180,21 @@ State& State::operator=(const State& o)
         GFX_SAFE_RELEASE(texture);
     }
 
-    _textureUnits.resize(o._textureUnits.size());
-    for (size_t i = 0, len = o._textureUnits.size(); i < len; ++i)
+    if (o._textureUnits.empty())
     {
-        _textureUnits[i] = o._textureUnits[i];
-        _textureUnits[i]->retain();
+        _textureUnits.clear();
+    }
+    else
+    {
+        _textureUnits.resize(o._textureUnits.size());
+        for (size_t i = 0, len = o._textureUnits.size(); i < len; ++i)
+        {
+            _textureUnits[i] = o._textureUnits[i];
+            _textureUnits[i]->retain();
+        }
     }
 
-    o._program->retain();
+    GFX_SAFE_RETAIN(o._program);
     GFX_SAFE_RELEASE(_program);
     _program = o._program;
 
