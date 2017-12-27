@@ -24,11 +24,15 @@
 
 #include "CCTexture2D.h"
 #include "CCDeviceGraphics.h"
+#include "CCGFXUtils.h"
 
 namespace {
-    GLuint GL_UNPACK_FLIP_Y_WEBGL = 0x9240;
-    GLuint GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL = 0x9241;
-    GLuint GL_UNPACK_COLORSPACE_CONVERSION_WEBGL = 0x9243;
+
+    //TODO: OpenGL ES 2.0 < WebGL < OpenGL 3.0
+    // Refer to https://yq.aliyun.com/articles/62339
+//    const GLuint GL_UNPACK_FLIP_Y_WEBGL = 0x9240;
+//    const GLuint GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL = 0x9241;
+//    const GLuint GL_UNPACK_COLORSPACE_CONVERSION_WEBGL = 0x9243;
 }
 
 GFX_BEGIN
@@ -49,7 +53,7 @@ bool Texture2D::init(DeviceGraphics* device, const Options& options)
     if (ok)
     {
         _target = GL_TEXTURE_2D;
-        glGenTextures(1, &_glID);
+        GL_CHECK(glGenTextures(1, &_glID));
         update(options);
     }
     return ok;
@@ -89,8 +93,8 @@ void Texture2D::update(const Options& options)
         genMipmap = false;
     }
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _glID);
+    GL_CHECK(glActiveTexture(GL_TEXTURE0));
+    GL_CHECK(glBindTexture(GL_TEXTURE_2D, _glID));
     if (!options.images.empty()) {
         setMipmap(options.images, options.isFlipY, options.isPremultiplyAlpha);
     }
@@ -98,8 +102,8 @@ void Texture2D::update(const Options& options)
     setTexInfo();
 
     if (genMipmap) {
-        glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
-        glGenerateMipmap(GL_TEXTURE_2D);
+        GL_CHECK(glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST));
+        GL_CHECK(glGenerateMipmap(GL_TEXTURE_2D));
     }
     _device->restoreTexture(0);
 }
@@ -108,8 +112,8 @@ void Texture2D::updateSubImage(const SubImageOption& option)
 {
     const GLTextureFmt& glFmt = glTextureFmt(_format);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _glID);
+    GL_CHECK(glActiveTexture(GL_TEXTURE0));
+    GL_CHECK(glBindTexture(GL_TEXTURE_2D, _glID));
     setSubImage(glFmt, option);
     _device->restoreTexture(0);
 }
@@ -118,8 +122,8 @@ void Texture2D::updateImage(const ImageOption& option)
 {
     const GLTextureFmt& glFmt = glTextureFmt(_format);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, _glID);
+    GL_CHECK(glActiveTexture(GL_TEXTURE0));
+    GL_CHECK(glBindTexture(GL_TEXTURE_2D, _glID));
     setImage(glFmt, option);
     _device->restoreTexture(0);
 }
@@ -132,12 +136,39 @@ void Texture2D::setSubImage(const GLTextureFmt& glFmt, const SubImageOption& opt
     bool premultiplyAlpha = option.isPremultiplyAlpha;
     const auto& img = option.image;
 
-    glPixelStorei(GL_UNPACK_FLIP_Y_WEBGL, flipY);
-    glPixelStorei(GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL, premultiplyAlpha);
+    //TODO:    GL_CHECK(glPixelStorei(GL_UNPACK_FLIP_Y_WEBGL, flipY));
+//    GL_CHECK(glPixelStorei(GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL, premultiplyAlpha));
+
+    //Set the row align only when mipmapsNum == 1 and the data is uncompressed
+    if (!_hasMipmap && !_compressed && glFmt.bpp > 0)
+    {
+        unsigned int bytesPerRow = option.width * glFmt.bpp / 8;
+
+        if(bytesPerRow % 8 == 0)
+        {
+            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 8));
+        }
+        else if(bytesPerRow % 4 == 0)
+        {
+            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 4));
+        }
+        else if(bytesPerRow % 2 == 0)
+        {
+            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 2));
+        }
+        else
+        {
+            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+        }
+    }
+    else
+    {
+        GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+    }
 
     if (_compressed)
     {
-        glCompressedTexSubImage2D(GL_TEXTURE_2D,
+        GL_CHECK(glCompressedTexSubImage2D(GL_TEXTURE_2D,
                                    option.level,
                                    option.x,
                                    option.y,
@@ -146,11 +177,11 @@ void Texture2D::setSubImage(const GLTextureFmt& glFmt, const SubImageOption& opt
                                    glFmt.format,
                                    (GLsizei)img.getSize(),
                                    img.getBytes()
-                                   );
+                                   ));
     }
     else
     {
-        glTexSubImage2D( GL_TEXTURE_2D,
+        GL_CHECK(glTexSubImage2D( GL_TEXTURE_2D,
                          option.level,
                          option.x,
                          option.y,
@@ -159,7 +190,7 @@ void Texture2D::setSubImage(const GLTextureFmt& glFmt, const SubImageOption& opt
                          glFmt.format,
                          glFmt.pixelType,
                          img.getBytes()
-                         );
+                         ));
     }
 }
 
@@ -169,11 +200,38 @@ void Texture2D::setImage(const GLTextureFmt& glFmt, const ImageOption& option)
     bool premultiplyAlpha = option.isPremultiplyAlpha;
     const auto& img = option.image;
 
-    glPixelStorei(GL_UNPACK_FLIP_Y_WEBGL, flipY);
-    glPixelStorei(GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL, premultiplyAlpha);
+    //TODO:    GL_CHECK(glPixelStorei(GL_UNPACK_FLIP_Y_WEBGL, flipY));
+//    GL_CHECK(glPixelStorei(GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL, premultiplyAlpha));
+
+    //Set the row align only when mipmapsNum == 1 and the data is uncompressed
+    if (!_hasMipmap && !_compressed && glFmt.bpp > 0)
+    {
+        unsigned int bytesPerRow = option.width * glFmt.bpp / 8;
+
+        if(bytesPerRow % 8 == 0)
+        {
+            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 8));
+        }
+        else if(bytesPerRow % 4 == 0)
+        {
+            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 4));
+        }
+        else if(bytesPerRow % 2 == 0)
+        {
+            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 2));
+        }
+        else
+        {
+            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+        }
+    }
+    else
+    {
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    }
 
     if (_compressed) {
-        glCompressedTexImage2D(
+        GL_CHECK(glCompressedTexImage2D(
                                 GL_TEXTURE_2D,
                                 option.level,
                                 glFmt.internalFormat,
@@ -182,9 +240,9 @@ void Texture2D::setImage(const GLTextureFmt& glFmt, const ImageOption& option)
                                 0,
                                 (GLsizei)img.getSize(),
                                 img.getBytes()
-                                );
+                                ));
     } else {
-        glTexImage2D( GL_TEXTURE_2D,
+        GL_CHECK(glTexImage2D( GL_TEXTURE_2D,
                       option.level,
                       glFmt.internalFormat,
                       option.width,
@@ -193,7 +251,7 @@ void Texture2D::setImage(const GLTextureFmt& glFmt, const ImageOption& option)
                       glFmt.format,
                       glFmt.pixelType,
                       img.getBytes()
-                      );
+                      ));
     }
 }
 
@@ -236,14 +294,14 @@ void Texture2D::setTexInfo()
         mipFilter = TextureFilter::NONE;
     }
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glFilter(_minFilter, mipFilter));
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glFilter(_magFilter, TextureFilter::NONE));
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLint)_wrapS);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLint)_wrapT);
+    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glFilter(_minFilter, mipFilter)));
+    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glFilter(_magFilter, TextureFilter::NONE)));
+    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLint)_wrapS));
+    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLint)_wrapT));
 
     //TODO:    let ext = this._device.ext('EXT_texture_filter_anisotropic');
 //    if (ext) {
-//        glTexParameteri(GL_TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT, this._anisotropy);
+//        GL_CHECK(glTexParameteri(GL_TEXTURE_2D, ext.TEXTURE_MAX_ANISOTROPY_EXT, this._anisotropy));
 //    }
 }
 

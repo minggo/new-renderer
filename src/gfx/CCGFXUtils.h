@@ -22,19 +22,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCGraphicsHandle.h"
+#pragma once
 
-GFX_BEGIN
+#include "CCGL.h"
 
-GraphicsHandle::GraphicsHandle()
-: _glID(0)
-{
+const char* glEnumName(GLenum _enum);
 
-}
-
-GraphicsHandle::~GraphicsHandle()
-{
-
-}
-
-GFX_END

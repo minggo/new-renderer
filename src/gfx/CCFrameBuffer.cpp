@@ -38,7 +38,7 @@ FrameBuffer::FrameBuffer()
 
 FrameBuffer::~FrameBuffer()
 {
-    if (_glID == INVALID_UINT32)
+    if (_glID == 0)
     {
         GFX_LOGE("The frame-buffer is invalid!");
         return;

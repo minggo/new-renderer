@@ -42,10 +42,19 @@
 
 #define CC_UINT    unsigned int
 
-#define GFX_LOGD printf
-#define GFX_LOGI printf
-#define GFX_LOGW printf
-#define GFX_LOGE printf
+#define GFX_LOG_TAG "gfx"
+#define GFX_QUOTEME_(x) #x
+#define GFX_QUOTEME(x) GFX_QUOTEME_(x)
+
+#if defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
+#define GFX_LOGV(fmt, ...) printf("V/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#else
+#define GFX_LOGV(fmt, ...) do {} while(false)
+#endif
+#define GFX_LOGD(fmt, ...) printf("D/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define GFX_LOGI(fmt, ...) printf("I/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define GFX_LOGW(fmt, ...) printf("W/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define GFX_LOGE(fmt, ...) printf("E/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 
 #define GFX_DEBUG 1 // TODO: remove this
 
@@ -146,3 +155,20 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
 // enum class to GLENUM
 #define ENUM_CLASS_TO_GLENUM(value)  static_cast<GLenum>(value)
 
+#define GFX_MACRO_BLOCK_BEGIN for(;;) {
+#define GFX_MACRO_BLOCK_END break; }
+
+#define _GL_CHECK(_call) \
+                GFX_MACRO_BLOCK_BEGIN \
+                    _call; \
+                    GLenum gl_err = glGetError(); \
+                    if (0 != gl_err) \
+                        GFX_LOGE(#_call "; GL error 0x%x: %s", gl_err, glEnumName(gl_err)); \
+                GFX_MACRO_BLOCK_END
+
+
+#if COCOS2D_DEBUG > 0
+#   define GL_CHECK(_call)   _GL_CHECK(_call)
+#else
+#   define GL_CHECK(_call)   _call
+#endif // BGFX_CONFIG_DEBUG

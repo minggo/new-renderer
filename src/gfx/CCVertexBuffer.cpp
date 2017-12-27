@@ -37,7 +37,7 @@ VertexBuffer::VertexBuffer()
 
 VertexBuffer::~VertexBuffer()
 {
-    if (_glID == INVALID_UINT32)
+    if (_glID == 0)
     {
         GFX_LOGE("The vertex buffer is invalid!");
         return;
@@ -66,7 +66,7 @@ bool VertexBuffer::init(DeviceGraphics* device, const VertexFormat& format, Usag
 
 void VertexBuffer::update(uint32_t offset, void* data, size_t dataByteLength)
 {
-    if (_glID == INVALID_UINT32)
+    if (_glID == 0)
     {
         GFX_LOGE("The buffer is destroyed");
         return;
@@ -111,6 +111,8 @@ static void testVertexBuffer()
     };
     VertexBuffer* buffer = new VertexBuffer();
     buffer->init(device, vertexFmt, Usage::STATIC, vertex, sizeof(vertex), 3);
+
+    buffer->release();
 }
 #endif
 

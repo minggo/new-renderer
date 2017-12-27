@@ -22,19 +22,4 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCGraphicsHandle.h"
-
-GFX_BEGIN
-
-GraphicsHandle::GraphicsHandle()
-: _glID(0)
-{
-
-}
-
-GraphicsHandle::~GraphicsHandle()
-{
-
-}
-
-GFX_END
+#include "CCGFX.h"

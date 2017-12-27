@@ -156,6 +156,7 @@ protected:
         GLenum format;
         GLenum internalFormat;
         GLenum pixelType;
+        uint8_t bpp;
     };
     
     static GLenum glFilter(TextureFilter filter, TextureFilter mipFilter = TextureFilter::NONE);
