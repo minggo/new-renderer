@@ -124,11 +124,6 @@ bool Program::init(DeviceGraphics* device, const char* vertSource, const char* f
     return true;
 }
 
-uint32_t Program::getID()
-{
-    return _id;
-}
-
 void Program::link()
 {
     if (_linked) {
