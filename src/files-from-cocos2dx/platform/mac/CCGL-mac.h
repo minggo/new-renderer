@@ -29,19 +29,19 @@ THE SOFTWARE.
 #include "platform/CCPlatformConfig.h"
 #if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
 
-#import <OpenGL/gl.h>
+#import <OpenGL/gl3.h>
 #import <OpenGL/glu.h>
-#import <OpenGL/glext.h>
+#import <OpenGL/gl3ext.h>
 
-#define CC_GL_DEPTH24_STENCIL8      -1
-
-
-#define glDeleteVertexArrays            glDeleteVertexArraysAPPLE
-#define glGenVertexArrays               glGenVertexArraysAPPLE
-#define glBindVertexArray               glBindVertexArrayAPPLE
-#define glClearDepthf                   glClearDepth
-#define glDepthRangef                   glDepthRange
-#define glReleaseShaderCompiler(xxx)
+//cjh #define CC_GL_DEPTH24_STENCIL8      -1
+//
+//
+//#define glDeleteVertexArrays            glDeleteVertexArraysAPPLE
+//#define glGenVertexArrays               glGenVertexArraysAPPLE
+//#define glBindVertexArray               glBindVertexArrayAPPLE
+//#define glClearDepthf                   glClearDepth
+//#define glDepthRangef                   glDepthRange
+//#define glReleaseShaderCompiler(xxx)
 
 
 #endif // __PLATFORM_MAC_CCGL_H__

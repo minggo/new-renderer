@@ -26,7 +26,6 @@
 
 #include "../macro.h"
 #include "../types.h"
-#include "../platform.h"
 #include "CCVertexFormat.h"
 #include "CCGraphicsHandle.h"
 
