@@ -103,10 +103,9 @@ public:
     void setUniformMat4(const std::string& name, float* value);
     void setUniformMat(const std::string& name, const cocos2d::Mat4& value);
     
-    
     void setPrimitiveType(PrimitiveType type);
     
-    void draw(int base, GLsizei count);
+    void draw(size_t base, GLsizei count);
     
 private:
     

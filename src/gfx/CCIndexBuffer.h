@@ -43,6 +43,8 @@ public:
 
     void update(uint32_t offset, void* data, size_t dataByteLength);
     uint32_t getCount() const { return _numIndices; }
+    inline IndexFormat getFormat() const { return _format; }
+    inline uint32_t getBytesPerIndex() const { return _bytesPerIndex; }
 
 private:
     DeviceGraphics* _device;

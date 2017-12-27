@@ -310,7 +310,7 @@ void DeviceGraphics::setPrimitiveType(PrimitiveType type)
     _nextState.primitiveType = type;
 }
 
-void DeviceGraphics::draw(int base, GLsizei count)
+void DeviceGraphics::draw(size_t base, GLsizei count)
 {
     commitBlendStates();
     commitDepthStates();
@@ -338,7 +338,7 @@ void DeviceGraphics::draw(int base, GLsizei count)
     commitTextures();
     
     //commit uniforms
-    auto uniformsInfo = _nextState.getProgram()->getUniforms();
+    const auto& uniformsInfo = _nextState.getProgram()->getUniforms();
     auto uniformsLen = uniformsInfo.size();
     for (int i = 0; i < uniformsLen; ++i)
     {
@@ -358,9 +358,13 @@ void DeviceGraphics::draw(int base, GLsizei count)
     // draw primitives
     if (nextIndexBuffer)
     {
+        glDrawElements(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType),
+                       count,
+                       ENUM_CLASS_TO_GLENUM(nextIndexBuffer->getFormat()),
+                       (GLvoid *)(base * nextIndexBuffer->getBytesPerIndex()));
     }
     else
-        glDrawArrays(static_cast<GLenum>(_nextState.primitiveType), base, count);
+        glDrawArrays(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType), (GLint)base, count);
 }
 
 void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes)
@@ -492,7 +496,7 @@ DeviceGraphics::DeviceGraphics()
     initStates();
     
     _newAttributes.reserve(_caps.maxVertexAttributes);
-    _newAttributes.reserve(_caps.maxVertexAttributes);
+    _enabledAtrributes.reserve(_caps.maxVertexAttributes);
 }
 
 DeviceGraphics::~DeviceGraphics()
@@ -1031,15 +1035,6 @@ void DeviceGraphics::setUniformToGL(GLint location, const Uniform& uniform) cons
 //
 // Uniform
 //
-namespace
-{
-    void initializeUniform(const void* src, void* dst, size_t bytes)
-    {
-        dst = malloc(bytes);
-        memcpy(dst, src, bytes);
-    }
-}
-
 DeviceGraphics::Uniform::Uniform()
 : dirty(true)
 , value(nullptr)
@@ -1091,8 +1086,9 @@ void DeviceGraphics::Uniform::setValue(const void* v, size_t bytes)
 {
     if (value)
         free(value);
-    
-    initializeUniform(v, value, bytes);
+
+    value = malloc(bytes);
+    memcpy(value, v, bytes);
 }
 
 GFX_END
