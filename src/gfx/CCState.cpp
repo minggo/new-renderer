@@ -280,6 +280,8 @@ void State::setVertexBuffer(size_t index, VertexBuffer* vertBuf)
 
 VertexBuffer* State::getVertexBuffer(size_t index) const
 {
+    if (_vertexBuffers.empty())
+        return nullptr;
     assert(index < _vertexBuffers.size());
     return _vertexBuffers[index];
 }
@@ -335,6 +337,8 @@ void State::setTexture(size_t index, Texture* texture)
 
 Texture* State::getTexture(size_t index) const
 {
+    if (_textureUnits.empty())
+        return nullptr;
     assert(index < _textureUnits.size());
     return _textureUnits[index];
 }

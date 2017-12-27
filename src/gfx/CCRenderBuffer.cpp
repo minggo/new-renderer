@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "CCRenderBuffer.h"
+#include "CCGFXUtils.h"
 
 GFX_BEGIN
 
@@ -43,8 +44,8 @@ RenderBuffer::~RenderBuffer()
         return;
     }
 
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
-    glDeleteRenderbuffers(1, &_glID);
+    GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, 0));
+    GL_CHECK(glDeleteRenderbuffers(1, &_glID));
 }
 
 bool RenderBuffer::init(DeviceGraphics* device, Format format, uint16_t width, uint16_t height)
@@ -53,10 +54,10 @@ bool RenderBuffer::init(DeviceGraphics* device, Format format, uint16_t width, u
     _format = format;
     _width = width;
     _height = height;
-    glGenRenderbuffers(1, &_glID);
-    glBindRenderbuffer(GL_RENDERBUFFER, _glID);
-    glRenderbufferStorage(GL_RENDERBUFFER, (GLenum)format, width, height);
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    GL_CHECK(glGenRenderbuffers(1, &_glID));
+    GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, _glID));
+    GL_CHECK(glRenderbufferStorage(GL_RENDERBUFFER, (GLenum)format, width, height));
+    GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, 0));
     return true;
 }
 
