@@ -63,7 +63,7 @@ GLuint RenderTarget::getHandle() const
     if (_rb != nullptr)
         return _rb->getHandle();
 
-    return INVALID_UINT32;
+    return 0;
 }
 
 GFX_END
