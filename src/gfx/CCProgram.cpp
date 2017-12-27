@@ -147,6 +147,8 @@ void Program::link()
         GFX_LOGE("ERROR: Failed to link program: %u", program);
         std::string programLog = logForOpenGLProgram(program);
         GFX_LOGE("%s", programLog.c_str());
+        glDeleteShader(vertShader);
+        glDeleteShader(fragShader);
         glDeleteProgram(program);
         return;
     }
@@ -185,16 +187,16 @@ void Program::link()
     // Query and store uniforms from the program.
     GLint activeUniforms;
     glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &activeUniforms);
-    if(activeUniforms > 0)
+    if (activeUniforms > 0)
     {
         GLint length;
         glGetProgramiv(program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &length);
-        if(length > 0)
+        if (length > 0)
         {
             GLchar* uniformName = (GLchar*)alloca(length + 1);
 
             Uniform uniform;
-            for(int i = 0; i < activeUniforms; ++i)
+            for (int i = 0; i < activeUniforms; ++i)
             {
                 // Query uniform info.
                 glGetActiveUniform(program, i, length, nullptr, &uniform.size, &uniform.type, uniformName);
@@ -229,22 +231,6 @@ void Program::link()
                 _uniforms.push_back(std::move(uniform));
             }
         }
-//    let numUniforms = glGetProgramParameter(program, gl.ACTIVE_UNIFORMS);
-//    for (let i = 0; i < numUniforms; ++i) {
-//        let info = gl.getActiveUniform(program, i);
-//        let name = info.name;
-//        let location = gl.getUniformLocation(program, name);
-//        let isArray = name.substr(name.length - 3) === '[0]';
-//        if (isArray) {
-//            name = name.substr(0, name.length - 3);
-//        }
-//
-//        _uniforms.push({
-//        name: name,
-//        location: location,
-//        type: info.type,
-//        size: isArray ? info.size : undefined, // used when uniform is an array
-//        });
     }
 
     _linked = true;
