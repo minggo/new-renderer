@@ -37,16 +37,14 @@ RenderBuffer::RenderBuffer()
 
 RenderBuffer::~RenderBuffer()
 {
-    if (_glID == 0)
+    if (_glID == INVALID_UINT32)
     {
-        GFX_LOGE("The render-buffer already destroyed");
+        GFX_LOGE("The render-buffer (%p) is invalid!", this);
         return;
     }
 
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
     glDeleteRenderbuffers(1, &_glID);
-
-    _glID = 0;
 }
 
 bool RenderBuffer::init(DeviceGraphics* device, Format format, uint16_t width, uint16_t height)

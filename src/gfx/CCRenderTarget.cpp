@@ -24,6 +24,7 @@
 
 #include "CCRenderTarget.h"
 #include "CCRenderBuffer.h"
+#include "CCTexture2D.h"
 
 GFX_BEGIN
 
@@ -36,31 +37,33 @@ RenderTarget::RenderTarget()
 
 RenderTarget::~RenderTarget()
 {
-    //TODO:    GFX_SAFE_RELEASE(_tex);
+    GFX_SAFE_RELEASE(_tex);
     GFX_SAFE_RELEASE(_rb);
 }
 
 bool RenderTarget::initWithTexture(Texture2D* tex)
 {
     _tex = tex;
+    GFX_SAFE_RETAIN(_tex);
     return true;
 }
 
 bool RenderTarget::initWithRenderBuffer(RenderBuffer* rb)
 {
     _rb = rb;
+    GFX_SAFE_RETAIN(_rb);
     return true;
 }
 
 GLuint RenderTarget::getHandle() const
 {
-    //TODO: Texture2D
-    if (_rb != nullptr)
-    {
-        return _rb->getHandle();
-    }
+    if (_tex != nullptr)
+        return _tex->getHandle();
 
-    return 0;
+    if (_rb != nullptr)
+        return _rb->getHandle();
+
+    return INVALID_UINT32;
 }
 
 GFX_END
