@@ -167,7 +167,7 @@ State& State::operator=(const State& o)
         for (size_t i = 0, len = o._vertexBuffers.size(); i < len; ++i)
         {
             _vertexBuffers[i] = o._vertexBuffers[i];
-            _vertexBuffers[i]->retain();
+            GFX_SAFE_RETAIN(_vertexBuffers[i]);
         }
     }
 
@@ -190,7 +190,7 @@ State& State::operator=(const State& o)
         for (size_t i = 0, len = o._textureUnits.size(); i < len; ++i)
         {
             _textureUnits[i] = o._textureUnits[i];
-            _textureUnits[i]->retain();
+            GFX_SAFE_RETAIN(_textureUnits[i]);
         }
     }
 
