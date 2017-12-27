@@ -116,13 +116,18 @@ void DeviceGraphics::setScissor(int x, int y, int w, int h)
     }
 }
 
-void DeviceGraphics::clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8_t stencil)
+void DeviceGraphics::clear(uint8_t flags, Color4F *color, uint8_t depth, uint8_t stencil)
 {
+    GLbitfield mask = 0;
     if (flags & ClearFlag::COLOR)
+    {
+        mask |= GL_COLOR_BUFFER_BIT;
         glClearColor(color->r, color->g, color->b, color->a);
+    }
     
     if (flags & ClearFlag::DEPTH)
     {
+        mask |= GL_DEPTH_BUFFER_BIT;
         glClearDepth(depth);
         
         glEnable(GL_DEPTH_TEST);
@@ -131,9 +136,12 @@ void DeviceGraphics::clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8
     }
     
     if (flags & ClearFlag::STENCIL)
+    {
+        mask |= GL_STENCIL_BUFFER_BIT;
         glClearStencil(stencil);
+    }
     
-    glClear(flags);
+    glClear(mask);
     
     // Restore depth related state.
     if (flags & ClearFlag::DEPTH)
@@ -273,6 +281,10 @@ void DeviceGraphics::setVertexBuffer(int stream, VertexBuffer* buffer, int start
 {
     _nextState.setVertexBuffer(stream, buffer);
     _nextState.setVertexBufferOffset(stream, start);
+
+    if (_nextState.maxStream < stream) {
+        _nextState.maxStream = stream;
+    }
 }
 
 void DeviceGraphics::setIndexBuffer(IndexBuffer *buffer)

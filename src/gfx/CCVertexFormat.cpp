@@ -54,14 +54,12 @@ VertexFormat::VertexFormat()
 
 VertexFormat::VertexFormat(const std::vector<Info>& infos)
 {
+    _bytes = 0;
 #if GFX_DEBUG > 0
     std::vector<Element> _elements;
     std::vector<Element>& elements = _elements;
-    _bytes = 0;
-    uint32_t& bytes = _bytes;
 #else
     std::vector<Element> elements;
-    uint32_t bytes = 0;
 #endif
 
     uint32_t offset = 0;
@@ -81,14 +79,14 @@ VertexFormat::VertexFormat(const std::vector<Info>& infos)
         _attr2el[el.name] = el;
         elements.push_back(el);
 
-        bytes += el.bytes;
+        _bytes += el.bytes;
         offset += el.bytes;
     }
 
     for (size_t i = 0, len = elements.size(); i < len; ++i)
     {
         auto& el = elements[i];
-        el.stride = bytes;
+        el.stride = _bytes;
     }
 }
 
