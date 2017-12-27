@@ -30,7 +30,7 @@
 #include <assert.h>
 
 #include "macro.h"
-#include "platform.h"
+#include "platform/CCGL.h"
 
 GFX_BEGIN
 
@@ -220,5 +220,7 @@ enum class TextureFormat : uint8_t
     END = 27
 //
 };
+
+extern const uint32_t INVALID_UINT32;
 
 GFX_END

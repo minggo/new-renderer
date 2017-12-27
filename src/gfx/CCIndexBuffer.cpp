@@ -38,7 +38,7 @@ IndexBuffer::IndexBuffer()
 
 IndexBuffer::~IndexBuffer()
 {
-    if (_glID == INVALID)
+    if (_glID == INVALID_UINT32)
     {
         GFX_LOGE("The index buffer is invalid!");
         return;
@@ -84,12 +84,14 @@ bool IndexBuffer::init(DeviceGraphics* device, IndexFormat format, Usage usage, 
 
 void IndexBuffer::update(uint32_t offset, void* data, size_t dataByteLength)
 {
-    if (_glID == INVALID) {
+    if (_glID == INVALID_UINT32)
+    {
         GFX_LOGE("The buffer is destroyed");
         return;
     }
 
-    if (data && dataByteLength + offset > _bytes) {
+    if (data && dataByteLength + offset > _bytes)
+    {
         GFX_LOGE("Failed to update data, bytes exceed.");
         return;
     }

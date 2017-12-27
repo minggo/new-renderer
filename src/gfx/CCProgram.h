@@ -21,12 +21,53 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+
 #pragma once
 
-#define CC_PLATFORM_MAC 1
+#include "../macro.h"
+#include "../types.h"
 
-#if CC_PLATFORM_MAC
-#include <OpenGL/gl.h>
-#include <OpenGL/gl3.h>
-#include <OpenGL/glext.h>
-#endif
+#include "CCGraphicsHandle.h"
+
+#include <string>
+#include <vector>
+
+GFX_BEGIN
+
+class DeviceGraphics;
+
+class Program final: public GraphicsHandle
+{
+public:
+    struct ActiveInfo
+    {
+        std::string name;
+        GLsizei size;
+        GLuint location;
+        GLenum type;
+    };
+
+    using Attribute = ActiveInfo;
+    using Uniform = ActiveInfo;
+
+    GFX_DEFINE_CREATE_METHOD_3(Program, init, DeviceGraphics*, const char*, const char*)
+    Program();
+    virtual ~Program();
+
+    bool init(DeviceGraphics* device, const char* vertSource, const char* fragSource);
+    uint32_t getID();
+    void link();
+private:
+
+    GLuint compileShader(GLenum type, const std::string& src);
+
+    DeviceGraphics* _device;
+    std::vector<Attribute> _attributes;
+    std::vector<Uniform> _uniforms;
+    std::string _vertSource;
+    std::string _fragSource;
+    uint32_t _id;
+    bool _linked;
+};
+
+GFX_END

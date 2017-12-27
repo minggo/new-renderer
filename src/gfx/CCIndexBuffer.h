@@ -25,7 +25,6 @@
 
 #include "../macro.h"
 #include "../types.h"
-#include "../platform.h"
 #include "CCGraphicsHandle.h"
 
 GFX_BEGIN

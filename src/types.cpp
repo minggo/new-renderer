@@ -1,6 +1,6 @@
 #include "types.h"
 
-CC_BEGIN
+GFX_BEGIN
 
 const char* ATTRIB_NAME_POSITION = "a_position";
 const char* ATTRIB_NAME_NORMAL = "a_normal";
@@ -21,4 +21,6 @@ const char* ATTRIB_NAME_UV5 = "a_uv5";
 const char* ATTRIB_NAME_UV6 = "a_uv6";
 const char* ATTRIB_NAME_UV7 = "a_uv7";
 
-CC_END
+const uint32_t INVALID_UINT32 = 0xFFFFFFFF;
+
+GFX_END
