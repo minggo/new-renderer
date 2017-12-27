@@ -55,12 +55,11 @@ public:
     virtual ~Program();
 
     bool init(DeviceGraphics* device, const char* vertSource, const char* fragSource);
-    uint32_t getID();
+    inline uint32_t getID() const { return _id; }
+    inline const std::vector<Attribute>& getAttributes() const { return _attributes; }
+    inline const std::vector<Uniform>& getUniforms() const { return _uniforms; }
     void link();
 private:
-
-    GLuint compileShader(GLenum type, const std::string& src);
-
     DeviceGraphics* _device;
     std::vector<Attribute> _attributes;
     std::vector<Uniform> _uniforms;
