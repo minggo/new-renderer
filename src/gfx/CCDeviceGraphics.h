@@ -49,6 +49,8 @@ class Texture;
 class DeviceGraphics final
 {
 public:
+    static DeviceGraphics* getInstance();
+
     void setFrameBuffer(const FrameBuffer* fb);
     void setViewport(int x, int y, int w, int h);
     void setScissor(int x, int y, int w, int h);

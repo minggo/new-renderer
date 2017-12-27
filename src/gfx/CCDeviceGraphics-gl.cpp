@@ -30,11 +30,11 @@
 #include "CCTexture2D.h"
 #include "CCRenderTarget.h"
 #include "CCProgram.h"
+#include "CCGFXUtils.h"
 
 GFX_BEGIN
 
-namespace
-{
+namespace {
     template <typename T>
     void attach(GLenum location, const T* renderTarget)
     {
@@ -45,6 +45,15 @@ namespace
     {
         glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, texture->getHandle(), 0);
     }
+} // namespace {
+
+DeviceGraphics* DeviceGraphics::getInstance()
+{
+    static DeviceGraphics* __instance = nullptr;
+    if (__instance == nullptr)
+        __instance = new (std::nothrow) DeviceGraphics();
+
+    return __instance;
 }
 
 void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
@@ -502,43 +511,46 @@ DeviceGraphics::~DeviceGraphics()
 
 void DeviceGraphics::initCaps()
 {
-    glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &_caps.maxVextexTextures);
-    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &_caps.maxVertexAttributes);
-    glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &_caps.maxFragUniforms);
-    glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUints);
+    GL_CHECK(glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &_caps.maxVextexTextures));
+    GL_CHECK(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &_caps.maxVertexAttributes));
+
+    //TODO: GL_MAX_FRAGMENT_UNIFORM_VECTORS is only avaiable >= OpenGL 4, it will cause 0x500 error.
+    // Uses GL_MAX_FRAGMENT_UNIFORM_COMPONENTS instead.
+    GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS, &_caps.maxFragUniforms));
+    GL_CHECK(glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUints));
     
-    glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers);
-    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments);
+    GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
+    GL_CHECK(glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments));
 }
 
 void DeviceGraphics::initStates()
 {
-    glDisable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ZERO);
-    glBlendEquation(GL_FUNC_ADD);
-    glBlendColor(1, 1, 1, 1);
+    GL_CHECK(glDisable(GL_BLEND));
+    GL_CHECK(glBlendFunc(GL_ONE, GL_ZERO));
+    GL_CHECK(glBlendEquation(GL_FUNC_ADD));
+    GL_CHECK(glBlendColor(1, 1, 1, 1));
     
-    glColorMask(true, true, true, true);
+    GL_CHECK(glColorMask(true, true, true, true));
     
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+    GL_CHECK(glEnable(GL_CULL_FACE));
+    GL_CHECK(glCullFace(GL_BACK));
     
-    glDisable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    glDepthMask(false);
-    glDisable(GL_POLYGON_OFFSET_FILL);
-    glDepthRange(0, 1);
+    GL_CHECK(glDisable(GL_DEPTH_TEST));
+    GL_CHECK(glDepthFunc(GL_LESS));
+    GL_CHECK(glDepthMask(false));
+    GL_CHECK(glDisable(GL_POLYGON_OFFSET_FILL));
+    GL_CHECK(glDepthRange(0, 1));
     
-    glDisable(GL_STENCIL_TEST);
-    glStencilFunc(GL_ALWAYS, 0, 0xff);
-    glStencilMask(0xff);
-    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+    GL_CHECK(glDisable(GL_STENCIL_TEST));
+    GL_CHECK(glStencilFunc(GL_ALWAYS, 0, 0xff));
+    GL_CHECK(glStencilMask(0xff));
+    GL_CHECK(glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP));
     
-    glClearDepth(1);
-    glClearColor(0, 0, 0, 0);
-    glClearStencil(0);
+    GL_CHECK(glClearDepth(1));
+    GL_CHECK(glClearColor(0, 0, 0, 0));
+    GL_CHECK(glClearStencil(0));
     
-    glDisable(GL_SCISSOR_TEST);
+    GL_CHECK(glDisable(GL_SCISSOR_TEST));
 }
 
 void DeviceGraphics::restoreTexture(uint32_t index)
