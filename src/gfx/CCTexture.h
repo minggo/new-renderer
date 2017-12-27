@@ -38,7 +38,8 @@ class DeviceGraphics;
 
 class Texture : public GraphicsHandle
 {
-protected:
+public:
+    inline GLuint getTarget() const { return _target; }
     struct Options
     {
         Options()
@@ -148,29 +149,27 @@ protected:
         bool isFlipY;
         bool isPremultiplyAlpha;
     };
-
-    Texture();
-    virtual ~Texture();
-
-    bool init(DeviceGraphics* device);
-    inline GLuint getTarget() const { return _target; }
-
+    
 protected:
-
-    static GLenum glFilter(TextureFilter filter, TextureFilter mipFilter = TextureFilter::NONE);
-
     struct GLTextureFmt
     {
         GLenum format;
         GLenum internalFormat;
         GLenum pixelType;
     };
+    
+    static GLenum glFilter(TextureFilter filter, TextureFilter mipFilter = TextureFilter::NONE);
     static const GLTextureFmt& glTextureFmt(TextureFormat fmt);
-
+    
     static bool isPow2(int32_t v) {
         return !(v & (v - 1)) && (!!v);
     }
 
+    Texture();
+    virtual ~Texture();
+
+    bool init(DeviceGraphics* device);
+    
     static GLTextureFmt _textureFmt[];
 
     DeviceGraphics* _device;

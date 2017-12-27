@@ -58,6 +58,7 @@ public:
     inline uint32_t getID() const { return _id; }
     inline const std::vector<Attribute>& getAttributes() const { return _attributes; }
     inline const std::vector<Uniform>& getUniforms() const { return _uniforms; }
+    inline bool isLinked() const { return _linked; }
     void link();
 private:
     DeviceGraphics* _device;

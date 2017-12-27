@@ -142,3 +142,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     delete ret; \
     return nullptr; \
 }
+
+// enum class to GLENUM
+#define ENUM_CLASS_TO_GLENUM(value)  static_cast<GLenum>(value)
+

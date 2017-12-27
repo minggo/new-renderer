@@ -44,6 +44,7 @@ public:
     bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
     void update(uint32_t offset, void* data, size_t dataByteLength);
     inline uint32_t getCount() const { return _numVertices; }
+    inline const VertexFormat& getFormat() { return _format; };
 
 private:
     DeviceGraphics* _device;

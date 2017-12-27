@@ -104,6 +104,8 @@ struct State final
 
     void setProgram(Program* program);
     Program* getProgram() const;
+    
+    const std::vector<Texture*>& getTextureUnits() const { return _textureUnits; }
 
 private:
     std::vector<VertexBuffer*> _vertexBuffers;
