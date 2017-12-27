@@ -138,7 +138,7 @@ Texture::GLTextureFmt Texture::_textureFmt[] = {
 Texture::Texture()
 : _device(nullptr)
 , _anisotropy(1)
-, _target(INVALID_UINT32)
+, _target(0)
 , _wrapS(TextureWrapMode::REPEAT)
 , _wrapT(TextureWrapMode::REPEAT)
 , _width(4)
@@ -155,7 +155,7 @@ Texture::Texture()
 
 Texture::~Texture()
 {
-    if (_glID == INVALID_UINT32)
+    if (_glID == 0)
     {
         GFX_LOGE("Invalid texture: %p", this);
         return;

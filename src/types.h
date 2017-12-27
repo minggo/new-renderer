@@ -221,6 +221,4 @@ enum class TextureFormat : uint8_t
 //
 };
 
-extern const uint32_t INVALID_UINT32;
-
 GFX_END

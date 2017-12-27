@@ -21,6 +21,4 @@ const char* ATTRIB_NAME_UV5 = "a_uv5";
 const char* ATTRIB_NAME_UV6 = "a_uv6";
 const char* ATTRIB_NAME_UV7 = "a_uv7";
 
-const uint32_t INVALID_UINT32 = 0xFFFFFFFF;
-
 GFX_END

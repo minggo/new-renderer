@@ -27,7 +27,7 @@
 GFX_BEGIN
 
 GraphicsHandle::GraphicsHandle()
-: _glID(INVALID_UINT32)
+: _glID(0)
 {
 
 }
