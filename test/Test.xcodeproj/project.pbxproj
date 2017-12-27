@@ -45,6 +45,7 @@
 		1A69F1071FF22B0200B224DF /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A69F0FD1FF22B0200B224DF /* libjpeg.a */; };
 		1A69F10A1FF24ED200B224DF /* CCProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F1081FF24ED200B224DF /* CCProgram.cpp */; };
 		1A69F10D1FF32D9300B224DF /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F10C1FF32D9300B224DF /* types.cpp */; };
+		1A69F1111FF36A4600B224DF /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 1A69F1101FF36A4600B224DF /* assets */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		466C45061FF2378E00AA277B /* Quaternion.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44E81FF2378E00AA277B /* Quaternion.inl */; };
 		466C45071FF2378E00AA277B /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 466C44E91FF2378E00AA277B /* CMakeLists.txt */; };
@@ -162,6 +163,9 @@
 		1A69F1081FF24ED200B224DF /* CCProgram.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCProgram.cpp; sourceTree = "<group>"; };
 		1A69F1091FF24ED200B224DF /* CCProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCProgram.h; sourceTree = "<group>"; };
 		1A69F10C1FF32D9300B224DF /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = types.cpp; sourceTree = "<group>"; };
+		1A69F10E1FF3685100B224DF /* CCGFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCGFX.h; sourceTree = "<group>"; };
+		1A69F10F1FF369D200B224DF /* cocos2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocos2d.h; sourceTree = "<group>"; };
+		1A69F1101FF36A4600B224DF /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = SOURCE_ROOT; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		466C44E61FF2378E00AA277B /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
@@ -426,6 +430,7 @@
 		466C44DB1FF0A67A00AA277B /* files-from-cocos2dx */ = {
 			isa = PBXGroup;
 			children = (
+				1A69F10F1FF369D200B224DF /* cocos2d.h */,
 				466C44E51FF2378E00AA277B /* math */,
 				1A69F0881FF21E1900B224DF /* base */,
 				1A69F0901FF21E1900B224DF /* platform */,
@@ -510,6 +515,7 @@
 		469492891FE26C96008D19CC /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				1A69F1101FF36A4600B224DF /* assets */,
 				4694928A1FE26CB5008D19CC /* main.cpp */,
 			);
 			path = tests;
@@ -555,6 +561,7 @@
 				1A69F07F1FF1F52C00B224DF /* CCTexture2D.h */,
 				1A69F1081FF24ED200B224DF /* CCProgram.cpp */,
 				1A69F1091FF24ED200B224DF /* CCProgram.h */,
+				1A69F10E1FF3685100B224DF /* CCGFX.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -617,6 +624,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A69F1111FF36A4600B224DF /* assets in Resources */,
 				466C45071FF2378E00AA277B /* CMakeLists.txt in Resources */,
 				466C450E1FF2378E00AA277B /* Vec4.inl in Resources */,
 				466C450B1FF2378E00AA277B /* Vec2.inl in Resources */,
@@ -813,7 +821,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = test.org.cocos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/mac/include $(SRCROOT)/../external/source";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src $(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/mac/include $(SRCROOT)/../external/source";
 			};
 			name = Debug;
 		};
@@ -833,7 +841,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = test.org.cocos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/mac/include $(SRCROOT)/../external/source";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src $(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/mac/include $(SRCROOT)/../external/source";
 			};
 			name = Release;
 		};
