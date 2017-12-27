@@ -41,15 +41,15 @@ struct State final
     // TODO: adjust memeber position to reduce size??
     
     State();
-    const State& operator =(const State& rhs);
-    State(const State&) = delete;
-    State& operator =(const State&& rhs) = delete;
-    State(const State &&) = delete;
+    State(const State&);
+    State(State &&);
     ~State();
-    
+
+    State& operator =(const State& rhs);
+    State& operator =(State&& rhs);
+
     void reset();
-    void set(const State& cpy);
-    
+
     // blend
     bool blend;
     bool blendSepartion;
@@ -70,33 +70,47 @@ struct State final
     bool stencilTest;
     bool stencilSeparation;
     StencilFunc stencilFuncFront;
-    int stencilRefFront;
-    unsigned int stencilMaskFront;
+    int32_t stencilRefFront;
+    uint32_t stencilMaskFront;
     StencilOp stencilFailOpFront;
     StencilOp stencilZFailOpFront;
     StencilOp stencilZPassOpFront;
-    unsigned int stencilWriteMaskFront;
+    uint32_t stencilWriteMaskFront;
     StencilFunc stencilFuncBack;
-    int stencilRefBack;
-    unsigned int stencilMaskBack;
+    int32_t stencilRefBack;
+    uint32_t stencilMaskBack;
     StencilOp stencilFailOpBack;
     StencilOp stencilZFailOpBack;
     StencilOp stencilZPassOpBack;
-    unsigned int stencilWriteMaskBack;
+    uint32_t stencilWriteMaskBack;
     
     CullMode cullMode;
     
     PrimitiveType primitiveType;
     
-//    int maxStream;
-    std::vector<VertexBuffer*> vertexBuffers;
-    std::vector<int> vertexBufferOffsets;
-    IndexBuffer *indexBuffer;
-    std::vector<Texture*> textureUintes;
-    Program *program;
-    
+    int32_t maxStream;
+
+    void setVertexBuffer(size_t index, VertexBuffer* vertBuf);
+    VertexBuffer* getVertexBuffer(size_t index) const;
+
+    void setVertexBufferOffset(size_t index, int32_t offset);
+    int32_t getVertexBufferOffset(size_t index) const;
+
+    void setIndexBuffer(IndexBuffer* indexBuf);
+    IndexBuffer* getIndexBuffer() const;
+
+    void setTexture(size_t index, Texture* texture);
+    Texture* getTexture(size_t index) const;
+
+    void setProgram(Program* program);
+    Program* getProgram() const;
+
 private:
-    void init();
+    std::vector<VertexBuffer*> _vertexBuffers;
+    std::vector<int32_t> _vertexBufferOffsets;
+    IndexBuffer *_indexBuffer;
+    std::vector<Texture*> _textureUnits;
+    Program *_program;
 };
 
 GFX_END
