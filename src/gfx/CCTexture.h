@@ -164,6 +164,7 @@ protected:
         GLenum format;
         GLenum internalFormat;
         GLenum pixelType;
+        uint8_t bpp;
     };
     static const GLTextureFmt& glTextureFmt(TextureFormat fmt);
 

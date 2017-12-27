@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "CCProgram.h"
+#include "CCGFXUtils.h"
 
 namespace {
 
@@ -32,12 +33,12 @@ namespace {
     {
         GLint logLength = 0;
 
-        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
+        GL_CHECK(glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength));
         if (logLength < 1)
             return "";
 
         char *logBytes = (char*)malloc(sizeof(char) * logLength);
-        glGetShaderInfoLog(shader, logLength, nullptr, logBytes);
+        GL_CHECK(glGetShaderInfoLog(shader, logLength, nullptr, logBytes));
         std::string ret(logBytes);
 
         free(logBytes);
@@ -48,12 +49,12 @@ namespace {
     {
         GLint logLength = 0;
 
-        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
+        GL_CHECK(glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength));
         if (logLength < 1)
             return "";
 
         char *logBytes = (char*)malloc(sizeof(char) * logLength);
-        glGetProgramInfoLog(program, logLength, nullptr, logBytes);
+        GL_CHECK(glGetProgramInfoLog(program, logLength, nullptr, logBytes));
         std::string ret(logBytes);
 
         free(logBytes);
@@ -65,19 +66,19 @@ namespace {
         assert(outShader != nullptr);
         GLuint shader = glCreateShader(type);
         const GLchar* sources[] = { src.c_str() };
-        glShaderSource(shader, 1, sources, nullptr);
-        glCompileShader(shader);
+        GL_CHECK(glShaderSource(shader, 1, sources, nullptr));
+        GL_CHECK(glCompileShader(shader));
 
         GLint status;
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+        GL_CHECK(glGetShaderiv(shader, GL_COMPILE_STATUS, &status));
 
         if (!status)
         {
             GLsizei length;
-            glGetShaderiv(shader, GL_SHADER_SOURCE_LENGTH, &length);
+            GL_CHECK(glGetShaderiv(shader, GL_SHADER_SOURCE_LENGTH, &length));
             GLchar* src = (GLchar *)malloc(sizeof(GLchar) * length);
 
-            glGetShaderSource(shader, length, nullptr, src);
+            GL_CHECK(glGetShaderSource(shader, length, nullptr, src));
             GFX_LOGE("ERROR: Failed to compile shader:\n%s", src);
 
             std::string shaderLog = logForOpenGLShader(shader);
@@ -144,12 +145,12 @@ void Program::link()
     }
 
     GLuint program = glCreateProgram();
-    glAttachShader(program, vertShader);
-    glAttachShader(program, fragShader);
-    glLinkProgram(program);
+    GL_CHECK(glAttachShader(program, vertShader));
+    GL_CHECK(glAttachShader(program, fragShader));
+    GL_CHECK(glLinkProgram(program));
 
     GLint status = GL_TRUE;
-    glGetProgramiv(program, GL_LINK_STATUS, &status);
+    GL_CHECK(glGetProgramiv(program, GL_LINK_STATUS, &status));
 
     if (status == GL_FALSE)
     {
@@ -208,7 +209,7 @@ void Program::link()
             for (int i = 0; i < activeUniforms; ++i)
             {
                 // Query uniform info.
-                glGetActiveUniform(program, i, length, nullptr, &uniform.size, &uniform.type, uniformName);
+                GL_CHECK(glGetActiveUniform(program, i, length, nullptr, &uniform.size, &uniform.type, uniformName));
                 uniformName[length] = '\0';
                 bool isArray = false;
                 // remove possible array '[]' from uniform name
@@ -223,7 +224,7 @@ void Program::link()
                 }
 
                 uniform.name = uniformName;
-                uniform.location = glGetUniformLocation(program, uniformName);
+                GL_CHECK(uniform.location = glGetUniformLocation(program, uniformName));
 
                 GLenum err = glGetError();
                 if (err != GL_NO_ERROR)
