@@ -29,14 +29,26 @@
 
 namespace
 {
-    std::chrono::steady_clock::time_point prevTime;
-    std::chrono::steady_clock::time_point now;
-    float dt = 0.f;
-    
+    int nextIndex = 0;
+    std::vector<TestBaseI*> tests;
     TestBaseI* test = nullptr;
-    void setup()
+    
+    void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
-        test = new Basic();
+        if (GLFW_KEY_RIGHT == key && GLFW_RELEASE == action)
+        {
+            nextIndex = (++nextIndex) % tests.size();
+            test = tests[nextIndex];
+        }
+    }
+    
+    void initTests()
+    {
+        tests = {
+            new Basic(),
+        };
+        
+        test = tests[0];
     }
 }
 
@@ -52,10 +64,14 @@ int main(int argc, char** argv)
         return -1;
     }
     
+    glfwSetKeyCallback(window, keyCallback);
     glfwMakeContextCurrent(window);
     
-    setup();
-    
+    initTests();
+
+    std::chrono::steady_clock::time_point prevTime;
+    std::chrono::steady_clock::time_point now;
+    float dt = 0.f;
     while (!glfwWindowShouldClose(window))
     {
         prevTime = std::chrono::steady_clock::now();
