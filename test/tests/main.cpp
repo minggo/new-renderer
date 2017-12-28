@@ -26,31 +26,37 @@
 #include <chrono>
 #include "TestBase.h"
 #include "gfx/Basic.h"
+#include "gfx/Bunny.h"
 
 namespace
 {
     int nextIndex = 0;
-    std::vector<TestBaseI*> tests;
+    using createFunc = TestBaseI* (*)();
+    std::vector<createFunc> tests;
     TestBaseI* test = nullptr;
     
     void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
-        if (GLFW_KEY_RIGHT == key && GLFW_RELEASE == action)
-            nextIndex = (++nextIndex) % tests.size();
-        
-        if (GLFW_KEY_LEFT == key && GLFW_RELEASE == action)
-            nextIndex = int((--nextIndex + tests.size()) % tests.size());
-        
-        test = tests[nextIndex];
+        if (GLFW_RELEASE == action)
+        {
+            if (GLFW_KEY_RIGHT == key)
+                nextIndex = (++nextIndex) % tests.size();
+            else if (GLFW_KEY_LEFT == key)
+                nextIndex = int((--nextIndex + tests.size()) % tests.size());
+
+            delete test;
+            test = tests[nextIndex]();
+        }
     }
     
     void initTests()
     {
         tests = {
-            new Basic(),
+            Basic::create,
+            Bunny::create
         };
         
-        test = tests[0];
+        test = tests[0]();
     }
 }
 

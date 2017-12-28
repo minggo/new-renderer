@@ -77,7 +77,7 @@ void VertexBuffer::update(uint32_t offset, const void* data, size_t dataByteLeng
     }
 
     if (data && dataByteLength + offset > _bytes) {
-        GFX_LOGE("Failed to update data, bytes exceed.");
+        GFX_LOGE("Failed to update vertex buffer data, bytes exceed.");
         return;
     }
 

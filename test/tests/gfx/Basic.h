@@ -30,6 +30,7 @@
 class Basic : public TestBaseI
 {
 public:
+    DEFINE_CREATE_METHOD(Basic)
     Basic();
     ~Basic();
     virtual void tick(float dt) override;

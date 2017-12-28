@@ -92,7 +92,7 @@ void IndexBuffer::update(uint32_t offset, const void* data, size_t dataByteLengt
 
     if (data && dataByteLength + offset > _bytes)
     {
-        GFX_LOGE("Failed to update data, bytes exceed.");
+        GFX_LOGE("Failed to update index buffer data, bytes exceed.");
         return;
     }
 
