@@ -367,11 +367,12 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     auto uniformsLen = uniformsInfo.size();
     for (int i = 0; i < uniformsLen; ++i)
     {
-        auto& uniformInfo = uniformsInfo[i];
-        if (_uniforms.end() == _uniforms.find(uniformInfo.name))
+        const auto& uniformInfo = uniformsInfo[i];
+        auto iter = _uniforms.find(uniformInfo.name);
+        if (_uniforms.end() == iter)
             continue;
         
-        auto& uniform = _uniforms[uniformInfo.name];
+        auto& uniform = iter->second;
         if (!programDirty && !uniform.dirty)
             continue;
         
@@ -395,14 +396,15 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
 
 void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes)
 {
-    if (_uniforms.find(name) == _uniforms.end())
+    auto iter = _uniforms.find(name);
+    if (iter == _uniforms.end())
     {
         Uniform uniform(v, type, bytes);
         _uniforms[name] = std::move(uniform);
     }
     else
     {
-        auto& uniform = _uniforms[name];
+        auto& uniform = iter->second;
         uniform.dirty = true;
         uniform.setValue(v, bytes);
         uniform.type = type;
