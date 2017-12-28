@@ -36,10 +36,12 @@ namespace
     void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
     {
         if (GLFW_KEY_RIGHT == key && GLFW_RELEASE == action)
-        {
             nextIndex = (++nextIndex) % tests.size();
-            test = tests[nextIndex];
-        }
+        
+        if (GLFW_KEY_LEFT == key && GLFW_RELEASE == action)
+            nextIndex = int((--nextIndex + tests.size()) % tests.size());
+        
+        test = tests[nextIndex];
     }
     
     void initTests()
