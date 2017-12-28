@@ -522,8 +522,8 @@ DeviceGraphics::DeviceGraphics()
     initCaps();
     initStates();
     
-    _newAttributes.reserve(_caps.maxVertexAttributes);
-    _enabledAtrributes.reserve(_caps.maxVertexAttributes);
+    _newAttributes.resize(_caps.maxVertexAttributes);
+    _enabledAtrributes.resize(_caps.maxVertexAttributes);
 }
 
 DeviceGraphics::~DeviceGraphics()
@@ -959,12 +959,12 @@ void DeviceGraphics::commitVertexBuffer()
             GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vb->getHandle()));
             
             auto vboffset = _nextState.getVertexBufferOffset(i);
-            auto attributes = _nextState.getProgram()->getAttributes();
+            const auto& attributes = _nextState.getProgram()->getAttributes();
             auto usedAttriLen = attributes.size();
             for (int j = 0; j < usedAttriLen; ++j)
             {
-                auto& attr = attributes[j];
-                auto& el = vb->getFormat().getElement(attr.name);
+                const auto& attr = attributes[j];
+                const auto& el = vb->getFormat().getElement(attr.name);
                 if (!el.isValid())
                 {
                     //TODO: log
