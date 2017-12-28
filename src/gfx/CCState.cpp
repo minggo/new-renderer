@@ -109,149 +109,201 @@ State::~State()
 
 State& State::operator=(const State& o)
 {
-    // blend
-    blend = o.blend;
-    blendSepartion = o.blendSepartion;
-    blendColor = o.blendColor;
-    blendEq = o.blendEq;
-    blendAlphaEq = o.blendAlphaEq;
-    blendSrc = o.blendSrc;
-    blendDst = o.blendDst;
-    blendSrcAlpha = o.blendSrcAlpha;
-    blendDstAlpha = o.blendDstAlpha;
-    // depth
-    depthTest = o.depthTest;
-    depthWrite = o.depthWrite;
-    depthFunc = o.depthFunc;
-    // stencil
-    stencilTest = o.stencilTest;
-    stencilSeparation = o.stencilSeparation;
-    stencilFuncFront = o.stencilFuncFront;
-    stencilRefFront = o.stencilRefFront;
-    stencilMaskFront = o.stencilMaskFront;
-    stencilFailOpFront = o.stencilFailOpFront;
-    stencilZFailOpFront = o.stencilZFailOpFront;
-    stencilZPassOpFront = o.stencilZPassOpFront;
-    stencilWriteMaskFront = o.stencilWriteMaskFront;
-    stencilFuncBack = o.stencilFuncBack;
-    stencilRefBack = o.stencilRefBack;
-    stencilMaskBack = o.stencilMaskBack;
-    stencilFailOpBack = o.stencilFailOpBack;
-    stencilZFailOpBack = o.stencilZFailOpBack;
-    stencilZPassOpBack = o.stencilZPassOpBack;
-    stencilWriteMaskBack = o.stencilWriteMaskBack;
-    // cull-mode
-    cullMode = o.cullMode;
-
-    // primitive-type
-    primitiveType = o.primitiveType;
-
-    // bindings
-    maxStream = o.maxStream;
-
-    _vertexBufferOffsets = o._vertexBufferOffsets;
-
-    for (auto vertexBuf : _vertexBuffers)
+    if (this != &o)
     {
-        GFX_SAFE_RELEASE(vertexBuf);
-    }
+        // blend
+        blend = o.blend;
+        blendSepartion = o.blendSepartion;
+        blendColor = o.blendColor;
+        blendEq = o.blendEq;
+        blendAlphaEq = o.blendAlphaEq;
+        blendSrc = o.blendSrc;
+        blendDst = o.blendDst;
+        blendSrcAlpha = o.blendSrcAlpha;
+        blendDstAlpha = o.blendDstAlpha;
+        // depth
+        depthTest = o.depthTest;
+        depthWrite = o.depthWrite;
+        depthFunc = o.depthFunc;
+        // stencil
+        stencilTest = o.stencilTest;
+        stencilSeparation = o.stencilSeparation;
+        stencilFuncFront = o.stencilFuncFront;
+        stencilRefFront = o.stencilRefFront;
+        stencilMaskFront = o.stencilMaskFront;
+        stencilFailOpFront = o.stencilFailOpFront;
+        stencilZFailOpFront = o.stencilZFailOpFront;
+        stencilZPassOpFront = o.stencilZPassOpFront;
+        stencilWriteMaskFront = o.stencilWriteMaskFront;
+        stencilFuncBack = o.stencilFuncBack;
+        stencilRefBack = o.stencilRefBack;
+        stencilMaskBack = o.stencilMaskBack;
+        stencilFailOpBack = o.stencilFailOpBack;
+        stencilZFailOpBack = o.stencilZFailOpBack;
+        stencilZPassOpBack = o.stencilZPassOpBack;
+        stencilWriteMaskBack = o.stencilWriteMaskBack;
+        // cull-mode
+        cullMode = o.cullMode;
 
-    if (o._vertexBuffers.empty())
-    {
-        _vertexBuffers.clear();
-    }
-    else
-    {
-        _vertexBuffers.resize(o._vertexBuffers.size());
+        // primitive-type
+        primitiveType = o.primitiveType;
 
-        for (size_t i = 0, len = o._vertexBuffers.size(); i < len; ++i)
+        // bindings
+        maxStream = o.maxStream;
+
+        _vertexBufferOffsets = o._vertexBufferOffsets;
+
+        for (auto vertexBuf : _vertexBuffers)
         {
-            _vertexBuffers[i] = o._vertexBuffers[i];
-            GFX_SAFE_RETAIN(_vertexBuffers[i]);
+            GFX_SAFE_RELEASE(vertexBuf);
+        }
+
+        if (o._vertexBuffers.empty())
+        {
+            _vertexBuffers.clear();
+        }
+        else
+        {
+            _vertexBuffers.resize(o._vertexBuffers.size());
+
+            for (size_t i = 0, len = o._vertexBuffers.size(); i < len; ++i)
+            {
+                _vertexBuffers[i] = o._vertexBuffers[i];
+                GFX_SAFE_RETAIN(_vertexBuffers[i]);
+            }
+        }
+
+        if (_indexBuffer != o._indexBuffer)
+        {
+            GFX_SAFE_RETAIN(o._indexBuffer);
+            GFX_SAFE_RELEASE(_indexBuffer);
+            _indexBuffer = o._indexBuffer;
+        }
+
+        for (auto texture : _textureUnits)
+        {
+            GFX_SAFE_RELEASE(texture);
+        }
+
+        if (o._textureUnits.empty())
+        {
+            _textureUnits.clear();
+        }
+        else
+        {
+            _textureUnits.resize(o._textureUnits.size());
+            for (size_t i = 0, len = o._textureUnits.size(); i < len; ++i)
+            {
+                _textureUnits[i] = o._textureUnits[i];
+                GFX_SAFE_RETAIN(_textureUnits[i]);
+            }
+        }
+
+        if (_program != o._program)
+        {
+            GFX_SAFE_RETAIN(o._program);
+            GFX_SAFE_RELEASE(_program);
+            _program = o._program;
         }
     }
-
-    GFX_SAFE_RETAIN(o._indexBuffer);
-    GFX_SAFE_RELEASE(_indexBuffer);
-    _indexBuffer = o._indexBuffer;
-
-    for (auto texture : _textureUnits)
-    {
-        GFX_SAFE_RELEASE(texture);
-    }
-
-    if (o._textureUnits.empty())
-    {
-        _textureUnits.clear();
-    }
-    else
-    {
-        _textureUnits.resize(o._textureUnits.size());
-        for (size_t i = 0, len = o._textureUnits.size(); i < len; ++i)
-        {
-            _textureUnits[i] = o._textureUnits[i];
-            GFX_SAFE_RETAIN(_textureUnits[i]);
-        }
-    }
-
-    GFX_SAFE_RETAIN(o._program);
-    GFX_SAFE_RELEASE(_program);
-    _program = o._program;
 
     return *this;
 }
 
 State& State::operator=(State&& o)
 {
-    // blend
-    blend = o.blend;
-    blendSepartion = o.blendSepartion;
-    blendColor = o.blendColor;
-    blendEq = o.blendEq;
-    blendAlphaEq = o.blendAlphaEq;
-    blendSrc = o.blendSrc;
-    blendDst = o.blendDst;
-    blendSrcAlpha = o.blendSrcAlpha;
-    blendDstAlpha = o.blendDstAlpha;
-    // depth
-    depthTest = o.depthTest;
-    depthWrite = o.depthWrite;
-    depthFunc = o.depthFunc;
-    // stencil
-    stencilTest = o.stencilTest;
-    stencilSeparation = o.stencilSeparation;
-    stencilFuncFront = o.stencilFuncFront;
-    stencilRefFront = o.stencilRefFront;
-    stencilMaskFront = o.stencilMaskFront;
-    stencilFailOpFront = o.stencilFailOpFront;
-    stencilZFailOpFront = o.stencilZFailOpFront;
-    stencilZPassOpFront = o.stencilZPassOpFront;
-    stencilWriteMaskFront = o.stencilWriteMaskFront;
-    stencilFuncBack = o.stencilFuncBack;
-    stencilRefBack = o.stencilRefBack;
-    stencilMaskBack = o.stencilMaskBack;
-    stencilFailOpBack = o.stencilFailOpBack;
-    stencilZFailOpBack = o.stencilZFailOpBack;
-    stencilZPassOpBack = o.stencilZPassOpBack;
-    stencilWriteMaskBack = o.stencilWriteMaskBack;
-    // cull-mode
-    cullMode = o.cullMode;
+    if (this != &o)
+    {
+        // blend
+        blend = o.blend;
+        blendSepartion = o.blendSepartion;
+        blendColor = o.blendColor;
+        blendEq = o.blendEq;
+        blendAlphaEq = o.blendAlphaEq;
+        blendSrc = o.blendSrc;
+        blendDst = o.blendDst;
+        blendSrcAlpha = o.blendSrcAlpha;
+        blendDstAlpha = o.blendDstAlpha;
+        // depth
+        depthTest = o.depthTest;
+        depthWrite = o.depthWrite;
+        depthFunc = o.depthFunc;
+        // stencil
+        stencilTest = o.stencilTest;
+        stencilSeparation = o.stencilSeparation;
+        stencilFuncFront = o.stencilFuncFront;
+        stencilRefFront = o.stencilRefFront;
+        stencilMaskFront = o.stencilMaskFront;
+        stencilFailOpFront = o.stencilFailOpFront;
+        stencilZFailOpFront = o.stencilZFailOpFront;
+        stencilZPassOpFront = o.stencilZPassOpFront;
+        stencilWriteMaskFront = o.stencilWriteMaskFront;
+        stencilFuncBack = o.stencilFuncBack;
+        stencilRefBack = o.stencilRefBack;
+        stencilMaskBack = o.stencilMaskBack;
+        stencilFailOpBack = o.stencilFailOpBack;
+        stencilZFailOpBack = o.stencilZFailOpBack;
+        stencilZPassOpBack = o.stencilZPassOpBack;
+        stencilWriteMaskBack = o.stencilWriteMaskBack;
+        // cull-mode
+        cullMode = o.cullMode;
 
-    // primitive-type
-    primitiveType = o.primitiveType;
+        // primitive-type
+        primitiveType = o.primitiveType;
 
-    // bindings
-    maxStream = o.maxStream;
+        // bindings
+        maxStream = o.maxStream;
 
-    _vertexBufferOffsets = std::move(o._vertexBufferOffsets);
-    _vertexBuffers = std::move(o._vertexBuffers);
+        _vertexBufferOffsets = std::move(o._vertexBufferOffsets);
+        _vertexBuffers = std::move(o._vertexBuffers);
 
-    _indexBuffer = o._indexBuffer;
-    o._indexBuffer = nullptr;
+        _indexBuffer = o._indexBuffer;
+        o._indexBuffer = nullptr;
 
-    _textureUnits = std::move(o._textureUnits);
-    _program = o._program;
-    o._program = nullptr;
+        _textureUnits = std::move(o._textureUnits);
+        _program = o._program;
+        o._program = nullptr;
+
+        // reset o
+        o.blend = false;
+        o.blendSepartion = false;
+        o.blendColor = 0xFFFFFFFF;
+        o.blendEq = BlendOp::ADD;
+        o.blendAlphaEq = BlendOp::ADD;
+        o.blendSrc = BlendFactor::ONE;
+        o.blendDst = BlendFactor::ZERO;
+        o.blendSrcAlpha = BlendFactor::ONE;
+        o.blendDstAlpha = BlendFactor::ZERO;
+        // depth
+        o.depthTest = false;
+        o.depthWrite = false;
+        o.depthFunc = DepthFunc::LESS;
+        // stencil
+        o.stencilTest = false;
+        o.stencilSeparation = false;
+        o.stencilFuncFront = StencilFunc::ALWAYS;
+        o.stencilRefFront = 0;
+        o.stencilMaskFront = 0xFF;
+        o.stencilFailOpFront = StencilOp::KEEP;
+        o.stencilZFailOpFront = StencilOp::KEEP;
+        o.stencilZPassOpFront = StencilOp::KEEP;
+        o.stencilWriteMaskFront = 0xFF;
+        o.stencilFuncBack = StencilFunc::ALWAYS;
+        o.stencilRefBack = 0;
+        o.stencilMaskBack = 0xFF;
+        o.stencilFailOpBack = StencilOp::KEEP;
+        o.stencilZFailOpBack = StencilOp::KEEP;
+        o.stencilZPassOpBack = StencilOp::KEEP;
+        o.stencilWriteMaskBack = 0xFF;
+        // cull-mode
+        o.cullMode = CullMode::BACK;
+
+        // primitive-type
+        o.primitiveType = PrimitiveType::TRIANGLES;
+
+        // bindings
+        o.maxStream = -1;
+    }
 
     return *this;
 }

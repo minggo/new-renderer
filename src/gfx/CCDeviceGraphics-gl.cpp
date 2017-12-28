@@ -390,8 +390,7 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     else
         GL_CHECK(glDrawArrays(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType), (GLint)base, count));
     
-    _nextState = _currentState;
-    _currentState.reset();
+    _nextState = std::move(_currentState);
 }
 
 void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes)
