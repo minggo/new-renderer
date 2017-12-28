@@ -65,7 +65,7 @@ int main(int argc, char** argv)
         glfwPollEvents();
         
         now = std::chrono::steady_clock::now();
-        dt = std::chrono::duration_cast<std::chrono::seconds>(now - prevTime).count();
+        dt = std::chrono::duration_cast<std::chrono::microseconds>(now - prevTime).count() / 1000000.f;
     }
     
     glfwDestroyWindow(window);
