@@ -58,8 +58,6 @@ int main(int argc, char** argv)
     
     while (!glfwWindowShouldClose(window))
     {
-        //glClear(GL_COLOR_BUFFER_BIT);
-        
         prevTime = std::chrono::steady_clock::now();
         test->tick(dt);
         

@@ -38,12 +38,12 @@ namespace {
     template <typename T>
     void attach(GLenum location, const T* renderTarget)
     {
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, location, GL_RENDERBUFFER, renderTarget->getHandle());
+        GL_CHECK(glFramebufferRenderbuffer(GL_FRAMEBUFFER, location, GL_RENDERBUFFER, renderTarget->getHandle()));
     }
     
     void attachColorBuffer(GLenum location, const RenderTarget* texture)
     {
-        glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, texture->getHandle(), 0);
+        GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, texture->getHandle(), 0));
     }
 } // namespace {
 

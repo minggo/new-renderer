@@ -31,6 +31,7 @@ class Basic : public TestBaseI
 {
 public:
     Basic();
+    ~Basic();
     virtual void tick(float dt) override;
     
 private:
