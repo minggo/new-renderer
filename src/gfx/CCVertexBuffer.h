@@ -36,13 +36,13 @@ class DeviceGraphics;
 class VertexBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, init,  DeviceGraphics*, const VertexFormat&, Usage, void*, size_t, uint32_t)
+    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, init,  DeviceGraphics*, const VertexFormat&, Usage, const void*, size_t, uint32_t)
 
     VertexBuffer();
     virtual ~VertexBuffer();
 
-    bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
-    void update(uint32_t offset, void* data, size_t dataByteLength);
+    bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, const void* data, size_t dataByteLength, uint32_t numIndices);
+    void update(uint32_t offset, const void* data, size_t dataByteLength);
     inline uint32_t getCount() const { return _numVertices; }
     inline const VertexFormat& getFormat() { return _format; };
 

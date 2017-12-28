@@ -48,7 +48,7 @@ VertexBuffer::~VertexBuffer()
     //TODO:    _device._stats.ib -= _bytes;
 }
 
-bool VertexBuffer::init(DeviceGraphics* device, const VertexFormat& format, Usage usage, void* data, size_t dataByteLength, uint32_t numVertices)
+bool VertexBuffer::init(DeviceGraphics* device, const VertexFormat& format, Usage usage, const void* data, size_t dataByteLength, uint32_t numVertices)
 {
     _device = device;
     _format = format;
@@ -68,7 +68,7 @@ bool VertexBuffer::init(DeviceGraphics* device, const VertexFormat& format, Usag
     return true;
 }
 
-void VertexBuffer::update(uint32_t offset, void* data, size_t dataByteLength)
+void VertexBuffer::update(uint32_t offset, const void* data, size_t dataByteLength)
 {
     if (_glID == 0)
     {
