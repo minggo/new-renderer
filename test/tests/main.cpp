@@ -25,7 +25,7 @@
 #include "glfw3/glfw3.h"
 #include <chrono>
 #include "TestBase.h"
-#include "Basic.h"
+#include "gfx/Basic.h"
 
 namespace
 {
