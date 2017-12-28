@@ -463,17 +463,17 @@ void DeviceGraphics::setUniformfv(const std::string& name, size_t count, const f
     setUniformCommon(name, value, Uniform::Type::FLOAT, count * sizeof(float));
 }
 
-void DeviceGraphics::setUniformv2(const std::string& name, const cocos2d::Vec2& value)
+void DeviceGraphics::setUniformVec2(const std::string& name, const cocos2d::Vec2& value)
 {
     setUniformf(name, value.x, value.y);
 }
 
-void DeviceGraphics::setUniformv3(const std::string& name, const cocos2d::Vec3& value)
+void DeviceGraphics::setUniformVec3(const std::string& name, const cocos2d::Vec3& value)
 {
     setUniformf(name, value.x, value.y, value.z);
 }
 
-void DeviceGraphics::setUniformv4(const std::string& name, const cocos2d::Vec4& value)
+void DeviceGraphics::setUniformVec4(const std::string& name, const cocos2d::Vec4& value)
 {
     setUniformf(name, value.x, value.y, value.z, value.w);
 }
