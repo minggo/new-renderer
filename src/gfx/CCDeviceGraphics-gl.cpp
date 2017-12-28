@@ -341,14 +341,18 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     
     auto nextIndexBuffer = _nextState.getIndexBuffer();
     if (_currentState.getIndexBuffer() != nextIndexBuffer)
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, nextIndexBuffer ? nextIndexBuffer->getHandle() : 0);
+    {
+        GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, nextIndexBuffer ? nextIndexBuffer->getHandle() : 0));
+    }
     
     //commit program
     bool programDirty = false;
     if (_currentState.getProgram() != _nextState.getProgram())
     {
         if (_nextState.getProgram()->isLinked())
-            glUseProgram(_nextState.getProgram()->getHandle());
+        {
+            GL_CHECK(glUseProgram(_nextState.getProgram()->getHandle()));
+        }
         else
         {
             //TODO: log
@@ -378,14 +382,12 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     
     // draw primitives
     if (nextIndexBuffer)
-    {
-        glDrawElements(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType),
+        GL_CHECK(glDrawElements(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType),
                        count,
                        ENUM_CLASS_TO_GLENUM(nextIndexBuffer->getFormat()),
-                       (GLvoid *)(base * nextIndexBuffer->getBytesPerIndex()));
-    }
+                       (GLvoid *)(base * nextIndexBuffer->getBytesPerIndex())));
     else
-        glDrawArrays(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType), (GLint)base, count);
+        GL_CHECK(glDrawArrays(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType), (GLint)base, count));
 }
 
 void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes)
@@ -573,15 +575,19 @@ void DeviceGraphics::restoreTexture(uint32_t index)
 {
     auto texture = _currentState.getTexture(index);
     if (texture)
-        glBindTexture(texture->getTarget(), texture->getHandle());
+    {
+        GL_CHECK(glBindTexture(texture->getTarget(), texture->getHandle()));
+    }
     else
-        glBindTexture(GL_TEXTURE_2D, 0);
+    {
+        GL_CHECK(glBindTexture(GL_TEXTURE_2D, 0));
+    }
 }
 
 void DeviceGraphics::restoreIndexBuffer()
 {
     auto ib = _currentState.getIndexBuffer();
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib ? ib->getHandle(): 0);
+    GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib ? ib->getHandle(): 0));
 }
 
 void DeviceGraphics::commitBlendStates()
@@ -601,27 +607,27 @@ void DeviceGraphics::commitBlendStates()
             _nextState.blendDst == BlendFactor::CONSTANT_COLOR ||
             _nextState.blendDst == BlendFactor::ONE_MINUS_CONSTANT_COLOR)
         {
-            glBlendColor((_nextState.blendColor >> 24) / 255.f,
+            GL_CHECK(glBlendColor((_nextState.blendColor >> 24) / 255.f,
                          (_nextState.blendColor >> 16 & 0xff) / 255.f,
                          (_nextState.blendColor >> 8 & 0xff) / 255.f,
-                         (_nextState.blendColor & 0xff) / 255.f);
+                         (_nextState.blendColor & 0xff) / 255.f));
             
         }
         
         if (_nextState.blendSepartion)
         {
-            glBlendFuncSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+            GL_CHECK(glBlendFuncSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
                                 ENUM_CLASS_TO_GLENUM(_nextState.blendDst),
                                 ENUM_CLASS_TO_GLENUM(_nextState.blendSrcAlpha),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha));
-            glBlendEquationSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
-                                    ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq));
+                                ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha)));
+            GL_CHECK(glBlendEquationSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
+                                    ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq)));
         }
         else
         {
-            glBlendFunc(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
-                        ENUM_CLASS_TO_GLENUM(_nextState.blendDst));
-            glBlendEquation(ENUM_CLASS_TO_GLENUM(_nextState.blendEq));
+            GL_CHECK(glBlendFunc(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+                        ENUM_CLASS_TO_GLENUM(_nextState.blendDst)));
+            GL_CHECK(glBlendEquation(ENUM_CLASS_TO_GLENUM(_nextState.blendEq)));
         }
         
         return;
@@ -640,18 +646,18 @@ void DeviceGraphics::commitBlendStates()
     {
         if (_nextState.blendSepartion)
         {
-            glBlendFuncSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+            GL_CHECK(glBlendFuncSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
                                 ENUM_CLASS_TO_GLENUM(_nextState.blendDst),
                                 ENUM_CLASS_TO_GLENUM(_nextState.blendSrcAlpha),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha));
-            glBlendEquationSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
-                                    ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq));
+                                ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha)));
+            GL_CHECK(glBlendEquationSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
+                                    ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq)));
         }
         else
         {
-            glBlendFunc(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
-                        ENUM_CLASS_TO_GLENUM(_nextState.blendDst));
-            glBlendEquation(ENUM_CLASS_TO_GLENUM(_nextState.blendEq));
+            GL_CHECK(glBlendFunc(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+                        ENUM_CLASS_TO_GLENUM(_nextState.blendDst)));
+            GL_CHECK(glBlendEquation(ENUM_CLASS_TO_GLENUM(_nextState.blendEq)));
         }
         
         return;
@@ -664,30 +670,32 @@ void DeviceGraphics::commitBlendStates()
             _currentState.blendSrcAlpha != _nextState.blendSrcAlpha ||
             _currentState.blendDstAlpha != _nextState.blendDstAlpha)
         {
-            glBlendFuncSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+            GL_CHECK(glBlendFuncSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
                                 ENUM_CLASS_TO_GLENUM(_nextState.blendDst),
                                 ENUM_CLASS_TO_GLENUM(_nextState.blendSrcAlpha),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha));
+                                ENUM_CLASS_TO_GLENUM(_nextState.blendDstAlpha)));
         }
     }
     
     if (_currentState.blendEq != _nextState.blendEq ||
         _currentState.blendAlphaEq != _nextState.blendAlphaEq)
     {
-        glBlendEquationSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
-                                ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq));
+        GL_CHECK(glBlendEquationSeparate(ENUM_CLASS_TO_GLENUM(_nextState.blendEq),
+                                ENUM_CLASS_TO_GLENUM(_nextState.blendAlphaEq)));
     }
     else
     {
         if (_currentState.blendSrc != _nextState.blendSrc ||
             _currentState.blendDst != _nextState.blendDst)
         {
-            glBlendFunc(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
-                        ENUM_CLASS_TO_GLENUM(_nextState.blendDst));
+            GL_CHECK(glBlendFunc(ENUM_CLASS_TO_GLENUM(_nextState.blendSrc),
+                        ENUM_CLASS_TO_GLENUM(_nextState.blendDst)));
         }
         
         if (_currentState.blendEq != _nextState.blendEq)
-            glBlendEquation(ENUM_CLASS_TO_GLENUM(_nextState.blendEq));
+        {
+            GL_CHECK(glBlendEquation(ENUM_CLASS_TO_GLENUM(_nextState.blendEq)));
+        }
     }
 }
 
@@ -702,14 +710,16 @@ void DeviceGraphics::commitDepthStates()
         }
         
         glEnable(GL_DEPTH_TEST);
-        glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc));
-        glDepthMask(_nextState.depthWrite);
+        GL_CHECK(glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
+        GL_CHECK(glDepthMask(_nextState.depthWrite));
         
         return;
     }
     
     if (_currentState.depthWrite != _nextState.depthWrite)
-        glDepthMask(_nextState.depthWrite);
+    {
+        GL_CHECK(glDepthMask(_nextState.depthWrite));
+    }
     
     if (!_nextState.depthTest)
     {
@@ -718,15 +728,15 @@ void DeviceGraphics::commitDepthStates()
             _nextState.depthTest = true;
             _nextState.depthFunc = DepthFunc::ALWAYS;
             
-            glEnable(GL_DEPTH_TEST);
-            glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc));
+            GL_CHECK(glEnable(GL_DEPTH_TEST));
+            GL_CHECK(glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
         }
         
         return;
     }
     
     if (_currentState.depthFunc != _nextState.depthFunc)
-        glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc));
+        GL_CHECK(glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
 }
 
 void DeviceGraphics::commitStencilStates()
@@ -826,21 +836,21 @@ void DeviceGraphics::commitStencilStates()
             _currentState.stencilRefFront != _nextState.stencilRefFront ||
             _currentState.stencilMaskFront != _nextState.stencilMaskFront)
         {
-            glStencilFuncSeparate(GL_FRONT,
+            GL_CHECK(glStencilFuncSeparate(GL_FRONT,
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront));
+                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
         }
         if (_currentState.stencilWriteMaskFront != _nextState.stencilWriteMaskFront)
-            glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront));
+            GL_CHECK(glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
         if (_currentState.stencilFailOpFront != _nextState.stencilFailOpFront ||
             _currentState.stencilZFailOpFront != _nextState.stencilZFailOpFront ||
             _currentState.stencilZPassOpFront != _nextState.stencilZPassOpFront)
         {
-            glStencilOpSeparate(GL_FRONT,
+            GL_CHECK(glStencilOpSeparate(GL_FRONT,
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront));
+                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
         }
         
         // back
@@ -848,21 +858,21 @@ void DeviceGraphics::commitStencilStates()
             _currentState.stencilRefBack != _nextState.stencilRefBack ||
             _currentState.stencilMaskBack != _nextState.stencilMaskBack)
         {
-            glStencilFuncSeparate(GL_BACK,
+            GL_CHECK(glStencilFuncSeparate(GL_BACK,
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncBack),
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilRefBack),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack));
+                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack)));
         }
         if (_currentState.stencilWriteMaskBack != _nextState.stencilWriteMaskBack)
-            glStencilMaskSeparate(GL_BACK, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack));
+            GL_CHECK(glStencilMaskSeparate(GL_BACK, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack)));
         if (_currentState.stencilFailOpBack != _nextState.stencilFailOpBack ||
             _currentState.stencilZFailOpBack != _nextState.stencilZFailOpBack ||
             _currentState.stencilZPassOpBack != _nextState.stencilZPassOpBack)
         {
-            glStencilOpSeparate(GL_BACK,
+            GL_CHECK(glStencilOpSeparate(GL_BACK,
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpBack),
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpBack),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack));
+                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack)));
         }
     }
     else
@@ -871,21 +881,21 @@ void DeviceGraphics::commitStencilStates()
             _currentState.stencilRefFront != _nextState.stencilRefFront ||
             _currentState.stencilMaskFront != _nextState.stencilMaskFront)
         {
-            glStencilFunc(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+            GL_CHECK(glStencilFunc(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
                           ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                          ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront));
+                          ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
         }
         
         if (_currentState.stencilWriteMaskFront != _nextState.stencilWriteMaskFront)
-            glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront));
+            GL_CHECK(glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
         
         if (_currentState.stencilFailOpFront != _nextState.stencilFailOpFront ||
             _currentState.stencilZFailOpFront != _nextState.stencilZFailOpFront ||
             _currentState.stencilZPassOpFront != _nextState.stencilZPassOpFront)
         {
-            glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+            GL_CHECK(glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
                         ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront));
+                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
         }
     }
 }
@@ -897,12 +907,12 @@ void DeviceGraphics::commitCullMode()
     
     if (_nextState.cullMode == CullMode::NONE)
     {
-        glDisable(GL_CULL_FACE);
+        GL_CHECK(glDisable(GL_CULL_FACE));
         return;
     }
     
-    glEnable(GL_CULL_FACE);
-    glCullFace(ENUM_CLASS_TO_GLENUM(_nextState.cullMode));
+    GL_CHECK(glEnable(GL_CULL_FACE));
+    GL_CHECK(glCullFace(ENUM_CLASS_TO_GLENUM(_nextState.cullMode)));
 }
 void DeviceGraphics::commitVertexBuffer()
 {
@@ -942,7 +952,7 @@ void DeviceGraphics::commitVertexBuffer()
             if (!vb)
                 continue;
             
-            glBindBuffer(GL_ARRAY_BUFFER, vb->getHandle());
+            GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, vb->getHandle()));
             
             auto vboffset = _nextState.getVertexBufferOffset(i);
             auto attributes = _nextState.getProgram()->getAttributes();
@@ -959,18 +969,18 @@ void DeviceGraphics::commitVertexBuffer()
                 
                 if (0 == _enabledAtrributes[attr.location])
                 {
-                    glEnableVertexAttribArray(attr.location);
+                    GL_CHECK(glEnableVertexAttribArray(attr.location));
                     _enabledAtrributes[attr.location] = 1;
                 }
                 _newAttributes[attr.location] = 1;
                 
                 // glVertexAttribPointer (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *pointer);
-                glVertexAttribPointer(attr.location,
+                GL_CHECK(glVertexAttribPointer(attr.location,
                                       el.num,
                                       ENUM_CLASS_TO_GLENUM(el.type),
                                       el.normalize,
                                       el.stride,
-                                      (GLvoid*)(el.offset + vboffset * el.stride));
+                                      (GLvoid*)(el.offset + vboffset * el.stride)));
             }
         }
         
@@ -979,7 +989,7 @@ void DeviceGraphics::commitVertexBuffer()
         {
             if (_enabledAtrributes[i] != _newAttributes[i])
             {
-                glDisableVertexAttribArray(i);
+                GL_CHECK(glDisableVertexAttribArray(i));
                 _enabledAtrributes[i] = 0;
             }
         }
@@ -996,8 +1006,8 @@ void DeviceGraphics::commitTextures()
         if (curTextureUnits[i] != nextTextureUnits[i])
         {
             auto texture = nextTextureUnits[i];
-            glActiveTexture(GL_TEXTURE0 + i);
-            glBindTexture(texture->getTarget(), texture->getHandle());
+            GL_CHECK(glActiveTexture(GL_TEXTURE0 + i));
+            GL_CHECK(glBindTexture(texture->getTarget(), texture->getHandle()));
         }
     }
 }
@@ -1017,44 +1027,64 @@ void DeviceGraphics::setUniformToGL(GLint location, const Uniform& uniform) cons
         GLsizei count = (GLsizei)(uniform.bytes / sizeof(int));
         
         if (1 == count)
-            glUniform1i(location, DEF_TO_INT(uniform.value));
+        {
+            GL_CHECK(glUniform1i(location, DEF_TO_INT(uniform.value)));
+        }
         else if (2 == count)
-            glUniform2i(location, DEF_TO_INT(uniform.value), DEF_TO_INT_STEP(uniform.value, 1));
+        {
+            GL_CHECK(glUniform2i(location, DEF_TO_INT(uniform.value), DEF_TO_INT_STEP(uniform.value, 1)));
+        }
         else if (3 == count)
-            glUniform3i(location,
+        {
+            GL_CHECK(glUniform3i(location,
                         DEF_TO_INT(uniform.value),
                         DEF_TO_INT_STEP(uniform.value, 1),
-                        DEF_TO_INT_STEP(uniform.value, 2));
+                        DEF_TO_INT_STEP(uniform.value, 2)));
+        }
         else if (4 == count)
-            glUniform4i(location,
+        {
+            GL_CHECK(glUniform4i(location,
                         DEF_TO_INT(uniform.value),
                         DEF_TO_INT_STEP(uniform.value, 1),
                         DEF_TO_INT_STEP(uniform.value, 2),
-                        DEF_TO_INT_STEP(uniform.value, 3));
+                        DEF_TO_INT_STEP(uniform.value, 3)));
+        }
         else
-            glUniform1iv(location, count, (GLint*)uniform.value);
+        {
+            GL_CHECK(glUniform1iv(location, count, (GLint*)uniform.value));
+        }
     }
     else
     {
         GLsizei count = (GLsizei)(uniform.bytes / sizeof(float));
         
         if (1 == count)
-            glUniform1f(location, DEF_TO_FLOAT(uniform.value));
+        {
+            GL_CHECK(glUniform1f(location, DEF_TO_FLOAT(uniform.value)));
+        }
         else if (2 == count)
-            glUniform2f(location, DEF_TO_FLOAT(uniform.value), DEF_TO_FLOAT_STEP(uniform.value, 1));
+        {
+            GL_CHECK(glUniform2f(location, DEF_TO_FLOAT(uniform.value), DEF_TO_FLOAT_STEP(uniform.value, 1)));
+        }
         else if (3 == count)
-            glUniform3f(location,
+        {
+            GL_CHECK(glUniform3f(location,
                         DEF_TO_FLOAT(uniform.value),
                         DEF_TO_FLOAT_STEP(uniform.value, 1),
-                        DEF_TO_FLOAT_STEP(uniform.value, 2));
+                        DEF_TO_FLOAT_STEP(uniform.value, 2)));
+        }
         else if (4 == count)
-            glUniform4f(location,
+        {
+            GL_CHECK(glUniform4f(location,
                         DEF_TO_FLOAT(uniform.value),
                         DEF_TO_FLOAT_STEP(uniform.value, 1),
                         DEF_TO_FLOAT_STEP(uniform.value, 2),
-                        DEF_TO_FLOAT_STEP(uniform.value, 3));
+                        DEF_TO_FLOAT_STEP(uniform.value, 3)));
+        }
         else
-            glUniform1fv(location, count, (GLfloat*)uniform.value);
+        {
+            GL_CHECK(glUniform1fv(location, count, (GLfloat*)uniform.value));
+        }
     }
 }
 

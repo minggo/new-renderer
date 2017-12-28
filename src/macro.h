@@ -155,16 +155,13 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
 // enum class to GLENUM
 #define ENUM_CLASS_TO_GLENUM(value)  static_cast<GLenum>(value)
 
-#define GFX_MACRO_BLOCK_BEGIN for(;;) {
-#define GFX_MACRO_BLOCK_END break; }
-
 #define _GL_CHECK(_call) \
-                GFX_MACRO_BLOCK_BEGIN \
+                do { \
                     _call; \
                     GLenum gl_err = glGetError(); \
                     if (0 != gl_err) \
                         GFX_LOGE(#_call "; GL error 0x%x: %s", gl_err, glEnumName(gl_err)); \
-                GFX_MACRO_BLOCK_END
+                } while(false)
 
 
 #if COCOS2D_DEBUG > 0

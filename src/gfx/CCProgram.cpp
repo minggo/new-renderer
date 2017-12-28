@@ -108,7 +108,7 @@ Program::Program()
 
 Program::~Program()
 {
-
+    GL_CHECK(glDeleteProgram(_glID));
 }
 
 bool Program::init(DeviceGraphics* device, const char* vertSource, const char* fragSource)
