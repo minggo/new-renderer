@@ -116,7 +116,7 @@ void DeviceGraphics::setScissor(int x, int y, int w, int h)
     }
 }
 
-void DeviceGraphics::clear(uint8_t flags, Color4F *color, uint8_t depth, uint8_t stencil)
+void DeviceGraphics::clear(uint8_t flags, Color4F *color, double depth, int32_t stencil)
 {
     GLbitfield mask = 0;
     if (flags & ClearFlag::COLOR)
@@ -131,7 +131,7 @@ void DeviceGraphics::clear(uint8_t flags, Color4F *color, uint8_t depth, uint8_t
         glClearDepth(depth);
         
         glEnable(GL_DEPTH_TEST);
-        glDepthMask(true);
+        glDepthMask(GL_TRUE);
         glDepthFunc(GL_ALWAYS);
     }
     
@@ -151,7 +151,7 @@ void DeviceGraphics::clear(uint8_t flags, Color4F *color, uint8_t depth, uint8_t
         else
         {
             if (!_currentState.depthWrite)
-                glDepthMask(false);
+                glDepthMask(GL_FALSE);
             if (_currentState.depthFunc != DepthFunc::ALWAYS)
                 glDepthFunc(static_cast<GLenum>(_currentState.depthFunc));
         }
@@ -390,7 +390,7 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     else
         GL_CHECK(glDrawArrays(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType), (GLint)base, count));
     
-    _nextState = std::move(_currentState);
+    _currentState = std::move(_nextState);
 }
 
 void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes)
@@ -559,7 +559,7 @@ void DeviceGraphics::initStates()
     
     GL_CHECK(glDisable(GL_DEPTH_TEST));
     GL_CHECK(glDepthFunc(GL_LESS));
-    GL_CHECK(glDepthMask(false));
+    GL_CHECK(glDepthMask(GL_FALSE));
     GL_CHECK(glDisable(GL_POLYGON_OFFSET_FILL));
     GL_CHECK(glDepthRange(0, 1));
     
@@ -715,14 +715,14 @@ void DeviceGraphics::commitDepthStates()
         
         glEnable(GL_DEPTH_TEST);
         GL_CHECK(glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
-        GL_CHECK(glDepthMask(_nextState.depthWrite));
+        GL_CHECK(glDepthMask(_nextState.depthWrite ? GL_TRUE : GL_FALSE));
         
         return;
     }
     
     if (_currentState.depthWrite != _nextState.depthWrite)
     {
-        GL_CHECK(glDepthMask(_nextState.depthWrite));
+        GL_CHECK(glDepthMask(_nextState.depthWrite ? GL_TRUE : GL_FALSE));
     }
     
     if (!_nextState.depthTest)
