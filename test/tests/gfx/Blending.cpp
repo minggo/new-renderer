@@ -90,9 +90,9 @@ namespace
         gfx::VertexBuffer* vertexBuffer;
     };
         
-        BigTriangle *bigTriangle = nullptr;
-        Mat4 projection;
-        gfx::DeviceGraphics *device = nullptr;
+    BigTriangle *bigTriangle = nullptr;
+    Mat4 projection;
+    gfx::DeviceGraphics *device = nullptr;
 }
 
 //

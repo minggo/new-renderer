@@ -29,6 +29,7 @@
 class Blending : public TestBaseI
 {
 public:
+    DEFINE_CREATE_METHOD(Blending);
     Blending();
     ~Blending();
     virtual void tick(float dt) override;
