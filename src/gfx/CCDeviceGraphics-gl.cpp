@@ -1010,6 +1010,8 @@ void DeviceGraphics::setUniformToGL(GLint location, const Uniform& uniform) cons
 #define DEF_TO_FLOAT(pointer)  (*(float*)(pointer))
 #define DEF_TO_FLOAT_STEP(pointer, step) (*((float*)(pointer) + step))
     
+    assert(uniform.bytes > 0);
+    
     if (Uniform::Type::INT == uniform.type)
     {
         GLsizei count = (GLsizei)(uniform.bytes / sizeof(int));
@@ -1062,6 +1064,8 @@ void DeviceGraphics::setUniformToGL(GLint location, const Uniform& uniform) cons
 DeviceGraphics::Uniform::Uniform()
 : dirty(true)
 , value(nullptr)
+, bytes(0)
+, type(Type::INT)
 {}
 
 DeviceGraphics::Uniform::Uniform(const void* v, Type type, size_t bytes)
@@ -1080,6 +1084,8 @@ DeviceGraphics::Uniform::Uniform(Uniform&& h)
     h.value = nullptr;
     
     dirty = h.dirty;
+    bytes = h.bytes;
+    type = h.type;
 }
 
 DeviceGraphics::Uniform::~Uniform()
@@ -1110,9 +1116,10 @@ void DeviceGraphics::Uniform::setValue(const void* v, size_t bytes)
 {
     if (value)
         free(value);
-
     value = malloc(bytes);
     memcpy(value, v, bytes);
+    
+    this->bytes = bytes;
 }
 
 GFX_END
