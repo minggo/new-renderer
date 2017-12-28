@@ -41,7 +41,7 @@ public:
     VertexBuffer();
     virtual ~VertexBuffer();
 
-    bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, const void* data, size_t dataByteLength, uint32_t numIndices);
+    bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, const void* data, size_t dataByteLength, uint32_t numVertices);
     void update(uint32_t offset, const void* data, size_t dataByteLength);
     inline uint32_t getCount() const { return _numVertices; }
     inline const VertexFormat& getFormat() { return _format; };

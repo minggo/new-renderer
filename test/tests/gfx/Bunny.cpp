@@ -79,9 +79,9 @@ Bunny::Bunny()
                                       _device,
                                        IndexFormat::UINT16,
                                       Usage::STATIC,
-                                      &bunny_cells[0][0],
+                                      &bunny_cells[0],
                                        sizeof(bunny_cells),
-                                      sizeof(bunny_cells) / sizeof(bunny_cells[0][0])
+                                      sizeof(bunny_cells) / sizeof(bunny_cells[0])
                                       );
 
 
@@ -102,7 +102,7 @@ void Bunny::tick(float dt)
 
     _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     Color4F color(0.1f, 0.1f, 0.1f, 1.f);
-    _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1, 0);
+    _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1.0, 0);
 
     _device->enableDepthTest();
     _device->enableDepthWrite();
