@@ -55,7 +55,7 @@ public:
     void setViewport(int x, int y, int w, int h);
     void setScissor(int x, int y, int w, int h);
     
-    void clear(ClearFlag flags, Color4F *color, uint8_t depth, uint8_t stencil);
+    void clear(uint8_t flags, Color4F *color, uint8_t depth, uint8_t stencil);
     
     void enableBlend();
     void enableDepthTest();

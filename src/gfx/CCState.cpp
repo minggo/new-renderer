@@ -263,7 +263,6 @@ void State::reset()
 
 void State::setVertexBuffer(size_t index, VertexBuffer* vertBuf)
 {
-    assert(vertBuf != nullptr);
     if (index >= _vertexBuffers.size())
     {
         _vertexBuffers.resize(index + 1);
@@ -272,9 +271,9 @@ void State::setVertexBuffer(size_t index, VertexBuffer* vertBuf)
     VertexBuffer* oldBuf = _vertexBuffers[index];
     if (oldBuf != vertBuf)
     {
-        oldBuf->release();
+        GFX_SAFE_RELEASE(oldBuf);
         _vertexBuffers[index] = vertBuf;
-        vertBuf->retain();
+        GFX_SAFE_RETAIN(vertBuf);
     }
 }
 
@@ -304,12 +303,11 @@ int32_t State::getVertexBufferOffset(size_t index) const
 
 void State::setIndexBuffer(IndexBuffer* indexBuf)
 {
-    assert(indexBuf != nullptr);
     if (_indexBuffer != indexBuf)
     {
-        _indexBuffer->release();
+        GFX_SAFE_RELEASE(_indexBuffer);
         _indexBuffer = indexBuf;
-        indexBuf->retain();
+        GFX_SAFE_RETAIN(_indexBuffer);
     }
 }
 
@@ -320,7 +318,6 @@ IndexBuffer* State::getIndexBuffer() const
 
 void State::setTexture(size_t index, Texture* texture)
 {
-    assert(texture != nullptr);
     if (index >= _textureUnits.size())
     {
         _textureUnits.resize(index + 1);
@@ -329,9 +326,9 @@ void State::setTexture(size_t index, Texture* texture)
     Texture* oldTexture = _textureUnits[index];
     if (oldTexture != texture)
     {
-        oldTexture->release();
+        GFX_SAFE_RELEASE(oldTexture);
         _textureUnits[index] = texture;
-        texture->retain();
+        GFX_SAFE_RETAIN(texture);
     }
 }
 
@@ -348,9 +345,9 @@ void State::setProgram(Program* program)
     assert(program != nullptr);
     if (_program != program)
     {
-        _program->release();
+        GFX_SAFE_RELEASE(_program);
         _program = program;
-        program->retain();
+        GFX_SAFE_RETAIN(_program);
     }
 }
 

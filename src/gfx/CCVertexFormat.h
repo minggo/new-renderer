@@ -39,9 +39,9 @@ public:
     {
         Info(const char* name, AttribType type, uint32_t num, bool normalize = false)
         : _name(name)
-        , _num(0)
-        , _type(AttribType::INVALID)
-        , _normalize(false)
+        , _num(num)
+        , _type(type)
+        , _normalize(normalize)
         {
         }
         const char* _name;
@@ -93,8 +93,10 @@ private:
     std::unordered_map<std::string, Element> _attr2el;
 #if GFX_DEBUG > 0
     std::vector<Element> _elements;
-    uint32_t _bytes;
 #endif
+    uint32_t _bytes;
+
+    friend class VertexBuffer;
 };
 
 GFX_END

@@ -31,6 +31,7 @@ VertexBuffer::VertexBuffer()
 : _device(nullptr)
 , _usage(Usage::STATIC)
 , _numVertices(0)
+, _bytes(0)
 {
 
 }
@@ -53,6 +54,9 @@ bool VertexBuffer::init(DeviceGraphics* device, const VertexFormat& format, Usag
     _format = format;
     _usage = usage;
     _numVertices = numVertices;
+
+    // calculate bytes
+    _bytes = _format._bytes * numVertices;
 
     // update
     glGenBuffers(1, &_glID);
