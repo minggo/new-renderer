@@ -25,11 +25,10 @@
 #include <vector>
 #include "Bunny.h"
 #include "BunnyData.h"
+#include "defines.h"
 
 using namespace cocos2d;
 using namespace cocos2d::gfx;
-
-static const float PI = 3.1415926f;
 
 Bunny::Bunny()
 {
@@ -86,7 +85,7 @@ Bunny::Bunny()
                                       );
 
 
-    Mat4::createPerspective(60.0f, 960.0f / 640.0f, 0.01f, 1000.0f, &_projection);
+    Mat4::createPerspective(60.0f, 1.0f * WINDOW_WIDTH / WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
 }
 
 Bunny::~Bunny()
@@ -101,7 +100,7 @@ void Bunny::tick(float dt)
     _time += dt;
     Mat4::createLookAt(Vec3(30.0f * std::cos(_time), 20.0f, 30.0f * std::sin(_time)), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
 
-    _device->setViewport(0, 0, 960, 640);
+    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     Color4F color(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1, 0);
 
@@ -113,7 +112,7 @@ void Bunny::tick(float dt)
     _device->setUniformMat4("model", _model);
     _device->setUniformMat4("view", _view);
     _device->setUniformMat4("projection", _projection);
-    _device->setUniformf("color", 0.5f, 0.5f, 0.5f, 1.0f);
+    _device->setUniformVec4("color", Vec4(0.5f, 0.5f, 0.5f, 1.0f));
     _device->setProgram(_program);
     _device->draw(0, _vertexBuffer->getCount());
 }
