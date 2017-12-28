@@ -22,58 +22,11 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "glfw3/glfw3.h"
-#include <chrono>
-#include "TestBase.h"
-#include "Basic.h"
+#pragma once
 
-namespace
+class TestBaseI
 {
-    std::chrono::steady_clock::time_point prevTime;
-    std::chrono::steady_clock::time_point now;
-    float dt = 0.f;
-    
-    TestBaseI* test = nullptr;
-    void setup()
-    {
-        test = new Basic();
-    }
-}
-
-int main(int argc, char** argv)
-{
-    if (!glfwInit())
-        return -1;
-    
-    auto window = glfwCreateWindow(960, 640, "New Renderer Test", nullptr, nullptr);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-    
-    glfwMakeContextCurrent(window);
-    
-    setup();
-    
-    while (!glfwWindowShouldClose(window))
-    {
-        prevTime = std::chrono::steady_clock::now();
-        
-        test->tick(dt);
-        
-        glClear(GL_COLOR_BUFFER_BIT);
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-        
-        now = std::chrono::steady_clock::now();
-        dt = std::chrono::duration_cast<std::chrono::seconds>(now - prevTime).count();
-    }
-    
-    glfwDestroyWindow(window);
-    glfwTerminate();
-    
-    delete test;
-    
-    return 0;
-}
+public:
+    virtual void tick(float dt) = 0;
+    virtual ~TestBaseI(){};
+};
