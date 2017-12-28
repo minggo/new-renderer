@@ -57,8 +57,10 @@ Ref* Ref::autorelease()
 //    return this;
 //    PoolManager::getInstance()->getCurrentPool()->addObject(this);
 //    return this;
-    assert(false);
-    return nullptr;
+    //assert(false);
+//    return nullptr;
+    
+    return this;
 }
 
 unsigned int Ref::getReferenceCount() const

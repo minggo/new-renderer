@@ -25,9 +25,17 @@
 #pragma once
 
 #include "TestBase.h"
+#include "gfx/CCGFX.h"
 
 class Basic : public TestBaseI
 {
 public:
+    Basic();
     virtual void tick(float dt) override;
+    
+private:
+    cocos2d::gfx::VertexBuffer *_vertexBuffer;
+    cocos2d::gfx::Program *_program;
+    cocos2d::gfx::DeviceGraphics *_device;
+    float _time;
 };

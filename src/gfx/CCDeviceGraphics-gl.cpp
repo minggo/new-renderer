@@ -1071,6 +1071,7 @@ DeviceGraphics::Uniform::Uniform()
 DeviceGraphics::Uniform::Uniform(const void* v, Type type, size_t bytes)
 : bytes(bytes)
 , type(type)
+, value(nullptr)
 {
     setValue(v, bytes);
 }

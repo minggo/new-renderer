@@ -58,11 +58,11 @@ int main(int argc, char** argv)
     
     while (!glfwWindowShouldClose(window))
     {
-        prevTime = std::chrono::steady_clock::now();
+        //glClear(GL_COLOR_BUFFER_BIT);
         
+        prevTime = std::chrono::steady_clock::now();
         test->tick(dt);
         
-        glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(window);
         glfwPollEvents();
         
