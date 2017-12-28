@@ -87,23 +87,23 @@ public:
     void setTexture(const std::string& name, Texture* texture, int slot);
     void setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots);
     
-    void setUniform(const std::string& name, int i1);
-    void setUniform(const std::string& name, int i1, int i2);
-    void setUniform(const std::string& name, int i1, int i2, int i3);
-    void setUniform(const std::string& name, int i1, int i2, int i3, int i4);
+    void setUniformi(const std::string& name, int i1);
+    void setUniformi(const std::string& name, int i1, int i2);
+    void setUniformi(const std::string& name, int i1, int i2, int i3);
+    void setUniformi(const std::string& name, int i1, int i2, int i3, int i4);
     void setUniformiv(const std::string& name, size_t count, const int* value);
-    void setUniform(const std::string& name, float f1);
-    void setUniform(const std::string& name, float f1, float f2);
-    void setUniform(const std::string& name, float f1, float f2, float f3);
-    void setUniform(const std::string& name, float f1, float f2, float f3, float f4);
+    void setUniformf(const std::string& name, float f1);
+    void setUniformf(const std::string& name, float f1, float f2);
+    void setUniformf(const std::string& name, float f1, float f2, float f3);
+    void setUniformf(const std::string& name, float f1, float f2, float f3, float f4);
     void setUniformfv(const std::string& name, size_t count, const float* value);
-    void setUniform(const std::string& name, const cocos2d::Vec2& value);
-    void setUniform(const std::string& name, const cocos2d::Vec3& value);
-    void setUniform(const std::string& name, const cocos2d::Vec4& value);
+    void setUniformv2(const std::string& name, const cocos2d::Vec2& value);
+    void setUniformv3(const std::string& name, const cocos2d::Vec3& value);
+    void setUniformv4(const std::string& name, const cocos2d::Vec4& value);
     void setUniformMat2(const std::string& name, float* value);
     void setUniformMat3(const std::string& name, float* value);
     void setUniformMat4(const std::string& name, float* value);
-    void setUniformMat(const std::string& name, const cocos2d::Mat4& value);
+    void setUniformMat4(const std::string& name, const cocos2d::Mat4& value);
     
     void setPrimitiveType(PrimitiveType type);
     
@@ -126,7 +126,8 @@ private:
         enum class Type
         {
             INT,
-            FLOAT
+            FLOAT,
+            MAT
         };
         
         Uniform(const void* v, Type type, size_t bytes);

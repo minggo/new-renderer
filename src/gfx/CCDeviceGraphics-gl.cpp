@@ -306,7 +306,7 @@ void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int s
     }
     
     _nextState.setTexture(slot, texture);
-    setUniform(name, slot);
+    setUniformi(name, slot);
 }
 
 void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots)
@@ -406,24 +406,24 @@ void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Un
     }
 }
 
-void DeviceGraphics::setUniform(const std::string& name, int i1)
+void DeviceGraphics::setUniformi(const std::string& name, int i1)
 {
     setUniformCommon(name, &i1, Uniform::Type::INT, sizeof(int));
 }
 
-void DeviceGraphics::setUniform(const std::string& name, int i1, int i2)
+void DeviceGraphics::setUniformi(const std::string& name, int i1, int i2)
 {
     int tempValue[] = {i1, i2};
     setUniformCommon(name, tempValue, Uniform::Type::INT, 2 * sizeof(int));
 }
 
-void DeviceGraphics::setUniform(const std::string& name, int i1, int i2, int i3)
+void DeviceGraphics::setUniformi(const std::string& name, int i1, int i2, int i3)
 {
     int tempValue[] = {i1, i2, i3};
     setUniformCommon(name, tempValue, Uniform::Type::INT, 3 * sizeof(int));
 }
 
-void DeviceGraphics::setUniform(const std::string& name, int i1, int i2, int i3, int i4)
+void DeviceGraphics::setUniformi(const std::string& name, int i1, int i2, int i3, int i4)
 {
     int tempValue[] = {i1, i2, i3, i4};
     setUniformCommon(name, tempValue, Uniform::Type::INT, 4 * sizeof(int));
@@ -435,24 +435,24 @@ void DeviceGraphics::setUniformiv(const std::string& name, size_t count, const i
 
 }
 
-void DeviceGraphics::setUniform(const std::string& name, float f1)
+void DeviceGraphics::setUniformf(const std::string& name, float f1)
 {
     setUniformCommon(name, &f1, Uniform::Type::FLOAT, sizeof(float));
 }
 
-void DeviceGraphics::setUniform(const std::string& name, float f1, float f2)
+void DeviceGraphics::setUniformf(const std::string& name, float f1, float f2)
 {
     float tempValue[] = {f1, f2};
     setUniformCommon(name, tempValue, Uniform::Type::FLOAT, 2 * sizeof(float));
 }
 
-void DeviceGraphics::setUniform(const std::string& name, float f1, float f2, float f3)
+void DeviceGraphics::setUniformf(const std::string& name, float f1, float f2, float f3)
 {
     float tempValue[] = {f1, f2, f3};
     setUniformCommon(name, tempValue, Uniform::Type::FLOAT, 3 * sizeof(float));
 }
 
-void DeviceGraphics::setUniform(const std::string& name, float f1, float f2, float f3, float f4)
+void DeviceGraphics::setUniformf(const std::string& name, float f1, float f2, float f3, float f4)
 {
     float tempValue[] = {f1, f2, f3, f4};
     setUniformCommon(name, tempValue, Uniform::Type::FLOAT, 4 * sizeof(float));
@@ -463,39 +463,39 @@ void DeviceGraphics::setUniformfv(const std::string& name, size_t count, const f
     setUniformCommon(name, value, Uniform::Type::FLOAT, count * sizeof(float));
 }
 
-void DeviceGraphics::setUniform(const std::string& name, const cocos2d::Vec2& value)
+void DeviceGraphics::setUniformv2(const std::string& name, const cocos2d::Vec2& value)
 {
-    setUniform(name, value.x, value.y);
+    setUniformf(name, value.x, value.y);
 }
 
-void DeviceGraphics::setUniform(const std::string& name, const cocos2d::Vec3& value)
+void DeviceGraphics::setUniformv3(const std::string& name, const cocos2d::Vec3& value)
 {
-    setUniform(name, value.x, value.y, value.z);
+    setUniformf(name, value.x, value.y, value.z);
 }
 
-void DeviceGraphics::setUniform(const std::string& name, const cocos2d::Vec4& value)
+void DeviceGraphics::setUniformv4(const std::string& name, const cocos2d::Vec4& value)
 {
-    setUniform(name, value.x, value.y, value.z, value.w);
+    setUniformf(name, value.x, value.y, value.z, value.w);
 }
 
 void DeviceGraphics::setUniformMat2(const std::string& name, float* value)
 {
-    setUniformfv(name, 4, value);
+    setUniformCommon(name, value, Uniform::Type::MAT, 4 * sizeof(float));
 }
 
 void DeviceGraphics::setUniformMat3(const std::string& name, float* value)
 {
-    setUniformfv(name, 9, value);
+    setUniformCommon(name, value, Uniform::Type::MAT, 9 * sizeof(float));
 }
 
 void DeviceGraphics::setUniformMat4(const std::string& name, float* value)
 {
-    setUniformfv(name, 16, value);
+    setUniformCommon(name, value, Uniform::Type::MAT, 16 * sizeof(float));
 }
 
-void DeviceGraphics::setUniformMat(const std::string& name, const cocos2d::Mat4& value)
+void DeviceGraphics::setUniformMat4(const std::string& name, const cocos2d::Mat4& value)
 {
-    setUniformfv(name, 16, value.m);
+    setUniformCommon(name, value.m, Uniform::Type::MAT, 16 * sizeof(float));
 }
 
 //
@@ -1054,7 +1054,7 @@ void DeviceGraphics::setUniformToGL(GLint location, const Uniform& uniform) cons
             GL_CHECK(glUniform1iv(location, count, (GLint*)uniform.value));
         }
     }
-    else
+    else if (Uniform::Type::FLOAT == uniform.type)
     {
         GLsizei count = (GLsizei)(uniform.bytes / sizeof(float));
         
@@ -1084,6 +1084,36 @@ void DeviceGraphics::setUniformToGL(GLint location, const Uniform& uniform) cons
         else
         {
             GL_CHECK(glUniform1fv(location, count, (GLfloat*)uniform.value));
+        }
+    }
+    else
+    {
+        // mat
+        GLsizei count = (GLsizei)(uniform.bytes / sizeof(float));
+        if (4 == count)
+        {
+            GL_CHECK(glUniformMatrix2fv(location,
+                                        1,
+                                        false,
+                                        (GLfloat*)uniform.value));
+        }
+        else if (9 == count)
+        {
+            GL_CHECK(glUniformMatrix3fv(location,
+                                        1,
+                                        false,
+                                        (GLfloat*)uniform.value));
+        }
+        else if (16 == count)
+        {
+            GL_CHECK(glUniformMatrix4fv(location,
+                                        1,
+                                        false,
+                                        (GLfloat*)uniform.value));
+        }
+        else
+        {
+            //TODO: error log
         }
     }
 }

@@ -25,8 +25,10 @@
 #include "glfw3/glfw3.h"
 #include <chrono>
 #include "TestBase.h"
+#include "defines.h"
 #include "gfx/Basic.h"
 #include "gfx/Bunny.h"
+#include "gfx/Blending.h"
 
 namespace
 {
@@ -65,7 +67,7 @@ int main(int argc, char** argv)
     if (!glfwInit())
         return -1;
     
-    auto window = glfwCreateWindow(960, 640, "New Renderer Test", nullptr, nullptr);
+    auto window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "New Renderer Test", nullptr, nullptr);
     if (!window)
     {
         glfwTerminate();

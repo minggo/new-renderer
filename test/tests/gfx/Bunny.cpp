@@ -110,10 +110,10 @@ void Bunny::tick(float dt)
 
     _device->setVertexBuffer(0, _vertexBuffer);
     _device->setIndexBuffer(_indexBuffer);
-    _device->setUniformMat("model", _model);
-    _device->setUniformMat("view", _view);
-    _device->setUniformMat("projection", _projection);
-    _device->setUniform("color", 0.5f, 0.5f, 0.5f, 1.0f);
+    _device->setUniformMat4("model", _model);
+    _device->setUniformMat4("view", _view);
+    _device->setUniformMat4("projection", _projection);
+    _device->setUniformf("color", 0.5f, 0.5f, 0.5f, 1.0f);
     _device->setProgram(_program);
     _device->draw(0, _vertexBuffer->getCount());
 }
