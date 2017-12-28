@@ -48,7 +48,7 @@ IndexBuffer::~IndexBuffer()
     //TODO:    _device._stats.ib -= _bytes;
 }
 
-bool IndexBuffer::init(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices)
+bool IndexBuffer::init(DeviceGraphics* device, IndexFormat format, Usage usage, const void* data, size_t dataByteLength, uint32_t numIndices)
 {
     _device = device;
     _format = format;
@@ -82,7 +82,7 @@ bool IndexBuffer::init(DeviceGraphics* device, IndexFormat format, Usage usage, 
     return true;
 }
 
-void IndexBuffer::update(uint32_t offset, void* data, size_t dataByteLength)
+void IndexBuffer::update(uint32_t offset, const void* data, size_t dataByteLength)
 {
     if (_glID == 0)
     {

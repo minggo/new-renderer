@@ -34,14 +34,14 @@ class DeviceGraphics;
 class IndexBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(IndexBuffer, init, DeviceGraphics*, IndexFormat, Usage, void*, size_t, uint32_t)
+    GFX_DEFINE_CREATE_METHOD_6(IndexBuffer, init, DeviceGraphics*, IndexFormat, Usage, const void*, size_t, uint32_t)
 
     IndexBuffer();
     virtual ~IndexBuffer();
 
-    bool init(DeviceGraphics* device, IndexFormat format, Usage usage, void* data, size_t dataByteLength, uint32_t numIndices);
+    bool init(DeviceGraphics* device, IndexFormat format, Usage usage, const void* data, size_t dataByteLength, uint32_t numIndices);
 
-    void update(uint32_t offset, void* data, size_t dataByteLength);
+    void update(uint32_t offset, const void* data, size_t dataByteLength);
     uint32_t getCount() const { return _numIndices; }
     inline IndexFormat getFormat() const { return _format; }
     inline uint32_t getBytesPerIndex() const { return _bytesPerIndex; }
