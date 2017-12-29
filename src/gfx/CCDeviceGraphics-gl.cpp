@@ -535,12 +535,9 @@ void DeviceGraphics::initCaps()
 {
     GL_CHECK(glGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &_caps.maxVextexTextures));
     GL_CHECK(glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &_caps.maxVertexAttributes));
-
-    //TODO: GL_MAX_FRAGMENT_UNIFORM_VECTORS is only avaiable >= OpenGL 4, it will cause 0x500 error.
-    // Uses GL_MAX_FRAGMENT_UNIFORM_COMPONENTS instead.
     GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS, &_caps.maxFragUniforms));
+    GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &_caps.maxFragUniforms));
     GL_CHECK(glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUints));
-    
     GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
     GL_CHECK(glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments));
 }
