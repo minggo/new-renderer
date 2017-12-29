@@ -114,6 +114,6 @@ void Bunny::tick(float dt)
     _device->setUniformMat4("projection", _projection);
     _device->setUniformVec4("color", Vec4(0.5f, 0.5f, 0.5f, 1.0f));
     _device->setProgram(_program);
-    _device->draw(0, _vertexBuffer->getCount());
+    _device->draw(0, _indexBuffer->getCount());
 }
 
