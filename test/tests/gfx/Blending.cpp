@@ -37,7 +37,7 @@ namespace
         {
             const char* vert = R"(
             #ifdef GL_ES
-                pricision highp float;
+                precision highp float;
             #endif
                 attribute vec2 a_position;
                 attribute vec2 a_uv;
@@ -53,7 +53,7 @@ namespace
             
             const char* frag = R"(
             #ifdef GL_ES
-                pricision highp float;
+                precision highp float;
             #endif
                 varying vec2 uv;
                 uniform sampler2D texture;

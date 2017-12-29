@@ -28,8 +28,8 @@ namespace {
     {
         tests = {
 //            Basic::create,
-            Bunny::create,
-            //            Blending::create
+//            Bunny::create,
+                        Blending::create
         };
 
         test = tests[0]();
@@ -78,6 +78,22 @@ namespace {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return UIInterfaceOrientationIsLandscape( interfaceOrientation );
+}
+
+// For ios6.0 and higher, use supportedInterfaceOrientations & shouldAutorotate instead
+- (NSUInteger) supportedInterfaceOrientations
+{
+#ifdef __IPHONE_6_0
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+#endif
+}
+
+- (BOOL) shouldAutorotate {
+    return YES;
 }
 
 
