@@ -1003,11 +1003,12 @@ void DeviceGraphics::commitVertexBuffer()
 void DeviceGraphics::commitTextures()
 {
     auto curTextureUnits = _currentState.getTextureUnits();
+    auto curTextureLen = curTextureUnits.size();
     auto nextTextureUnits = _nextState.getTextureUnits();
     auto nextTextureLen = nextTextureUnits.size();
     for (int i = 0; i < nextTextureLen; ++i)
     {
-        if (curTextureUnits[i] != nextTextureUnits[i])
+        if (i >= curTextureLen || curTextureUnits[i] != nextTextureUnits[i])
         {
             auto texture = nextTextureUnits[i];
             GL_CHECK(glActiveTexture(GL_TEXTURE0 + i));
