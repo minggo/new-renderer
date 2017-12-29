@@ -928,7 +928,7 @@ bool Image::initWithPngData(const unsigned char * data, ssize_t dataLen)
         // premultiplied alpha for RGBA8888
         if (PNG_PREMULTIPLIED_ALPHA_ENABLED && color_type == PNG_COLOR_TYPE_RGB_ALPHA)
         {
-            premultipliedAlpha();
+            //premultipliedAlpha();
         }
         else
         {

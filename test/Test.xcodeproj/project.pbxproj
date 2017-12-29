@@ -52,6 +52,7 @@
 		4627245F1FF47B82000D13BC /* Basic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4627245D1FF47B82000D13BC /* Basic.cpp */; };
 		462724621FF4A2BA000D13BC /* Blending.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724601FF4A2BA000D13BC /* Blending.cpp */; };
 		462724671FF4D68D000D13BC /* Bunny.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724641FF4D68C000D13BC /* Bunny.cpp */; };
+		4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		466C45061FF2378E00AA277B /* Quaternion.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C44E81FF2378E00AA277B /* Quaternion.inl */; };
 		466C45071FF2378E00AA277B /* CMakeLists.txt in Resources */ = {isa = PBXBuildFile; fileRef = 466C44E91FF2378E00AA277B /* CMakeLists.txt */; };
@@ -186,6 +187,8 @@
 		462724641FF4D68C000D13BC /* Bunny.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bunny.cpp; sourceTree = "<group>"; };
 		462724651FF4D68C000D13BC /* BunnyData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BunnyData.h; sourceTree = "<group>"; };
 		462724661FF4D68C000D13BC /* Bunny.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bunny.h; sourceTree = "<group>"; };
+		462724681FF4E39E000D13BC /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		462724691FF4E39E000D13BC /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		466C44E61FF2378E00AA277B /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
@@ -556,6 +559,8 @@
 				4694928A1FE26CB5008D19CC /* main.cpp */,
 				462724581FF3A00E000D13BC /* TestBase.h */,
 				462724631FF4BD4E000D13BC /* defines.h */,
+				462724681FF4E39E000D13BC /* Utils.cpp */,
+				462724691FF4E39E000D13BC /* Utils.h */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -733,6 +738,7 @@
 				1A69F1011FF22B0200B224DF /* tinyxml2.cpp in Sources */,
 				1A69F1001FF22B0200B224DF /* unzip.cpp in Sources */,
 				1A69F0D71FF2290100B224DF /* CCFileUtils-apple.mm in Sources */,
+				4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */,
 				469492971FE270F2008D19CC /* CCDeviceGraphics-gl.cpp in Sources */,
 				1A69F0B31FF223AF00B224DF /* CCSAXParser.cpp in Sources */,
 				466C45121FF2378E00AA277B /* Quaternion.cpp in Sources */,

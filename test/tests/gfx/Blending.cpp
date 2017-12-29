@@ -23,14 +23,92 @@
  ****************************************************************************/
 
 #include "Blending.h"
-#include "gfx/CCGFX.h"
 #include "math/Mat4.h"
 #include "../defines.h"
+#include "../Utils.h"
 
 using namespace cocos2d;
 
 namespace
 {
+    struct Quad
+    {
+        Quad()
+        {
+            const char* vert = R"(
+            #ifdef GL_ES
+                pricision highp float;
+            #endif
+                attribute vec2 a_position;
+                attribute vec2 a_uv;
+                varying vec2 uv;
+                uniform mat4 model, projection;
+            
+                void main()
+                {
+                    uv = a_uv;
+                    gl_Position = projection * model * vec4(a_position, 0, 1);
+                }
+            )";
+            
+            const char* frag = R"(
+            #ifdef GL_ES
+                pricision highp float;
+            #endif
+                varying vec2 uv;
+                uniform sampler2D texture;
+            
+                void main()
+                {
+                    gl_FragColor = texture2D(texture, uv);
+                }
+            )";
+            
+            program = new gfx::Program();
+            auto device = gfx::DeviceGraphics::getInstance();
+            program->init(device, vert, frag);
+            program->link();
+            
+            gfx::VertexFormat vertexFormat({
+                {gfx::ATTRIB_NAME_POSITION, gfx::AttribType::FLOAT32, 2},
+                {gfx::ATTRIB_NAME_UV, gfx::AttribType::FLOAT32, 2}
+            });
+            float vertices[] = {
+                -0.5f, -0.5f,   0,   0,
+                -0.5f,  0.5f,   0, 1.f,
+                 0.5f,  0.5f, 1.f, 1.f,
+                 0.5f, -0.5f, 1.f,   0
+            };
+            vertexBuffer = new gfx::VertexBuffer;
+            vertexBuffer->init(device,
+                               vertexFormat,
+                               gfx::Usage::STATIC,
+                               vertices,
+                               sizeof(vertices),
+                               4);
+            
+            uint8_t indices[] = {0, 3, 1, 1, 3, 2};
+            indexBuffer = new gfx::IndexBuffer();
+            indexBuffer->init(device,
+                              gfx::IndexFormat::UINT8,
+                              gfx::Usage::STATIC,
+                              indices,
+                              sizeof(indices),
+                              6);
+        }
+        
+        ~Quad()
+        {
+            GFX_SAFE_RELEASE(vertexBuffer);
+            GFX_SAFE_RELEASE(indexBuffer);
+            GFX_SAFE_RELEASE(program);
+        }
+        
+        gfx::VertexBuffer* vertexBuffer;
+        gfx::IndexBuffer* indexBuffer;
+        gfx::Program* program;
+    };
+    
     struct BigTriangle
     {
         BigTriangle()
@@ -89,10 +167,20 @@ namespace
         gfx::Program* program;
         gfx::VertexBuffer* vertexBuffer;
     };
+    
+    // rotation is not used
+    Mat4 createModel(const cocos2d::Vec3& t, const cocos2d::Vec3& s)
+    {
+        Mat4 model(Mat4::IDENTITY);
         
+        model.translate(t);
+        model.scale(s);
+        
+        return model;
+    }
+    
     BigTriangle *bigTriangle = nullptr;
-    Mat4 projection;
-    gfx::DeviceGraphics *device = nullptr;
+    Quad *quad = nullptr;
 }
 
 //
@@ -102,34 +190,162 @@ namespace
 Blending::Blending()
 : _dt(0.f)
 {
+    if (bigTriangle)
+        delete bigTriangle;
     bigTriangle = new BigTriangle();
-    device = gfx::DeviceGraphics::getInstance();
+    
+    if (quad)
+        delete quad;
+    quad = new Quad();
+    
+    _device = gfx::DeviceGraphics::getInstance();
+    
+    gfx::Texture::Options options;
+    options.width = 128;
+    options.height = 128;
+    options.wrapS = gfx::TextureWrapMode::REPEAT;
+    options.wrapT = gfx::TextureWrapMode::REPEAT;
+    options.format = gfx::TextureFormat::RGB8;
+    options.hasMipmap = true;
+    options.images.push_back(utils::loadData("assets/background.png"));
+    _backgroud = new gfx::Texture2D();
+    _backgroud->init(_device, options);
+    
+    gfx::Texture2D::Options options2;
+    options2.width = 128;
+    options2.height = 128;
+    options2.format = gfx::TextureFormat::RGBA8;
+    options2.images.push_back(utils::loadData("assets/sprite0.png"));
+    options2.isPremultiplyAlpha = true;
+    _sprite0 = new gfx::Texture2D();
+    _sprite0->init(_device, options2);
 }
 
 Blending::~Blending()
 {
     delete bigTriangle;
     bigTriangle = nullptr;
+    
+    delete quad;
+    quad = nullptr;
+    
+    GFX_SAFE_RELEASE(_backgroud);
 }
 
 void Blending::tick(float dt)
 {
     _dt += dt;
     
-    Mat4::createOrthographic(WINDOW_WIDTH, WINDOW_HEIGHT, 0.f, 1000.f, &projection);
-    device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    Mat4::createOrthographicOffCenter(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0, 1000.f, &_projection);
+    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     
     Color4F clearColor(0.1f, 0.1f, 0.1f, 1.f);
-    device->clear(gfx::ClearFlag::COLOR | gfx::ClearFlag::DEPTH,
+    _device->clear(gfx::ClearFlag::COLOR | gfx::ClearFlag::DEPTH,
                   &clearColor,
                   1,
                   0);
     
-    device->setUniformf("time", _dt);
-    device->setUniformMat4("projection", projection.m);
+    _device->setUniformf("time", _dt);
+    _device->setUniformMat4("projection", _projection.m);
+
+    _device->setTexture("texture", _backgroud, 0);
+    _device->setVertexBuffer(0, bigTriangle->vertexBuffer);
+    _device->setProgram(bigTriangle->program);
+    _device->draw(0, bigTriangle->vertexBuffer->getCount());
+
+    // sprites
     
-    device->setVertexBuffer(0, bigTriangle->vertexBuffer);
-    device->setProgram(bigTriangle->program);
-    device->draw(0, bigTriangle->vertexBuffer->getCount());
+    float size = std::min(WINDOW_WIDTH, WINDOW_HEIGHT) * 0.15f;
+    float hsize = size * 0.5f;
+    
+    // no blending
+    float offsetX = 5.f + hsize;
+    float offsetY = 5.f + hsize;
+    _device->enableBlend();
+    _device->setBlendFuncSeparate(gfx::BlendFactor::ONE,
+                                 gfx::BlendFactor::ZERO,
+                                 gfx::BlendFactor::ONE,
+                                 gfx::BlendFactor::ONE);
+    _device->setBlendEquationSeparate(gfx::BlendOp::ADD, gfx::BlendOp::ADD);
+    _device->setCullMode(gfx::CullMode::NONE);
+    _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
+    _device->setUniformMat4("model", _model);
+    _device->setTexture("texture", _sprite0, 0);
+    _device->setVertexBuffer(0, quad->vertexBuffer);
+    _device->setIndexBuffer(quad->indexBuffer);
+    _device->setProgram(quad->program);
+    _device->draw(0, quad->indexBuffer->getCount());
+    
+    // normal
+    offsetY = offsetY + 5.f + size;
+    _device->enableBlend();
+    _device->setBlendFuncSeparate(gfx::BlendFactor::SRC_ALPHA,
+                                  gfx::BlendFactor::ONE_MINUS_SRC_ALPAH,
+                                  gfx::BlendFactor::ONE,
+                                  gfx::BlendFactor::ONE);
+    _device->setBlendEquationSeparate(gfx::BlendOp::ADD, gfx::BlendOp::ADD);
+    
+    _device->setCullMode(gfx::CullMode::NONE);
+    _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
+    _device->setUniformMat4("model", _model);
+    _device->setTexture("texture", _sprite0, 0);
+    _device->setVertexBuffer(0, quad->vertexBuffer);
+    _device->setIndexBuffer(quad->indexBuffer);
+    _device->setProgram(quad->program);
+    _device->draw(0, quad->indexBuffer->getCount());
+    
+    // additive
+    offsetY = offsetY + 5.f + size;
+    _device->enableBlend();
+    _device->setBlendFuncSeparate(gfx::BlendFactor::SRC_ALPHA,
+                                  gfx::BlendFactor::ONE,
+                                  gfx::BlendFactor::ONE,
+                                  gfx::BlendFactor::ONE);
+    _device->setBlendEquationSeparate(gfx::BlendOp::ADD, gfx::BlendOp::ADD);
+    
+    _device->setCullMode(gfx::CullMode::NONE);
+    _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
+    _device->setUniformMat4("model", _model);
+    _device->setTexture("texture", _sprite0, 0);
+    _device->setVertexBuffer(0, quad->vertexBuffer);
+    _device->setIndexBuffer(quad->indexBuffer);
+    _device->setProgram(quad->program);
+    _device->draw(0, quad->indexBuffer->getCount());
+    
+    // substract
+    offsetY = offsetY + 5.f + size;
+    _device->enableBlend();
+    _device->setBlendFuncSeparate(gfx::BlendFactor::ZERO,
+                                  gfx::BlendFactor::ONE_MINUS_SRC_COLOR,
+                                  gfx::BlendFactor::ONE,
+                                  gfx::BlendFactor::ONE);
+    _device->setBlendEquationSeparate(gfx::BlendOp::ADD, gfx::BlendOp::ADD);
+    
+    _device->setCullMode(gfx::CullMode::NONE);
+    _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
+    _device->setUniformMat4("model", _model);
+    _device->setTexture("texture", _sprite0, 0);
+    _device->setVertexBuffer(0, quad->vertexBuffer);
+    _device->setIndexBuffer(quad->indexBuffer);
+    _device->setProgram(quad->program);
+    _device->draw(0, quad->indexBuffer->getCount());
+    
+    // multiply
+    offsetY = offsetY + 5.f + size;
+    _device->enableBlend();
+    _device->setBlendFuncSeparate(gfx::BlendFactor::ZERO,
+                                  gfx::BlendFactor::SRC_COLOR,
+                                  gfx::BlendFactor::ONE,
+                                  gfx::BlendFactor::ONE);
+    _device->setBlendEquationSeparate(gfx::BlendOp::ADD, gfx::BlendOp::ADD);
+    
+    _device->setCullMode(gfx::CullMode::NONE);
+    _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
+    _device->setUniformMat4("model", _model);
+    _device->setTexture("texture", _sprite0, 0);
+    _device->setVertexBuffer(0, quad->vertexBuffer);
+    _device->setIndexBuffer(quad->indexBuffer);
+    _device->setProgram(quad->program);
+    _device->draw(0, quad->indexBuffer->getCount());
 }
 

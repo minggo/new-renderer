@@ -56,7 +56,7 @@ namespace
         tests = {
             Basic::create,
             Bunny::create,
-//            Blending::create
+            Blending::create
         };
         
         test = tests[0]();

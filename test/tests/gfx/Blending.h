@@ -24,6 +24,8 @@
 
 #pragma once
 
+#include "math/Mat4.h"
+#include "gfx/CCGFX.h"
 #include "../TestBase.h"
 
 class Blending : public TestBaseI
@@ -37,4 +39,10 @@ public:
 private:
     
     float _dt;
+    cocos2d::gfx::Texture2D* _backgroud;
+    cocos2d::gfx::Texture2D* _sprite0;
+    cocos2d::Mat4 _projection;
+    cocos2d::Mat4 _model;
+    cocos2d::gfx::DeviceGraphics *_device;
+    
 };
