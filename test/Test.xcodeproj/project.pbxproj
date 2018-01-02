@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		1A1A4E181FFB45E20061A6E1 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
+		1A1A4E1B1FFB57EB0061A6E1 /* Stencil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */; };
+		1A1A4E1C1FFB57EB0061A6E1 /* Stencil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */; };
+		1A1A4E251FFB6AC40061A6E1 /* CCDevice-apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E231FFB6AC40061A6E1 /* CCDevice-apple.mm */; };
+		1A1A4E261FFB6AC40061A6E1 /* CCDevice-apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E231FFB6AC40061A6E1 /* CCDevice-apple.mm */; };
+		1A1A4E2A1FFB6B980061A6E1 /* CCDevice-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E291FFB6B970061A6E1 /* CCDevice-mac.mm */; };
+		1A1A4E2C1FFB6BE50061A6E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1A4E2B1FFB6BE40061A6E1 /* CoreGraphics.framework */; };
+		1A1A4E2E1FFB6BFD0061A6E1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1A4E2D1FFB6BFD0061A6E1 /* AppKit.framework */; };
+		1A1A4E321FFB7B3F0061A6E1 /* CCDevice-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E311FFB7B3F0061A6E1 /* CCDevice-ios.mm */; };
+		1A1A4E341FFB7BC80061A6E1 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1A4E331FFB7BC80061A6E1 /* CoreMotion.framework */; };
+		1A1A4E381FFB7BEF0061A6E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1A4E371FFB7BEF0061A6E1 /* AudioToolbox.framework */; };
 		1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */; };
 		1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */; };
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
@@ -149,6 +159,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Stencil.cpp; sourceTree = "<group>"; };
+		1A1A4E1A1FFB57EB0061A6E1 /* Stencil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stencil.h; sourceTree = "<group>"; };
+		1A1A4E231FFB6AC40061A6E1 /* CCDevice-apple.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CCDevice-apple.mm"; sourceTree = "<group>"; };
+		1A1A4E241FFB6AC40061A6E1 /* CCDevice-apple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCDevice-apple.h"; sourceTree = "<group>"; };
+		1A1A4E271FFB6AE40061A6E1 /* CCDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDevice.h; sourceTree = "<group>"; };
+		1A1A4E281FFB6B2D0061A6E1 /* CCStdC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCStdC.h; sourceTree = "<group>"; };
+		1A1A4E291FFB6B970061A6E1 /* CCDevice-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CCDevice-mac.mm"; sourceTree = "<group>"; };
+		1A1A4E2B1FFB6BE40061A6E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1A1A4E2D1FFB6BFD0061A6E1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		1A1A4E311FFB7B3F0061A6E1 /* CCDevice-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "CCDevice-ios.mm"; sourceTree = "<group>"; };
+		1A1A4E331FFB7BC80061A6E1 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		1A1A4E351FFB7BE50061A6E1 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
+		1A1A4E371FFB7BEF0061A6E1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVertexFormat.cpp; sourceTree = "<group>"; };
 		1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCIndexBuffer.cpp; sourceTree = "<group>"; };
 		1A69F06A1FF0FB4200B224DF /* CCVertexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVertexBuffer.h; sourceTree = "<group>"; };
@@ -336,6 +359,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A1A4E381FFB7BEF0061A6E1 /* AudioToolbox.framework in Frameworks */,
+				1A1A4E341FFB7BC80061A6E1 /* CoreMotion.framework in Frameworks */,
 				1ACB61B41FF6027B0007F081 /* libz.tbd in Frameworks */,
 				1ACB61B21FF5F4780007F081 /* QuartzCore.framework in Frameworks */,
 				1ACB61801FF5F2E60007F081 /* Foundation.framework in Frameworks */,
@@ -349,6 +374,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A1A4E2E1FFB6BFD0061A6E1 /* AppKit.framework in Frameworks */,
+				1A1A4E2C1FFB6BE50061A6E1 /* CoreGraphics.framework in Frameworks */,
 				1A69F1041FF22B0200B224DF /* libz.a in Frameworks */,
 				469492841FE25314008D19CC /* CoreVideo.framework in Frameworks */,
 				469492821FE25305008D19CC /* IOKit.framework in Frameworks */,
@@ -401,19 +428,21 @@
 		1A69F0901FF21E1900B224DF /* platform */ = {
 			isa = PBXGroup;
 			children = (
-				1ACB61561FF5F1DC0007F081 /* ios */,
 				1A69F0D41FF2290000B224DF /* apple */,
-				1A69F0CB1FF2263F00B224DF /* CCGL.h */,
-				1A69F0B21FF223AF00B224DF /* CCSAXParser.cpp */,
-				1A69F0B11FF223AF00B224DF /* CCSAXParser.h */,
-				1A69F0A01FF21F6900B224DF /* mac */,
+				1A1A4E271FFB6AE40061A6E1 /* CCDevice.h */,
 				1A69F0971FF21E1900B224DF /* CCFileUtils.cpp */,
 				1A69F0941FF21E1900B224DF /* CCFileUtils.h */,
+				1A69F0CB1FF2263F00B224DF /* CCGL.h */,
 				1A69F0931FF21E1900B224DF /* CCImage.cpp */,
 				1A69F0951FF21E1900B224DF /* CCImage.h */,
 				1A69F0911FF21E1900B224DF /* CCPlatformConfig.h */,
 				1A69F0921FF21E1900B224DF /* CCPlatformDefine.h */,
 				1A69F0961FF21E1900B224DF /* CCPlatformMacros.h */,
+				1A69F0B21FF223AF00B224DF /* CCSAXParser.cpp */,
+				1A69F0B11FF223AF00B224DF /* CCSAXParser.h */,
+				1A1A4E281FFB6B2D0061A6E1 /* CCStdC.h */,
+				1ACB61561FF5F1DC0007F081 /* ios */,
+				1A69F0A01FF21F6900B224DF /* mac */,
 			);
 			path = platform;
 			sourceTree = "<group>";
@@ -421,6 +450,7 @@
 		1A69F0A01FF21F6900B224DF /* mac */ = {
 			isa = PBXGroup;
 			children = (
+				1A1A4E291FFB6B970061A6E1 /* CCDevice-mac.mm */,
 				1A69F0A11FF21F6900B224DF /* CCStdC-mac.h */,
 				1A69F0A21FF21F6900B224DF /* CCPlatformDefine-mac.h */,
 				1A69F0A31FF21F6900B224DF /* CCGL-mac.h */,
@@ -431,6 +461,8 @@
 		1A69F0D41FF2290000B224DF /* apple */ = {
 			isa = PBXGroup;
 			children = (
+				1A1A4E241FFB6AC40061A6E1 /* CCDevice-apple.h */,
+				1A1A4E231FFB6AC40061A6E1 /* CCDevice-apple.mm */,
 				1A69F0D51FF2290000B224DF /* CCFileUtils-apple.h */,
 				1A69F0D61FF2290000B224DF /* CCFileUtils-apple.mm */,
 			);
@@ -562,6 +594,7 @@
 		1ACB61561FF5F1DC0007F081 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				1A1A4E311FFB7B3F0061A6E1 /* CCDevice-ios.mm */,
 				1ACB61BA1FF60C700007F081 /* CCDirectorCaller-ios.h */,
 				1ACB61BB1FF60C700007F081 /* CCDirectorCaller-ios.mm */,
 				1ACB615B1FF5F1DC0007F081 /* CCEAGLView-ios.h */,
@@ -604,6 +637,8 @@
 				462724611FF4A2BA000D13BC /* Blending.h */,
 				1AC21AD21FF639EC008D9724 /* Particle.cpp */,
 				1AC21AD31FF639EC008D9724 /* Particle.h */,
+				1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */,
+				1A1A4E1A1FFB57EB0061A6E1 /* Stencil.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -682,6 +717,11 @@
 		4694927A1FE25061008D19CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A1A4E371FFB7BEF0061A6E1 /* AudioToolbox.framework */,
+				1A1A4E351FFB7BE50061A6E1 /* CoreAudio.framework */,
+				1A1A4E331FFB7BC80061A6E1 /* CoreMotion.framework */,
+				1A1A4E2D1FFB6BFD0061A6E1 /* AppKit.framework */,
+				1A1A4E2B1FFB6BE40061A6E1 /* CoreGraphics.framework */,
 				1ACB61B31FF6027B0007F081 /* libz.tbd */,
 				1ACB61B11FF5F4770007F081 /* QuartzCore.framework */,
 				1ACB617F1FF5F2E60007F081 /* Foundation.framework */,
@@ -914,10 +954,12 @@
 				1ACB61841FF5F3040007F081 /* CCFileUtils.cpp in Sources */,
 				1ACB618B1FF5F31D0007F081 /* CCRef.cpp in Sources */,
 				1ACB61951FF5F3290007F081 /* Mat4.cpp in Sources */,
+				1A1A4E1C1FFB57EB0061A6E1 /* Stencil.cpp in Sources */,
 				1AC21AD51FF639EC008D9724 /* Particle.cpp in Sources */,
 				1ACB61931FF5F3290007F081 /* CCGeometry.cpp in Sources */,
 				1ACB61961FF5F3290007F081 /* MathUtil.cpp in Sources */,
 				1ACB61671FF5F23E0007F081 /* AppDelegate.mm in Sources */,
+				1A1A4E321FFB7B3F0061A6E1 /* CCDevice-ios.mm in Sources */,
 				1ACB61891FF5F31D0007F081 /* CCData.cpp in Sources */,
 				1ACB61A91FF5F33D0007F081 /* CCVertexFormat.cpp in Sources */,
 				1ACB61911FF5F31D0007F081 /* ZipUtils.cpp in Sources */,
@@ -930,6 +972,7 @@
 				1ACB61B81FF6028F0007F081 /* tinyxml2.cpp in Sources */,
 				1ACB61A11FF5F33D0007F081 /* CCIndexBuffer.cpp in Sources */,
 				1ACB618D1FF5F31D0007F081 /* CCValue.cpp in Sources */,
+				1A1A4E261FFB6AC40061A6E1 /* CCDevice-apple.mm in Sources */,
 				1ACB61AA1FF5F3450007F081 /* types.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -942,6 +985,7 @@
 				1A69F0B01FF2230D00B224DF /* ccRandom.cpp in Sources */,
 				466C45181FF2378E00AA277B /* CCAffineTransform.cpp in Sources */,
 				1A69F0981FF21E1900B224DF /* CCRef.cpp in Sources */,
+				1A1A4E1B1FFB57EB0061A6E1 /* Stencil.cpp in Sources */,
 				1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */,
 				1A69F09C1FF21E1900B224DF /* CCFileUtils.cpp in Sources */,
 				462724671FF4D68D000D13BC /* Bunny.cpp in Sources */,
@@ -950,6 +994,7 @@
 				1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */,
 				462724621FF4A2BA000D13BC /* Blending.cpp in Sources */,
 				1A69F0771FF1E19D00B224DF /* CCGraphicsHandle.cpp in Sources */,
+				1A1A4E2A1FFB6B980061A6E1 /* CCDevice-mac.mm in Sources */,
 				1A69F0AB1FF2229200B224DF /* TGAlib.cpp in Sources */,
 				1A69F10A1FF24ED200B224DF /* CCProgram.cpp in Sources */,
 				1A69F09B1FF21E1900B224DF /* CCImage.cpp in Sources */,
@@ -979,6 +1024,7 @@
 				1A69F0FF1FF22B0200B224DF /* ioapi.cpp in Sources */,
 				1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */,
 				1A69F09A1FF21E1900B224DF /* CCValue.cpp in Sources */,
+				1A1A4E251FFB6AC40061A6E1 /* CCDevice-apple.mm in Sources */,
 				1A69F0991FF21E1900B224DF /* ccTypes.cpp in Sources */,
 				1A69F1011FF22B0200B224DF /* tinyxml2.cpp in Sources */,
 				1A69F1001FF22B0200B224DF /* unzip.cpp in Sources */,

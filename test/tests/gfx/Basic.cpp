@@ -26,6 +26,7 @@
 #include "Basic.h"
 #include "defines.h"
 
+using namespace cocos2d;
 using namespace cocos2d::gfx;
 
 Basic::Basic()
