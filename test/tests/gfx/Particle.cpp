@@ -34,14 +34,19 @@ namespace {
 
     const float PI = 3.1415926;
 
-    void fillRectWithColor(uint8_t* buf, uint32_t lineWidth, uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint8_t r, uint8_t g, uint8_t b)
+    void fillRectWithColor(uint8_t* buf, uint32_t totalWidth, uint32_t totalHeight, uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint8_t r, uint8_t g, uint8_t b)
     {
+        assert(x + width <= totalWidth);
+        assert(y + height <=  totalHeight);
+
+        uint32_t y0 = totalHeight - (y + height);
+        uint32_t y1 = totalHeight - y;
         uint8_t* p;
-        for (uint32_t offsetY = y; offsetY < (y + height); ++offsetY)
+        for (uint32_t offsetY = y0; offsetY < y1; ++offsetY)
         {
             for (uint32_t offsetX = x; offsetX < (x + width); ++offsetX)
             {
-                p = buf + (lineWidth * offsetY + offsetX) * 3;
+                p = buf + (totalWidth * offsetY + offsetX) * 3;
                 *p++ = r;
                 *p++ = g;
                 *p++ = b;
@@ -66,7 +71,7 @@ namespace {
         return out;
     };
 
-    Vec3 vec3ScaleAndAdd(Vec3 a, Vec3 b, float scale)
+    Vec3 vec3ScaleAndAdd(const Vec3& a, const Vec3& b, float scale)
     {
         Vec3 out;
         out.x = a.x + (b.x * scale);
@@ -127,11 +132,12 @@ Particle::Particle()
     uint8_t* data = (uint8_t*)malloc(BUFFER_SIZE);
 
     const size_t lineWidth = 128;
-    fillRectWithColor(data, lineWidth, 0, 0, 128, 128, 0xD0, 0xD0, 0xD0);
-    fillRectWithColor(data, lineWidth, 0, 0, 64, 64, 0x50, 0x50, 0x50);
-    fillRectWithColor(data, lineWidth, 32, 32, 32, 32, 0x90, 0x90, 0x90);
-    fillRectWithColor(data, lineWidth, 64, 64, 64, 64, 0x50, 0x50, 0x50);
-    fillRectWithColor(data, lineWidth, 96, 96, 32, 32, 0x70, 0x70, 0x70);
+    const size_t lineHeight = 128;
+    fillRectWithColor(data, lineWidth, lineHeight, 0, 0, 128, 128, 0xD0, 0xD0, 0xD0);
+    fillRectWithColor(data, lineWidth, lineHeight, 0, 0, 64, 64, 0x50, 0x50, 0x50);
+    fillRectWithColor(data, lineWidth, lineHeight, 32, 32, 32, 32, 0xFF, 0x00, 0x00);
+    fillRectWithColor(data, lineWidth, lineHeight, 64, 64, 64, 64, 0x00, 0xFF, 0x00);
+    fillRectWithColor(data, lineWidth, lineHeight, 96, 96, 32, 32, 0x00, 0x00, 0xFF);
 
     imageData.fastSet(data, BUFFER_SIZE);
 

@@ -31,8 +31,8 @@ namespace {
             
 //            Basic::create,
 //            Bunny::create,
-              Blending::create,
-//            Particle::create,
+//            Blending::create,
+            Particle::create,
         };
 
         test = tests[0]();
