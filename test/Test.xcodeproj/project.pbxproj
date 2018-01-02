@@ -49,6 +49,9 @@
 		1A69F1131FF37C1A00B224DF /* CCGFX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F1121FF37C1A00B224DF /* CCGFX.cpp */; };
 		1A69F1161FF380A200B224DF /* CCGFXUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F1141FF380A200B224DF /* CCGFXUtils.cpp */; };
 		1A69F11C1FF384DD00B224DF /* CCConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F11B1FF384DD00B224DF /* CCConsole.cpp */; };
+		1AC21AD41FF639EC008D9724 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC21AD21FF639EC008D9724 /* Particle.cpp */; };
+		1AC21AD51FF639EC008D9724 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC21AD21FF639EC008D9724 /* Particle.cpp */; };
+		1AC21AD61FFB215D008D9724 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		1ACB61671FF5F23E0007F081 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61661FF5F23E0007F081 /* AppDelegate.mm */; };
 		1ACB616A1FF5F23E0007F081 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61691FF5F23E0007F081 /* RootViewController.mm */; };
 		1ACB616F1FF5F23E0007F081 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ACB616E1FF5F23E0007F081 /* Assets.xcassets */; };
@@ -241,6 +244,8 @@
 		1A69F1151FF380A200B224DF /* CCGFXUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCGFXUtils.h; sourceTree = "<group>"; };
 		1A69F11A1FF384DC00B224DF /* CCConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCConsole.h; sourceTree = "<group>"; };
 		1A69F11B1FF384DD00B224DF /* CCConsole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCConsole.cpp; sourceTree = "<group>"; };
+		1AC21AD21FF639EC008D9724 /* Particle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
+		1AC21AD31FF639EC008D9724 /* Particle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		1ACB61571FF5F1DC0007F081 /* CCGL-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCGL-ios.h"; sourceTree = "<group>"; };
 		1ACB61581FF5F1DC0007F081 /* CCESRenderer-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CCESRenderer-ios.h"; sourceTree = "<group>"; };
 		1ACB61591FF5F1DC0007F081 /* CCES2Renderer-ios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CCES2Renderer-ios.m"; sourceTree = "<group>"; };
@@ -598,6 +603,8 @@
 				4627245E1FF47B82000D13BC /* Basic.h */,
 				462724601FF4A2BA000D13BC /* Blending.cpp */,
 				462724611FF4A2BA000D13BC /* Blending.h */,
+				1AC21AD21FF639EC008D9724 /* Particle.cpp */,
+				1AC21AD31FF639EC008D9724 /* Particle.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -878,6 +885,7 @@
 				1ACB61861FF5F30B0007F081 /* CCFileUtils-apple.mm in Sources */,
 				1ACB61A51FF5F33D0007F081 /* CCState.cpp in Sources */,
 				1ACB61971FF5F3290007F081 /* Quaternion.cpp in Sources */,
+				1AC21AD61FFB215D008D9724 /* Utils.cpp in Sources */,
 				1ACB61A01FF5F33D0007F081 /* CCGraphicsHandle.cpp in Sources */,
 				1ACB61821FF5F2F10007F081 /* CCEAGLView-ios.mm in Sources */,
 				1ACB619C1FF5F33D0007F081 /* CCDeviceGraphics-gl.cpp in Sources */,
@@ -908,6 +916,7 @@
 				1ACB61841FF5F3040007F081 /* CCFileUtils.cpp in Sources */,
 				1ACB618B1FF5F31D0007F081 /* CCRef.cpp in Sources */,
 				1ACB61951FF5F3290007F081 /* Mat4.cpp in Sources */,
+				1AC21AD51FF639EC008D9724 /* Particle.cpp in Sources */,
 				1ACB61931FF5F3290007F081 /* CCGeometry.cpp in Sources */,
 				1ACB61961FF5F3290007F081 /* MathUtil.cpp in Sources */,
 				1ACB61671FF5F23E0007F081 /* AppDelegate.mm in Sources */,
@@ -966,6 +975,7 @@
 				466C450D1FF2378E00AA277B /* MathUtil.cpp in Sources */,
 				1A69F0CA1FF2261A00B224DF /* CCConfiguration.cpp in Sources */,
 				1A69F10D1FF32D9300B224DF /* types.cpp in Sources */,
+				1AC21AD41FF639EC008D9724 /* Particle.cpp in Sources */,
 				1A69F1131FF37C1A00B224DF /* CCGFX.cpp in Sources */,
 				1A69F0AA1FF2229200B224DF /* etc1.cpp in Sources */,
 				1A69F0FF1FF22B0200B224DF /* ioapi.cpp in Sources */,

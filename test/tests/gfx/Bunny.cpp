@@ -68,22 +68,21 @@ Bunny::Bunny()
         {ATTRIB_NAME_POSITION, AttribType::FLOAT32, 3}
     });
 
-    _vertexBuffer = VertexBuffer::create(_device,
+    _vertexBuffer = new VertexBuffer();
+    _vertexBuffer->init(_device,
                         vertexFmt,
                         Usage::STATIC,
                         &bunny_positions[0][0],
                         sizeof(bunny_positions),
                         sizeof(bunny_positions) / sizeof(bunny_positions[0]));
 
-    _indexBuffer = IndexBuffer::create(
-                                      _device,
-                                       IndexFormat::UINT16,
-                                      Usage::STATIC,
-                                      &bunny_cells[0],
-                                       sizeof(bunny_cells),
-                                      sizeof(bunny_cells) / sizeof(bunny_cells[0])
-                                      );
-
+    _indexBuffer = new IndexBuffer();
+    _indexBuffer->init(_device,
+                       IndexFormat::UINT16,
+                       Usage::STATIC,
+                       &bunny_cells[0],
+                       sizeof(bunny_cells),
+                       sizeof(bunny_cells) / sizeof(bunny_cells[0]));
 
     Mat4::createPerspective(60.0f, 1.0f * WINDOW_WIDTH / WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
 }
