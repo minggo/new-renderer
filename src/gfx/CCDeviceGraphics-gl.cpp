@@ -210,7 +210,7 @@ void DeviceGraphics::setStencilOp(StencilOp failOp, StencilOp zFailOp, StencilOp
     _nextState.stencilWriteMaskFront = _nextState.stencilWriteMaskBack = writeMask;
 }
 
-void DeviceGraphics::setstencilOpFront(StencilOp failOp, StencilOp zFailOp, StencilOp zPassOp, unsigned int writeMask)
+void DeviceGraphics::setStencilOpFront(StencilOp failOp, StencilOp zFailOp, StencilOp zPassOp, unsigned int writeMask)
 {
     _nextState.stencilSeparation = true;
     _nextState.stencilFailOpFront = failOp;
@@ -753,34 +753,34 @@ void DeviceGraphics::commitStencilStates()
         
         if (_nextState.stencilSeparation)
         {
-            glStencilFuncSeparate(GL_FRONT,
+            GL_CHECK(glStencilFuncSeparate(GL_FRONT,
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront));
-            glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront));
-            glStencilOpSeparate(GL_FRONT,
+                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            GL_CHECK(glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            GL_CHECK(glStencilOpSeparate(GL_FRONT,
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront));
-            glStencilFuncSeparate(GL_BACK,
+                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
+            GL_CHECK(glStencilFuncSeparate(GL_BACK,
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncBack),
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilRefBack),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack));
-            glStencilMaskSeparate(GL_BACK, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack));
-            glStencilOpSeparate(GL_BACK,
+                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack)));
+            GL_CHECK(glStencilMaskSeparate(GL_BACK, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack)));
+            GL_CHECK(glStencilOpSeparate(GL_BACK,
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpBack),
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpBack),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack));
+                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack)));
         }
         else
         {
-            glStencilFunc(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+            GL_CHECK(glStencilFunc(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
                           ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                          ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront));
-            glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront));
-            glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+                          ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            GL_CHECK(glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            GL_CHECK(glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
                         ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront));
+                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
         }
         
         return;
@@ -794,36 +794,36 @@ void DeviceGraphics::commitStencilStates()
         if (_nextState.stencilSeparation)
         {
             // front
-            glStencilFuncSeparate(GL_FRONT,
+            GL_CHECK(glStencilFuncSeparate(GL_FRONT,
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront));
-            glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront));
-            glStencilOpSeparate(GL_FRONT,
+                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            GL_CHECK(glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            GL_CHECK(glStencilOpSeparate(GL_FRONT,
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront));
+                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
             
             // back
-            glStencilFuncSeparate(GL_BACK,
+            GL_CHECK(glStencilFuncSeparate(GL_BACK,
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncBack),
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilRefBack),
-                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack));
-            glStencilMaskSeparate(GL_BACK, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack));
-            glStencilOpSeparate(GL_BACK,
+                                  ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskBack)));
+            GL_CHECK(glStencilMaskSeparate(GL_BACK, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskBack)));
+            GL_CHECK(glStencilOpSeparate(GL_BACK,
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpBack),
                                 ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpBack),
-                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack));
+                                ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpBack)));
         }
         else
         {
-            glStencilFunc(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+            GL_CHECK(glStencilFunc(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
                           ENUM_CLASS_TO_GLENUM(_nextState.stencilRefFront),
-                          ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront));
-            glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront));
-            glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+                          ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
+            GL_CHECK(glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+            GL_CHECK(glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
                         ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
-                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront));
+                        ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
         }
         
         return;
@@ -893,7 +893,7 @@ void DeviceGraphics::commitStencilStates()
             _currentState.stencilZFailOpFront != _nextState.stencilZFailOpFront ||
             _currentState.stencilZPassOpFront != _nextState.stencilZPassOpFront)
         {
-            GL_CHECK(glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFuncFront),
+            GL_CHECK(glStencilOp(ENUM_CLASS_TO_GLENUM(_nextState.stencilFailOpFront),
                         ENUM_CLASS_TO_GLENUM(_nextState.stencilZFailOpFront),
                         ENUM_CLASS_TO_GLENUM(_nextState.stencilZPassOpFront)));
         }

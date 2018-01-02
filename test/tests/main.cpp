@@ -30,6 +30,7 @@
 #include "gfx/Bunny.h"
 #include "gfx/Blending.h"
 #include "gfx/Particle.h"
+#include "gfx/Stencil.h"
 
 namespace
 {
@@ -59,6 +60,7 @@ namespace
             Bunny::create,
             Blending::create,
             Particle::create,
+            Stencil::create,
         };
         
         test = tests[0]();
