@@ -16,6 +16,7 @@
 #include "gfx/Basic.h"
 #include "gfx/Bunny.h"
 #include "gfx/Blending.h"
+#include "gfx/Particle.h"
 
 namespace {
 
@@ -27,9 +28,11 @@ namespace {
     void initTests()
     {
         tests = {
+            
 //            Basic::create,
 //            Bunny::create,
-                        Blending::create
+              Blending::create,
+//            Particle::create,
         };
 
         test = tests[0]();
