@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1A4E181FFB45E20061A6E1 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */; };
 		1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */; };
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
@@ -51,7 +52,6 @@
 		1A69F11C1FF384DD00B224DF /* CCConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F11B1FF384DD00B224DF /* CCConsole.cpp */; };
 		1AC21AD41FF639EC008D9724 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC21AD21FF639EC008D9724 /* Particle.cpp */; };
 		1AC21AD51FF639EC008D9724 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AC21AD21FF639EC008D9724 /* Particle.cpp */; };
-		1AC21AD61FFB215D008D9724 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		1ACB61671FF5F23E0007F081 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61661FF5F23E0007F081 /* AppDelegate.mm */; };
 		1ACB616A1FF5F23E0007F081 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61691FF5F23E0007F081 /* RootViewController.mm */; };
 		1ACB616F1FF5F23E0007F081 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ACB616E1FF5F23E0007F081 /* Assets.xcassets */; };
@@ -139,7 +139,6 @@
 		466C45171FF2378E00AA277B /* Vec3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C45031FF2378E00AA277B /* Vec3.cpp */; };
 		466C45181FF2378E00AA277B /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C45041FF2378E00AA277B /* CCAffineTransform.cpp */; };
 		466C45191FF2378E00AA277B /* MathUtilNeon.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C45051FF2378E00AA277B /* MathUtilNeon.inl */; };
-		4689BC3A1FF63C1D005B4158 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
 		469492821FE25305008D19CC /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469492811FE252FB008D19CC /* IOKit.framework */; };
@@ -885,13 +884,12 @@
 				1ACB61861FF5F30B0007F081 /* CCFileUtils-apple.mm in Sources */,
 				1ACB61A51FF5F33D0007F081 /* CCState.cpp in Sources */,
 				1ACB61971FF5F3290007F081 /* Quaternion.cpp in Sources */,
-				1AC21AD61FFB215D008D9724 /* Utils.cpp in Sources */,
+				1A1A4E181FFB45E20061A6E1 /* Utils.cpp in Sources */,
 				1ACB61A01FF5F33D0007F081 /* CCGraphicsHandle.cpp in Sources */,
 				1ACB61821FF5F2F10007F081 /* CCEAGLView-ios.mm in Sources */,
 				1ACB619C1FF5F33D0007F081 /* CCDeviceGraphics-gl.cpp in Sources */,
 				1ACB61A21FF5F33D0007F081 /* CCProgram.cpp in Sources */,
 				1ACB61991FF5F3290007F081 /* Vec2.cpp in Sources */,
-				4689BC3A1FF63C1D005B4158 /* Utils.cpp in Sources */,
 				1ACB618A1FF5F31D0007F081 /* ccRandom.cpp in Sources */,
 				1ACB61811FF5F2F10007F081 /* CCES2Renderer-ios.m in Sources */,
 				1ACB61A41FF5F33D0007F081 /* CCRenderTarget.cpp in Sources */,
