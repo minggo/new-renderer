@@ -160,6 +160,8 @@
 		46ABB0951FFC719500287AA5 /* MultiTextures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ABB0921FFC719500287AA5 /* MultiTextures.cpp */; };
 		46ABB09C1FFC765700287AA5 /* PostProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ABB09A1FFC765700287AA5 /* PostProcess.cpp */; };
 		46ABB09D1FFC765700287AA5 /* PostProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ABB09A1FFC765700287AA5 /* PostProcess.cpp */; };
+		46ABB0A01FFCD71C00287AA5 /* DepthTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ABB09E1FFCD71C00287AA5 /* DepthTexture.cpp */; };
+		46ABB0A11FFCD71C00287AA5 /* DepthTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ABB09E1FFCD71C00287AA5 /* DepthTexture.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -360,6 +362,8 @@
 		46ABB0931FFC719500287AA5 /* MultiTextures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTextures.h; sourceTree = "<group>"; };
 		46ABB09A1FFC765700287AA5 /* PostProcess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PostProcess.cpp; sourceTree = "<group>"; };
 		46ABB09B1FFC765700287AA5 /* PostProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostProcess.h; sourceTree = "<group>"; };
+		46ABB09E1FFCD71C00287AA5 /* DepthTexture.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DepthTexture.cpp; sourceTree = "<group>"; };
+		46ABB09F1FFCD71C00287AA5 /* DepthTexture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DepthTexture.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -651,6 +655,8 @@
 				1A1A4E1A1FFB57EB0061A6E1 /* Stencil.h */,
 				46ABB09A1FFC765700287AA5 /* PostProcess.cpp */,
 				46ABB09B1FFC765700287AA5 /* PostProcess.h */,
+				46ABB09E1FFCD71C00287AA5 /* DepthTexture.cpp */,
+				46ABB09F1FFCD71C00287AA5 /* DepthTexture.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -940,6 +946,7 @@
 				46ABB09D1FFC765700287AA5 /* PostProcess.cpp in Sources */,
 				1ACB61A01FF5F33D0007F081 /* CCGraphicsHandle.cpp in Sources */,
 				1ACB61821FF5F2F10007F081 /* CCEAGLView-ios.mm in Sources */,
+				46ABB0A11FFCD71C00287AA5 /* DepthTexture.cpp in Sources */,
 				1ACB619C1FF5F33D0007F081 /* CCDeviceGraphics-gl.cpp in Sources */,
 				1ACB61A21FF5F33D0007F081 /* CCProgram.cpp in Sources */,
 				1ACB61991FF5F3290007F081 /* Vec2.cpp in Sources */,
@@ -1010,6 +1017,7 @@
 				1A69F0771FF1E19D00B224DF /* CCGraphicsHandle.cpp in Sources */,
 				1A1A4E2A1FFB6B980061A6E1 /* CCDevice-mac.mm in Sources */,
 				1A69F0AB1FF2229200B224DF /* TGAlib.cpp in Sources */,
+				46ABB0A01FFCD71C00287AA5 /* DepthTexture.cpp in Sources */,
 				1A69F10A1FF24ED200B224DF /* CCProgram.cpp in Sources */,
 				1A69F09B1FF21E1900B224DF /* CCImage.cpp in Sources */,
 				466C45111FF2378E00AA277B /* TransformUtils.cpp in Sources */,
