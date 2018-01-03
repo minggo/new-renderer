@@ -22,49 +22,31 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-
 #pragma once
 
+#include "gfx/CCGFX.h"
+#include "math/Mat4.h"
+#include "../defines.h"
+#include "../TestBase.h"
 
-#include <vector>
-#include "../macro.h"
-#include "../types.h"
-#include "CCGraphicsHandle.h"
-
-GFX_BEGIN
-
-class DeviceGraphics;
-class RenderTarget;
-
-class FrameBuffer final : public GraphicsHandle
+class PostProcess : public TestBaseI
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_3(FrameBuffer, init,  DeviceGraphics*, uint16_t, uint16_t)
-
-    FrameBuffer();
-    bool init(DeviceGraphics* device, uint16_t width, uint16_t height);
-
-    void setColorBuffers(const std::vector<RenderTarget*>& renderTargets);
-    void setColorBuffer(RenderTarget* rt, int index);
-    void setDepthBuffer(RenderTarget* rt);
-    void setStencilBuffer(RenderTarget* rt);
-    void setDepthStencilBuffer(RenderTarget* rt);
+    DEFINE_CREATE_METHOD(PostProcess);
+    PostProcess();
+    ~PostProcess();
+    virtual void tick(float dt) override;
     
-    const std::vector<RenderTarget*>& getColorBuffers() const;
-    const RenderTarget* getDepthBuffer() const;
-    const RenderTarget* getStencilBuffer() const;
-    const RenderTarget* getDepthStencilBuffer() const;
-
 private:
-    virtual ~FrameBuffer();
-
-    DeviceGraphics* _device;
-    std::vector<RenderTarget*> _colorBuffers;
-    RenderTarget* _depthBuffer;
-    RenderTarget* _stencilBuffer;
-    RenderTarget* _depthStencilBuffer;
-    uint16_t _width;
-    uint16_t _height;
+    cocos2d::gfx::DeviceGraphics* _device;
+    cocos2d::gfx::FrameBuffer* _frameBuffer;
+    cocos2d::gfx::Texture2D* _colorTexture;
+    float _t;
+    
+    cocos2d::Mat4 _view;
+    cocos2d::Mat4 _model;
+    cocos2d::Mat4 _projection;
+    cocos2d::Vec3 _eye;
+    cocos2d::Vec3 _center;
+    cocos2d::Vec3 _up;
 };
-
-GFX_END

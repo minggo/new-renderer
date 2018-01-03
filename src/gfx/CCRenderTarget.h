@@ -29,28 +29,14 @@
 
 #include "base/CCRef.h"
 
+#include "CCGraphicsHandle.h"
+
 GFX_BEGIN
 
-class Texture2D;
-class RenderBuffer;
-
-class RenderTarget final : public Ref
+class RenderTarget : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_1(RenderTarget, initWithTexture, Texture2D*)
-    GFX_DEFINE_CREATE_METHOD_1(RenderTarget, initWithRenderBuffer, RenderBuffer*)
-
-    RenderTarget();
-    virtual ~RenderTarget();
-
-    bool initWithTexture(Texture2D* tex);
-    bool initWithRenderBuffer(RenderBuffer* rb);
-
-    GLuint getHandle() const;
-
-private:
-    Texture2D* _tex;
-    RenderBuffer* _rb;
+    virtual ~RenderTarget() {}
 };
 
 GFX_END

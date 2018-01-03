@@ -34,16 +34,14 @@
 
 GFX_BEGIN
 
-namespace {
-    template <typename T>
-    void attach(GLenum location, const T* renderTarget)
+namespace
+{
+    void attach(GLenum location, const RenderTarget* target)
     {
-        GL_CHECK(glFramebufferRenderbuffer(GL_FRAMEBUFFER, location, GL_RENDERBUFFER, renderTarget->getHandle()));
-    }
-    
-    void attachColorBuffer(GLenum location, const RenderTarget* texture)
-    {
-        GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, texture->getHandle(), 0));
+        if (nullptr != dynamic_cast<const Texture2D*>(target))
+            GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, target->getHandle(), 0));
+        else
+            GL_CHECK(glFramebufferRenderbuffer(GL_FRAMEBUFFER, location, GL_RENDERBUFFER, target->getHandle()));
     }
 } // namespace {
 
@@ -66,16 +64,16 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     
     if (nullptr == fb)
     {
-        glBindBuffer(GL_FRAMEBUFFER, 0);
+        GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 0));
         return;
     }
     
-    glBindBuffer(GL_FRAMEBUFFER, fb->getHandle());
+    GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, fb->getHandle()));
     
     int i = 0;
     const auto& colorBuffers = fb->getColorBuffers();
     for (const auto& colorBuffer : colorBuffers)
-        attachColorBuffer(GL_COLOR_ATTACHMENT0 + i, colorBuffer);
+        attach(GL_COLOR_ATTACHMENT0 + i, colorBuffer);
     for (i = static_cast<int>(colorBuffers.size()); i < _caps.maxColorAttatchments; ++i)
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, 0, 0);
     
@@ -383,12 +381,16 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     
     // draw primitives
     if (nextIndexBuffer)
+    {
         GL_CHECK(glDrawElements(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType),
                        count,
                        ENUM_CLASS_TO_GLENUM(nextIndexBuffer->getFormat()),
                        (GLvoid *)(base * nextIndexBuffer->getBytesPerIndex())));
+    }
     else
+    {
         GL_CHECK(glDrawArrays(ENUM_CLASS_TO_GLENUM(_nextState.primitiveType), (GLint)base, count));
+    }
     
     _currentState = std::move(_nextState);
 }
@@ -745,7 +747,9 @@ void DeviceGraphics::commitDepthStates()
     }
     
     if (_currentState.depthFunc != _nextState.depthFunc)
+    {
         GL_CHECK(glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
+    }
 }
 
 void DeviceGraphics::commitStencilStates()
@@ -851,7 +855,9 @@ void DeviceGraphics::commitStencilStates()
                                   ENUM_CLASS_TO_GLENUM(_nextState.stencilMaskFront)));
         }
         if (_currentState.stencilWriteMaskFront != _nextState.stencilWriteMaskFront)
+        {
             GL_CHECK(glStencilMaskSeparate(GL_FRONT, ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+        }
         if (_currentState.stencilFailOpFront != _nextState.stencilFailOpFront ||
             _currentState.stencilZFailOpFront != _nextState.stencilZFailOpFront ||
             _currentState.stencilZPassOpFront != _nextState.stencilZPassOpFront)
@@ -896,7 +902,9 @@ void DeviceGraphics::commitStencilStates()
         }
         
         if (_currentState.stencilWriteMaskFront != _nextState.stencilWriteMaskFront)
+        {
             GL_CHECK(glStencilMask(ENUM_CLASS_TO_GLENUM(_nextState.stencilWriteMaskFront)));
+        }
         
         if (_currentState.stencilFailOpFront != _nextState.stencilFailOpFront ||
             _currentState.stencilZFailOpFront != _nextState.stencilZFailOpFront ||
@@ -1016,9 +1024,12 @@ void DeviceGraphics::commitTextures()
         if (i >= curTextureSize || curTextureUnits[i] != nextTextureUnits[i])
         {
             auto texture = nextTextureUnits[i];
-            GL_CHECK(glActiveTexture(GL_TEXTURE0 + i));
-            GL_CHECK(glBindTexture(texture ? texture->getTarget() : GL_TEXTURE_2D,
-                                   texture ? texture->getHandle() : 0));
+            if (texture)
+            {
+                GL_CHECK(glActiveTexture(GL_TEXTURE0 + i));
+                GL_CHECK(glBindTexture(texture->getTarget(),
+                                       texture->getHandle()));
+            }
         }
     }
 }

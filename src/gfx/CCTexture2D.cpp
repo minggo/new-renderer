@@ -47,13 +47,17 @@ Texture2D::~Texture2D()
 
 }
 
-bool Texture2D::init(DeviceGraphics* device, const Options& options)
+bool Texture2D::init(DeviceGraphics* device, Options& options)
 {
     bool ok = Texture::init(device);
     if (ok)
     {
         _target = GL_TEXTURE_2D;
         GL_CHECK(glGenTextures(1, &_glID));
+        
+        if (options.images.empty())
+            options.images.push_back(Data());
+        
         update(options);
     }
     return ok;

@@ -32,6 +32,7 @@
 #include "gfx/MultiTextures.h"
 #include "gfx/Particle.h"
 #include "gfx/Stencil.h"
+#include "gfx/PostProcess.h"
 
 namespace
 {
@@ -63,6 +64,7 @@ namespace
             MultiTextures::create,
             Particle::create,
             Stencil::create,
+            PostProcess::create,
         };
         
         test = tests[0]();

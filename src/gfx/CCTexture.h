@@ -28,6 +28,7 @@
 #include "../types.h"
 
 #include "CCGraphicsHandle.h"
+#include "CCRenderTarget.h"
 #include "base/CCData.h"
 
 #include <vector>
@@ -36,7 +37,7 @@ GFX_BEGIN
 
 class DeviceGraphics;
 
-class Texture : public GraphicsHandle
+class Texture : public RenderTarget
 {
 public:
     inline GLuint getTarget() const { return _target; }

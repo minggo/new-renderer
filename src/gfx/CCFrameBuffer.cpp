@@ -59,33 +59,38 @@ bool FrameBuffer::init(DeviceGraphics* device, uint16_t width, uint16_t height)
     return true;
 }
 
-void FrameBuffer::setRenderTarget(RenderTarget* rt, uint32_t index)
+void FrameBuffer::setColorBuffer(RenderTarget* rt, int index)
 {
     if (index >= _colorBuffers.size())
-    {
         _colorBuffers.resize(index + 1);
-    }
-
+    
     GFX_SAFE_RETAIN(rt);
     GFX_SAFE_RELEASE(_colorBuffers[index]);
     _colorBuffers[index] = rt;
 }
 
-void FrameBuffer::setDepthTarget(RenderTarget* rt)
+void FrameBuffer::setColorBuffers(const std::vector<RenderTarget*>& renderTargets)
+{
+    _colorBuffers = renderTargets;
+    for (auto& colorBufffer : _colorBuffers)
+        GFX_SAFE_RETAIN(colorBufffer);
+}
+
+void FrameBuffer::setDepthBuffer(RenderTarget* rt)
 {
     GFX_SAFE_RETAIN(rt);
     GFX_SAFE_RELEASE(_depthBuffer);
     _depthBuffer = rt;
 }
 
-void FrameBuffer::setStencilTarget(RenderTarget* rt)
+void FrameBuffer::setStencilBuffer(RenderTarget* rt)
 {
     GFX_SAFE_RETAIN(rt);
     GFX_SAFE_RELEASE(_stencilBuffer);
     _stencilBuffer = rt;
 }
 
-void FrameBuffer::setDepthStencilTarget(RenderTarget* rt)
+void FrameBuffer::setDepthStencilBuffer(RenderTarget* rt)
 {
     GFX_SAFE_RETAIN(rt);
     GFX_SAFE_RELEASE(_depthStencilBuffer);

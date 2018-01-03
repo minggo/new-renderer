@@ -27,13 +27,13 @@
 #include "../macro.h"
 #include "types.h"
 
-#include "CCGraphicsHandle.h"
+#include "CCRenderTarget.h"
 
 GFX_BEGIN
 
 class DeviceGraphics;
 
-class RenderBuffer final : public GraphicsHandle
+class RenderBuffer final : public RenderTarget
 {
 public:
     // render-buffer format

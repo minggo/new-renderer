@@ -158,6 +158,8 @@
 		4694929A1FE2775C008D19CC /* CCFrameBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 469492981FE2775C008D19CC /* CCFrameBuffer.cpp */; };
 		46ABB0941FFC719500287AA5 /* MultiTextures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ABB0921FFC719500287AA5 /* MultiTextures.cpp */; };
 		46ABB0951FFC719500287AA5 /* MultiTextures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ABB0921FFC719500287AA5 /* MultiTextures.cpp */; };
+		46ABB09C1FFC765700287AA5 /* PostProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ABB09A1FFC765700287AA5 /* PostProcess.cpp */; };
+		46ABB09D1FFC765700287AA5 /* PostProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46ABB09A1FFC765700287AA5 /* PostProcess.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -356,6 +358,8 @@
 		4694929B1FE28190008D19CC /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		46ABB0921FFC719500287AA5 /* MultiTextures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiTextures.cpp; sourceTree = "<group>"; };
 		46ABB0931FFC719500287AA5 /* MultiTextures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTextures.h; sourceTree = "<group>"; };
+		46ABB09A1FFC765700287AA5 /* PostProcess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PostProcess.cpp; sourceTree = "<group>"; };
+		46ABB09B1FFC765700287AA5 /* PostProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostProcess.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -645,6 +649,8 @@
 				1AC21AD31FF639EC008D9724 /* Particle.h */,
 				1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */,
 				1A1A4E1A1FFB57EB0061A6E1 /* Stencil.h */,
+				46ABB09A1FFC765700287AA5 /* PostProcess.cpp */,
+				46ABB09B1FFC765700287AA5 /* PostProcess.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -931,6 +937,7 @@
 				1ACB61A51FF5F33D0007F081 /* CCState.cpp in Sources */,
 				1ACB61971FF5F3290007F081 /* Quaternion.cpp in Sources */,
 				1A1A4E181FFB45E20061A6E1 /* Utils.cpp in Sources */,
+				46ABB09D1FFC765700287AA5 /* PostProcess.cpp in Sources */,
 				1ACB61A01FF5F33D0007F081 /* CCGraphicsHandle.cpp in Sources */,
 				1ACB61821FF5F2F10007F081 /* CCEAGLView-ios.mm in Sources */,
 				1ACB619C1FF5F33D0007F081 /* CCDeviceGraphics-gl.cpp in Sources */,
@@ -1042,6 +1049,7 @@
 				1A69F0B31FF223AF00B224DF /* CCSAXParser.cpp in Sources */,
 				466C45121FF2378E00AA277B /* Quaternion.cpp in Sources */,
 				466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */,
+				46ABB09C1FFC765700287AA5 /* PostProcess.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
