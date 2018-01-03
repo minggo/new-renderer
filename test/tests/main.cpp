@@ -30,6 +30,8 @@
 #include "gfx/Bunny.h"
 #include "gfx/Blending.h"
 #include "gfx/MultiTextures.h"
+#include "gfx/Particle.h"
+#include "gfx/Stencil.h"
 
 namespace
 {
@@ -58,7 +60,9 @@ namespace
             Basic::create,
             Bunny::create,
             Blending::create,
-            MultiTextures::create
+            MultiTextures::create,
+            Particle::create,
+            Stencil::create,
         };
         
         test = tests[0]();

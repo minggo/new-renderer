@@ -17,6 +17,8 @@
 #include "gfx/Bunny.h"
 #include "gfx/Blending.h"
 #include "gfx/MultiTextures.h"
+#include "gfx/Particle.h"
+#include "gfx/Stencil.h"
 
 namespace {
 
@@ -31,7 +33,9 @@ namespace {
             Basic::create,
             Bunny::create,
             Blending::create,
-            MultiTextures::create
+            MultiTextures::create,
+            Particle::create,
+            Stencil::create,
         };
 
         test = tests[0]();
@@ -54,7 +58,7 @@ namespace {
     // Initialize the CCEAGLView
     CCEAGLView *eaglView = [CCEAGLView viewWithFrame: [UIScreen mainScreen].bounds
                                          pixelFormat: kEAGLColorFormatRGB565
-                                         depthFormat: GL_DEPTH_COMPONENT16
+                                         depthFormat: GL_DEPTH24_STENCIL8_OES
                                   preserveBackbuffer: NO
                                           sharegroup: nil
                                        multiSampling: NO

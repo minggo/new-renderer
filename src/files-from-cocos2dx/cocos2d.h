@@ -69,31 +69,27 @@ THE SOFTWARE.
 #include "platform/CCPlatformConfig.h"
 #include "platform/CCPlatformMacros.h"
 #include "platform/CCSAXParser.h"
+#include "platform/CCDevice.h"
+#include "platform/CCGL.h"
+#include "platform/CCStdC.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    #include "platform/ios/CCApplication-ios.h"
-    #include "platform/ios/CCGLViewImpl-ios.h"
-    #include "platform/ios/CCGL-ios.h"
-    #include "platform/ios/CCStdC-ios.h"
+//    #include "platform/ios/CCApplication-ios.h"
+//    #include "platform/ios/CCGLViewImpl-ios.h"
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     #include "platform/android/CCApplication-android.h"
     #include "platform/android/CCGLViewImpl-android.h"
-    #include "platform/android/CCGL-android.h"
-    #include "platform/android/CCStdC-android.h"
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     #include "platform/win32/CCApplication-win32.h"
     #include "platform/desktop/CCGLViewImpl-desktop.h"
-    #include "platform/win32/CCGL-win32.h"
-    #include "platform/win32/CCStdC-win32.h"
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-    #include "platform/mac/CCGL-mac.h"
-    #include "platform/mac/CCStdC-mac.h"
+
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_MAC
 
   

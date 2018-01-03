@@ -280,7 +280,7 @@ void Blending::tick(float dt)
     offsetY = offsetY + 5.f + size;
     _device->enableBlend();
     _device->setBlendFuncSeparate(gfx::BlendFactor::SRC_ALPHA,
-                                  gfx::BlendFactor::ONE_MINUS_SRC_ALPAH,
+                                  gfx::BlendFactor::ONE_MINUS_SRC_ALPHA,
                                   gfx::BlendFactor::ONE,
                                   gfx::BlendFactor::ONE);
     _device->setBlendEquationSeparate(gfx::BlendOp::ADD, gfx::BlendOp::ADD);
