@@ -125,12 +125,35 @@ private:
     {
         enum class Type
         {
+            UNKNOWN,
             INT,
+            INT2,
+            INT3,
+            INT4,
+            INT_ARRAY,
+            INT2_ARRAY,
+            INT3_ARRAY,
+            INT4_ARRAY,
+            
             FLOAT,
-            MAT
+            FLOAT2,
+            FLOAT3,
+            FLOAT4,
+            FLOAT_ARRAY,
+            FLOAT2_ARRAY,
+            FLOAT3_ARRAY,
+            FLOAT4_ARRAY,
+            
+            MAT2,
+            MAT3,
+            MAT4,
+            MAT2_ARRAY,
+            MAT3_ARRAY,
+            MAT4_ARRAY
         };
         
         Uniform(const void* v, Type type, size_t bytes);
+        Uniform(const void* v, Type type, size_t bytes, size_t count);
         Uniform();
         Uniform(Uniform&& h);
         ~Uniform();
@@ -141,7 +164,7 @@ private:
         bool dirty;
         Type type;
         void* value;
-        size_t bytes;
+        size_t count;
     };
     
     DeviceGraphics();
@@ -153,6 +176,7 @@ private:
     void restoreTexture(uint32_t index);
     void restoreIndexBuffer();
     inline void setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes);
+    inline void setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes, size_t count);
     inline void setUniformToGL(GLint location, const DeviceGraphics::Uniform& uniform) const;
     
     inline void commitBlendStates();

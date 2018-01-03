@@ -16,6 +16,7 @@
 #include "gfx/Basic.h"
 #include "gfx/Bunny.h"
 #include "gfx/Blending.h"
+#include "gfx/MultiTextures.h"
 
 namespace {
 
@@ -27,9 +28,10 @@ namespace {
     void initTests()
     {
         tests = {
-//            Basic::create,
-//            Bunny::create,
-                        Blending::create
+            Basic::create,
+            Bunny::create,
+            Blending::create,
+            MultiTextures::create
         };
 
         test = tests[0]();

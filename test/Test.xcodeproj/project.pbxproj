@@ -137,6 +137,8 @@
 		466C45181FF2378E00AA277B /* CCAffineTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C45041FF2378E00AA277B /* CCAffineTransform.cpp */; };
 		466C45191FF2378E00AA277B /* MathUtilNeon.inl in Resources */ = {isa = PBXBuildFile; fileRef = 466C45051FF2378E00AA277B /* MathUtilNeon.inl */; };
 		4689BC3A1FF63C1D005B4158 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
+		4689BC3D1FF63F6D005B4158 /* MultiTextures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4689BC3B1FF63F6D005B4158 /* MultiTextures.cpp */; };
+		4689BC3E1FF63F6D005B4158 /* MultiTextures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4689BC3B1FF63F6D005B4158 /* MultiTextures.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
 		469492821FE25305008D19CC /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469492811FE252FB008D19CC /* IOKit.framework */; };
@@ -312,6 +314,8 @@
 		466C45031FF2378E00AA277B /* Vec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec3.cpp; sourceTree = "<group>"; };
 		466C45041FF2378E00AA277B /* CCAffineTransform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAffineTransform.cpp; sourceTree = "<group>"; };
 		466C45051FF2378E00AA277B /* MathUtilNeon.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MathUtilNeon.inl; sourceTree = "<group>"; };
+		4689BC3B1FF63F6D005B4158 /* MultiTextures.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MultiTextures.cpp; sourceTree = "<group>"; };
+		4689BC3C1FF63F6D005B4158 /* MultiTextures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MultiTextures.h; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4694927B1FE25061008D19CC /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = libs/glfw3/prebuilt/mac/libglfw3.a; sourceTree = "<group>"; };
 		4694927D1FE2529E008D19CC /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -598,6 +602,8 @@
 				4627245E1FF47B82000D13BC /* Basic.h */,
 				462724601FF4A2BA000D13BC /* Blending.cpp */,
 				462724611FF4A2BA000D13BC /* Blending.h */,
+				4689BC3B1FF63F6D005B4158 /* MultiTextures.cpp */,
+				4689BC3C1FF63F6D005B4158 /* MultiTextures.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -888,6 +894,7 @@
 				1ACB61811FF5F2F10007F081 /* CCES2Renderer-ios.m in Sources */,
 				1ACB61A41FF5F33D0007F081 /* CCRenderTarget.cpp in Sources */,
 				1ACB61BC1FF60C700007F081 /* CCDirectorCaller-ios.mm in Sources */,
+				4689BC3E1FF63F6D005B4158 /* MultiTextures.cpp in Sources */,
 				1ACB61A31FF5F33D0007F081 /* CCRenderBuffer.cpp in Sources */,
 				1ACB619F1FF5F33D0007F081 /* CCGFXUtils.cpp in Sources */,
 				1ACB619E1FF5F33D0007F081 /* CCGFX.cpp in Sources */,
@@ -944,6 +951,7 @@
 				462724621FF4A2BA000D13BC /* Blending.cpp in Sources */,
 				1A69F0771FF1E19D00B224DF /* CCGraphicsHandle.cpp in Sources */,
 				1A69F0AB1FF2229200B224DF /* TGAlib.cpp in Sources */,
+				4689BC3D1FF63F6D005B4158 /* MultiTextures.cpp in Sources */,
 				1A69F10A1FF24ED200B224DF /* CCProgram.cpp in Sources */,
 				1A69F09B1FF21E1900B224DF /* CCImage.cpp in Sources */,
 				466C45111FF2378E00AA277B /* TransformUtils.cpp in Sources */,
