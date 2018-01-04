@@ -19,6 +19,8 @@
 #include "gfx/MultiTextures.h"
 #include "gfx/Particle.h"
 #include "gfx/Stencil.h"
+#include "gfx/PostProcess.h"
+#include "gfx/DepthTexture.h"
 
 namespace {
 
@@ -30,12 +32,14 @@ namespace {
     void initTests()
     {
         tests = {
-            Basic::create,
-            Bunny::create,
-            Blending::create,
-            MultiTextures::create,
-            Particle::create,
-            Stencil::create,
+//            Basic::create,
+//            Bunny::create,
+//            Blending::create,
+//            MultiTextures::create,
+//            Particle::create,
+//            Stencil::create,
+//            PostProcess::create,
+            DepthTexture::create,
         };
 
         test = tests[0]();
@@ -58,7 +62,7 @@ namespace {
     // Initialize the CCEAGLView
     CCEAGLView *eaglView = [CCEAGLView viewWithFrame: [UIScreen mainScreen].bounds
                                          pixelFormat: kEAGLColorFormatRGB565
-                                         depthFormat: GL_DEPTH24_STENCIL8_OES
+                                         depthFormat: GL_DEPTH_COMPONENT24_OES
                                   preserveBackbuffer: NO
                                           sharegroup: nil
                                        multiSampling: NO

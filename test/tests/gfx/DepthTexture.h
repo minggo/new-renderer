@@ -24,11 +24,27 @@
 
 #pragma once
 
+#include "gfx/CCGFX.h"
 #include "../TestBase.h"
 
 class DepthTexture : public TestBaseI
 {
 public:
     DEFINE_CREATE_METHOD(DepthTexture);
+    DepthTexture();
+    ~DepthTexture();
     virtual void tick(float dt) override;
+    
+private:
+    cocos2d::gfx::DeviceGraphics* _device;
+    cocos2d::gfx::FrameBuffer* _frameBuffer;
+    cocos2d::gfx::Texture2D* _depthTexture;
+    float _t;
+    
+    cocos2d::Mat4 _view;
+    cocos2d::Mat4 _model;
+    cocos2d::Mat4 _projection;
+    cocos2d::Vec3 _eye;
+    cocos2d::Vec3 _center;
+    cocos2d::Vec3 _up;
 };
