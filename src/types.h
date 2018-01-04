@@ -215,9 +215,10 @@ enum class TextureFormat : uint8_t
 //
 // depth formats
     D16 = 25,
-    D32 = 26,
-    D24S8 = 27,
-    END = 27
+    D24 = 26,
+    D32 = 27,
+    D24S8 = 28,
+    END = 29
 //
 };
 
