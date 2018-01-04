@@ -439,9 +439,9 @@
 		1A1A4E4F1FFCA6230061A6E1 /* firefox */ = {
 			isa = PBXGroup;
 			children = (
+				1A1A4E521FFCA6230061A6E1 /* mozilla */,
 				1A1A4FD31FFCAA3C0061A6E1 /* WebGLFormats.cpp */,
 				1A1A4FD41FFCAA3C0061A6E1 /* WebGLFormats.h */,
-				1A1A4E521FFCA6230061A6E1 /* mozilla */,
 				1A1A4E501FFCA6230061A6E1 /* WebGLTexelConversions.cpp */,
 				1A1A4F1A1FFCA6230061A6E1 /* WebGLTexelConversions.h */,
 				1A1A4E511FFCA6230061A6E1 /* WebGLTypes.h */,
