@@ -28,6 +28,8 @@
 		1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FE11FFDF5BE0061A6E1 /* SubImage.cpp */; };
 		1A1A4FED1FFE2B0D0061A6E1 /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FEB1FFE2B0D0061A6E1 /* Texture2D.cpp */; };
 		1A1A4FEE1FFE2B0D0061A6E1 /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FEB1FFE2B0D0061A6E1 /* Texture2D.cpp */; };
+		1A1A4FF11FFE30FB0061A6E1 /* GuiProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FEF1FFE30FB0061A6E1 /* GuiProjection.cpp */; };
+		1A1A4FF21FFE30FB0061A6E1 /* GuiProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FEF1FFE30FB0061A6E1 /* GuiProjection.cpp */; };
 		1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */; };
 		1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */; };
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
@@ -213,6 +215,8 @@
 		1A1A4FEA1FFE0C070061A6E1 /* Atomics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Atomics.h; sourceTree = "<group>"; };
 		1A1A4FEB1FFE2B0D0061A6E1 /* Texture2D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Texture2D.cpp; sourceTree = "<group>"; };
 		1A1A4FEC1FFE2B0D0061A6E1 /* Texture2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Texture2D.h; sourceTree = "<group>"; };
+		1A1A4FEF1FFE30FB0061A6E1 /* GuiProjection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GuiProjection.cpp; sourceTree = "<group>"; };
+		1A1A4FF01FFE30FB0061A6E1 /* GuiProjection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuiProjection.h; sourceTree = "<group>"; };
 		1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVertexFormat.cpp; sourceTree = "<group>"; };
 		1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCIndexBuffer.cpp; sourceTree = "<group>"; };
 		1A69F06A1FF0FB4200B224DF /* CCVertexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVertexBuffer.h; sourceTree = "<group>"; };
@@ -733,6 +737,8 @@
 				1A1A4FE21FFDF5BE0061A6E1 /* SubImage.h */,
 				1A1A4FEB1FFE2B0D0061A6E1 /* Texture2D.cpp */,
 				1A1A4FEC1FFE2B0D0061A6E1 /* Texture2D.h */,
+				1A1A4FEF1FFE30FB0061A6E1 /* GuiProjection.cpp */,
+				1A1A4FF01FFE30FB0061A6E1 /* GuiProjection.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -1042,6 +1048,7 @@
 				1A1A4FD61FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */,
 				1ACB61751FF5F23E0007F081 /* main.m in Sources */,
 				1ACB619D1FF5F33D0007F081 /* CCFrameBuffer.cpp in Sources */,
+				1A1A4FF21FFE30FB0061A6E1 /* GuiProjection.cpp in Sources */,
 				1ACB619A1FF5F3290007F081 /* Vec3.cpp in Sources */,
 				1A1A4F1C1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				1ACB61871FF5F31D0007F081 /* CCConfiguration.cpp in Sources */,
@@ -1115,6 +1122,7 @@
 				1A69F0FE1FF22B0200B224DF /* ioapi_mem.cpp in Sources */,
 				1A69F07D1FF1F50D00B224DF /* CCTexture.cpp in Sources */,
 				1A69F09F1FF21F3100B224DF /* CCData.cpp in Sources */,
+				1A1A4FF11FFE30FB0061A6E1 /* GuiProjection.cpp in Sources */,
 				1A1A4F1B1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				4694929A1FE2775C008D19CC /* CCFrameBuffer.cpp in Sources */,
 				466C450F1FF2378E00AA277B /* CCGeometry.cpp in Sources */,
