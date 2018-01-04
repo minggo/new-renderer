@@ -255,12 +255,24 @@ State& State::operator=(State&& o)
         maxStream = o.maxStream;
 
         _vertexBufferOffsets = std::move(o._vertexBufferOffsets);
+
+        for (auto vertexBuf : _vertexBuffers)
+        {
+            GFX_SAFE_RELEASE(vertexBuf);
+        }
         _vertexBuffers = std::move(o._vertexBuffers);
 
+        GFX_SAFE_RELEASE(_indexBuffer);
         _indexBuffer = o._indexBuffer;
         o._indexBuffer = nullptr;
 
+        for (auto texture : _textureUnits)
+        {
+            GFX_SAFE_RELEASE(texture);
+        }
         _textureUnits = std::move(o._textureUnits);
+
+        GFX_SAFE_RELEASE(_program);
         _program = o._program;
         o._program = nullptr;
 
