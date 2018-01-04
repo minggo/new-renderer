@@ -360,16 +360,21 @@ namespace {
     }
 
     bool
-    TexOrSubImage(bool isSubImage, bool needsRespec, const char* funcName,
+    TexOrSubImage(bool isSubImage, const char* funcName,
                                   const uint8_t* dataPtr, size_t dataLen, TexImageTarget target, GLint level,
                                   const webgl::DriverUnpackInfo* dui, GLint xOffset,
-                                  GLint yOffset, GLint zOffset, const webgl::PackingInfo& pi,
-                                  uint32_t width, uint32_t height,
-                                  uint32_t depth, uint32_t alignment,
-                                  bool flipY, bool premultiplyAlpha)
+                                  GLint yOffset, GLint zOffset, const webgl::PackingInfo& srcPI, const webgl::PackingInfo& dstPI,
+                                  uint32_t width, uint32_t height, uint32_t srcAlignment,
+                                  uint32_t depth, bool flipY, bool premultiplyAlpha)
     {
-        const auto format = FormatForPackingInfo(pi);
-        const auto bytesPerPixel = webgl::BytesPerPixel(pi);
+        const auto rowLength = width;
+        const auto rowCount = height;
+
+        const auto srcFormat = FormatForPackingInfo(srcPI);
+        const auto srcBPP = webgl::BytesPerPixel(srcPI);
+
+        const auto dstFormat = FormatForPackingInfo(dstPI);
+        const auto dstBPP = webgl::BytesPerPixel(dstPI);
 
         const uint8_t* uploadPtr = dataPtr;
         UniqueBuffer tempBuffer;
@@ -384,27 +389,18 @@ namespace {
                 break;
             }
 
-//cjh            if (webgl->mPixelStore_UnpackImageHeight ||
-//                webgl->mPixelStore_UnpackSkipImages ||
-//                webgl->mPixelStore_UnpackRowLength ||
-//                webgl->mPixelStore_UnpackSkipRows ||
-//                webgl->mPixelStore_UnpackSkipPixels)
-//            {
-//                webgl->ErrorInvalidOperation("%s: Non-DOM-Element uploads with alpha-premult"
-//                                             " or y-flip do not support subrect selection.",
-//                                             funcName);
-//                return false;
-//            }
-//
-//            GFX_LOGW("%s: Alpha-premult and y-flip are deprecated for"
-//                                   " non-DOM-Element uploads.",
-//                                   funcName);
+            const auto srcRowLengthBytes = rowLength * srcBPP;
 
-            const uint32_t rowLength = width;
-            const uint32_t rowCount = height * depth;
-            const auto stride = RoundUpToMultipleOf(rowLength * bytesPerPixel, alignment);
-            if (!ConvertIfNeeded(funcName, rowLength, rowCount, format, dataPtr, stride,
-                                 format, stride, &uploadPtr, &tempBuffer, flipY, premultiplyAlpha))
+            const uint32_t maxGLAlignment = 8;
+            const auto srcStride = RoundUpToMultipleOf(srcRowLengthBytes, srcAlignment);
+            const uint32_t dstAlignment = (srcAlignment > maxGLAlignment) ? 1 : srcAlignment;
+
+            const auto dstRowLengthBytes = rowLength * dstBPP;
+            const auto dstStride = RoundUpToMultipleOf(dstRowLengthBytes, dstAlignment);
+
+            ////
+            if (!ConvertIfNeeded(funcName, rowLength, rowCount, srcFormat, dataPtr,
+                                 srcStride, dstFormat, dstStride, &uploadPtr, &tempBuffer, flipY, premultiplyAlpha))
             {
                 return false;
             }
@@ -529,10 +525,12 @@ bool Texture2D::init(DeviceGraphics* device, Options& options)
     {
         _target = GL_TEXTURE_2D;
         GL_CHECK(glGenTextures(1, &_glID));
-        
+
         if (options.images.empty())
-            options.images.push_back(Data());
-        
+        {
+            const_cast<Options&>(options).images.push_back(Data());
+        }
+
         update(options);
     }
     return ok;
@@ -611,65 +609,48 @@ void Texture2D::updateImage(const ImageOption& option)
 
 void Texture2D::setSubImage(const GLTextureFmt& glFmt, const SubImageOption& option)
 {
-    bool flipY = option.flipY;
-    bool premultiplyAlpha = option.premultiplyAlpha;
     const auto& img = option.image;
 
-    //TODO:    GL_CHECK(glPixelStorei(GL_UNPACK_FLIP_Y_WEBGL, flipY));
-//    GL_CHECK(glPixelStorei(GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL, premultiplyAlpha));
-
     //Set the row align only when mipmapsNum == 1 and the data is uncompressed
+    GLint aligment = 1;
     if (!_hasMipmap && !_compressed && glFmt.bpp > 0)
     {
         unsigned int bytesPerRow = option.width * glFmt.bpp / 8;
 
-        if(bytesPerRow % 8 == 0)
-        {
-            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 8));
-        }
-        else if(bytesPerRow % 4 == 0)
-        {
-            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 4));
-        }
-        else if(bytesPerRow % 2 == 0)
-        {
-            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 2));
-        }
+        if (bytesPerRow % 8 == 0)
+            aligment = 8;
+        else if (bytesPerRow % 4 == 0)
+            aligment = 4;
+        else if (bytesPerRow % 2 == 0)
+            aligment = 2;
         else
-        {
-            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-        }
+            aligment = 1;
     }
-    else
-    {
-        GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-    }
+
+    GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, aligment));
+
+    GLenum dstFormat = glFmt.internalFormat;
+    GLenum dstType = glFmt.pixelType;
+
+    webgl::DriverUnpackInfo dui;
+    dui.internalFormat = glFmt.internalFormat;
+    dui.unpackFormat = glFmt.format;
+    dui.unpackType = glFmt.pixelType;
+    webgl::PackingInfo srcPI;
+    srcPI.type = glFmt.pixelType;
+    srcPI.format = glFmt.format;
+
+    webgl::PackingInfo dstPI;
+    dstPI.type = dstType;
+    dstPI.format = dstFormat;
 
     if (_compressed)
     {
-        GL_CHECK(glCompressedTexSubImage2D(GL_TEXTURE_2D,
-                                   option.level,
-                                   option.x,
-                                   option.y,
-                                   option.width,
-                                   option.height,
-                                   glFmt.format,
-                                   (GLsizei)img.getSize(),
-                                   img.getBytes()
-                                   ));
+        DoCompressedTexSubImage(GL_TEXTURE_2D, option.level, option.x, option.y, 0, glFmt.internalFormat, option.width, option.height, 1, (GLsizei)img.getSize(), img.getBytes());
     }
     else
     {
-        GL_CHECK(glTexSubImage2D( GL_TEXTURE_2D,
-                         option.level,
-                         option.x,
-                         option.y,
-                         option.width,
-                         option.height,
-                         glFmt.format,
-                         glFmt.pixelType,
-                         img.getBytes()
-                         ));
+        TexOrSubImage(true, "Texture2D::setSubImage", img.getBytes(), img.getSize(), GL_TEXTURE_2D, option.level, &dui, 0, 0, 0, srcPI, dstPI, option.width, option.height, aligment, 1, option.flipY, option.premultiplyAlpha);
     }
 }
 
@@ -677,47 +658,38 @@ void Texture2D::setImage(const GLTextureFmt& glFmt, const ImageOption& option)
 {
     const auto& img = option.image;
 
-    //TODO:    GL_CHECK(glPixelStorei(GL_UNPACK_FLIP_Y_WEBGL, flipY));
-//    GL_CHECK(glPixelStorei(GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL, premultiplyAlpha));
-
     //Set the row align only when mipmapsNum == 1 and the data is uncompressed
+    GLint aligment = 1;
     if (!_hasMipmap && !_compressed && glFmt.bpp > 0)
     {
         unsigned int bytesPerRow = option.width * glFmt.bpp / 8;
 
         if (bytesPerRow % 8 == 0)
-        {
-            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 8));
-        }
+            aligment = 8;
         else if (bytesPerRow % 4 == 0)
-        {
-            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 4));
-        }
+            aligment = 4;
         else if (bytesPerRow % 2 == 0)
-        {
-            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 2));
-        }
+            aligment = 2;
         else
-        {
-            GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
-        }
+            aligment = 1;
     }
-    else
-    {
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    }
+
+    GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, aligment));
+
+    GLenum dstFormat = glFmt.internalFormat;
+    GLenum dstType = glFmt.pixelType;
 
     webgl::DriverUnpackInfo dui;
-//    dui.internalFormat = glFmt.internalFormat;
-//    dui.unpackFormat = glFmt.format;
-//    dui.unpackType = glFmt.pixelType;
-    dui.internalFormat = GL_RGBA;
-    dui.unpackFormat = GL_RGBA;
-    dui.unpackType = GL_UNSIGNED_SHORT_4_4_4_4;
+    dui.internalFormat = glFmt.internalFormat;
+    dui.unpackFormat = glFmt.format;
+    dui.unpackType = glFmt.pixelType;
+    webgl::PackingInfo srcPI;
+    srcPI.type = glFmt.pixelType;
+    srcPI.format = glFmt.format;
 
-    webgl::PackingInfo pi;
-    pi.type = glFmt.pixelType;
-    pi.format = glFmt.format;
+    webgl::PackingInfo dstPI;
+    dstPI.type = dstType;
+    dstPI.format = dstFormat;
 
     if (_compressed)
     {
@@ -725,7 +697,7 @@ void Texture2D::setImage(const GLTextureFmt& glFmt, const ImageOption& option)
     }
     else
     {
-        TexOrSubImage(false, false, "Texture2D::setImage", img.getBytes(), img.getSize(), GL_TEXTURE_2D, option.level, &dui, 0, 0, 0, pi, option.width, option.height, 1, 1, option.flipY, option.premultiplyAlpha);
+        TexOrSubImage(false, "Texture2D::setImage", img.getBytes(), img.getSize(), GL_TEXTURE_2D, option.level, &dui, 0, 0, 0, srcPI, dstPI, option.width, option.height, aligment, 1, option.flipY, option.premultiplyAlpha);
     }
 }
 

@@ -150,7 +150,10 @@ public:
         bool flipY;
         bool premultiplyAlpha;
     };
-    
+
+    inline uint16_t getWidth() const { return _width; }
+    inline uint16_t getHeight() const { return _height; }
+
 protected:
     struct GLTextureFmt
     {

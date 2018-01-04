@@ -107,24 +107,24 @@ class WebGLImageConverter
         // DOM elements can only give BGRA8, BGRX8, A8, RGB565 formats. See DOMElementToImageSurface.
         // ImageData is always RGBA8. So all other SrcFormat will always satisfy DstFormat==SrcFormat,
         // so we can avoid compiling the code for all the unreachable paths.
-        const bool CanSrcFormatComeFromDOMElementOrImageData
-            = SrcFormat == WebGLTexelFormat::BGRA8 ||
-              SrcFormat == WebGLTexelFormat::BGRX8 ||
-              SrcFormat == WebGLTexelFormat::A8 ||
-              SrcFormat == WebGLTexelFormat::RGB565 ||
-              SrcFormat == WebGLTexelFormat::RGBA8;
-        if (!CanSrcFormatComeFromDOMElementOrImageData &&
-            SrcFormat != DstFormat)
-        {
-            return;
-        }
-
-        // Likewise, only textures uploaded from DOM elements or ImageData can possibly have to be unpremultiplied.
-        if (!CanSrcFormatComeFromDOMElementOrImageData &&
-            PremultiplicationOp == WebGLTexelPremultiplicationOp::Unpremultiply)
-        {
-            return;
-        }
+//cjh        const bool CanSrcFormatComeFromDOMElementOrImageData
+//            = SrcFormat == WebGLTexelFormat::BGRA8 ||
+//              SrcFormat == WebGLTexelFormat::BGRX8 ||
+//              SrcFormat == WebGLTexelFormat::A8 ||
+//              SrcFormat == WebGLTexelFormat::RGB565 ||
+//              SrcFormat == WebGLTexelFormat::RGBA8;
+//        if (!CanSrcFormatComeFromDOMElementOrImageData &&
+//            SrcFormat != DstFormat)
+//        {
+//            return;
+//        }
+//
+//        // Likewise, only textures uploaded from DOM elements or ImageData can possibly have to be unpremultiplied.
+//        if (!CanSrcFormatComeFromDOMElementOrImageData &&
+//            PremultiplicationOp == WebGLTexelPremultiplicationOp::Unpremultiply)
+//        {
+//            return;
+//        }
 
         // there is no point in premultiplication/unpremultiplication
         // in the following cases:

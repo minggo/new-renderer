@@ -38,6 +38,8 @@
 		1A1A4FD01FFCA6230061A6E1 /* TaggedAnonymousMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4F151FFCA6230061A6E1 /* TaggedAnonymousMemory.cpp */; };
 		1A1A4FD51FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FD31FFCAA3C0061A6E1 /* WebGLFormats.cpp */; };
 		1A1A4FD61FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FD31FFCAA3C0061A6E1 /* WebGLFormats.cpp */; };
+		1A1A4FE31FFDF5BE0061A6E1 /* SubImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FE11FFDF5BE0061A6E1 /* SubImage.cpp */; };
+		1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FE11FFDF5BE0061A6E1 /* SubImage.cpp */; };
 		1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */; };
 		1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */; };
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
@@ -298,6 +300,8 @@
 		1A1A4F1A1FFCA6230061A6E1 /* WebGLTexelConversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebGLTexelConversions.h; sourceTree = "<group>"; };
 		1A1A4FD31FFCAA3C0061A6E1 /* WebGLFormats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebGLFormats.cpp; sourceTree = "<group>"; };
 		1A1A4FD41FFCAA3C0061A6E1 /* WebGLFormats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebGLFormats.h; sourceTree = "<group>"; };
+		1A1A4FE11FFDF5BE0061A6E1 /* SubImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SubImage.cpp; sourceTree = "<group>"; };
+		1A1A4FE21FFDF5BE0061A6E1 /* SubImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubImage.h; sourceTree = "<group>"; };
 		1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVertexFormat.cpp; sourceTree = "<group>"; };
 		1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCIndexBuffer.cpp; sourceTree = "<group>"; };
 		1A69F06A1FF0FB4200B224DF /* CCVertexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVertexBuffer.h; sourceTree = "<group>"; };
@@ -893,6 +897,8 @@
 				46ABB09B1FFC765700287AA5 /* PostProcess.h */,
 				46ABB09E1FFCD71C00287AA5 /* DepthTexture.cpp */,
 				46ABB09F1FFCD71C00287AA5 /* DepthTexture.h */,
+				1A1A4FE11FFDF5BE0061A6E1 /* SubImage.cpp */,
+				1A1A4FE21FFDF5BE0061A6E1 /* SubImage.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -1191,6 +1197,7 @@
 				46ABB0951FFC719500287AA5 /* MultiTextures.cpp in Sources */,
 				1ACB61811FF5F2F10007F081 /* CCES2Renderer-ios.m in Sources */,
 				1ACB61A41FF5F33D0007F081 /* CCRenderTarget.cpp in Sources */,
+				1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
 				1ACB61BC1FF60C700007F081 /* CCDirectorCaller-ios.mm in Sources */,
 				1ACB61A31FF5F33D0007F081 /* CCRenderBuffer.cpp in Sources */,
 				1ACB619F1FF5F33D0007F081 /* CCGFXUtils.cpp in Sources */,
@@ -1258,6 +1265,7 @@
 				1A1A4E1B1FFB57EB0061A6E1 /* Stencil.cpp in Sources */,
 				1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */,
 				1A69F09C1FF21E1900B224DF /* CCFileUtils.cpp in Sources */,
+				1A1A4FE31FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
 				462724671FF4D68D000D13BC /* Bunny.cpp in Sources */,
 				1A69F0AC1FF2229200B224DF /* pvr.cpp in Sources */,
 				1A69F0801FF1F52C00B224DF /* CCTexture2D.cpp in Sources */,
