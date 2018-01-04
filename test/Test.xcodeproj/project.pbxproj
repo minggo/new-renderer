@@ -208,6 +208,7 @@
 		1A1A4FE71FFE0A550061A6E1 /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
 		1A1A4FE81FFE0A810061A6E1 /* CheckedInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckedInt.h; sourceTree = "<group>"; };
 		1A1A4FE91FFE0AA40061A6E1 /* IntegerTypeTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegerTypeTraits.h; sourceTree = "<group>"; };
+		1A1A4FEA1FFE0C070061A6E1 /* Atomics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Atomics.h; sourceTree = "<group>"; };
 		1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVertexFormat.cpp; sourceTree = "<group>"; };
 		1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCIndexBuffer.cpp; sourceTree = "<group>"; };
 		1A69F06A1FF0FB4200B224DF /* CCVertexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVertexBuffer.h; sourceTree = "<group>"; };
@@ -452,6 +453,7 @@
 		1A1A4E521FFCA6230061A6E1 /* mozilla */ = {
 			isa = PBXGroup;
 			children = (
+				1A1A4FEA1FFE0C070061A6E1 /* Atomics.h */,
 				1A1A4E861FFCA6230061A6E1 /* Assertions.cpp */,
 				1A1A4E6E1FFCA6230061A6E1 /* Assertions.h */,
 				1A1A4EC31FFCA6230061A6E1 /* Attributes.h */,
