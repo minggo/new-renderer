@@ -36,6 +36,7 @@
 #include "gfx/DepthTexture.h"
 #include "gfx/SubImage.h"
 #include "gfx/Texture2D.h"
+#include "gfx/GuiProjection.h"
 
 namespace
 {
@@ -71,6 +72,7 @@ namespace
             DepthTexture::create,
             SubImage::create,
             Texture2DTest::create,
+            GuiProjection::create,
         };
         
         test = tests[0]();

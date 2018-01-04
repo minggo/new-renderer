@@ -21,6 +21,7 @@
 #include "gfx/Stencil.h"
 #include "gfx/PostProcess.h"
 #include "gfx/DepthTexture.h"
+#include "gfx/GuiProjection.h"
 
 namespace {
 
@@ -39,7 +40,8 @@ namespace {
 //            Particle::create,
 //            Stencil::create,
 //            PostProcess::create,
-            DepthTexture::create,
+//            DepthTexture::create,
+            GuiProjection::create,
         };
 
         test = tests[0]();
