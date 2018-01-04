@@ -518,7 +518,7 @@ Texture2D::~Texture2D()
 
 }
 
-bool Texture2D::init(DeviceGraphics* device, Options& options)
+bool Texture2D::init(DeviceGraphics* device, const Options& options)
 {
     bool ok = Texture::init(device);
     if (ok)

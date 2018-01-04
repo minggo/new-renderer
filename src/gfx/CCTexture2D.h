@@ -34,12 +34,12 @@ GFX_BEGIN
 class Texture2D : public Texture
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_2(Texture2D, init, DeviceGraphics*, Options&)
+    GFX_DEFINE_CREATE_METHOD_2(Texture2D, init, DeviceGraphics*, const Options&)
 
     Texture2D();
     virtual ~Texture2D();
 
-    bool init(DeviceGraphics* device, Options& options);
+    bool init(DeviceGraphics* device, const Options& options);
     void update(const Options& options);
     void updateSubImage(const SubImageOption& option);
     void updateImage(const ImageOption& option);
