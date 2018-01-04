@@ -43,12 +43,6 @@ using TexImageTarget = GLenum;
 
 namespace {
 
-    //TODO: OpenGL ES 2.0 < WebGL < OpenGL 3.0
-    // Refer to https://yq.aliyun.com/articles/62339
-//    const GLuint GL_UNPACK_FLIP_Y_WEBGL = 0x9240;
-//    const GLuint GL_UNPACK_PREMULTIPLY_ALPHA_WEBGL = 0x9241;
-//    const GLuint GL_UNPACK_COLORSPACE_CONVERSION_WEBGL = 0x9243;
-
     // Returns `value` rounded to the next highest multiple of `multiple`.
     // AKA PadToAlignment, StrideForAlignment.
     template<typename V, typename M>
@@ -676,9 +670,6 @@ void Texture2D::setImage(const GLTextureFmt& glFmt, const ImageOption& option)
 
     GL_CHECK(glPixelStorei(GL_UNPACK_ALIGNMENT, aligment));
 
-    GLenum dstFormat = glFmt.internalFormat;
-    GLenum dstType = glFmt.pixelType;
-
     webgl::DriverUnpackInfo dui;
     dui.internalFormat = glFmt.internalFormat;
     dui.unpackFormat = glFmt.format;
@@ -688,8 +679,8 @@ void Texture2D::setImage(const GLTextureFmt& glFmt, const ImageOption& option)
     srcPI.format = glFmt.format;
 
     webgl::PackingInfo dstPI;
-    dstPI.type = dstType;
-    dstPI.format = dstFormat;
+    dstPI.type = glFmt.pixelType;
+    dstPI.format = glFmt.internalFormat;;
 
     if (_compressed)
     {

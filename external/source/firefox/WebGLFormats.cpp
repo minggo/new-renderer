@@ -578,12 +578,14 @@ GetBytesPerPixel(const PackingInfo& packing, uint8_t* const out_bytes)
     case LOCAL_GL_RG:
     case LOCAL_GL_RG_INTEGER:
     case LOCAL_GL_LUMINANCE_ALPHA:
+    case LOCAL_GL_DEPTH_COMPONENT16:
         channels = 2;
         break;
 
     case LOCAL_GL_RGB:
     case LOCAL_GL_RGB_INTEGER:
     case LOCAL_GL_SRGB:
+    case LOCAL_GL_DEPTH_COMPONENT24:
         channels = 3;
         break;
 
@@ -591,6 +593,7 @@ GetBytesPerPixel(const PackingInfo& packing, uint8_t* const out_bytes)
     case LOCAL_GL_RGBA:
     case LOCAL_GL_RGBA_INTEGER:
     case LOCAL_GL_SRGB_ALPHA:
+    case LOCAL_GL_DEPTH_COMPONENT32:
         channels = 4;
         break;
 
