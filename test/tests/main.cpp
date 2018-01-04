@@ -35,6 +35,7 @@
 #include "gfx/PostProcess.h"
 #include "gfx/DepthTexture.h"
 #include "gfx/SubImage.h"
+#include "gfx/Texture2D.h"
 
 namespace
 {
@@ -69,6 +70,7 @@ namespace
             PostProcess::create,
             DepthTexture::create,
             SubImage::create,
+            Texture2DTest::create,
         };
         
         test = tests[0]();

@@ -54,7 +54,7 @@ public:
         , mipFilter(TextureFilter::LINEAR)
         , format(TextureFormat::RGBA8)
         , hasMipmap(false)
-        , flipY(true)
+        , flipY(true) // TODO: Default flipY value should be false ? If it's true, it will waste some CPU resource for re-format data.
         , premultiplyAlpha(false)
         {}
 
