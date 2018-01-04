@@ -32,6 +32,8 @@
 #include "CCProgram.h"
 #include "CCGFXUtils.h"
 
+#include "platform/CCPlatformConfig.h"
+
 GFX_BEGIN
 
 namespace
@@ -39,9 +41,13 @@ namespace
     void attach(GLenum location, const RenderTarget* target)
     {
         if (nullptr != dynamic_cast<const Texture2D*>(target))
+        {
             GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, location, GL_TEXTURE_2D, target->getHandle(), 0));
+        }
         else
+        {
             GL_CHECK(glFramebufferRenderbuffer(GL_FRAMEBUFFER, location, GL_RENDERBUFFER, target->getHandle()));
+        }
     }
 } // namespace {
 
@@ -59,12 +65,27 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     if (fb == _frameBuffer)
         return;
     
+    GFX_SAFE_RELEASE(_frameBuffer);
     _frameBuffer = const_cast<FrameBuffer*>(fb);
     GFX_SAFE_RETAIN(_frameBuffer);
     
     if (nullptr == fb)
     {
+        // TODO: iOS creates its own frame buffer (1). It is a hack here, should
+        // fix it in two ways:
+        // 1. add a function to get default frame buffer id.
+        // 2. use glfw for all platforms to handle platform specific things.
+        // I think way 2 is better.
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 1));
+#else
         GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+#endif
+        
+        auto result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+        if (GL_FRAMEBUFFER_COMPLETE != result)
+            GFX_LOGE("Framebuffer status error: 0x%x", result);
+        
         return;
     }
     
@@ -75,13 +96,32 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     for (const auto& colorBuffer : colorBuffers)
         attach(GL_COLOR_ATTACHMENT0 + i, colorBuffer);
     for (i = static_cast<int>(colorBuffers.size()); i < _caps.maxColorAttatchments; ++i)
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, 0, 0);
+    {
+        GL_CHECK(glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, 0, 0));
+    }
+    if (0 == colorBuffers.size())
+    {
+        // If not draw buffer is needed, should invoke this line explicitly, or it will cause
+        // GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER and GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER error.
+        // https://stackoverflow.com/questions/28313782/porting-opengl-es-framebuffer-to-opengl
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+        glDrawBuffer(GL_NONE);
+        glReadBuffer(GL_NONE);
+#endif
+    }
+    
+    if (_frameBuffer->getDepthBuffer())
+        attach(GL_DEPTH_ATTACHMENT, _frameBuffer->getDepthBuffer());
     
     if (_frameBuffer->getStencilBuffer())
         attach(GL_STENCIL_ATTACHMENT, _frameBuffer->getStencilBuffer());
     
     if (_frameBuffer->getDepthStencilBuffer())
         attach(GL_DEPTH_STENCIL_ATTACHMENT, _frameBuffer->getDepthStencilBuffer());
+    
+    auto result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    if (GL_FRAMEBUFFER_COMPLETE != result)
+        GFX_LOGE("Framebuffer status error: 0x%x", result);
 }
 
 void DeviceGraphics::setViewport(int x, int y, int w, int h)
@@ -95,7 +135,7 @@ void DeviceGraphics::setViewport(int x, int y, int w, int h)
         _vy = y;
         _vw = w;
         _vh = h;
-        glViewport(_vx, _vy, _vw, _vh);
+        GL_CHECK(glViewport(_vx, _vy, _vw, _vh));
     }
 }
 
@@ -120,38 +160,44 @@ void DeviceGraphics::clear(uint8_t flags, Color4F *color, double depth, int32_t 
     if (flags & ClearFlag::COLOR)
     {
         mask |= GL_COLOR_BUFFER_BIT;
-        glClearColor(color->r, color->g, color->b, color->a);
+        GL_CHECK(glClearColor(color->r, color->g, color->b, color->a));
     }
     
     if (flags & ClearFlag::DEPTH)
     {
         mask |= GL_DEPTH_BUFFER_BIT;
-        glClearDepth(depth);
+        GL_CHECK(glClearDepth(depth));
         
-        glEnable(GL_DEPTH_TEST);
-        glDepthMask(GL_TRUE);
-        glDepthFunc(GL_ALWAYS);
+        GL_CHECK(glEnable(GL_DEPTH_TEST));
+        GL_CHECK(glDepthMask(GL_TRUE));
+        GL_CHECK(glDepthFunc(GL_ALWAYS));
     }
     
     if (flags & ClearFlag::STENCIL)
     {
         mask |= GL_STENCIL_BUFFER_BIT;
-        glClearStencil(stencil);
+        GL_CHECK(glClearStencil(stencil));
     }
     
-    glClear(mask);
+    GL_CHECK(glClear(mask));
     
     // Restore depth related state.
     if (flags & ClearFlag::DEPTH)
     {
         if (!_currentState.depthTest)
-            glDisable(GL_DEPTH_TEST);
+        {
+            GL_CHECK(glDisable(GL_DEPTH_TEST));
+        }
         else
         {
             if (!_currentState.depthWrite)
-                glDepthMask(GL_FALSE);
+            {
+                GL_CHECK(glDepthMask(GL_FALSE));
+            }
             if (_currentState.depthFunc != DepthFunc::ALWAYS)
-                glDepthFunc(static_cast<GLenum>(_currentState.depthFunc));
+            {
+                GL_CHECK(glDepthFunc(static_cast<GLenum>(_currentState.depthFunc)));
+            }
         }
     }
 }
@@ -720,7 +766,7 @@ void DeviceGraphics::commitDepthStates()
             return;
         }
         
-        glEnable(GL_DEPTH_TEST);
+        GL_CHECK(glEnable(GL_DEPTH_TEST));
         GL_CHECK(glDepthFunc(ENUM_CLASS_TO_GLENUM(_nextState.depthFunc)));
         GL_CHECK(glDepthMask(_nextState.depthWrite ? GL_TRUE : GL_FALSE));
         
