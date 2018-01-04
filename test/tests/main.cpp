@@ -34,6 +34,7 @@
 #include "gfx/Stencil.h"
 #include "gfx/PostProcess.h"
 #include "gfx/DepthTexture.h"
+#include "gfx/SubImage.h"
 
 namespace
 {
@@ -67,6 +68,7 @@ namespace
             Stencil::create,
             PostProcess::create,
             DepthTexture::create,
+            SubImage::create,
         };
         
         test = tests[0]();

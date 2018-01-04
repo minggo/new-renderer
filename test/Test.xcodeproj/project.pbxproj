@@ -18,6 +18,14 @@
 		1A1A4E321FFB7B3F0061A6E1 /* CCDevice-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E311FFB7B3F0061A6E1 /* CCDevice-ios.mm */; };
 		1A1A4E341FFB7BC80061A6E1 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1A4E331FFB7BC80061A6E1 /* CoreMotion.framework */; };
 		1A1A4E381FFB7BEF0061A6E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1A4E371FFB7BEF0061A6E1 /* AudioToolbox.framework */; };
+		1A1A4F1B1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E501FFCA6230061A6E1 /* WebGLTexelConversions.cpp */; };
+		1A1A4F1C1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E501FFCA6230061A6E1 /* WebGLTexelConversions.cpp */; };
+		1A1A4F331FFCA6230061A6E1 /* Assertions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E861FFCA6230061A6E1 /* Assertions.cpp */; };
+		1A1A4F341FFCA6230061A6E1 /* Assertions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E861FFCA6230061A6E1 /* Assertions.cpp */; };
+		1A1A4FD51FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FD31FFCAA3C0061A6E1 /* WebGLFormats.cpp */; };
+		1A1A4FD61FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FD31FFCAA3C0061A6E1 /* WebGLFormats.cpp */; };
+		1A1A4FE31FFDF5BE0061A6E1 /* SubImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FE11FFDF5BE0061A6E1 /* SubImage.cpp */; };
+		1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FE11FFDF5BE0061A6E1 /* SubImage.cpp */; };
 		1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */; };
 		1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */; };
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
@@ -178,6 +186,29 @@
 		1A1A4E331FFB7BC80061A6E1 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		1A1A4E351FFB7BE50061A6E1 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		1A1A4E371FFB7BEF0061A6E1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		1A1A4E501FFCA6230061A6E1 /* WebGLTexelConversions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebGLTexelConversions.cpp; sourceTree = "<group>"; };
+		1A1A4E511FFCA6230061A6E1 /* WebGLTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebGLTypes.h; sourceTree = "<group>"; };
+		1A1A4E621FFCA6230061A6E1 /* Casting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Casting.h; sourceTree = "<group>"; };
+		1A1A4E661FFCA6230061A6E1 /* UniquePtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UniquePtr.h; sourceTree = "<group>"; };
+		1A1A4E6E1FFCA6230061A6E1 /* Assertions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Assertions.h; sourceTree = "<group>"; };
+		1A1A4E701FFCA6230061A6E1 /* TypeTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeTraits.h; sourceTree = "<group>"; };
+		1A1A4E741FFCA6230061A6E1 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		1A1A4E861FFCA6230061A6E1 /* Assertions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Assertions.cpp; sourceTree = "<group>"; };
+		1A1A4EC31FFCA6230061A6E1 /* Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attributes.h; sourceTree = "<group>"; };
+		1A1A4EC51FFCA6230061A6E1 /* MacroArgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacroArgs.h; sourceTree = "<group>"; };
+		1A1A4EF41FFCA6230061A6E1 /* Likely.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Likely.h; sourceTree = "<group>"; };
+		1A1A4F161FFCA6230061A6E1 /* StaticAnalysisFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticAnalysisFunctions.h; sourceTree = "<group>"; };
+		1A1A4F1A1FFCA6230061A6E1 /* WebGLTexelConversions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebGLTexelConversions.h; sourceTree = "<group>"; };
+		1A1A4FD31FFCAA3C0061A6E1 /* WebGLFormats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WebGLFormats.cpp; sourceTree = "<group>"; };
+		1A1A4FD41FFCAA3C0061A6E1 /* WebGLFormats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebGLFormats.h; sourceTree = "<group>"; };
+		1A1A4FE11FFDF5BE0061A6E1 /* SubImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SubImage.cpp; sourceTree = "<group>"; };
+		1A1A4FE21FFDF5BE0061A6E1 /* SubImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubImage.h; sourceTree = "<group>"; };
+		1A1A4FE51FFE0A300061A6E1 /* Compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compiler.h; sourceTree = "<group>"; };
+		1A1A4FE61FFE0A550061A6E1 /* Pair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pair.h; sourceTree = "<group>"; };
+		1A1A4FE71FFE0A550061A6E1 /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
+		1A1A4FE81FFE0A810061A6E1 /* CheckedInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckedInt.h; sourceTree = "<group>"; };
+		1A1A4FE91FFE0AA40061A6E1 /* IntegerTypeTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegerTypeTraits.h; sourceTree = "<group>"; };
+		1A1A4FEA1FFE0C070061A6E1 /* Atomics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Atomics.h; sourceTree = "<group>"; };
 		1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVertexFormat.cpp; sourceTree = "<group>"; };
 		1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCIndexBuffer.cpp; sourceTree = "<group>"; };
 		1A69F06A1FF0FB4200B224DF /* CCVertexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVertexBuffer.h; sourceTree = "<group>"; };
@@ -406,6 +437,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A1A4E4F1FFCA6230061A6E1 /* firefox */ = {
+			isa = PBXGroup;
+			children = (
+				1A1A4E521FFCA6230061A6E1 /* mozilla */,
+				1A1A4FD31FFCAA3C0061A6E1 /* WebGLFormats.cpp */,
+				1A1A4FD41FFCAA3C0061A6E1 /* WebGLFormats.h */,
+				1A1A4E501FFCA6230061A6E1 /* WebGLTexelConversions.cpp */,
+				1A1A4F1A1FFCA6230061A6E1 /* WebGLTexelConversions.h */,
+				1A1A4E511FFCA6230061A6E1 /* WebGLTypes.h */,
+			);
+			path = firefox;
+			sourceTree = "<group>";
+		};
+		1A1A4E521FFCA6230061A6E1 /* mozilla */ = {
+			isa = PBXGroup;
+			children = (
+				1A1A4FEA1FFE0C070061A6E1 /* Atomics.h */,
+				1A1A4E861FFCA6230061A6E1 /* Assertions.cpp */,
+				1A1A4E6E1FFCA6230061A6E1 /* Assertions.h */,
+				1A1A4EC31FFCA6230061A6E1 /* Attributes.h */,
+				1A1A4E621FFCA6230061A6E1 /* Casting.h */,
+				1A1A4FE81FFE0A810061A6E1 /* CheckedInt.h */,
+				1A1A4FE51FFE0A300061A6E1 /* Compiler.h */,
+				1A1A4FE91FFE0AA40061A6E1 /* IntegerTypeTraits.h */,
+				1A1A4EF41FFCA6230061A6E1 /* Likely.h */,
+				1A1A4EC51FFCA6230061A6E1 /* MacroArgs.h */,
+				1A1A4FE71FFE0A550061A6E1 /* Move.h */,
+				1A1A4FE61FFE0A550061A6E1 /* Pair.h */,
+				1A1A4F161FFCA6230061A6E1 /* StaticAnalysisFunctions.h */,
+				1A1A4E741FFCA6230061A6E1 /* Types.h */,
+				1A1A4E701FFCA6230061A6E1 /* TypeTraits.h */,
+				1A1A4E661FFCA6230061A6E1 /* UniquePtr.h */,
+			);
+			path = mozilla;
+			sourceTree = "<group>";
+		};
 		1A69F0881FF21E1900B224DF /* base */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,6 +561,7 @@
 		1A69F0D91FF22B0200B224DF /* source */ = {
 			isa = PBXGroup;
 			children = (
+				1A1A4E4F1FFCA6230061A6E1 /* firefox */,
 				1A69F0DA1FF22B0200B224DF /* unzip */,
 				1A69F0E21FF22B0200B224DF /* tinyxml2 */,
 				1A69F0E51FF22B0200B224DF /* tinydir */,
@@ -657,6 +725,8 @@
 				46ABB09B1FFC765700287AA5 /* PostProcess.h */,
 				46ABB09E1FFCD71C00287AA5 /* DepthTexture.cpp */,
 				46ABB09F1FFCD71C00287AA5 /* DepthTexture.h */,
+				1A1A4FE11FFDF5BE0061A6E1 /* SubImage.cpp */,
+				1A1A4FE21FFDF5BE0061A6E1 /* SubImage.h */,
 			);
 			path = gfx;
 			sourceTree = "<group>";
@@ -954,6 +1024,7 @@
 				46ABB0951FFC719500287AA5 /* MultiTextures.cpp in Sources */,
 				1ACB61811FF5F2F10007F081 /* CCES2Renderer-ios.m in Sources */,
 				1ACB61A41FF5F33D0007F081 /* CCRenderTarget.cpp in Sources */,
+				1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
 				1ACB61BC1FF60C700007F081 /* CCDirectorCaller-ios.mm in Sources */,
 				1ACB61A31FF5F33D0007F081 /* CCRenderBuffer.cpp in Sources */,
 				1ACB619F1FF5F33D0007F081 /* CCGFXUtils.cpp in Sources */,
@@ -962,13 +1033,16 @@
 				1ACB619B1FF5F3290007F081 /* Vec4.cpp in Sources */,
 				1ACB618F1FF5F31D0007F081 /* pvr.cpp in Sources */,
 				1ACB61A81FF5F33D0007F081 /* CCVertexBuffer.cpp in Sources */,
+				1A1A4FD61FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */,
 				1ACB61751FF5F23E0007F081 /* main.m in Sources */,
 				1ACB619D1FF5F33D0007F081 /* CCFrameBuffer.cpp in Sources */,
 				1ACB619A1FF5F3290007F081 /* Vec3.cpp in Sources */,
+				1A1A4F1C1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				1ACB61871FF5F31D0007F081 /* CCConfiguration.cpp in Sources */,
 				1ACB61881FF5F31D0007F081 /* CCConsole.cpp in Sources */,
 				1ACB618C1FF5F31D0007F081 /* ccTypes.cpp in Sources */,
 				1ACB61B51FF6028B0007F081 /* ioapi_mem.cpp in Sources */,
+				1A1A4F341FFCA6230061A6E1 /* Assertions.cpp in Sources */,
 				1ACB61851FF5F3040007F081 /* CCImage.cpp in Sources */,
 				1ACB61AC1FF5F34A0007F081 /* Basic.cpp in Sources */,
 				1ACB618E1FF5F31D0007F081 /* etc1.cpp in Sources */,
@@ -1005,10 +1079,12 @@
 				4627245F1FF47B82000D13BC /* Basic.cpp in Sources */,
 				1A69F0B01FF2230D00B224DF /* ccRandom.cpp in Sources */,
 				466C45181FF2378E00AA277B /* CCAffineTransform.cpp in Sources */,
+				1A1A4FD51FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */,
 				1A69F0981FF21E1900B224DF /* CCRef.cpp in Sources */,
 				1A1A4E1B1FFB57EB0061A6E1 /* Stencil.cpp in Sources */,
 				1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */,
 				1A69F09C1FF21E1900B224DF /* CCFileUtils.cpp in Sources */,
+				1A1A4FE31FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
 				462724671FF4D68D000D13BC /* Bunny.cpp in Sources */,
 				1A69F0AC1FF2229200B224DF /* pvr.cpp in Sources */,
 				1A69F0801FF1F52C00B224DF /* CCTexture2D.cpp in Sources */,
@@ -1032,6 +1108,7 @@
 				1A69F0FE1FF22B0200B224DF /* ioapi_mem.cpp in Sources */,
 				1A69F07D1FF1F50D00B224DF /* CCTexture.cpp in Sources */,
 				1A69F09F1FF21F3100B224DF /* CCData.cpp in Sources */,
+				1A1A4F1B1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				4694929A1FE2775C008D19CC /* CCFrameBuffer.cpp in Sources */,
 				466C450F1FF2378E00AA277B /* CCGeometry.cpp in Sources */,
 				1A69F11C1FF384DD00B224DF /* CCConsole.cpp in Sources */,
@@ -1048,6 +1125,7 @@
 				1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */,
 				1A69F09A1FF21E1900B224DF /* CCValue.cpp in Sources */,
 				1A1A4E251FFB6AC40061A6E1 /* CCDevice-apple.mm in Sources */,
+				1A1A4F331FFCA6230061A6E1 /* Assertions.cpp in Sources */,
 				1A69F0991FF21E1900B224DF /* ccTypes.cpp in Sources */,
 				1A69F1011FF22B0200B224DF /* tinyxml2.cpp in Sources */,
 				1A69F1001FF22B0200B224DF /* unzip.cpp in Sources */,
@@ -1091,15 +1169,20 @@
 					USE_FILE32API,
 					"COCOS2D_DEBUG=1",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Test-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../external/ios/libs";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../external/ios/libs",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mytest.Test-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src $(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/ios/include $(SRCROOT)/../external/source $(SRCROOT)/tests";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/ios/include $(SRCROOT)/tests";
 			};
 			name = Debug;
 		};
@@ -1112,15 +1195,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NQ596S94Q5;
 				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Test-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../external/ios/libs";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../external/ios/libs",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mytest.Test-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src $(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/ios/include $(SRCROOT)/../external/source $(SRCROOT)/tests";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/ios/include $(SRCROOT)/tests";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1131,7 +1219,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
@@ -1159,7 +1247,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1173,10 +1261,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = "$(SRCROOT)/../external/source/firefox";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src $(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/source";
 			};
 			name = Debug;
 		};
@@ -1186,7 +1277,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = NO;
@@ -1214,7 +1305,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1222,9 +1313,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SYSTEM_HEADER_SEARCH_PATHS = "$(SRCROOT)/../external/source/firefox";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src $(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/source";
 			};
 			name = Release;
 		};
@@ -1245,14 +1339,18 @@
 					USE_FILE32API,
 					"COCOS2D_DEBUG=1",
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../external/mac/libs";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../external/mac/libs",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.org.cocos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src $(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/mac/include $(SRCROOT)/../external/source";
+				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/mac/include";
 			};
 			name = Debug;
 		};
@@ -1265,14 +1363,18 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../external/mac/libs";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../external/mac/libs",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.org.cocos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../src $(SRCROOT)/../src/files-from-cocos2dx $(SRCROOT)/../external/mac/include $(SRCROOT)/../external/source";
+				SYSTEM_HEADER_SEARCH_PATHS = "$(inherited)";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/mac/include";
 			};
 			name = Release;
 		};

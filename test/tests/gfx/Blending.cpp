@@ -216,7 +216,7 @@ Blending::Blending()
     options2.height = 128;
     options2.format = gfx::TextureFormat::RGBA8;
     options2.images.push_back(utils::loadData("assets/sprite0.png"));
-    options2.isPremultiplyAlpha = true;
+    options2.flipY = false;
     _sprite0 = new gfx::Texture2D();
     _sprite0->init(_device, options2);
 }

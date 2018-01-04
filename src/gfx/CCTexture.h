@@ -54,8 +54,8 @@ public:
         , mipFilter(TextureFilter::LINEAR)
         , format(TextureFormat::RGBA8)
         , hasMipmap(false)
-        , isFlipY(false)
-        , isPremultiplyAlpha(false)
+        , flipY(true)
+        , premultiplyAlpha(false)
         {}
 
         std::vector<cocos2d::Data> images;
@@ -71,8 +71,8 @@ public:
         TextureFilter mipFilter;
         TextureFormat format;
         bool hasMipmap;
-        bool isFlipY;
-        bool isPremultiplyAlpha;
+        bool flipY;
+        bool premultiplyAlpha;
     };
 
     struct ImageOption
@@ -89,8 +89,8 @@ public:
         , mipFilter(TextureFilter::LINEAR)
         , format(TextureFormat::RGBA8)
         , hasMipmap(false)
-        , isFlipY(false)
-        , isPremultiplyAlpha(false)
+        , flipY(true)
+        , premultiplyAlpha(false)
         {}
 
         cocos2d::Data image;
@@ -107,8 +107,8 @@ public:
         TextureFilter mipFilter;
         TextureFormat format;
         bool hasMipmap;
-        bool isFlipY;
-        bool isPremultiplyAlpha;
+        bool flipY;
+        bool premultiplyAlpha;
     };
 
     struct SubImageOption
@@ -127,8 +127,8 @@ public:
         , mipFilter(TextureFilter::LINEAR)
         , format(TextureFormat::RGBA8)
         , hasMipmap(false)
-        , isFlipY(false)
-        , isPremultiplyAlpha(false)
+        , flipY(true)
+        , premultiplyAlpha(false)
         {}
 
         cocos2d::Data image;
@@ -147,10 +147,13 @@ public:
         TextureFilter mipFilter;
         TextureFormat format;
         bool hasMipmap;
-        bool isFlipY;
-        bool isPremultiplyAlpha;
+        bool flipY;
+        bool premultiplyAlpha;
     };
-    
+
+    inline uint16_t getWidth() const { return _width; }
+    inline uint16_t getHeight() const { return _height; }
+
 protected:
     struct GLTextureFmt
     {

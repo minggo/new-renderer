@@ -24,32 +24,31 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
+#include "TestBase.h"
+#include "gfx/CCGFX.h"
 
-#include "CCTexture.h"
-
-GFX_BEGIN
-
-class Texture2D : public Texture
+class SubImage : public TestBaseI
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_2(Texture2D, init, DeviceGraphics*, const Options&)
-
-    Texture2D();
-    virtual ~Texture2D();
-
-    bool init(DeviceGraphics* device, const Options& options);
-    void update(const Options& options);
-    void updateSubImage(const SubImageOption& option);
-    void updateImage(const ImageOption& option);
+    DEFINE_CREATE_METHOD(SubImage)
+    SubImage();
+    ~SubImage();
+    virtual void tick(float dt) override;
 
 private:
-    void setSubImage(const GLTextureFmt& glFmt, const SubImageOption& options);
-    void setImage(const GLTextureFmt& glFmt, const ImageOption& options);
-    void setMipmap(const std::vector<cocos2d::Data>& images, bool isFlipY, bool isPremultiplyAlpha);
-    void setTexInfo();
+    cocos2d::gfx::VertexBuffer *_vertexBuffer;
+    cocos2d::gfx::Program *_program;
+    cocos2d::gfx::DeviceGraphics *_device;
 
+    cocos2d::Mat4 _transform0;
+
+    float _time;
+
+    cocos2d::gfx::Texture2D* _texture;
+    uint8_t* _data;
+    size_t _dataSize;
+    size_t _updatePixelIndex;
 };
 
-GFX_END
+
+

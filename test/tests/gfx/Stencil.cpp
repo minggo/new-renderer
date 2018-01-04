@@ -25,6 +25,7 @@
 #include "Stencil.h"
 #include "defines.h"
 #include "cocos2d.h"
+#include "../Utils.h"
 
 #include <vector>
 
@@ -127,7 +128,7 @@ Stencil::Stencil()
 
 
     _transform0.scale(0.5f);
-    _transform0.rotateZ(90);
+    _transform0.rotateZ(utils::PI / 4);
 
     _transform1.scale(0.5f, 0.5f, 0.25f);
 }
@@ -144,7 +145,7 @@ void Stencil::tick(float dt)
     _time += dt;
 
     _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-    Color4F color(0.1f, 0.1f, 0.1f, 1.f);
+    Color4F color(1.f, 0.1f, 0.1f, 1.f);
     _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1.0, 0);
 
     // draw stencil and image
