@@ -43,8 +43,6 @@ private:
     cocos2d::Mat4 _transform0;
     cocos2d::Mat4 _transform1;
 
-    float _time;
-
     cocos2d::gfx::Texture2D* _canvasTexture;
     cocos2d::gfx::Texture2D* _texture;
 };

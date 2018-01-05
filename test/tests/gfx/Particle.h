@@ -45,8 +45,6 @@ private:
     cocos2d::Mat4 _view;
     cocos2d::Mat4 _projection;
     
-    float _time;
-
 #define maxQuadCount 1024
 #define vertStride 9
 

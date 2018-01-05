@@ -117,8 +117,6 @@ SubImage::~SubImage()
 
 void SubImage::tick(float dt)
 {
-    _time += dt;
-
     _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     Color4F color(1.f, 0.1f, 0.1f, 1.f);
     _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1.0, 0);

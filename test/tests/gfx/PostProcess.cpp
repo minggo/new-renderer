@@ -189,7 +189,7 @@ namespace
 }
 
 PostProcess::PostProcess()
-: _t(0)
+: _t(0.0f)
 {
     _device = gfx::DeviceGraphics::getInstance();
     
