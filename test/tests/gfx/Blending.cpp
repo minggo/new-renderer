@@ -203,9 +203,9 @@ Blending::Blending()
     gfx::Texture::Options options;
     options.width = 128;
     options.height = 128;
-    options.wrapS = gfx::TextureWrapMode::REPEAT;
-    options.wrapT = gfx::TextureWrapMode::REPEAT;
-    options.format = gfx::TextureFormat::RGB8;
+    options.wrapS = gfx::Texture::WrapMode::REPEAT;
+    options.wrapT = gfx::Texture::WrapMode::REPEAT;
+    options.format = gfx::Texture::Format::RGB8;
     options.hasMipmap = true;
     options.images.push_back(utils::loadData("assets/background.png"));
     _backgroud = new gfx::Texture2D();
@@ -214,7 +214,7 @@ Blending::Blending()
     gfx::Texture2D::Options options2;
     options2.width = 128;
     options2.height = 128;
-    options2.format = gfx::TextureFormat::RGBA8;
+    options2.format = gfx::Texture::Format::RGBA8;
     options2.images.push_back(utils::loadData("assets/sprite0.png"));
     options2.flipY = false;
     _sprite0 = new gfx::Texture2D();

@@ -543,7 +543,7 @@ void Texture2D::update(const Options& options)
     _wrapS = options.wrapS;
     _wrapT = options.wrapT;
     _format = options.format;
-    _compressed = _format >= TextureFormat::RGB_DXT1 && _format <= TextureFormat::RGBA_PVRTC_4BPPV1;
+    _compressed = _format >= Format::RGB_DXT1 && _format <= Format::RGBA_PVRTC_4BPPV1;
 
     // check if generate mipmap
     _hasMipmap = options.hasMipmap;
@@ -717,22 +717,22 @@ void Texture2D::setTexInfo()
     bool pot = isPow2(_width) && isPow2(_height);
 
     // WebGL1 doesn't support all wrap modes with NPOT textures
-    if (!pot && (_wrapS != TextureWrapMode::CLAMP || _wrapT != TextureWrapMode::CLAMP))
+    if (!pot && (_wrapS != WrapMode::CLAMP || _wrapT != WrapMode::CLAMP))
     {
         GFX_LOGW("WebGL1 doesn\'t support all wrap modes with NPOT textures");
-        _wrapS = TextureWrapMode::CLAMP;
-        _wrapT = TextureWrapMode::CLAMP;
+        _wrapS = WrapMode::CLAMP;
+        _wrapT = WrapMode::CLAMP;
     }
 
-    TextureFilter mipFilter = _hasMipmap ? _mipFilter : TextureFilter::NONE;
-    if (!pot && mipFilter != TextureFilter::NONE)
+    Filter mipFilter = _hasMipmap ? _mipFilter : Filter::NONE;
+    if (!pot && mipFilter != Filter::NONE)
     {
         GFX_LOGW("NPOT textures do not support mipmap filter");
-        mipFilter = TextureFilter::NONE;
+        mipFilter = Filter::NONE;
     }
 
     GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glFilter(_minFilter, mipFilter)));
-    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glFilter(_magFilter, TextureFilter::NONE)));
+    GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glFilter(_magFilter, Filter::NONE)));
     GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLint)_wrapS));
     GL_CHECK(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLint)_wrapT));
 

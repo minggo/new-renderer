@@ -86,7 +86,7 @@ GuiProjection::GuiProjection()
         options.images.push_back(std::move(data));
         options.width = img->getWidth();
         options.height = img->getHeight();
-        options.format = TextureFormat::RGB8;
+        options.format = Texture::Format::RGB8;
 
         img->release();
 

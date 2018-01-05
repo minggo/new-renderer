@@ -94,9 +94,9 @@ Particle::Particle()
     Texture::Options options;
     options.images.push_back(std::move(imageData));
     options.width = options.height = 128;
-    options.wrapS = TextureWrapMode::REPEAT;
-    options.wrapT = TextureWrapMode::REPEAT;
-    options.format = TextureFormat::RGB8;
+    options.wrapS = Texture::WrapMode::REPEAT;
+    options.wrapT = Texture::WrapMode::REPEAT;
+    options.format = Texture::Format::RGB8;
     options.hasMipmap = true;
 
     _texture = new Texture2D();

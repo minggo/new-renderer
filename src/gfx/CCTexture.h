@@ -40,19 +40,76 @@ class DeviceGraphics;
 class Texture : public RenderTarget
 {
 public:
-    inline GLuint getTarget() const { return _target; }
+    // texture filter
+    enum class Filter : int8_t
+    {
+        NONE = -1,
+        NEAREST = 0,
+        LINEAR = 1
+    };
+
+    // texture wrap mode
+    enum class WrapMode : uint16_t
+    {
+        REPEAT = GL_REPEAT,
+        CLAMP = GL_CLAMP_TO_EDGE,
+        MIRROR = GL_MIRRORED_REPEAT
+    };
+
+    // texture format
+    enum class Format : uint8_t
+    {
+        BEGIN = 0,
+    // compress formats
+        RGB_DXT1 = 0,
+        RGBA_DXT1 = 1,
+        RGBA_DXT3 = 2,
+        RGBA_DXT5 = 3,
+        RGB_ETC1 = 4,
+        RGB_PVRTC_2BPPV1 = 5,
+        RGBA_PVRTC_2BPPV1 = 6,
+        RGB_PVRTC_4BPPV1 = 7,
+        RGBA_PVRTC_4BPPV1 = 8,
+    //
+    // normal formats
+        A8 = 9,
+        L8 = 10,
+        L8_A8 = 11,
+        R5_G6_B5 = 12,
+        R5_G5_B5_A1 = 13,
+        R4_G4_B4_A4 = 14,
+        RGB8 = 15,                      // each channel has 8 bits
+        RGBA8 = 16,                     // each channel has 8 bits
+        RGB16F = 17,                    // each channel has 16 bits
+        RGBA16F = 18,                   // each channel has 16 bits
+        RGB32F = 19,                    // each channel has 32 bits
+        RGBA32F = 20,                   // each channel has 32 bits
+        R32F = 21,
+        _111110F = 22,
+        SRGB = 23,
+        SRGBA = 24,
+    //
+    // depth formats
+        D16 = 25,
+        D24 = 26,
+        D32 = 27,
+        D24S8 = 28,
+        END = 29
+    //
+    };
+
     struct Options
     {
         Options()
         : anisotropy(1)
         , width(4)
         , height(4)
-        , wrapS(TextureWrapMode::REPEAT)
-        , wrapT(TextureWrapMode::REPEAT)
-        , minFilter(TextureFilter::LINEAR)
-        , magFilter(TextureFilter::LINEAR)
-        , mipFilter(TextureFilter::LINEAR)
-        , format(TextureFormat::RGBA8)
+        , wrapS(WrapMode::REPEAT)
+        , wrapT(WrapMode::REPEAT)
+        , minFilter(Filter::LINEAR)
+        , magFilter(Filter::LINEAR)
+        , mipFilter(Filter::LINEAR)
+        , format(Format::RGBA8)
         , hasMipmap(false)
         , flipY(true) // TODO: Default flipY value should be false ? If it's true, it will waste some CPU resource for re-format data.
         , premultiplyAlpha(false)
@@ -63,13 +120,13 @@ public:
         uint16_t width;
         uint16_t height;
 
-        TextureWrapMode wrapS;
-        TextureWrapMode wrapT;
+        WrapMode wrapS;
+        WrapMode wrapT;
 
-        TextureFilter minFilter;
-        TextureFilter magFilter;
-        TextureFilter mipFilter;
-        TextureFormat format;
+        Filter minFilter;
+        Filter magFilter;
+        Filter mipFilter;
+        Format format;
         bool hasMipmap;
         bool flipY;
         bool premultiplyAlpha;
@@ -82,12 +139,12 @@ public:
         , level(0)
         , width(4)
         , height(4)
-        , wrapS(TextureWrapMode::REPEAT)
-        , wrapT(TextureWrapMode::REPEAT)
-        , minFilter(TextureFilter::LINEAR)
-        , magFilter(TextureFilter::LINEAR)
-        , mipFilter(TextureFilter::LINEAR)
-        , format(TextureFormat::RGBA8)
+        , wrapS(WrapMode::REPEAT)
+        , wrapT(WrapMode::REPEAT)
+        , minFilter(Filter::LINEAR)
+        , magFilter(Filter::LINEAR)
+        , mipFilter(Filter::LINEAR)
+        , format(Format::RGBA8)
         , hasMipmap(false)
         , flipY(true)
         , premultiplyAlpha(false)
@@ -99,13 +156,13 @@ public:
         uint16_t width;
         uint16_t height;
 
-        TextureWrapMode wrapS;
-        TextureWrapMode wrapT;
+        WrapMode wrapS;
+        WrapMode wrapT;
 
-        TextureFilter minFilter;
-        TextureFilter magFilter;
-        TextureFilter mipFilter;
-        TextureFormat format;
+        Filter minFilter;
+        Filter magFilter;
+        Filter mipFilter;
+        Format format;
         bool hasMipmap;
         bool flipY;
         bool premultiplyAlpha;
@@ -120,12 +177,12 @@ public:
         , y(0)
         , width(4)
         , height(4)
-        , wrapS(TextureWrapMode::REPEAT)
-        , wrapT(TextureWrapMode::REPEAT)
-        , minFilter(TextureFilter::LINEAR)
-        , magFilter(TextureFilter::LINEAR)
-        , mipFilter(TextureFilter::LINEAR)
-        , format(TextureFormat::RGBA8)
+        , wrapS(WrapMode::REPEAT)
+        , wrapT(WrapMode::REPEAT)
+        , minFilter(Filter::LINEAR)
+        , magFilter(Filter::LINEAR)
+        , mipFilter(Filter::LINEAR)
+        , format(Format::RGBA8)
         , hasMipmap(false)
         , flipY(true)
         , premultiplyAlpha(false)
@@ -139,18 +196,19 @@ public:
         uint16_t width;
         uint16_t height;
 
-        TextureWrapMode wrapS;
-        TextureWrapMode wrapT;
+        WrapMode wrapS;
+        WrapMode wrapT;
 
-        TextureFilter minFilter;
-        TextureFilter magFilter;
-        TextureFilter mipFilter;
-        TextureFormat format;
+        Filter minFilter;
+        Filter magFilter;
+        Filter mipFilter;
+        Format format;
         bool hasMipmap;
         bool flipY;
         bool premultiplyAlpha;
     };
 
+    inline GLuint getTarget() const { return _target; }
     inline uint16_t getWidth() const { return _width; }
     inline uint16_t getHeight() const { return _height; }
 
@@ -163,8 +221,8 @@ protected:
         uint8_t bpp;
     };
     
-    static GLenum glFilter(TextureFilter filter, TextureFilter mipFilter = TextureFilter::NONE);
-    static const GLTextureFmt& glTextureFmt(TextureFormat fmt);
+    static GLenum glFilter(Filter filter, Filter mipFilter = Filter::NONE);
+    static const GLTextureFmt& glTextureFmt(Format fmt);
     
     static bool isPow2(int32_t v) {
         return !(v & (v - 1)) && (!!v);
@@ -181,15 +239,15 @@ protected:
     GLint _anisotropy;
     GLuint _target;
     
-    TextureWrapMode _wrapS;
-    TextureWrapMode _wrapT;
+    WrapMode _wrapS;
+    WrapMode _wrapT;
     uint16_t _width;
     uint16_t _height;
 
-    TextureFilter _minFilter;
-    TextureFilter _magFilter;
-    TextureFilter _mipFilter;
-    TextureFormat _format;
+    Filter _minFilter;
+    Filter _magFilter;
+    Filter _mipFilter;
+    Format _format;
 
     bool _hasMipmap;
     bool _compressed;

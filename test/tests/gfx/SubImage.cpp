@@ -69,11 +69,11 @@ SubImage::SubImage()
     Texture::Options options;
     options.width = 128;
     options.height = 128;
-    options.wrapS = TextureWrapMode::CLAMP;
-    options.wrapT = TextureWrapMode::CLAMP;
-    options.minFilter = TextureFilter::NEAREST;
-    options.magFilter = TextureFilter::NEAREST;
-    options.format = TextureFormat::RGB8;
+    options.wrapS = Texture::WrapMode::CLAMP;
+    options.wrapT = Texture::WrapMode::CLAMP;
+    options.minFilter = Texture::Filter::NEAREST;
+    options.magFilter = Texture::Filter::NEAREST;
+    options.format = Texture::Format::RGB8;
     options.hasMipmap = false;
     options.flipY = false;
 

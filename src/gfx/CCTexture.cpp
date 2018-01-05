@@ -175,14 +175,14 @@ Texture::Texture()
 : _device(nullptr)
 , _anisotropy(1)
 , _target(0)
-, _wrapS(TextureWrapMode::REPEAT)
-, _wrapT(TextureWrapMode::REPEAT)
+, _wrapS(WrapMode::REPEAT)
+, _wrapT(WrapMode::REPEAT)
 , _width(4)
 , _height(4)
-, _minFilter(TextureFilter::LINEAR)
-, _magFilter(TextureFilter::LINEAR)
-, _mipFilter(TextureFilter::LINEAR)
-, _format(TextureFormat::RGBA8)
+, _minFilter(Filter::LINEAR)
+, _magFilter(Filter::LINEAR)
+, _mipFilter(Filter::LINEAR)
+, _format(Format::RGBA8)
 , _hasMipmap(false)
 , _compressed(false)
 {
@@ -211,51 +211,50 @@ bool Texture::init(DeviceGraphics* device)
     _compressed = false;
 
     _anisotropy = 1;
-    _minFilter = TextureFilter::LINEAR;
-    _magFilter = TextureFilter::LINEAR;
-    _mipFilter = TextureFilter::LINEAR;
-    _wrapS = TextureWrapMode::REPEAT;
-    _wrapT = TextureWrapMode::REPEAT;
+    _minFilter = Filter::LINEAR;
+    _magFilter = Filter::LINEAR;
+    _mipFilter = Filter::LINEAR;
+    _wrapS = WrapMode::REPEAT;
+    _wrapT = WrapMode::REPEAT;
     // wrapR available in webgl2
-    // _wrapR = TextureWrapMode::REPEAT;
-    _format = TextureFormat::RGBA8;
+    // _wrapR = WrapMode::REPEAT;
+    _format = Format::RGBA8;
 
     _target = -1;
     return true;
 }
 
-GLenum Texture::glFilter(TextureFilter filter, TextureFilter mipFilter/* = TextureFilter::NONE*/)
+GLenum Texture::glFilter(Filter filter, Filter mipFilter/* = TextureFilter::NONE*/)
 {
-    if (filter < TextureFilter::NEAREST || filter > TextureFilter::LINEAR)
+    if (filter < Filter::NEAREST || filter > Filter::LINEAR)
     {
         GFX_LOGW("Unknown filter: %u", (uint32_t)filter);
-        return mipFilter == TextureFilter::NONE ? GL_LINEAR : GL_LINEAR_MIPMAP_LINEAR;
+        return mipFilter == Filter::NONE ? GL_LINEAR : GL_LINEAR_MIPMAP_LINEAR;
     }
 
-    if (mipFilter < TextureFilter::NONE || mipFilter > TextureFilter::LINEAR)
+    if (mipFilter < Filter::NONE || mipFilter > Filter::LINEAR)
     {
         GFX_LOGW("Unknown mipFilter: %u", (uint32_t)filter);
-        return mipFilter == TextureFilter::NONE ? GL_LINEAR : GL_LINEAR_MIPMAP_LINEAR;
+        return mipFilter == Filter::NONE ? GL_LINEAR : GL_LINEAR_MIPMAP_LINEAR;
     }
 
     const GLFilter& p = _filterGL[(uint8_t)filter];
     GLenum ret = p.min;
-    if (mipFilter == TextureFilter::NEAREST)
+    if (mipFilter == Filter::NEAREST)
         ret = p.mag;
-    else if (mipFilter == TextureFilter::LINEAR)
+    else if (mipFilter == Filter::LINEAR)
         ret = p.mip;
     return ret;
 }
 
-const Texture::GLTextureFmt& Texture::glTextureFmt(TextureFormat fmt)
+const Texture::GLTextureFmt& Texture::glTextureFmt(Format fmt)
 {
-    if (fmt < TextureFormat::BEGIN || fmt > TextureFormat::END)
+    if (fmt < Format::BEGIN || fmt > Format::END)
     {
-        return _textureFmt[(uint8_t)TextureFormat::RGBA8];
+        return _textureFmt[(uint8_t)Format::RGBA8];
     }
 
     return _textureFmt[(uint8_t)fmt];
 }
 
 GFX_END
-

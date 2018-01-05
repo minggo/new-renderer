@@ -81,7 +81,7 @@ MultiTextures::MultiTextures()
     gfx::Texture::Options options1;
     options1.width = 1024;
     options1.height = 1024;
-    options1.format = gfx::TextureFormat::RGB8;
+    options1.format = gfx::Texture::Format::RGB8;
     options1.images.push_back(utils::loadData("assets/uv_checker_01.jpg"));
     _texture1 = new gfx::Texture2D();
     _texture1->init(_device, options1);
@@ -89,7 +89,7 @@ MultiTextures::MultiTextures()
     gfx::Texture::Options options2;
     options2.width = 512;
     options2.height = 512;
-    options2.format = gfx::TextureFormat::RGB8;
+    options2.format = gfx::Texture::Format::RGB8;
     
     int dataSize = 512 * 512 * 3;
     uint8_t data[dataSize];

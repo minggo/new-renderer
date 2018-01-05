@@ -196,9 +196,9 @@ PostProcess::PostProcess()
     gfx::Texture2D::Options options;
     options.width = WINDOW_WIDTH;
     options.height = WINDOW_HEIGHT;
-    options.format = gfx::TextureFormat::RGBA8;
-    options.wrapS = gfx::TextureWrapMode::CLAMP;
-    options.wrapT = gfx::TextureWrapMode::CLAMP;
+    options.format = gfx::Texture::Format::RGBA8;
+    options.wrapS = gfx::Texture::WrapMode::CLAMP;
+    options.wrapT = gfx::Texture::WrapMode::CLAMP;
     _colorTexture = new gfx::Texture2D();
     _colorTexture->init(_device, options);
     
