@@ -41,7 +41,6 @@ public:
     {
         RGBA4 = GL_RGBA4,
         RGB5_A1 = GL_RGB5_A1,
-        RGB565 = GL_RGB565,
         D16 = GL_DEPTH_COMPONENT16,
         S8 = GL_STENCIL_INDEX8,
         D24S8 = GL_DEPTH_STENCIL
