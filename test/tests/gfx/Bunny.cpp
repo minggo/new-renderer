@@ -31,6 +31,7 @@ using namespace cocos2d;
 using namespace cocos2d::gfx;
 
 Bunny::Bunny()
+: _time(0.0f)
 {
     const char* vert = R"(
 #ifdef GL_ES

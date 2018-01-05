@@ -170,6 +170,7 @@ namespace
 }
 
 DepthTexture::DepthTexture()
+: _t(0.0f)
 {
     _device = gfx::DeviceGraphics::getInstance();
     

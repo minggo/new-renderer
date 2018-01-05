@@ -162,8 +162,6 @@ Particle::~Particle()
 
 void Particle::tick(float dt)
 {
-    _time += dt;
-
     // update particles
     for (size_t i = 0; i < particleCount; ++i) {
         ParticleData& p = _particles[i];

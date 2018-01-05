@@ -45,8 +45,6 @@ private:
     cocos2d::Mat4 _rotation;
     cocos2d::Mat4 _scale;
 
-    float _time;
-
     cocos2d::gfx::Texture2D* _texture;
 };
 

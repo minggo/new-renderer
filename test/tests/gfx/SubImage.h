@@ -42,8 +42,6 @@ private:
 
     cocos2d::Mat4 _transform0;
 
-    float _time;
-
     cocos2d::gfx::Texture2D* _texture;
     uint8_t* _data;
     size_t _dataSize;
