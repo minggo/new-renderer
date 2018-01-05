@@ -19,7 +19,6 @@
 		1A1A4E341FFB7BC80061A6E1 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1A4E331FFB7BC80061A6E1 /* CoreMotion.framework */; };
 		1A1A4E381FFB7BEF0061A6E1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1A4E371FFB7BEF0061A6E1 /* AudioToolbox.framework */; };
 		1A1A4F1B1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E501FFCA6230061A6E1 /* WebGLTexelConversions.cpp */; };
-		1A1A4F1C1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E501FFCA6230061A6E1 /* WebGLTexelConversions.cpp */; };
 		1A1A4F331FFCA6230061A6E1 /* Assertions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E861FFCA6230061A6E1 /* Assertions.cpp */; };
 		1A1A4F341FFCA6230061A6E1 /* Assertions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E861FFCA6230061A6E1 /* Assertions.cpp */; };
 		1A1A4FD51FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FD31FFCAA3C0061A6E1 /* WebGLFormats.cpp */; };
@@ -30,6 +29,7 @@
 		1A1A4FEE1FFE2B0D0061A6E1 /* Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FEB1FFE2B0D0061A6E1 /* Texture2D.cpp */; };
 		1A1A4FF11FFE30FB0061A6E1 /* GuiProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FEF1FFE30FB0061A6E1 /* GuiProjection.cpp */; };
 		1A1A4FF21FFE30FB0061A6E1 /* GuiProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4FEF1FFE30FB0061A6E1 /* GuiProjection.cpp */; };
+		1A1A4FF31FFF0D870061A6E1 /* WebGLTexelConversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E501FFCA6230061A6E1 /* WebGLTexelConversions.cpp */; };
 		1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */; };
 		1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */; };
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
@@ -1040,6 +1040,7 @@
 				1ACB61BC1FF60C700007F081 /* CCDirectorCaller-ios.mm in Sources */,
 				1ACB61A31FF5F33D0007F081 /* CCRenderBuffer.cpp in Sources */,
 				1ACB619F1FF5F33D0007F081 /* CCGFXUtils.cpp in Sources */,
+				1A1A4FF31FFF0D870061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				1ACB619E1FF5F33D0007F081 /* CCGFX.cpp in Sources */,
 				1ACB61981FF5F3290007F081 /* TransformUtils.cpp in Sources */,
 				1ACB619B1FF5F3290007F081 /* Vec4.cpp in Sources */,
@@ -1050,7 +1051,6 @@
 				1ACB619D1FF5F33D0007F081 /* CCFrameBuffer.cpp in Sources */,
 				1A1A4FF21FFE30FB0061A6E1 /* GuiProjection.cpp in Sources */,
 				1ACB619A1FF5F3290007F081 /* Vec3.cpp in Sources */,
-				1A1A4F1C1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				1ACB61871FF5F31D0007F081 /* CCConfiguration.cpp in Sources */,
 				1ACB61881FF5F31D0007F081 /* CCConsole.cpp in Sources */,
 				1ACB618C1FF5F31D0007F081 /* ccTypes.cpp in Sources */,
@@ -1269,7 +1269,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
-					"$(inherited)",
+					"CC_USE_TIFF=0",
+					"CC_USE_WEBP=0",
+					USE_FILE32API,
+					"COCOS2D_DEBUG=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1323,6 +1326,12 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					NDEBUG,
+					"CC_USE_TIFF=0",
+					"CC_USE_WEBP=0",
+					USE_FILE32API,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1348,13 +1357,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"CC_USE_TIFF=0",
-					"CC_USE_WEBP=0",
-					USE_FILE32API,
-					"COCOS2D_DEBUG=1",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -1379,6 +1382,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

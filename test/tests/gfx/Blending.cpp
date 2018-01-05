@@ -230,6 +230,7 @@ Blending::~Blending()
     quad = nullptr;
     
     GFX_SAFE_RELEASE(_backgroud);
+    GFX_SAFE_RELEASE(_sprite0);
 }
 
 void Blending::tick(float dt)
