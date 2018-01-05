@@ -138,6 +138,7 @@ Stencil::~Stencil()
     GFX_SAFE_RELEASE(_vertexBuffer);
     GFX_SAFE_RELEASE(_program);
     GFX_SAFE_RELEASE(_texture);
+    GFX_SAFE_RELEASE(_canvasTexture);
 }
 
 void Stencil::tick(float dt)

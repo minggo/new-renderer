@@ -38,6 +38,13 @@ FrameBuffer::FrameBuffer()
 
 FrameBuffer::~FrameBuffer()
 {
+    for (auto colorBufffer : _colorBuffers)
+        GFX_SAFE_RELEASE(colorBufffer);
+
+    GFX_SAFE_RELEASE(_depthBuffer);
+    GFX_SAFE_RELEASE(_stencilBuffer);
+    GFX_SAFE_RELEASE(_depthStencilBuffer);
+
     if (_glID == 0)
     {
         GFX_LOGE("The frame-buffer is invalid!");
@@ -71,6 +78,9 @@ void FrameBuffer::setColorBuffer(RenderTarget* rt, int index)
 
 void FrameBuffer::setColorBuffers(const std::vector<RenderTarget*>& renderTargets)
 {
+    for (auto& colorBufffer : _colorBuffers)
+        GFX_SAFE_RELEASE(colorBufffer);
+
     _colorBuffers = renderTargets;
     for (auto& colorBufffer : _colorBuffers)
         GFX_SAFE_RETAIN(colorBufffer);
