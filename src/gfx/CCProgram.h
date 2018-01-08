@@ -39,7 +39,7 @@ class DeviceGraphics;
 class Program final: public GraphicsHandle
 {
 public:
-    struct ActiveInfo
+    struct Attribute
     {
         std::string name;
         GLsizei size;
@@ -47,8 +47,18 @@ public:
         GLenum type;
     };
 
-    using Attribute = ActiveInfo;
-    using Uniform = ActiveInfo;
+    struct Uniform
+    {
+        std::string name;
+        GLsizei size;
+        GLint location;
+        GLenum type;
+        void setUniform(const void* value) const;
+        using SetUniformCallback = void (*)(GLint, GLsizei, const void*); // location, count, value
+    private:
+        SetUniformCallback _callback;
+        friend class Program;
+    };
 
     GFX_DEFINE_CREATE_METHOD_3(Program, init, DeviceGraphics*, const char*, const char*)
     Program();
