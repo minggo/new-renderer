@@ -241,7 +241,7 @@ bool std_map_string_string_to_seval(const std::map<std::string, std::string>& v,
 //bool ManifestAsset_to_seval(const cocos2d::extension::ManifestAsset& v, se::Value* ret);
 //bool AffineTransform_to_seval(const cocos2d::AffineTransform& v, se::Value* ret);
 ////bool Viewport_to_seval(const cocos2d::experimental::Viewport& v, se::Value* ret);
-//bool Data_to_seval(const cocos2d::Data& v, se::Value* ret);
+bool Data_to_seval(const cocos2d::Data& v, se::Value* ret);
 //bool DownloadTask_to_seval(const cocos2d::network::DownloadTask& v, se::Value* ret);
 
 bool VertexFormat_to_seval(const cocos2d::gfx::VertexFormat& v, se::Value* ret);

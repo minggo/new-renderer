@@ -8,7 +8,9 @@
   // init resources
   let program = new gfx.Program(device, {
     vert: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       attribute vec3 a_position;
       uniform mat4 model, view, projection;
       varying vec3 position;
@@ -20,7 +22,9 @@
       }
     `,
     frag: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       uniform vec4 color;
       varying vec3 position;
 
@@ -39,16 +43,16 @@
 
   let bunnyLoaded = false;
 
-  resl({
-    manifest: {
-      js: {
-        type: 'text',
-        src: './assets/bunny.js'
-      },
-    },
+  // resl({
+  //   manifest: {
+  //     js: {
+  //       type: 'text',
+  //       src: './assets/bunny.js'
+  //     },
+  //   },
 
-    onDone (assets) {
-      let bunny = eval(assets.js);
+  //   onDone (assets) {
+      let bunny = eval(getStringFromFile("assets/bunny.js"));
       let verts = new Array(bunny.positions.length * 3);
       let indices = new Array(bunny.cells.length * 3);
 
@@ -83,8 +87,8 @@
       );
 
       bunnyLoaded = true;
-    }
-  });
+  //   }
+  // });
 
   let model = mat4.create();
   let view = mat4.create();

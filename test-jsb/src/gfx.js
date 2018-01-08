@@ -1,3 +1,7 @@
+require("src/enums.js");
+require("src/vertex-format.js");
+require("src/vmath.js");
+
 /**
  * Common getter setter configuration function
  * @function
@@ -25,6 +29,12 @@ _p._ctor = function(device, options) {
 _p = gfx.VertexBuffer.prototype;
 _p._ctor = function(device, format, usage, data, numVertices) {
     this.init(device, format, usage, data, numVertices);
+};
+cc.defineGetterSetter(_p, "count", _p.getCount);
+
+_p = gfx.IndexBuffer.prototype;
+_p._ctor = function(device, format, usage, data, numIndices) {
+    this.init(device, format, usage, data, numIndices);
 };
 cc.defineGetterSetter(_p, "count", _p.getCount);
 

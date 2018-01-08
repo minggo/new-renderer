@@ -213,11 +213,87 @@ static bool js_gfx_VertexBuffer_init(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_VertexBuffer_init)
 
+static bool js_gfx_IndexBuffer_init(se::State& s)
+{
+    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_init : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 5) {
+        cocos2d::gfx::DeviceGraphics* device;
+        ok &= seval_to_native_ptr(args[0], &device);
+
+        IndexFormat format = (IndexFormat)args[1].toUint16();
+        Usage usage = (Usage) args[2].toUint16();
+
+        uint8_t* data = nullptr;
+        size_t dataByteLength = 0;
+        uint32_t numIndices = 0;
+        se::Object* typedArr = args[3].toObject();
+        assert(typedArr->isTypedArray());
+        ok = typedArr->getTypedArrayData(&data, &dataByteLength);
+        assert(ok);
+
+        ok = seval_to_uint32(args[4], &numIndices);
+        assert(ok);
+
+        cobj->init(device, format, usage, data, dataByteLength, numIndices);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 5);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_IndexBuffer_init)
+
+static bool js_cocos2dx_FileUtils_getStringFromFile(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_FileUtils_getStringFromFile : Error processing arguments");
+        std::string result = FileUtils::getInstance()->getStringFromFile(arg0);
+        ok &= std_string_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_FileUtils_getStringFromFile : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_FileUtils_getStringFromFile)
+
+static bool js_cocos2dx_FileUtils_getDataFromFile(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_FileUtils_getDataFromFile : Error processing arguments");
+        cocos2d::Data result = FileUtils::getInstance()->getDataFromFile(arg0);
+        ok &= Data_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_cocos2dx_FileUtils_getDataFromFile : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_cocos2dx_FileUtils_getDataFromFile)
+
 bool jsb_register_gfx_manual(se::Object* global)
 {
     __jsb_cocos2d_gfx_DeviceGraphics_proto->defineFunction("clear", _SE(js_gfx_DeviceGraphics_clear));
     __jsb_cocos2d_gfx_DeviceGraphics_proto->defineFunction("setUniform", _SE(js_gfx_DeviceGraphics_setUniform));
     __jsb_cocos2d_gfx_VertexBuffer_proto->defineFunction("init", _SE(js_gfx_VertexBuffer_init));
+    __jsb_cocos2d_gfx_IndexBuffer_proto->defineFunction("init", _SE(js_gfx_IndexBuffer_init));
 
+    global->defineFunction("getDataFromFile", _SE(js_cocos2dx_FileUtils_getDataFromFile));
+    global->defineFunction("getStringFromFile", _SE(js_cocos2dx_FileUtils_getStringFromFile));
+
+    se::ScriptEngine::getInstance()->clearException();
     return true;
 }

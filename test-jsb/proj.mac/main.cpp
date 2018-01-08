@@ -62,11 +62,9 @@ int main(int argc, char** argv)
 
     se::AutoHandleScope hs;
 
-    se->runScript("src/enums.js");
-    se->runScript("src/vertex-format.js");
     se->runScript("src/gfx.js");
     se::Value tickVal;
-    se->runScript("src/basic.js", &tickVal);
+    se->runScript("src/bunny.js", &tickVal);
 
     std::chrono::steady_clock::time_point prevTime;
     std::chrono::steady_clock::time_point now;
