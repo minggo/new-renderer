@@ -1,0 +1,849 @@
+/**
+ * @module gfx
+ */
+var gfx = gfx || {};
+
+/**
+ * @class GraphicsHandle
+ */
+gfx.GraphicsHandle = {
+
+/**
+ * @method getHandle
+ * @return {unsigned int}
+ */
+getHandle : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method GraphicsHandle
+ * @constructor
+ */
+GraphicsHandle : function (
+)
+{
+},
+
+};
+
+/**
+ * @class IndexBuffer
+ */
+gfx.IndexBuffer = {
+
+/**
+ * @method getBytesPerIndex
+ * @return {unsigned int}
+ */
+getBytesPerIndex : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method getCount
+ * @return {unsigned int}
+ */
+getCount : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method getFormat
+ * @return {cc.gfx::IndexFormat}
+ */
+getFormat : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method IndexBuffer
+ * @constructor
+ */
+IndexBuffer : function (
+)
+{
+},
+
+};
+
+/**
+ * @class VertexBuffer
+ */
+gfx.VertexBuffer = {
+
+/**
+ * @method getCount
+ * @return {unsigned int}
+ */
+getCount : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method getFormat
+ * @return {cc.gfx::VertexFormat}
+ */
+getFormat : function (
+)
+{
+    return cc.gfx::VertexFormat;
+},
+
+/**
+ * @method VertexBuffer
+ * @constructor
+ */
+VertexBuffer : function (
+)
+{
+},
+
+};
+
+/**
+ * @class DeviceGraphics
+ */
+gfx.Device = {
+
+/**
+ * @method setTexture
+ * @param {String} arg0
+ * @param {cc.gfx::Texture} arg1
+ * @param {int} arg2
+ */
+setTexture : function (
+str, 
+texture, 
+int 
+)
+{
+},
+
+/**
+ * @method enableBlend
+ */
+enableBlend : function (
+)
+{
+},
+
+/**
+ * @method setPrimitiveType
+ * @param {cc.gfx::PrimitiveType} arg0
+ */
+setPrimitiveType : function (
+primitivetype 
+)
+{
+},
+
+/**
+ * @method setBlendEquationSeparate
+ * @param {cc.gfx::BlendOp} arg0
+ * @param {cc.gfx::BlendOp} arg1
+ */
+setBlendEquationSeparate : function (
+blendop, 
+blendop 
+)
+{
+},
+
+/**
+ * @method setTextureArray
+ * @param {String} arg0
+ * @param {Array} arg1
+ * @param {Array} arg2
+ */
+setTextureArray : function (
+str, 
+array, 
+array 
+)
+{
+},
+
+/**
+ * @method setIndexBuffer
+ * @param {cc.gfx::IndexBuffer} arg0
+ */
+setIndexBuffer : function (
+indexbuffer 
+)
+{
+},
+
+/**
+ * @method setProgram
+ * @param {cc.gfx::Program} arg0
+ */
+setProgram : function (
+program 
+)
+{
+},
+
+/**
+ * @method setFrameBuffer
+ * @param {cc.gfx::FrameBuffer} arg0
+ */
+setFrameBuffer : function (
+framebuffer 
+)
+{
+},
+
+/**
+ * @method setStencilFunc
+ * @param {cc.gfx::ComparisonFunc} arg0
+ * @param {int} arg1
+ * @param {unsigned int} arg2
+ */
+setStencilFunc : function (
+comparisonfunc, 
+int, 
+int 
+)
+{
+},
+
+/**
+ * @method setBlendColor
+* @param {unsigned char|unsigned int} char
+* @param {unsigned char} char
+* @param {unsigned char} char
+* @param {unsigned char} char
+*/
+setBlendColor : function(
+char,
+char,
+char,
+char 
+)
+{
+},
+
+/**
+ * @method setScissor
+ * @param {int} arg0
+ * @param {int} arg1
+ * @param {int} arg2
+ * @param {int} arg3
+ */
+setScissor : function (
+int, 
+int, 
+int, 
+int 
+)
+{
+},
+
+/**
+ * @method enableDepthWrite
+ */
+enableDepthWrite : function (
+)
+{
+},
+
+/**
+ * @method setDepthFunc
+ * @param {cc.gfx::ComparisonFunc} arg0
+ */
+setDepthFunc : function (
+comparisonfunc 
+)
+{
+},
+
+/**
+ * @method setStencilOpBack
+ * @param {cc.gfx::StencilOp} arg0
+ * @param {cc.gfx::StencilOp} arg1
+ * @param {cc.gfx::StencilOp} arg2
+ * @param {unsigned int} arg3
+ */
+setStencilOpBack : function (
+stencilop, 
+stencilop, 
+stencilop, 
+int 
+)
+{
+},
+
+/**
+ * @method setViewport
+ * @param {int} arg0
+ * @param {int} arg1
+ * @param {int} arg2
+ * @param {int} arg3
+ */
+setViewport : function (
+int, 
+int, 
+int, 
+int 
+)
+{
+},
+
+/**
+ * @method draw
+ * @param {unsigned int} arg0
+ * @param {int} arg1
+ */
+draw : function (
+int, 
+int 
+)
+{
+},
+
+/**
+ * @method setVertexBuffer
+ * @param {int} arg0
+ * @param {cc.gfx::VertexBuffer} arg1
+ * @param {int} arg2
+ */
+setVertexBuffer : function (
+int, 
+vertexbuffer, 
+int 
+)
+{
+},
+
+/**
+ * @method enableDepthTest
+ */
+enableDepthTest : function (
+)
+{
+},
+
+/**
+ * @method setBlendEquation
+ * @param {cc.gfx::BlendOp} arg0
+ */
+setBlendEquation : function (
+blendop 
+)
+{
+},
+
+/**
+ * @method setStencilFuncFront
+ * @param {cc.gfx::ComparisonFunc} arg0
+ * @param {int} arg1
+ * @param {unsigned int} arg2
+ */
+setStencilFuncFront : function (
+comparisonfunc, 
+int, 
+int 
+)
+{
+},
+
+/**
+ * @method setStencilOpFront
+ * @param {cc.gfx::StencilOp} arg0
+ * @param {cc.gfx::StencilOp} arg1
+ * @param {cc.gfx::StencilOp} arg2
+ * @param {unsigned int} arg3
+ */
+setStencilOpFront : function (
+stencilop, 
+stencilop, 
+stencilop, 
+int 
+)
+{
+},
+
+/**
+ * @method setStencilFuncBack
+ * @param {cc.gfx::ComparisonFunc} arg0
+ * @param {int} arg1
+ * @param {unsigned int} arg2
+ */
+setStencilFuncBack : function (
+comparisonfunc, 
+int, 
+int 
+)
+{
+},
+
+/**
+ * @method setBlendFunc
+ * @param {cc.gfx::BlendFactor} arg0
+ * @param {cc.gfx::BlendFactor} arg1
+ */
+setBlendFunc : function (
+blendfactor, 
+blendfactor 
+)
+{
+},
+
+/**
+ * @method setCullMode
+ * @param {cc.gfx::CullMode} arg0
+ */
+setCullMode : function (
+cullmode 
+)
+{
+},
+
+/**
+ * @method setBlendFuncSeparate
+ * @param {cc.gfx::BlendFactor} arg0
+ * @param {cc.gfx::BlendFactor} arg1
+ * @param {cc.gfx::BlendFactor} arg2
+ * @param {cc.gfx::BlendFactor} arg3
+ */
+setBlendFuncSeparate : function (
+blendfactor, 
+blendfactor, 
+blendfactor, 
+blendfactor 
+)
+{
+},
+
+/**
+ * @method setStencilOp
+ * @param {cc.gfx::StencilOp} arg0
+ * @param {cc.gfx::StencilOp} arg1
+ * @param {cc.gfx::StencilOp} arg2
+ * @param {unsigned int} arg3
+ */
+setStencilOp : function (
+stencilop, 
+stencilop, 
+stencilop, 
+int 
+)
+{
+},
+
+/**
+ * @method enableStencilTest
+ */
+enableStencilTest : function (
+)
+{
+},
+
+/**
+ * @method getInstance
+ * @return {cc.gfx::DeviceGraphics}
+ */
+getInstance : function (
+)
+{
+    return cc.gfx::DeviceGraphics;
+},
+
+};
+
+/**
+ * @class FrameBuffer
+ */
+gfx.FrameBuffer = {
+
+/**
+ * @method setColorBuffer
+ * @param {cc.gfx::RenderTarget} arg0
+ * @param {int} arg1
+ */
+setColorBuffer : function (
+rendertarget, 
+int 
+)
+{
+},
+
+/**
+ * @method setStencilBuffer
+ * @param {cc.gfx::RenderTarget} arg0
+ */
+setStencilBuffer : function (
+rendertarget 
+)
+{
+},
+
+/**
+ * @method getDepthBuffer
+ * @return {cc.gfx::RenderTarget}
+ */
+getDepthBuffer : function (
+)
+{
+    return cc.gfx::RenderTarget;
+},
+
+/**
+ * @method setDepthStencilBuffer
+ * @param {cc.gfx::RenderTarget} arg0
+ */
+setDepthStencilBuffer : function (
+rendertarget 
+)
+{
+},
+
+/**
+ * @method getStencilBuffer
+ * @return {cc.gfx::RenderTarget}
+ */
+getStencilBuffer : function (
+)
+{
+    return cc.gfx::RenderTarget;
+},
+
+/**
+ * @method setColorBuffers
+ * @param {Array} arg0
+ */
+setColorBuffers : function (
+array 
+)
+{
+},
+
+/**
+ * @method init
+ * @param {cc.gfx::DeviceGraphics} arg0
+ * @param {unsigned short} arg1
+ * @param {unsigned short} arg2
+ * @return {bool}
+ */
+init : function (
+devicegraphics, 
+short, 
+short 
+)
+{
+    return false;
+},
+
+/**
+ * @method getColorBuffers
+ * @return {Array}
+ */
+getColorBuffers : function (
+)
+{
+    return new Array();
+},
+
+/**
+ * @method setDepthBuffer
+ * @param {cc.gfx::RenderTarget} arg0
+ */
+setDepthBuffer : function (
+rendertarget 
+)
+{
+},
+
+/**
+ * @method getDepthStencilBuffer
+ * @return {cc.gfx::RenderTarget}
+ */
+getDepthStencilBuffer : function (
+)
+{
+    return cc.gfx::RenderTarget;
+},
+
+/**
+ * @method create
+ * @param {cc.gfx::DeviceGraphics} arg0
+ * @param {unsigned short} arg1
+ * @param {unsigned short} arg2
+ * @return {cc.gfx::FrameBuffer}
+ */
+create : function (
+devicegraphics, 
+short, 
+short 
+)
+{
+    return cc.gfx::FrameBuffer;
+},
+
+/**
+ * @method FrameBuffer
+ * @constructor
+ */
+FrameBuffer : function (
+)
+{
+},
+
+};
+
+/**
+ * @class RenderTarget
+ */
+gfx.RenderTarget = {
+
+};
+
+/**
+ * @class RenderBuffer
+ */
+gfx.RenderBuffer = {
+
+/**
+ * @method init
+ * @param {cc.gfx::DeviceGraphics} arg0
+ * @param {cc.gfx::RenderBuffer::Format} arg1
+ * @param {unsigned short} arg2
+ * @param {unsigned short} arg3
+ * @return {bool}
+ */
+init : function (
+devicegraphics, 
+format, 
+short, 
+short 
+)
+{
+    return false;
+},
+
+/**
+ * @method create
+ * @param {cc.gfx::DeviceGraphics} arg0
+ * @param {cc.gfx::RenderBuffer::Format} arg1
+ * @param {unsigned short} arg2
+ * @param {unsigned short} arg3
+ * @return {cc.gfx::RenderBuffer}
+ */
+create : function (
+devicegraphics, 
+format, 
+short, 
+short 
+)
+{
+    return cc.gfx::RenderBuffer;
+},
+
+/**
+ * @method RenderBuffer
+ * @constructor
+ */
+RenderBuffer : function (
+)
+{
+},
+
+};
+
+/**
+ * @class Texture
+ */
+gfx.Texture = {
+
+/**
+ * @method getWidth
+ * @return {unsigned short}
+ */
+getWidth : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method getHeight
+ * @return {unsigned short}
+ */
+getHeight : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method getTarget
+ * @return {unsigned int}
+ */
+getTarget : function (
+)
+{
+    return 0;
+},
+
+};
+
+/**
+ * @class Texture2D
+ */
+gfx.Texture2D = {
+
+/**
+ * @method updateImage
+ * @param {cc.gfx::Texture::ImageOption} arg0
+ */
+updateImage : function (
+imageoption 
+)
+{
+},
+
+/**
+ * @method init
+ * @param {cc.gfx::DeviceGraphics} arg0
+ * @param {cc.gfx::Texture::Options} arg1
+ * @return {bool}
+ */
+init : function (
+devicegraphics, 
+options 
+)
+{
+    return false;
+},
+
+/**
+ * @method updateSubImage
+ * @param {cc.gfx::Texture::SubImageOption} arg0
+ */
+updateSubImage : function (
+subimageoption 
+)
+{
+},
+
+/**
+ * @method update
+ * @param {cc.gfx::Texture::Options} arg0
+ */
+update : function (
+options 
+)
+{
+},
+
+/**
+ * @method create
+ * @param {cc.gfx::DeviceGraphics} arg0
+ * @param {cc.gfx::Texture::Options} arg1
+ * @return {cc.gfx::Texture2D}
+ */
+create : function (
+devicegraphics, 
+options 
+)
+{
+    return cc.gfx::Texture2D;
+},
+
+/**
+ * @method Texture2D
+ * @constructor
+ */
+Texture2D : function (
+)
+{
+},
+
+};
+
+/**
+ * @class Program
+ */
+gfx.Program = {
+
+/**
+ * @method isLinked
+ * @return {bool}
+ */
+isLinked : function (
+)
+{
+    return false;
+},
+
+/**
+ * @method getID
+ * @return {unsigned int}
+ */
+getID : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method init
+ * @param {cc.gfx::DeviceGraphics} arg0
+ * @param {char} arg1
+ * @param {char} arg2
+ * @return {bool}
+ */
+init : function (
+devicegraphics, 
+char, 
+char 
+)
+{
+    return false;
+},
+
+/**
+ * @method link
+ */
+link : function (
+)
+{
+},
+
+/**
+ * @method create
+ * @param {cc.gfx::DeviceGraphics} arg0
+ * @param {char} arg1
+ * @param {char} arg2
+ * @return {cc.gfx::Program}
+ */
+create : function (
+devicegraphics, 
+char, 
+char 
+)
+{
+    return cc.gfx::Program;
+},
+
+/**
+ * @method Program
+ * @constructor
+ */
+Program : function (
+)
+{
+},
+
+};

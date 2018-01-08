@@ -142,7 +142,7 @@ def main():
     try:
 
         tojs_root = '%s/tools/tojs' % project_root
-        output_dir = '%s/js-bindings/auto' % project_root
+        output_dir = '%s/cocos/scripting/js-bindings/auto' % project_root
 
         cmd_args = {
                     'gfx.ini': ('gfx', 'jsb_gfx_auto'),
