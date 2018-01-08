@@ -116,8 +116,8 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     if (_frameBuffer->getStencilBuffer())
         attach(GL_STENCIL_ATTACHMENT, _frameBuffer->getStencilBuffer());
     
-    if (_frameBuffer->getDepthStencilBuffer())
-        attach(GL_DEPTH_STENCIL_ATTACHMENT, _frameBuffer->getDepthStencilBuffer());
+    // if (_frameBuffer->getDepthStencilBuffer())
+    //     attach(GL_DEPTH_STENCIL_ATTACHMENT, _frameBuffer->getDepthStencilBuffer());
     
     auto result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (GL_FRAMEBUFFER_COMPLETE != result)
@@ -602,9 +602,16 @@ void DeviceGraphics::initCaps()
 #else
     GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &_caps.maxFragUniforms));
 #endif
+
     GL_CHECK(glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUints));
-    GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    _caps.maxColorAttatchments = 1;
+    _caps.maxDrawBuffers = 1;
+#else
     GL_CHECK(glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments));
+    GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
+#endif
 }
 
 void DeviceGraphics::initStates()

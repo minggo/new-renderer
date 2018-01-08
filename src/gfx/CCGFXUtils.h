@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "CCGL.h"
+#include "platform/CCGL.h"
 
 const char* glEnumName(GLenum _enum);
 

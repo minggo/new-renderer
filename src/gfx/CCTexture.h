@@ -91,10 +91,8 @@ public:
     //
     // depth formats
         D16 = 25,
-        D24 = 26,
-        D32 = 27,
-        D24S8 = 28,
-        END = 29
+        D24S8 = 26,
+        END = 26
     //
     };
 
