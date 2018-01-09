@@ -274,6 +274,31 @@ static bool js_gfx_DeviceGraphics_setTexture(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_setTexture)
 
+static bool js_gfx_DeviceGraphics_setBlendFuncSeparate(se::State& s)
+{
+    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setBlendFuncSeparate : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 4) {
+        cocos2d::gfx::BlendFactor arg0;
+        cocos2d::gfx::BlendFactor arg1;
+        cocos2d::gfx::BlendFactor arg2;
+        cocos2d::gfx::BlendFactor arg3;
+        ok &= seval_to_uint16(args[0], (uint16_t*)&arg0);
+        ok &= seval_to_uint16(args[1], (uint16_t*)&arg1);
+        ok &= seval_to_uint16(args[2], (uint16_t*)&arg2);
+        ok &= seval_to_uint16(args[3], (uint16_t*)&arg3);
+        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setBlendFuncSeparate : Error processing arguments");
+        cobj->setBlendFuncSeparate(arg0, arg1, arg2, arg3);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_DeviceGraphics_setBlendFuncSeparate)
+
 static bool js_gfx_DeviceGraphics_enableBlend(se::State& s)
 {
     cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
@@ -307,50 +332,6 @@ static bool js_gfx_DeviceGraphics_setPrimitiveType(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_setPrimitiveType)
-
-static bool js_gfx_DeviceGraphics_setBlendEquationSeparate(se::State& s)
-{
-    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setBlendEquationSeparate : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        cocos2d::gfx::BlendOp arg0;
-        cocos2d::gfx::BlendOp arg1;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
-        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setBlendEquationSeparate : Error processing arguments");
-        cobj->setBlendEquationSeparate(arg0, arg1);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_DeviceGraphics_setBlendEquationSeparate)
-
-static bool js_gfx_DeviceGraphics_setTextureArray(se::State& s)
-{
-    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setTextureArray : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 3) {
-        std::string arg0;
-        std::vector<cocos2d::gfx::Texture *> arg1;
-        std::vector<int> arg2;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_vector_Texture(args[1], &arg1);
-        ok &= seval_to_std_vector_int(args[2], &arg2);
-        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setTextureArray : Error processing arguments");
-        cobj->setTextureArray(arg0, arg1, arg2);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_DeviceGraphics_setTextureArray)
 
 static bool js_gfx_DeviceGraphics_setIndexBuffer(se::State& s)
 {
@@ -498,6 +479,38 @@ static bool js_gfx_DeviceGraphics_setScissor(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_setScissor)
 
+static bool js_gfx_DeviceGraphics_setVertexBuffer(se::State& s)
+{
+    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setVertexBuffer : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        int arg0 = 0;
+        cocos2d::gfx::VertexBuffer* arg1 = nullptr;
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setVertexBuffer : Error processing arguments");
+        cobj->setVertexBuffer(arg0, arg1);
+        return true;
+    }
+    if (argc == 3) {
+        int arg0 = 0;
+        cocos2d::gfx::VertexBuffer* arg1 = nullptr;
+        int arg2 = 0;
+        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setVertexBuffer : Error processing arguments");
+        cobj->setVertexBuffer(arg0, arg1, arg2);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_DeviceGraphics_setVertexBuffer)
+
 static bool js_gfx_DeviceGraphics_enableDepthWrite(se::State& s)
 {
     cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
@@ -513,24 +526,28 @@ static bool js_gfx_DeviceGraphics_enableDepthWrite(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_enableDepthWrite)
 
-static bool js_gfx_DeviceGraphics_setDepthFunc(se::State& s)
+static bool js_gfx_DeviceGraphics_setTextureArray(se::State& s)
 {
     cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setDepthFunc : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setTextureArray : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::gfx::ComparisonFunc arg0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setDepthFunc : Error processing arguments");
-        cobj->setDepthFunc(arg0);
+    if (argc == 3) {
+        std::string arg0;
+        std::vector<cocos2d::gfx::Texture *> arg1;
+        std::vector<int> arg2;
+        ok &= seval_to_std_string(args[0], &arg0);
+        ok &= seval_to_std_vector_Texture(args[1], &arg1);
+        ok &= seval_to_std_vector_int(args[2], &arg2);
+        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setTextureArray : Error processing arguments");
+        cobj->setTextureArray(arg0, arg1, arg2);
         return true;
     }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
     return false;
 }
-SE_BIND_FUNC(js_gfx_DeviceGraphics_setDepthFunc)
+SE_BIND_FUNC(js_gfx_DeviceGraphics_setTextureArray)
 
 static bool js_gfx_DeviceGraphics_setStencilOpBack(se::State& s)
 {
@@ -603,37 +620,24 @@ static bool js_gfx_DeviceGraphics_draw(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_draw)
 
-static bool js_gfx_DeviceGraphics_setVertexBuffer(se::State& s)
+static bool js_gfx_DeviceGraphics_setDepthFunc(se::State& s)
 {
     cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setVertexBuffer : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setDepthFunc : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        int arg0 = 0;
-        cocos2d::gfx::VertexBuffer* arg1 = nullptr;
+    if (argc == 1) {
+        cocos2d::gfx::ComparisonFunc arg0;
         ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_native_ptr(args[1], &arg1);
-        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setVertexBuffer : Error processing arguments");
-        cobj->setVertexBuffer(arg0, arg1);
+        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setDepthFunc : Error processing arguments");
+        cobj->setDepthFunc(arg0);
         return true;
     }
-    if (argc == 3) {
-        int arg0 = 0;
-        cocos2d::gfx::VertexBuffer* arg1 = nullptr;
-        int arg2 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_native_ptr(args[1], &arg1);
-        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
-        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setVertexBuffer : Error processing arguments");
-        cobj->setVertexBuffer(arg0, arg1, arg2);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_FUNC(js_gfx_DeviceGraphics_setVertexBuffer)
+SE_BIND_FUNC(js_gfx_DeviceGraphics_setDepthFunc)
 
 static bool js_gfx_DeviceGraphics_enableDepthTest(se::State& s)
 {
@@ -649,6 +653,27 @@ static bool js_gfx_DeviceGraphics_enableDepthTest(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_enableDepthTest)
+
+static bool js_gfx_DeviceGraphics_setBlendEquationSeparate(se::State& s)
+{
+    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setBlendEquationSeparate : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        cocos2d::gfx::BlendOp arg0;
+        cocos2d::gfx::BlendOp arg1;
+        ok &= seval_to_uint16(args[0], (uint16_t*)&arg0);
+        ok &= seval_to_uint16(args[1], (uint16_t*)&arg1);
+        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setBlendEquationSeparate : Error processing arguments");
+        cobj->setBlendEquationSeparate(arg0, arg1);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_DeviceGraphics_setBlendEquationSeparate)
 
 static bool js_gfx_DeviceGraphics_setBlendEquation(se::State& s)
 {
@@ -770,7 +795,7 @@ static bool js_gfx_DeviceGraphics_setCullMode(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::gfx::CullMode arg0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        ok &= seval_to_uint16(args[0], (uint16_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setCullMode : Error processing arguments");
         cobj->setCullMode(arg0);
         return true;
@@ -779,31 +804,6 @@ static bool js_gfx_DeviceGraphics_setCullMode(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_setCullMode)
-
-static bool js_gfx_DeviceGraphics_setBlendFuncSeparate(se::State& s)
-{
-    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setBlendFuncSeparate : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 4) {
-        cocos2d::gfx::BlendFactor arg0;
-        cocos2d::gfx::BlendFactor arg1;
-        cocos2d::gfx::BlendFactor arg2;
-        cocos2d::gfx::BlendFactor arg3;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
-        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
-        ok &= seval_to_int32(args[3], (int32_t*)&arg3);
-        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setBlendFuncSeparate : Error processing arguments");
-        cobj->setBlendFuncSeparate(arg0, arg1, arg2, arg3);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_DeviceGraphics_setBlendFuncSeparate)
 
 static bool js_gfx_DeviceGraphics_setStencilOp(se::State& s)
 {
@@ -869,30 +869,30 @@ bool js_register_gfx_DeviceGraphics(se::Object* obj)
     auto cls = se::Class::create("Device", obj, nullptr, nullptr);
 
     cls->defineFunction("setTexture", _SE(js_gfx_DeviceGraphics_setTexture));
+    cls->defineFunction("setBlendFuncSep", _SE(js_gfx_DeviceGraphics_setBlendFuncSeparate));
     cls->defineFunction("enableBlend", _SE(js_gfx_DeviceGraphics_enableBlend));
     cls->defineFunction("setPrimitiveType", _SE(js_gfx_DeviceGraphics_setPrimitiveType));
-    cls->defineFunction("setBlendEquationSeparate", _SE(js_gfx_DeviceGraphics_setBlendEquationSeparate));
-    cls->defineFunction("setTextureArray", _SE(js_gfx_DeviceGraphics_setTextureArray));
     cls->defineFunction("setIndexBuffer", _SE(js_gfx_DeviceGraphics_setIndexBuffer));
     cls->defineFunction("setProgram", _SE(js_gfx_DeviceGraphics_setProgram));
     cls->defineFunction("setFrameBuffer", _SE(js_gfx_DeviceGraphics_setFrameBuffer));
     cls->defineFunction("setStencilFunc", _SE(js_gfx_DeviceGraphics_setStencilFunc));
     cls->defineFunction("setBlendColor", _SE(js_gfx_DeviceGraphics_setBlendColor));
     cls->defineFunction("setScissor", _SE(js_gfx_DeviceGraphics_setScissor));
+    cls->defineFunction("setVertexBuffer", _SE(js_gfx_DeviceGraphics_setVertexBuffer));
     cls->defineFunction("enableDepthWrite", _SE(js_gfx_DeviceGraphics_enableDepthWrite));
-    cls->defineFunction("setDepthFunc", _SE(js_gfx_DeviceGraphics_setDepthFunc));
+    cls->defineFunction("setTextureArray", _SE(js_gfx_DeviceGraphics_setTextureArray));
     cls->defineFunction("setStencilOpBack", _SE(js_gfx_DeviceGraphics_setStencilOpBack));
     cls->defineFunction("setViewport", _SE(js_gfx_DeviceGraphics_setViewport));
     cls->defineFunction("draw", _SE(js_gfx_DeviceGraphics_draw));
-    cls->defineFunction("setVertexBuffer", _SE(js_gfx_DeviceGraphics_setVertexBuffer));
+    cls->defineFunction("setDepthFunc", _SE(js_gfx_DeviceGraphics_setDepthFunc));
     cls->defineFunction("enableDepthTest", _SE(js_gfx_DeviceGraphics_enableDepthTest));
+    cls->defineFunction("setBlendEqSep", _SE(js_gfx_DeviceGraphics_setBlendEquationSeparate));
     cls->defineFunction("setBlendEquation", _SE(js_gfx_DeviceGraphics_setBlendEquation));
     cls->defineFunction("setStencilFuncFront", _SE(js_gfx_DeviceGraphics_setStencilFuncFront));
     cls->defineFunction("setStencilOpFront", _SE(js_gfx_DeviceGraphics_setStencilOpFront));
     cls->defineFunction("setStencilFuncBack", _SE(js_gfx_DeviceGraphics_setStencilFuncBack));
     cls->defineFunction("setBlendFunc", _SE(js_gfx_DeviceGraphics_setBlendFunc));
     cls->defineFunction("setCullMode", _SE(js_gfx_DeviceGraphics_setCullMode));
-    cls->defineFunction("setBlendFuncSeparate", _SE(js_gfx_DeviceGraphics_setBlendFuncSeparate));
     cls->defineFunction("setStencilOp", _SE(js_gfx_DeviceGraphics_setStencilOp));
     cls->defineFunction("enableStencilTest", _SE(js_gfx_DeviceGraphics_enableStencilTest));
     cls->defineStaticFunction("getInstance", _SE(js_gfx_DeviceGraphics_getInstance));
@@ -1415,8 +1415,7 @@ static bool js_gfx_Texture2D_updateImage(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::gfx::Texture::ImageOption arg0;
-        #pragma warning NO CONVERSION TO NATIVE FOR ImageOption
-        ok = false;
+        ok &= seval_to_TextureImageOption(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_gfx_Texture2D_updateImage : Error processing arguments");
         cobj->updateImage(arg0);
         return true;
@@ -1437,8 +1436,7 @@ static bool js_gfx_Texture2D_init(se::State& s)
         cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
         cocos2d::gfx::Texture::Options arg1;
         ok &= seval_to_native_ptr(args[0], &arg0);
-        #pragma warning NO CONVERSION TO NATIVE FOR Options
-        ok = false;
+        ok &= seval_to_TextureOptions(args[1], &arg1);
         SE_PRECONDITION2(ok, false, "js_gfx_Texture2D_init : Error processing arguments");
         bool result = cobj->init(arg0, arg1);
         ok &= boolean_to_seval(result, &s.rval());
@@ -1459,8 +1457,7 @@ static bool js_gfx_Texture2D_updateSubImage(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::gfx::Texture::SubImageOption arg0;
-        #pragma warning NO CONVERSION TO NATIVE FOR SubImageOption
-        ok = false;
+        ok &= seval_to_TextureSubImageOption(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_gfx_Texture2D_updateSubImage : Error processing arguments");
         cobj->updateSubImage(arg0);
         return true;
@@ -1479,8 +1476,7 @@ static bool js_gfx_Texture2D_update(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::gfx::Texture::Options arg0;
-        #pragma warning NO CONVERSION TO NATIVE FOR Options
-        ok = false;
+        ok &= seval_to_TextureOptions(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_gfx_Texture2D_update : Error processing arguments");
         cobj->update(arg0);
         return true;
@@ -1499,8 +1495,7 @@ static bool js_gfx_Texture2D_create(se::State& s)
         cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
         cocos2d::gfx::Texture::Options arg1;
         ok &= seval_to_native_ptr(args[0], &arg0);
-        #pragma warning NO CONVERSION TO NATIVE FOR Options
-        ok = false;
+        ok &= seval_to_TextureOptions(args[1], &arg1);
         SE_PRECONDITION2(ok, false, "js_gfx_Texture2D_create : Error processing arguments");
         auto result = cocos2d::gfx::Texture2D::create(arg0, arg1);
         result->retain();

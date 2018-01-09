@@ -131,6 +131,22 @@ int
 },
 
 /**
+ * @method setBlendFuncSeparate
+ * @param {cc.gfx::BlendFactor} arg0
+ * @param {cc.gfx::BlendFactor} arg1
+ * @param {cc.gfx::BlendFactor} arg2
+ * @param {cc.gfx::BlendFactor} arg3
+ */
+setBlendFuncSeparate : function (
+blendfactor, 
+blendfactor, 
+blendfactor, 
+blendfactor 
+)
+{
+},
+
+/**
  * @method enableBlend
  */
 enableBlend : function (
@@ -144,32 +160,6 @@ enableBlend : function (
  */
 setPrimitiveType : function (
 primitivetype 
-)
-{
-},
-
-/**
- * @method setBlendEquationSeparate
- * @param {cc.gfx::BlendOp} arg0
- * @param {cc.gfx::BlendOp} arg1
- */
-setBlendEquationSeparate : function (
-blendop, 
-blendop 
-)
-{
-},
-
-/**
- * @method setTextureArray
- * @param {String} arg0
- * @param {Array} arg1
- * @param {Array} arg2
- */
-setTextureArray : function (
-str, 
-array, 
-array 
 )
 {
 },
@@ -251,6 +241,20 @@ int
 },
 
 /**
+ * @method setVertexBuffer
+ * @param {int} arg0
+ * @param {cc.gfx::VertexBuffer} arg1
+ * @param {int} arg2
+ */
+setVertexBuffer : function (
+int, 
+vertexbuffer, 
+int 
+)
+{
+},
+
+/**
  * @method enableDepthWrite
  */
 enableDepthWrite : function (
@@ -259,11 +263,15 @@ enableDepthWrite : function (
 },
 
 /**
- * @method setDepthFunc
- * @param {cc.gfx::ComparisonFunc} arg0
+ * @method setTextureArray
+ * @param {String} arg0
+ * @param {Array} arg1
+ * @param {Array} arg2
  */
-setDepthFunc : function (
-comparisonfunc 
+setTextureArray : function (
+str, 
+array, 
+array 
 )
 {
 },
@@ -313,15 +321,11 @@ int
 },
 
 /**
- * @method setVertexBuffer
- * @param {int} arg0
- * @param {cc.gfx::VertexBuffer} arg1
- * @param {int} arg2
+ * @method setDepthFunc
+ * @param {cc.gfx::ComparisonFunc} arg0
  */
-setVertexBuffer : function (
-int, 
-vertexbuffer, 
-int 
+setDepthFunc : function (
+comparisonfunc 
 )
 {
 },
@@ -330,6 +334,18 @@ int
  * @method enableDepthTest
  */
 enableDepthTest : function (
+)
+{
+},
+
+/**
+ * @method setBlendEquationSeparate
+ * @param {cc.gfx::BlendOp} arg0
+ * @param {cc.gfx::BlendOp} arg1
+ */
+setBlendEquationSeparate : function (
+blendop, 
+blendop 
 )
 {
 },
@@ -406,22 +422,6 @@ blendfactor
  */
 setCullMode : function (
 cullmode 
-)
-{
-},
-
-/**
- * @method setBlendFuncSeparate
- * @param {cc.gfx::BlendFactor} arg0
- * @param {cc.gfx::BlendFactor} arg1
- * @param {cc.gfx::BlendFactor} arg2
- * @param {cc.gfx::BlendFactor} arg3
- */
-setBlendFuncSeparate : function (
-blendfactor, 
-blendfactor, 
-blendfactor, 
-blendfactor 
 )
 {
 },

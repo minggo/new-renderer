@@ -2,13 +2,15 @@
   let gfx = window.gfx;
   let device = window.device;
   let canvas = window.canvas;
-  let resl = window.resl;
+  // let resl = window.resl;
   let { quat, vec3, mat4 } = window.vmath;
 
   function _quad(device) {
     let program = new gfx.Program(device, {
       vert: `
+      #ifdef GL_ES
         precision highp float;
+      #endif
         attribute vec2 a_position;
         attribute vec2 a_uv;
         varying vec2 uv;
@@ -20,7 +22,9 @@
         }
       `,
       frag: `
+      #ifdef GL_ES
         precision highp float;
+      #endif
         varying vec2 uv;
         uniform sampler2D texture;
 
@@ -65,7 +69,9 @@
   function _bigTriangle(device) {
     let program = new gfx.Program(device, {
       vert: `
+      #ifdef GL_ES
         precision highp float;
+      #endif
         attribute vec2 a_position;
         varying vec2 uv;
 
@@ -75,7 +81,9 @@
         }
       `,
       frag: `
+      #ifdef GL_ES
         precision highp float;
+      #endif
         varying vec2 uv;
         uniform sampler2D texture;
         uniform float time;
@@ -106,24 +114,25 @@
   }
 
   // create background texture
-  let img = document.createElement('canvas');
-  let imgC = img.getContext('2d');
-  img.width = img.height = 128;
-  imgC.fillStyle = '#ddd';
-  imgC.fillRect(0, 0, 128, 128);
-  imgC.fillStyle = '#555';
-  imgC.fillRect(0, 0, 64, 64);
-  imgC.fillStyle = '#999';
-  imgC.fillRect(32, 32, 32, 32);
-  imgC.fillStyle = '#555';
-  imgC.fillRect(64, 64, 64, 64);
-  imgC.fillStyle = '#777';
-  imgC.fillRect(96, 96, 32, 32);
+  // let img = document.createElement('canvas');
+  // let imgC = img.getContext('2d');
+  // img.width = img.height = 128;
+  // imgC.fillStyle = '#ddd';
+  // imgC.fillRect(0, 0, 128, 128);
+  // imgC.fillStyle = '#555';
+  // imgC.fillRect(0, 0, 64, 64);
+  // imgC.fillStyle = '#999';
+  // imgC.fillRect(32, 32, 32, 32);
+  // imgC.fillStyle = '#555';
+  // imgC.fillRect(64, 64, 64, 64);
+  // imgC.fillStyle = '#777';
+  // imgC.fillRect(96, 96, 32, 32);
 
+  let bgImgInfo = getImageInfo("assets/background.png");
   let textureBG = new gfx.Texture2D(device, {
-    images: [img],
-    width: 128,
-    height: 128,
+    images: [bgImgInfo.data],
+    width: bgImgInfo.width,
+    height: bgImgInfo.height,
     wrapS: gfx.WRAP_REPEAT,
     wrapT: gfx.WRAP_REPEAT,
     format: gfx.TEXTURE_FMT_RGB8,
@@ -137,23 +146,26 @@
 
   let sprite0;
 
-  resl({
-    manifest: {
-      sprite0: {
-        type: 'image',
-        src: './assets/sprite0.png'
-      },
-    },
-    onDone (assets) {
+  // resl({
+  //   manifest: {
+  //     sprite0: {
+  //       type: 'image',
+  //       src: './assets/sprite0.png'
+  //     },
+  //   },
+  //   onDone (assets) {
+
+    var spriteImgInfo = getImageInfo("assets/sprite0.png");
       sprite0 = new gfx.Texture2D(device, {
-        width : assets.sprite0.width,
-        height : assets.sprite0.height,
-        images : [assets.sprite0],
+        width : spriteImgInfo.width,//assets.sprite0.width,
+        height : spriteImgInfo.height,//assets.sprite0.height,
+        images : [spriteImgInfo.data],//[assets.sprite0],
         flipY: false,
+        format: gfx.TEXTURE_FMT_RGBA8,
         // premultiplyAlpha: true,
       });
-    }
-  });
+  //   }
+  // });
 
   let t = 0;
 

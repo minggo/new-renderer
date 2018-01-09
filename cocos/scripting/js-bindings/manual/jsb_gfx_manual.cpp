@@ -284,15 +284,56 @@ static bool js_cocos2dx_FileUtils_getDataFromFile(se::State& s)
 }
 SE_BIND_FUNC(js_cocos2dx_FileUtils_getDataFromFile)
 
+static bool js_gfx_getImageInfo(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string arg0;
+        ok &= seval_to_std_string(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_gfx_getImageInfo : Error processing arguments");
+
+        se::HandleObject retObj(se::Object::createPlainObject());
+
+        Data data;
+        Image* img = new (std::nothrow) Image();
+        if (img->initWithImageFile(arg0))
+        {
+            data.copy(img->getData(), img->getDataLen());
+            se::Value dataVal;
+            ok &= Data_to_seval(data, &dataVal);
+            SE_PRECONDITION2(ok, false, "js_gfx_getImageInfo : Error processing arguments");
+            retObj->setProperty("data", dataVal);
+        }
+        retObj->setProperty("width", se::Value(img->getWidth()));
+        retObj->setProperty("height", se::Value(img->getHeight()));
+        retObj->setProperty("premultiplyAlpha", se::Value(img->hasPremultipliedAlpha()));
+        retObj->setProperty("bpp", se::Value(img->getBitPerPixel()));
+        retObj->setProperty("hasAlpha", se::Value(img->hasAlpha()));
+        retObj->setProperty("compressed", se::Value(img->isCompressed()));
+
+        img->release();
+
+        s.rval().setObject(retObj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_getImageInfo)
+
 bool jsb_register_gfx_manual(se::Object* global)
 {
     __jsb_cocos2d_gfx_DeviceGraphics_proto->defineFunction("clear", _SE(js_gfx_DeviceGraphics_clear));
     __jsb_cocos2d_gfx_DeviceGraphics_proto->defineFunction("setUniform", _SE(js_gfx_DeviceGraphics_setUniform));
     __jsb_cocos2d_gfx_VertexBuffer_proto->defineFunction("init", _SE(js_gfx_VertexBuffer_init));
     __jsb_cocos2d_gfx_IndexBuffer_proto->defineFunction("init", _SE(js_gfx_IndexBuffer_init));
+    __jsb_cocos2d_gfx_Texture2D_proto->defineFunction("init", _SE(js_gfx_Texture2D_init));
 
     global->defineFunction("getDataFromFile", _SE(js_cocos2dx_FileUtils_getDataFromFile));
     global->defineFunction("getStringFromFile", _SE(js_cocos2dx_FileUtils_getStringFromFile));
+    global->defineFunction("getImageInfo", _SE(js_gfx_getImageInfo));
 
     se::ScriptEngine::getInstance()->clearException();
     return true;

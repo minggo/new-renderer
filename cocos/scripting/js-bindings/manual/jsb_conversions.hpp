@@ -98,6 +98,9 @@ bool seval_to_std_map_string_string(const se::Value& v, std::map<std::string, st
 
 bool seval_to_std_vector_Texture(const se::Value& v, std::vector<cocos2d::gfx::Texture*>* ret);
 bool seval_to_std_vector_RenderTarget(const se::Value& v, std::vector<cocos2d::gfx::RenderTarget*>* ret);
+bool seval_to_TextureOptions(const se::Value& v, cocos2d::gfx::Texture::Options* ret);
+bool seval_to_TextureSubImageOption(const se::Value& v, cocos2d::gfx::Texture::SubImageOption* ret);
+bool seval_to_TextureImageOption(const se::Value& v, cocos2d::gfx::Texture::ImageOption* ret);
 
 template<typename T>
 bool seval_to_native_ptr(const se::Value& v, T* ret)

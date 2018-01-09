@@ -1,7 +1,7 @@
 #pragma once
 #include "base/ccConfig.h"
 
-#include "scripting/js-bindings/jswrapper/SeApi.h"
+#include "cocos/scripting/js-bindings/jswrapper/SeApi.h"
 
 extern se::Object* __jsb_cocos2d_gfx_GraphicsHandle_proto;
 extern se::Class* __jsb_cocos2d_gfx_GraphicsHandle_class;
@@ -36,30 +36,30 @@ extern se::Class* __jsb_cocos2d_gfx_DeviceGraphics_class;
 bool js_register_cocos2d_gfx_DeviceGraphics(se::Object* obj);
 bool register_all_gfx(se::Object* obj);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setTexture);
+SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setBlendFuncSeparate);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_enableBlend);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setPrimitiveType);
-SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setBlendEquationSeparate);
-SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setTextureArray);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setIndexBuffer);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setProgram);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setFrameBuffer);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setStencilFunc);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setBlendColor);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setScissor);
+SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setVertexBuffer);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_enableDepthWrite);
-SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setDepthFunc);
+SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setTextureArray);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setStencilOpBack);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setViewport);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_draw);
-SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setVertexBuffer);
+SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setDepthFunc);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_enableDepthTest);
+SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setBlendEquationSeparate);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setBlendEquation);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setStencilFuncFront);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setStencilOpFront);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setStencilFuncBack);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setBlendFunc);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setCullMode);
-SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setBlendFuncSeparate);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setStencilOp);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_enableStencilTest);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_getInstance);

@@ -40,3 +40,8 @@ cc.defineGetterSetter(_p, "count", _p.getCount);
 
 gfx.VertexFormat = VertexFormat;
 Object.assign(gfx, enums);
+
+_p = gfx.Texture2D.prototype;
+_p._ctor = function(device, options) {
+    this.init(device, options);
+};

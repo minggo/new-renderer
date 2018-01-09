@@ -1212,6 +1212,110 @@ bool seval_to_std_vector_RenderTarget(const se::Value& v, std::vector<cocos2d::g
     return true;
 }
 
+bool seval_to_TextureOptions(const se::Value& v, cocos2d::gfx::Texture::Options* ret)
+{
+    assert(ret != nullptr);
+    assert(v.isObject());
+    se::Object* obj = v.toObject();
+    se::Value images;
+    if (obj->getProperty("images", &images) && images.isObject() && images.toObject()->isArray())
+    {
+        uint32_t len = 0;
+        se::Object* arr = images.toObject();
+        if (arr->getArrayLength(&len))
+        {
+            se::Value imageVal;
+            for (uint32_t i = 0; i < len; ++i)
+            {
+                if (arr->getArrayElement(i, &imageVal) && imageVal.isObject() && imageVal.toObject()->isTypedArray())
+                {
+                    uint8_t* data = nullptr;
+                    size_t bytes = 0;
+                    cocos2d::Data imgData;
+                    imageVal.toObject()->getTypedArrayData(&data, &bytes);
+                    imgData.copy((unsigned char*)data, bytes);
+                    ret->images.push_back(std::move(imgData));
+                }
+            }
+        }
+    }
+
+    se::Value tmp;
+    if (obj->getProperty("mipmap", &tmp))
+    {
+        seval_to_boolean(tmp, &ret->hasMipmap);
+    }
+
+    if (obj->getProperty("width", &tmp))
+    {
+        seval_to_uint16(tmp, &ret->width);
+    }
+
+    if (obj->getProperty("height", &tmp))
+    {
+        seval_to_uint16(tmp, &ret->height);
+    }
+
+    if (obj->getProperty("format", &tmp))
+    {
+        seval_to_uint8(tmp, (uint8_t*)&ret->format);
+    }
+
+    if (obj->getProperty("anisotropy", &tmp))
+    {
+        seval_to_int32(tmp, &ret->anisotropy);
+    }
+
+    if (obj->getProperty("minFilter", &tmp))
+    {
+        seval_to_int8(tmp, (int8_t*)&ret->minFilter);
+    }
+
+    if (obj->getProperty("magFilter", &tmp))
+    {
+        seval_to_int8(tmp, (int8_t*)&ret->magFilter);
+    }
+
+    if (obj->getProperty("mipFilter", &tmp))
+    {
+        seval_to_int8(tmp, (int8_t*)&ret->mipFilter);
+    }
+
+    if (obj->getProperty("wrapS", &tmp))
+    {
+        seval_to_uint16(tmp, (uint16_t*)&ret->wrapS);
+    }
+
+    if (obj->getProperty("wrapT", &tmp))
+    {
+        seval_to_uint16(tmp, (uint16_t*)&ret->wrapT);
+    }
+
+    if (obj->getProperty("flipY", &tmp))
+    {
+        seval_to_boolean(tmp, &ret->flipY);
+    }
+
+    if (obj->getProperty("premultiplyAlpha", &tmp))
+    {
+        seval_to_boolean(tmp, &ret->premultiplyAlpha);
+    }
+
+    return true;
+}
+
+bool seval_to_TextureSubImageOption(const se::Value& v, cocos2d::gfx::Texture::SubImageOption* ret)
+{
+    assert(false);
+    return true;
+}
+
+bool seval_to_TextureImageOption(const se::Value& v, cocos2d::gfx::Texture::ImageOption* ret)
+{
+    assert(false);
+    return true;
+}
+
 //////////////////////////////////////////////////////////////////////////////////
 // native to seval
 

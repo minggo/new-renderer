@@ -88,6 +88,9 @@ conversions:
     "Data": "ok &= seval_to_Data(${in_value}, &${out_value})"
     "b2Vec2": "ok &= seval_to_b2Vec2(${in_value}, &${out_value})"
     "b2AABB": "ok &= seval_to_b2AABB(${in_value}, &${out_value})"
+    "Options": "ok &= seval_to_TextureOptions(${in_value}, &${out_value})"
+    "SubImageOption": "ok &= seval_to_TextureSubImageOption(${in_value}, &${out_value})"
+    "ImageOption": "ok &= seval_to_TextureImageOption(${in_value}, &${out_value})"
     object: "ok &= seval_to_native_ptr(${in_value}, &${out_value})"
 
   from_native:
@@ -164,9 +167,6 @@ conversions:
     "b2Vec2": "ok &= b2Vec2_to_seval(${in_value}, &${out_value})"
     "b2Manifold*": "ok &= b2Manifold_to_seval(${in_value}, &${out_value})"
     "b2AABB": "ok &= b2AABB_to_seval(${in_value}, &${out_value})"
-    "Options": "ok &= TextureOptions_to_seval(${in_value}, &${out_value})"
-    "SubImageOption": "ok &= TextureSubImageOption_to_seval(${in_value}, &${out_value})"
-    "ImageOption": "ok &= TextureImageOption_to_seval(${in_value}, &${out_value})"
     "VertexFormat": "ok &= VertexFormat_to_seval(${in_value}, &${out_value})"
     object: "ok &= native_ptr_to_seval<${ntype.replace('*', '').replace('const ', '')}>((${ntype.replace('const ', '')})${in_value}, &${out_value})"
     rooted_object: "ok &= native_ptr_to_rooted_seval<${ntype.replace('*', '').replace('const ', '')}>((${ntype.replace('const ', '')})${in_value}, &${out_value})"
