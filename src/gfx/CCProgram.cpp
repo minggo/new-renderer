@@ -302,7 +302,7 @@ void Program::link()
 
         if (length > 0)
         {
-            GLchar* attribName = (GLchar*) new char(length + 1);
+            GLchar* attribName = (GLchar*) malloc(length + 1);
             Attribute attribute;
             for (GLint i = 0; i < numAttributes; ++i) {
                 // Query attribute info.
@@ -314,7 +314,7 @@ void Program::link()
 
                 _attributes.push_back(std::move(attribute));
             }
-            delete [] attribName;
+            free(attribName);
         }
     }
 
@@ -327,7 +327,7 @@ void Program::link()
         glGetProgramiv(program, GL_ACTIVE_UNIFORM_MAX_LENGTH, &length);
         if (length > 0)
         {
-            GLchar* uniformName = (GLchar*) new char(length + 1);
+            GLchar* uniformName = (GLchar*) malloc(length + 1);
 
             Uniform uniform;
             for (int i = 0; i < activeUniforms; ++i)
@@ -373,7 +373,7 @@ void Program::link()
                 _uniforms.push_back(std::move(uniform));
             }
             
-            delete [] uniformName;
+            free(uniformName);
         }
     }
 
