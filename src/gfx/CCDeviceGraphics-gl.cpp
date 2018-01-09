@@ -63,7 +63,7 @@ DeviceGraphics* DeviceGraphics::getInstance()
     return __instance;
 }
 
-bool DeviceGraphics::supportGLExtension(const std::string& extension)
+bool DeviceGraphics::supportGLExtension(const std::string& extension) const
 {
     return  (_glExtensions && strstr(_glExtensions, extension.c_str() ) ) ? true : false;
 }

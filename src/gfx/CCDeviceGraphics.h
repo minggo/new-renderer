@@ -51,7 +51,7 @@ class DeviceGraphics final
 public:
     static DeviceGraphics* getInstance();
     
-    bool supportGLExtension(const std::string& extension);
+    bool supportGLExtension(const std::string& extension) const;
 
     void setFrameBuffer(const FrameBuffer* fb);
     void setViewport(int x, int y, int w, int h);

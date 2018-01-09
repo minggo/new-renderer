@@ -29,17 +29,17 @@ namespace {
     void initTests()
     {
         tests = {
-           Basic::create,
-           Bunny::create,
-           Blending::create,
-           MultiTextures::create,
-           Particle::create,
-           Stencil::create,
-           PostProcess::create,
-           // DepthTexture::create,
-           GuiProjection::create,
-           SubImage::create,
-           Texture2DTest::create,
+            Basic::create,
+            Bunny::create,
+            Blending::create,
+            MultiTextures::create,
+            Particle::create,
+            Stencil::create,
+            PostProcess::create,
+            DepthTexture::create,
+            GuiProjection::create,
+            SubImage::create,
+            Texture2DTest::create,
         };
     }
 }
