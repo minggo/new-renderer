@@ -264,7 +264,7 @@ static bool js_gfx_DeviceGraphics_setTexture(se::State& s)
         int arg2 = 0;
         ok &= seval_to_std_string(args[0], &arg0);
         ok &= seval_to_native_ptr(args[1], &arg1);
-        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (int)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setTexture : Error processing arguments");
         cobj->setTexture(arg0, arg1, arg2);
         return true;
@@ -286,10 +286,10 @@ static bool js_gfx_DeviceGraphics_setBlendFuncSeparate(se::State& s)
         cocos2d::gfx::BlendFactor arg1;
         cocos2d::gfx::BlendFactor arg2;
         cocos2d::gfx::BlendFactor arg3;
-        ok &= seval_to_uint16(args[0], (uint16_t*)&arg0);
-        ok &= seval_to_uint16(args[1], (uint16_t*)&arg1);
-        ok &= seval_to_uint16(args[2], (uint16_t*)&arg2);
-        ok &= seval_to_uint16(args[3], (uint16_t*)&arg3);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setBlendFuncSeparate : Error processing arguments");
         cobj->setBlendFuncSeparate(arg0, arg1, arg2, arg3);
         return true;
@@ -323,7 +323,7 @@ static bool js_gfx_DeviceGraphics_setPrimitiveType(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::gfx::PrimitiveType arg0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::PrimitiveType)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setPrimitiveType : Error processing arguments");
         cobj->setPrimitiveType(arg0);
         return true;
@@ -332,6 +332,27 @@ static bool js_gfx_DeviceGraphics_setPrimitiveType(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_setPrimitiveType)
+
+static bool js_gfx_DeviceGraphics_setBlendEquationSeparate(se::State& s)
+{
+    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setBlendEquationSeparate : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        cocos2d::gfx::BlendOp arg0;
+        cocos2d::gfx::BlendOp arg1;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setBlendEquationSeparate : Error processing arguments");
+        cobj->setBlendEquationSeparate(arg0, arg1);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_DeviceGraphics_setBlendEquationSeparate)
 
 static bool js_gfx_DeviceGraphics_setIndexBuffer(se::State& s)
 {
@@ -401,8 +422,8 @@ static bool js_gfx_DeviceGraphics_setStencilFunc(se::State& s)
         cocos2d::gfx::ComparisonFunc arg0;
         int arg1 = 0;
         unsigned int arg2 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (int)tmp; } while(false);
         ok &= seval_to_uint32(args[2], (uint32_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setStencilFunc : Error processing arguments");
         cobj->setStencilFunc(arg0, arg1, arg2);
@@ -466,10 +487,10 @@ static bool js_gfx_DeviceGraphics_setScissor(se::State& s)
         int arg1 = 0;
         int arg2 = 0;
         int arg3 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
-        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
-        ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (int)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (int)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (int)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (int)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setScissor : Error processing arguments");
         cobj->setScissor(arg0, arg1, arg2, arg3);
         return true;
@@ -489,7 +510,7 @@ static bool js_gfx_DeviceGraphics_setVertexBuffer(se::State& s)
     if (argc == 2) {
         int arg0 = 0;
         cocos2d::gfx::VertexBuffer* arg1 = nullptr;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (int)tmp; } while(false);
         ok &= seval_to_native_ptr(args[1], &arg1);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setVertexBuffer : Error processing arguments");
         cobj->setVertexBuffer(arg0, arg1);
@@ -499,9 +520,9 @@ static bool js_gfx_DeviceGraphics_setVertexBuffer(se::State& s)
         int arg0 = 0;
         cocos2d::gfx::VertexBuffer* arg1 = nullptr;
         int arg2 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (int)tmp; } while(false);
         ok &= seval_to_native_ptr(args[1], &arg1);
-        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (int)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setVertexBuffer : Error processing arguments");
         cobj->setVertexBuffer(arg0, arg1, arg2);
         return true;
@@ -561,9 +582,9 @@ static bool js_gfx_DeviceGraphics_setStencilOpBack(se::State& s)
         cocos2d::gfx::StencilOp arg1;
         cocos2d::gfx::StencilOp arg2;
         unsigned int arg3 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
-        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::StencilOp)tmp; } while(false);
         ok &= seval_to_uint32(args[3], (uint32_t*)&arg3);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setStencilOpBack : Error processing arguments");
         cobj->setStencilOpBack(arg0, arg1, arg2, arg3);
@@ -586,10 +607,10 @@ static bool js_gfx_DeviceGraphics_setViewport(se::State& s)
         int arg1 = 0;
         int arg2 = 0;
         int arg3 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
-        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
-        ok &= seval_to_int32(args[3], (int32_t*)&arg3);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (int)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (int)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (int)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (int)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setViewport : Error processing arguments");
         cobj->setViewport(arg0, arg1, arg2, arg3);
         return true;
@@ -610,7 +631,7 @@ static bool js_gfx_DeviceGraphics_draw(se::State& s)
         size_t arg0 = 0;
         int arg1 = 0;
         ok &= seval_to_size(args[0], &arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (int)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_draw : Error processing arguments");
         cobj->draw(arg0, arg1);
         return true;
@@ -629,7 +650,7 @@ static bool js_gfx_DeviceGraphics_setDepthFunc(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::gfx::ComparisonFunc arg0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setDepthFunc : Error processing arguments");
         cobj->setDepthFunc(arg0);
         return true;
@@ -654,27 +675,6 @@ static bool js_gfx_DeviceGraphics_enableDepthTest(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_enableDepthTest)
 
-static bool js_gfx_DeviceGraphics_setBlendEquationSeparate(se::State& s)
-{
-    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setBlendEquationSeparate : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        cocos2d::gfx::BlendOp arg0;
-        cocos2d::gfx::BlendOp arg1;
-        ok &= seval_to_uint16(args[0], (uint16_t*)&arg0);
-        ok &= seval_to_uint16(args[1], (uint16_t*)&arg1);
-        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setBlendEquationSeparate : Error processing arguments");
-        cobj->setBlendEquationSeparate(arg0, arg1);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_DeviceGraphics_setBlendEquationSeparate)
-
 static bool js_gfx_DeviceGraphics_setBlendEquation(se::State& s)
 {
     cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
@@ -684,7 +684,7 @@ static bool js_gfx_DeviceGraphics_setBlendEquation(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::gfx::BlendOp arg0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setBlendEquation : Error processing arguments");
         cobj->setBlendEquation(arg0);
         return true;
@@ -705,8 +705,8 @@ static bool js_gfx_DeviceGraphics_setStencilFuncFront(se::State& s)
         cocos2d::gfx::ComparisonFunc arg0;
         int arg1 = 0;
         unsigned int arg2 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (int)tmp; } while(false);
         ok &= seval_to_uint32(args[2], (uint32_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setStencilFuncFront : Error processing arguments");
         cobj->setStencilFuncFront(arg0, arg1, arg2);
@@ -729,9 +729,9 @@ static bool js_gfx_DeviceGraphics_setStencilOpFront(se::State& s)
         cocos2d::gfx::StencilOp arg1;
         cocos2d::gfx::StencilOp arg2;
         unsigned int arg3 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
-        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::StencilOp)tmp; } while(false);
         ok &= seval_to_uint32(args[3], (uint32_t*)&arg3);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setStencilOpFront : Error processing arguments");
         cobj->setStencilOpFront(arg0, arg1, arg2, arg3);
@@ -753,8 +753,8 @@ static bool js_gfx_DeviceGraphics_setStencilFuncBack(se::State& s)
         cocos2d::gfx::ComparisonFunc arg0;
         int arg1 = 0;
         unsigned int arg2 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (int)tmp; } while(false);
         ok &= seval_to_uint32(args[2], (uint32_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setStencilFuncBack : Error processing arguments");
         cobj->setStencilFuncBack(arg0, arg1, arg2);
@@ -775,8 +775,8 @@ static bool js_gfx_DeviceGraphics_setBlendFunc(se::State& s)
     if (argc == 2) {
         cocos2d::gfx::BlendFactor arg0;
         cocos2d::gfx::BlendFactor arg1;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setBlendFunc : Error processing arguments");
         cobj->setBlendFunc(arg0, arg1);
         return true;
@@ -795,7 +795,7 @@ static bool js_gfx_DeviceGraphics_setCullMode(se::State& s)
     CC_UNUSED bool ok = true;
     if (argc == 1) {
         cocos2d::gfx::CullMode arg0;
-        ok &= seval_to_uint16(args[0], (uint16_t*)&arg0);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::CullMode)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setCullMode : Error processing arguments");
         cobj->setCullMode(arg0);
         return true;
@@ -817,9 +817,9 @@ static bool js_gfx_DeviceGraphics_setStencilOp(se::State& s)
         cocos2d::gfx::StencilOp arg1;
         cocos2d::gfx::StencilOp arg2;
         unsigned int arg3 = 0;
-        ok &= seval_to_int32(args[0], (int32_t*)&arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
-        ok &= seval_to_int32(args[2], (int32_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::StencilOp)tmp; } while(false);
         ok &= seval_to_uint32(args[3], (uint32_t*)&arg3);
         SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_setStencilOp : Error processing arguments");
         cobj->setStencilOp(arg0, arg1, arg2, arg3);
@@ -872,6 +872,7 @@ bool js_register_gfx_DeviceGraphics(se::Object* obj)
     cls->defineFunction("setBlendFuncSep", _SE(js_gfx_DeviceGraphics_setBlendFuncSeparate));
     cls->defineFunction("enableBlend", _SE(js_gfx_DeviceGraphics_enableBlend));
     cls->defineFunction("setPrimitiveType", _SE(js_gfx_DeviceGraphics_setPrimitiveType));
+    cls->defineFunction("setBlendEqSep", _SE(js_gfx_DeviceGraphics_setBlendEquationSeparate));
     cls->defineFunction("setIndexBuffer", _SE(js_gfx_DeviceGraphics_setIndexBuffer));
     cls->defineFunction("setProgram", _SE(js_gfx_DeviceGraphics_setProgram));
     cls->defineFunction("setFrameBuffer", _SE(js_gfx_DeviceGraphics_setFrameBuffer));
@@ -886,7 +887,6 @@ bool js_register_gfx_DeviceGraphics(se::Object* obj)
     cls->defineFunction("draw", _SE(js_gfx_DeviceGraphics_draw));
     cls->defineFunction("setDepthFunc", _SE(js_gfx_DeviceGraphics_setDepthFunc));
     cls->defineFunction("enableDepthTest", _SE(js_gfx_DeviceGraphics_enableDepthTest));
-    cls->defineFunction("setBlendEqSep", _SE(js_gfx_DeviceGraphics_setBlendEquationSeparate));
     cls->defineFunction("setBlendEquation", _SE(js_gfx_DeviceGraphics_setBlendEquation));
     cls->defineFunction("setStencilFuncFront", _SE(js_gfx_DeviceGraphics_setStencilFuncFront));
     cls->defineFunction("setStencilOpFront", _SE(js_gfx_DeviceGraphics_setStencilOpFront));
@@ -920,7 +920,7 @@ static bool js_gfx_FrameBuffer_setColorBuffer(se::State& s)
         cocos2d::gfx::RenderTarget* arg0 = nullptr;
         int arg1 = 0;
         ok &= seval_to_native_ptr(args[0], &arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (int)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_setColorBuffer : Error processing arguments");
         cobj->setColorBuffer(arg0, arg1);
         return true;
@@ -1229,7 +1229,7 @@ static bool js_gfx_RenderBuffer_init(se::State& s)
         unsigned short arg2 = 0;
         unsigned short arg3 = 0;
         ok &= seval_to_native_ptr(args[0], &arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::RenderBuffer::Format)tmp; } while(false);
         ok &= seval_to_uint16(args[2], &arg2);
         ok &= seval_to_uint16(args[3], &arg3);
         SE_PRECONDITION2(ok, false, "js_gfx_RenderBuffer_init : Error processing arguments");
@@ -1254,7 +1254,7 @@ static bool js_gfx_RenderBuffer_create(se::State& s)
         unsigned short arg2 = 0;
         unsigned short arg3 = 0;
         ok &= seval_to_native_ptr(args[0], &arg0);
-        ok &= seval_to_int32(args[1], (int32_t*)&arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::RenderBuffer::Format)tmp; } while(false);
         ok &= seval_to_uint16(args[2], &arg2);
         ok &= seval_to_uint16(args[3], &arg3);
         SE_PRECONDITION2(ok, false, "js_gfx_RenderBuffer_create : Error processing arguments");

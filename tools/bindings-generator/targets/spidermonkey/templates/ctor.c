@@ -12,6 +12,7 @@ static bool ${signature_name}(se::State& s)
     #end if
     #while $count < $arg_idx
         #set $arg = $arguments[$count]
+        #set $arg_type = arg.to_string($generator)
         #if $arg.is_numeric
     ${arg.to_string($generator)} arg${count} = 0;
         #elif $arg.is_pointer
@@ -26,7 +27,9 @@ static bool ${signature_name}(se::State& s)
     #set arg_array = []
     #while $count < $arg_idx
         #set $arg = $arguments[$count]
+        #set $arg_type = arg.to_string($generator)
     ${arg.to_native({"generator": $generator,
+                         "arg_type": $arg_type,
                          "in_value": "args[" + str(count) + "]",
                          "out_value": "arg" + str(count),
                          "class_name": $class_name,

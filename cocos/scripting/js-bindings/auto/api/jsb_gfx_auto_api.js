@@ -165,6 +165,18 @@ primitivetype
 },
 
 /**
+ * @method setBlendEquationSeparate
+ * @param {cc.gfx::BlendOp} arg0
+ * @param {cc.gfx::BlendOp} arg1
+ */
+setBlendEquationSeparate : function (
+blendop, 
+blendop 
+)
+{
+},
+
+/**
  * @method setIndexBuffer
  * @param {cc.gfx::IndexBuffer} arg0
  */
@@ -334,18 +346,6 @@ comparisonfunc
  * @method enableDepthTest
  */
 enableDepthTest : function (
-)
-{
-},
-
-/**
- * @method setBlendEquationSeparate
- * @param {cc.gfx::BlendOp} arg0
- * @param {cc.gfx::BlendOp} arg1
- */
-setBlendEquationSeparate : function (
-blendop, 
-blendop 
 )
 {
 },

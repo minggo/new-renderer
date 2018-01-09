@@ -66,7 +66,7 @@ int main(int argc, char** argv)
 
     se->runScript("src/gfx.js");
     se::Value tickVal;
-    se->runScript("src/particles.js", &tickVal);
+    se->runScript("src/stencil.js", &tickVal);
 
     std::chrono::steady_clock::time_point prevTime;
     std::chrono::steady_clock::time_point now;

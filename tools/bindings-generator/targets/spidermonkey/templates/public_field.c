@@ -37,16 +37,18 @@ static bool ${signature_name}_set_${name}(se::State& s)
     SE_PRECONDITION2(cobj, false, "${signature_name}_set_${name} : Invalid Native Object");
 
     CC_UNUSED bool ok = true;
+    #set $arg_type = $ntype.to_string($generator)
 #if $ntype.is_numeric
-    ${ntype.to_string($generator)} arg0 = 0;
+    $arg_type arg0 = 0;
 #elif $ntype.is_pointer
-    ${ntype.to_string($generator)} arg0 = nullptr;
+    $arg_type arg0 = nullptr;
 #else
-    ${ntype.to_string($generator)} arg0;
+    $arg_type arg0;
 #end if
 #if $ntype.is_object and not $ntype.object_can_convert($generator)
     ${ntype.to_native({"generator": $generator,
                         "arg_idx": 2,
+                        "arg_type": $arg_type,
                         "ntype": $ntype.get_whole_name($generator),
                         "in_value": "args[0]",
                         "out_value": "arg0",
@@ -57,6 +59,7 @@ static bool ${signature_name}_set_${name}(se::State& s)
 #else
     ${ntype.to_native({"generator": $generator,
                         "arg_idx": 2,
+                        "arg_type": $arg_type,
                         "in_value": "args[0]",
                         "out_value": "arg0",
                         "func_name": $name,
