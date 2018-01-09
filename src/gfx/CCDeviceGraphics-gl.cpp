@@ -36,6 +36,9 @@
 
 GFX_BEGIN
 
+static_assert(sizeof(int) == sizeof(GLint), "ERROR: GLint isn't equal to int!");
+static_assert(sizeof(float) == sizeof(GLfloat), "ERROR: GLfloat isn't equal to float!");
+
 namespace
 {
     void attach(GLenum location, const RenderTarget* target)
@@ -408,10 +411,8 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     
     //commit uniforms
     const auto& uniformsInfo = _nextState.getProgram()->getUniforms();
-    auto uniformsLen = uniformsInfo.size();
-    for (int i = 0; i < uniformsLen; ++i)
+    for (const auto& uniformInfo : uniformsInfo)
     {
-        const auto& uniformInfo = uniformsInfo[i];
         auto iter = _uniforms.find(uniformInfo.name);
         if (_uniforms.end() == iter)
             continue;
@@ -421,8 +422,7 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
             continue;
         
         uniform.dirty = false;
-        
-        setUniformToGL(uniformInfo.location, uniform);
+        uniformInfo.setUniform(uniform.value);
     }
     
     // draw primitives
@@ -441,17 +441,12 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     _currentState = std::move(_nextState);
 }
 
-void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes)
-{
-    setUniformCommon(name, v, type, bytes, 1);
-}
-
-void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes, size_t count)
+void DeviceGraphics::setUniform(const std::string& name, const void* v, size_t bytes)
 {
     auto iter = _uniforms.find(name);
     if (iter == _uniforms.end())
     {
-        Uniform uniform(v, type, bytes, count);
+        Uniform uniform(v, bytes);
         _uniforms[name] = std::move(uniform);
     }
     else
@@ -459,100 +454,98 @@ void DeviceGraphics::setUniformCommon(const std::string& name, const void* v, Un
         auto& uniform = iter->second;
         uniform.dirty = true;
         uniform.setValue(v, bytes);
-        uniform.type = type;
-        uniform.count = count;
     }
 }
 
 void DeviceGraphics::setUniformi(const std::string& name, int i1)
 {
-    setUniformCommon(name, &i1, Uniform::Type::INT, sizeof(int));
+    setUniform(name, &i1, sizeof(int));
 }
 
 void DeviceGraphics::setUniformi(const std::string& name, int i1, int i2)
 {
     int tempValue[] = {i1, i2};
-    setUniformCommon(name, tempValue, Uniform::Type::INT2, 2 * sizeof(int));
+    setUniform(name, tempValue, 2 * sizeof(int));
 }
 
 void DeviceGraphics::setUniformi(const std::string& name, int i1, int i2, int i3)
 {
     int tempValue[] = {i1, i2, i3};
-    setUniformCommon(name, tempValue, Uniform::Type::INT3, 3 * sizeof(int));
+    setUniform(name, tempValue, 3 * sizeof(int));
 }
 
 void DeviceGraphics::setUniformi(const std::string& name, int i1, int i2, int i3, int i4)
 {
     int tempValue[] = {i1, i2, i3, i4};
-    setUniformCommon(name, tempValue, Uniform::Type::INT4, 4 * sizeof(int));
+    setUniform(name, tempValue, 4 * sizeof(int));
 }
 
 void DeviceGraphics::setUniformiv(const std::string& name, size_t count, const int* value)
 {
-    setUniformCommon(name, value, Uniform::Type::INT_ARRAY, count * sizeof(int), count);
+    setUniform(name, value, count * sizeof(int));
 }
 
 void DeviceGraphics::setUniformf(const std::string& name, float f1)
 {
-    setUniformCommon(name, &f1, Uniform::Type::FLOAT, sizeof(float));
+    setUniform(name, &f1, sizeof(float));
 }
 
 void DeviceGraphics::setUniformf(const std::string& name, float f1, float f2)
 {
     float tempValue[] = {f1, f2};
-    setUniformCommon(name, tempValue, Uniform::Type::FLOAT2, 2 * sizeof(float));
+    setUniform(name, tempValue, 2 * sizeof(float));
 }
 
 void DeviceGraphics::setUniformf(const std::string& name, float f1, float f2, float f3)
 {
     float tempValue[] = {f1, f2, f3};
-    setUniformCommon(name, tempValue, Uniform::Type::FLOAT3, 3 * sizeof(float));
+    setUniform(name, tempValue, 3 * sizeof(float));
 }
 
 void DeviceGraphics::setUniformf(const std::string& name, float f1, float f2, float f3, float f4)
 {
     float tempValue[] = {f1, f2, f3, f4};
-    setUniformCommon(name, tempValue, Uniform::Type::FLOAT4, 4 * sizeof(float));
+    setUniform(name, tempValue, 4 * sizeof(float));
 }
 
 void DeviceGraphics::setUniformfv(const std::string& name, size_t count, const float* value)
 {
-    setUniformCommon(name, value, Uniform::Type::FLOAT_ARRAY, count * sizeof(float), count);
+    setUniform(name, value, count * sizeof(float));
 }
 
 void DeviceGraphics::setUniformVec2(const std::string& name, const cocos2d::Vec2& value)
 {
-    setUniformf(name, value.x, value.y);
+    setUniform(name, &value, sizeof(Vec2));
 }
 
 void DeviceGraphics::setUniformVec3(const std::string& name, const cocos2d::Vec3& value)
 {
-    setUniformf(name, value.x, value.y, value.z);
+    setUniform(name, &value, sizeof(Vec3));
 }
 
 void DeviceGraphics::setUniformVec4(const std::string& name, const cocos2d::Vec4& value)
 {
-    setUniformf(name, value.x, value.y, value.z, value.w);
+    setUniform(name, &value, sizeof(Vec4));
 }
 
 void DeviceGraphics::setUniformMat2(const std::string& name, float* value)
 {
-    setUniformCommon(name, value, Uniform::Type::MAT2, 4 * sizeof(float));
+    setUniform(name, value, 4 * sizeof(float));
 }
 
 void DeviceGraphics::setUniformMat3(const std::string& name, float* value)
 {
-    setUniformCommon(name, value, Uniform::Type::MAT3, 9 * sizeof(float));
+    setUniform(name, value, 9 * sizeof(float));
 }
 
 void DeviceGraphics::setUniformMat4(const std::string& name, float* value)
 {
-    setUniformCommon(name, value, Uniform::Type::MAT4, 16 * sizeof(float));
+    setUniform(name, value, 16 * sizeof(float));
 }
 
 void DeviceGraphics::setUniformMat4(const std::string& name, const cocos2d::Mat4& value)
 {
-    setUniformCommon(name, value.m, Uniform::Type::MAT4, 16 * sizeof(float));
+    setUniform(name, value.m, 16 * sizeof(float));
 }
 
 //
@@ -1096,130 +1089,17 @@ void DeviceGraphics::commitTextures()
     }
 }
 
-void DeviceGraphics::setUniformToGL(GLint location, const Uniform& uniform) const
-{
-    
-#define DEF_TO_INT(pointer)  (*(int*)(pointer))
-#define DEF_TO_INT_STEP(pointer, step)  (*((int*)(pointer) + step))
-#define DEF_TO_FLOAT(pointer)  (*(float*)(pointer))
-#define DEF_TO_FLOAT_STEP(pointer, step) (*((float*)(pointer) + step))
-    
-    assert(uniform.type != Uniform::Type::UNKNOWN);
-    
-    GLsizei count = static_cast<GLsizei>(uniform.count);
-    
-    switch (uniform.type)
-    {
-        case Uniform::Type::INT:
-            GL_CHECK(glUniform1i(location, DEF_TO_INT(uniform.value)));
-            break;
-        case Uniform::Type::INT2:
-            GL_CHECK(glUniform2i(location, DEF_TO_INT(uniform.value), DEF_TO_INT_STEP(uniform.value, 1)));
-            break;
-        case Uniform::Type::INT3:
-            GL_CHECK(glUniform3i(location,
-                                 DEF_TO_INT(uniform.value),
-                                 DEF_TO_INT_STEP(uniform.value, 1),
-                                 DEF_TO_INT_STEP(uniform.value, 2)));
-            break;
-        case Uniform::Type::INT4:
-            GL_CHECK(glUniform4i(location,
-                                 DEF_TO_INT(uniform.value),
-                                 DEF_TO_INT_STEP(uniform.value, 1),
-                                 DEF_TO_INT_STEP(uniform.value, 2),
-                                 DEF_TO_INT_STEP(uniform.value, 3)));
-            break;
-        case Uniform::Type::INT_ARRAY:
-            GL_CHECK(glUniform1iv(location, count, (GLint*)uniform.value));
-            break;
-        case Uniform::Type::INT2_ARRAY:
-            GL_CHECK(glUniform2iv(location, count, (GLint*)uniform.value));
-            break;
-        case Uniform::Type::INT3_ARRAY:
-            GL_CHECK(glUniform3iv(location, count, (GLint*)uniform.value));
-            break;
-        case Uniform::Type::INT4_ARRAY:
-            GL_CHECK(glUniform4iv(location, count, (GLint*)uniform.value));
-            break;
-        case Uniform::Type::FLOAT:
-            GL_CHECK(glUniform1f(location, DEF_TO_FLOAT(uniform.value)));
-            break;
-        case Uniform::Type::FLOAT2:
-            GL_CHECK(glUniform2f(location, DEF_TO_FLOAT(uniform.value), DEF_TO_FLOAT_STEP(uniform.value, 1)));
-            break;
-        case Uniform::Type::FLOAT3:
-            GL_CHECK(glUniform3f(location,
-                                 DEF_TO_FLOAT(uniform.value),
-                                 DEF_TO_FLOAT_STEP(uniform.value, 1),
-                                 DEF_TO_FLOAT_STEP(uniform.value, 2)));
-            break;
-        case Uniform::Type::FLOAT4:
-            GL_CHECK(glUniform4f(location,
-                                 DEF_TO_FLOAT(uniform.value),
-                                 DEF_TO_FLOAT_STEP(uniform.value, 1),
-                                 DEF_TO_FLOAT_STEP(uniform.value, 2),
-                                 DEF_TO_FLOAT_STEP(uniform.value, 3)));
-            break;
-        case Uniform::Type::FLOAT_ARRAY:
-            GL_CHECK(glUniform1fv(location, count, (GLfloat*)uniform.value));
-            break;
-        case Uniform::Type::FLOAT2_ARRAY:
-            GL_CHECK(glUniform2fv(location, count, (GLfloat*)uniform.value));
-            break;
-        case Uniform::Type::FLOAT3_ARRAY:
-            GL_CHECK(glUniform3fv(location, count, (GLfloat*)uniform.value));
-            break;
-        case Uniform::Type::FLOAT4_ARRAY:
-            GL_CHECK(glUniform4fv(location, count, (GLfloat*)uniform.value));
-            break;
-        case Uniform::Type::MAT2:
-        case Uniform::Type::MAT2_ARRAY:
-            GL_CHECK(glUniformMatrix2fv(location,
-                                        count,
-                                        false,
-                                        (GLfloat*)uniform.value));
-        case Uniform::Type::MAT3:
-        case Uniform::Type::MAT3_ARRAY:
-            GL_CHECK(glUniformMatrix3fv(location,
-                                        count,
-                                        false,
-                                        (GLfloat*)uniform.value));
-            break;
-        case Uniform::Type::MAT4:
-        case Uniform::Type::MAT4_ARRAY:
-            GL_CHECK(glUniformMatrix4fv(location,
-                                        count,
-                                        false,
-                                        (GLfloat*)uniform.value));
-            break;
-        default:
-            // error log
-            break;
-    }
-}
-
 //
 // Uniform
 //
 DeviceGraphics::Uniform::Uniform()
 : dirty(true)
 , value(nullptr)
-, type(Type::UNKNOWN)
-, count(0)
 {}
 
-DeviceGraphics::Uniform::Uniform(const void* v, Type type, size_t bytes)
-: type(type)
+DeviceGraphics::Uniform::Uniform(const void* v, size_t bytes)
+: dirty(true)
 , value(nullptr)
-, count(1)
-{
-    setValue(v, bytes);
-}
-
-DeviceGraphics::Uniform::Uniform(const void* v, Type type, size_t bytes, size_t count)
-: type(type)
-, value(nullptr)
-, count(count)
 {
     setValue(v, bytes);
 }
@@ -1228,13 +1108,15 @@ DeviceGraphics::Uniform::Uniform(Uniform&& h)
 {
     if (this == &h)
         return;
-    
+
+    if (value != nullptr)
+    {
+        free(value);
+    }
     value = h.value;
     h.value = nullptr;
     
     dirty = h.dirty;
-    type = h.type;
-    count = h.count;
 }
 
 DeviceGraphics::Uniform::~Uniform()
@@ -1252,9 +1134,11 @@ DeviceGraphics::Uniform& DeviceGraphics::Uniform::operator=(Uniform&& h)
         return *this;
     
     dirty = h.dirty;
-    type = h.type;
-    count = h.count;
-    
+
+    if (value != nullptr)
+    {
+        free(value);
+    }
     value = h.value;
     h.value = nullptr;
     

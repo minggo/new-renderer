@@ -25,6 +25,8 @@
 #include "CCProgram.h"
 #include "CCGFXUtils.h"
 
+#include <unordered_map>
+
 namespace {
 
     uint32_t _genID = 0;
@@ -94,9 +96,130 @@ namespace {
         return true;
     }
 
+#define DEF_TO_INT(pointer)  (*(int*)(pointer))
+#define DEF_TO_FLOAT(pointer)  (*(float*)(pointer))
+
+    void setUniform1i(GLint location, GLsizei count , const void* value)
+    {
+        assert(count == 1);
+        glUniform1i(location, DEF_TO_INT(value));
+    }
+
+    void setUniform1iv(GLint location, GLsizei count , const void* value)
+    {
+        glUniform1iv(location, count, (const GLint*)value);
+    }
+
+    void setUniform2iv(GLint location, GLsizei count , const void* value)
+    {
+        glUniform2iv(location, count, (const GLint*)value);
+    }
+
+    void setUniform3iv(GLint location, GLsizei count , const void* value)
+    {
+        glUniform3iv(location, count, (const GLint*)value);
+    }
+
+    void setUniform4iv(GLint location, GLsizei count , const void* value)
+    {
+        glUniform4iv(location, count, (const GLint*)value);
+    }
+
+    void setUniform1f(GLint location, GLsizei count , const void* value)
+    {
+        assert(count == 1);
+        glUniform1f(location, DEF_TO_FLOAT(value));
+    }
+
+    void setUniform1fv(GLint location, GLsizei count , const void* value)
+    {
+        glUniform1fv(location, count, (const GLfloat*)value);
+    }
+
+    void setUniform2fv(GLint location, GLsizei count , const void* value)
+    {
+        glUniform2fv(location, count, (const GLfloat*)value);
+    }
+
+    void setUniform3fv(GLint location, GLsizei count , const void* value)
+    {
+        glUniform3fv(location, count, (const GLfloat*)value);
+    }
+
+    void setUniform4fv(GLint location, GLsizei count , const void* value)
+    {
+        glUniform4fv(location, count, (const GLfloat*)value);
+    }
+
+    void setUniformMatrix2fv(GLint location, GLsizei count, const void *value)
+    {
+        glUniformMatrix2fv(location, count, GL_FALSE, (const GLfloat*)value);
+    }
+
+    void setUniformMatrix3fv(GLint location, GLsizei count, const void *value)
+    {
+        glUniformMatrix3fv(location, count, GL_FALSE, (const GLfloat*)value);
+    }
+
+    void setUniformMatrix4fv(GLint location, GLsizei count, const void *value)
+    {
+        glUniformMatrix4fv(location, count, GL_FALSE, (const GLfloat*)value);
+    }
+
+    /**
+     * _type2uniformCommit
+     */
+    std::unordered_map<GLenum, cocos2d::gfx::Program::Uniform::SetUniformCallback> _type2uniformCommit = {
+        { GL_INT, setUniform1i },
+        { GL_FLOAT, setUniform1f },
+        { GL_FLOAT_VEC2, setUniform2fv },
+        { GL_FLOAT_VEC3, setUniform3fv },
+        { GL_FLOAT_VEC4, setUniform4fv },
+        { GL_INT_VEC2, setUniform2iv },
+        { GL_INT_VEC3, setUniform3iv },
+        { GL_INT_VEC4, setUniform4iv },
+        { GL_BOOL, setUniform1i },
+        { GL_BOOL_VEC2, setUniform2iv },
+        { GL_BOOL_VEC3, setUniform3iv },
+        { GL_BOOL_VEC4, setUniform4iv },
+        { GL_FLOAT_MAT2, setUniformMatrix2fv },
+        { GL_FLOAT_MAT3, setUniformMatrix3fv },
+        { GL_FLOAT_MAT4, setUniformMatrix4fv },
+        { GL_SAMPLER_2D, setUniform1i },
+        { GL_SAMPLER_CUBE, setUniform1i }
+    };
+
+    /**
+     * _type2uniformArrayCommit
+     */
+    std::unordered_map<GLenum, cocos2d::gfx::Program::Uniform::SetUniformCallback> _type2uniformArrayCommit = {
+        { GL_INT, setUniform1iv },
+        { GL_FLOAT, setUniform1fv },
+        { GL_FLOAT_VEC2, setUniform2fv },
+        { GL_FLOAT_VEC3, setUniform3fv },
+        { GL_FLOAT_VEC4, setUniform4fv },
+        { GL_INT_VEC2, setUniform2iv },
+        { GL_INT_VEC3, setUniform3iv },
+        { GL_INT_VEC4, setUniform4iv },
+        { GL_BOOL, setUniform1iv },
+        { GL_BOOL_VEC2, setUniform2iv },
+        { GL_BOOL_VEC3, setUniform3iv },
+        { GL_BOOL_VEC4, setUniform4iv },
+        { GL_FLOAT_MAT2, setUniformMatrix2fv },
+        { GL_FLOAT_MAT3, setUniformMatrix3fv },
+        { GL_FLOAT_MAT4, setUniformMatrix4fv },
+        { GL_SAMPLER_2D, setUniform1iv },
+        { GL_SAMPLER_CUBE, setUniform1iv }
+    };
 } // namespace {
 
 GFX_BEGIN
+
+void Program::Uniform::setUniform(const void* value) const
+{
+    GLsizei count = size == -1 ? 1 : size;
+    _callback(location, count, value);
+}
 
 Program::Program()
 : _device(nullptr)
@@ -237,8 +360,16 @@ void Program::link()
                 if (!isArray)
                 {
                     uniform.size = -1;
+                    auto iter = _type2uniformCommit.find(uniform.type);
+                    assert(iter != _type2uniformCommit.end());
+                    uniform._callback = iter->second;
                 }
-
+                else
+                {
+                    auto iter = _type2uniformArrayCommit.find(uniform.type);
+                    assert(iter != _type2uniformArrayCommit.end());
+                    uniform._callback = iter->second;
+                }
                 _uniforms.push_back(std::move(uniform));
             }
             

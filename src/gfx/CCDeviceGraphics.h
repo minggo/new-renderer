@@ -104,7 +104,8 @@ public:
     void setUniformMat3(const std::string& name, float* value);
     void setUniformMat4(const std::string& name, float* value);
     void setUniformMat4(const std::string& name, const cocos2d::Mat4& value);
-    
+    void setUniform(const std::string& name, const void* v, size_t bytes);
+
     void setPrimitiveType(PrimitiveType type);
     
     void draw(size_t base, GLsizei count);
@@ -123,48 +124,20 @@ private:
     
     struct Uniform
     {
-        enum class Type
-        {
-            UNKNOWN,
-            INT,
-            INT2,
-            INT3,
-            INT4,
-            INT_ARRAY,
-            INT2_ARRAY,
-            INT3_ARRAY,
-            INT4_ARRAY,
-            
-            FLOAT,
-            FLOAT2,
-            FLOAT3,
-            FLOAT4,
-            FLOAT_ARRAY,
-            FLOAT2_ARRAY,
-            FLOAT3_ARRAY,
-            FLOAT4_ARRAY,
-            
-            MAT2,
-            MAT3,
-            MAT4,
-            MAT2_ARRAY,
-            MAT3_ARRAY,
-            MAT4_ARRAY
-        };
-        
-        Uniform(const void* v, Type type, size_t bytes);
-        Uniform(const void* v, Type type, size_t bytes, size_t count);
-        Uniform();
+        Uniform(const void* v, size_t bytes);
         Uniform(Uniform&& h);
+        Uniform();
         ~Uniform();
+
         Uniform& operator=(Uniform&& h);
-        
+
         void setValue(const void* v, size_t bytes);
-        
+
         bool dirty;
-        Type type;
         void* value;
-        size_t count;
+    private:
+        // Disable copy operator
+        Uniform& operator=(const Uniform& o);
     };
     
     DeviceGraphics();
@@ -175,10 +148,7 @@ private:
     void initCaps();
     void restoreTexture(uint32_t index);
     void restoreIndexBuffer();
-    inline void setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes);
-    inline void setUniformCommon(const std::string& name, const void* v, Uniform::Type type, size_t bytes, size_t count);
-    inline void setUniformToGL(GLint location, const DeviceGraphics::Uniform& uniform) const;
-    
+
     inline void commitBlendStates();
     inline void commitDepthStates();
     inline void commitStencilStates();
