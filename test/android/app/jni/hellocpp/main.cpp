@@ -36,7 +36,7 @@ namespace {
            Particle::create,
            Stencil::create,
            PostProcess::create,
-           DepthTexture::create,
+           // DepthTexture::create,
            GuiProjection::create,
            SubImage::create,
            Texture2DTest::create,
