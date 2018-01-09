@@ -52,6 +52,8 @@ int main(int argc, char** argv)
     se->addRegisterCallback(register_all_gfx);
     se->addRegisterCallback(jsb_register_gfx_manual);
 
+    se->enableDebugger("0.0.0.0", 5678);
+
     se->addBeforeInitHook([](){
         JSBClassType::init();
     });
@@ -64,7 +66,7 @@ int main(int argc, char** argv)
 
     se->runScript("src/gfx.js");
     se::Value tickVal;
-    se->runScript("src/texture-2d.js", &tickVal);
+    se->runScript("src/particles.js", &tickVal);
 
     std::chrono::steady_clock::time_point prevTime;
     std::chrono::steady_clock::time_point now;

@@ -7,7 +7,9 @@
   // init resources
   let program = new gfx.Program(device, {
     vert: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       uniform mat4 model, view, projection;
 
       attribute vec2 a_quad;
@@ -31,7 +33,9 @@
       }
     `,
     frag: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       uniform sampler2D u_texture;
 
       varying vec4 color;
@@ -44,23 +48,54 @@
   });
   program.link();
 
+  function fillRectWithColor(buf, totalWidth, totalHeight, x, y, width, height, r, g, b)
+  {
+      console.assert(x + width <= totalWidth);
+      console.assert(y + height <=  totalHeight);
+
+      var y0 = totalHeight - (y + height);
+      var y1 = totalHeight - y;
+
+      for (var offsetY = y0; offsetY < y1; ++offsetY)
+      {
+          for (var offsetX = x; offsetX < (x + width); ++offsetX)
+          {
+              var index = (totalWidth * offsetY + offsetX) * 3;
+              buf[index] = r;
+              buf[index + 1] = g;
+              buf[index + 2] = b;
+          }
+      }
+  }
+
+  const BUFFER_SIZE = 128 * 128 * 3;
+  var data = new Uint8Array(BUFFER_SIZE);
+
+  const lineWidth = 128;
+  const lineHeight = 128;
+  fillRectWithColor(data, lineWidth, lineHeight, 0, 0, 128, 128, 0xD0, 0xD0, 0xD0);
+  fillRectWithColor(data, lineWidth, lineHeight, 0, 0, 64, 64, 0x50, 0x50, 0x50);
+  fillRectWithColor(data, lineWidth, lineHeight, 32, 32, 32, 32, 0xFF, 0x00, 0x00);
+  fillRectWithColor(data, lineWidth, lineHeight, 64, 64, 64, 64, 0x00, 0xFF, 0x00);
+  fillRectWithColor(data, lineWidth, lineHeight, 96, 96, 32, 32, 0x00, 0x00, 0xFF);
+
   // create texture
-  let img = document.createElement('canvas');
-  let imgC = img.getContext('2d');
-  img.width = img.height = 128;
-  imgC.fillStyle = '#ddd';
-  imgC.fillRect(0, 0, 128, 128);
-  imgC.fillStyle = '#555';
-  imgC.fillRect(0, 0, 64, 64);
-  imgC.fillStyle = '#FF0000';
-  imgC.fillRect(32, 32, 32, 32);
-  imgC.fillStyle = '#00FF00';
-  imgC.fillRect(64, 64, 64, 64);
-  imgC.fillStyle = '#0000FF';
-  imgC.fillRect(96, 96, 32, 32);
+  // let img = document.createElement('canvas');
+  // let imgC = img.getContext('2d');
+  // img.width = img.height = 128;
+  // imgC.fillStyle = '#ddd';
+  // imgC.fillRect(0, 0, 128, 128);
+  // imgC.fillStyle = '#555';
+  // imgC.fillRect(0, 0, 64, 64);
+  // imgC.fillStyle = '#FF0000';
+  // imgC.fillRect(32, 32, 32, 32);
+  // imgC.fillStyle = '#00FF00';
+  // imgC.fillRect(64, 64, 64, 64);
+  // imgC.fillStyle = '#0000FF';
+  // imgC.fillRect(96, 96, 32, 32);
 
   let texture = new gfx.Texture2D(device, {
-    images: [img],
+    images: [data],//[img],
     width: 128,
     height: 128,
     wrapS: gfx.WRAP_REPEAT,

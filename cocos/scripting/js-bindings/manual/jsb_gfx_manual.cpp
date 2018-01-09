@@ -213,6 +213,52 @@ static bool js_gfx_VertexBuffer_init(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_VertexBuffer_init)
 
+// uint32_t offset, const void* data, size_t dataByteLength
+static bool js_gfx_VertexBuffer_update(se::State& s)
+{
+    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_update : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        uint32_t offset = 0;
+        ok = seval_to_uint32(args[0], &offset);
+        SE_PRECONDITION2(ok, false, "Convert arg0 offset failed!");
+        if (args[1].isObject())
+        {
+            se::Object* arg1 = args[1].toObject();
+            if (arg1->isTypedArray())
+            {
+                uint8_t* data = nullptr;
+                size_t dataLen = 0;
+                if (arg1->getTypedArrayData(&data, &dataLen))
+                {
+                    cobj->update(offset, data, dataLen);
+                }
+                else
+                {
+                    SE_PRECONDITION2(false, false, "get typed array data failed!");
+                }
+            }
+            else
+            {
+                SE_PRECONDITION2(false, false, "arg1 isn't a typed array!");
+            }
+        }
+        else
+        {
+            SE_PRECONDITION2(false, false, "arg1 isn't an object!");
+        }
+
+        return true;
+    }
+
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 5);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_VertexBuffer_update)
+
 static bool js_gfx_IndexBuffer_init(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
@@ -375,6 +421,7 @@ bool jsb_register_gfx_manual(se::Object* global)
     __jsb_cocos2d_gfx_DeviceGraphics_proto->defineFunction("clear", _SE(js_gfx_DeviceGraphics_clear));
     __jsb_cocos2d_gfx_DeviceGraphics_proto->defineFunction("setUniform", _SE(js_gfx_DeviceGraphics_setUniform));
     __jsb_cocos2d_gfx_VertexBuffer_proto->defineFunction("init", _SE(js_gfx_VertexBuffer_init));
+    __jsb_cocos2d_gfx_VertexBuffer_proto->defineFunction("update", _SE(js_gfx_VertexBuffer_update));
     __jsb_cocos2d_gfx_IndexBuffer_proto->defineFunction("init", _SE(js_gfx_IndexBuffer_init));
     __jsb_cocos2d_gfx_Texture2D_proto->defineFunction("init", _SE(js_gfx_Texture2D_init));
 
