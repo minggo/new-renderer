@@ -7,7 +7,9 @@
   // init resources
   let program = new gfx.Program(device, {
     vert: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       uniform mat4 transform;
       attribute vec2 a_position;
       varying vec2 v_texcoord;
@@ -17,7 +19,9 @@
       }
     `,
     frag: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       uniform sampler2D texture;
       uniform vec4 color;
       varying vec2 v_texcoord;
@@ -38,6 +42,7 @@
     magFilter: gfx.FILTER_NEAREST,
     format: gfx.TEXTURE_FMT_RGB8,
     mipmap: false,
+    flipY: false
   });
 
   let vertexFmt = new gfx.VertexFormat([
@@ -74,7 +79,8 @@
       width: texture._width,
       height: texture._height,
       level: 0,
-      image: data
+      image: data,
+      flipY: false
     };
     texture.updateSubImage(opts);
 

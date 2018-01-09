@@ -83,7 +83,7 @@ bool seval_to_std_vector_float(const se::Value& v, std::vector<float>* ret);
 bool seval_to_std_vector_Vec2(const se::Value& v, std::vector<cocos2d::Vec2>* ret);
 //bool seval_to_std_vector_Touch(const se::Value& v, std::vector<cocos2d::Touch*>* ret);
 bool seval_to_std_map_string_string(const se::Value& v, std::map<std::string, std::string>* ret);
-//bool seval_to_FontDefinition(const se::Value& v, cocos2d::FontDefinition* ret);
+bool seval_to_FontDefinition(const se::Value& v, cocos2d::FontDefinition* ret);
 //bool seval_to_Acceleration(const se::Value& v, cocos2d::Acceleration* ret);
 //bool seval_to_Quaternion(const se::Value& v, cocos2d::Quaternion* ret);
 //bool seval_to_AffineTransform(const se::Value& v, cocos2d::AffineTransform* ret);

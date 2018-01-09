@@ -323,6 +323,53 @@ static bool js_gfx_getImageInfo(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_getImageInfo)
 
+static bool js_gfx_getTextTextureInfo(se::State& s)
+{
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 3) {
+
+        /*
+         const char * text,
+         const FontDefinition& textDefinition,
+         TextAlign align,
+         int &width,
+         int &height,
+         bool& hasPremultipliedAlpha
+         */
+
+        std::string text;
+        ok = seval_to_std_string(args[0], &text);
+        SE_PRECONDITION2(ok, false, "Convert arg0 text failed!");
+        FontDefinition fontDef;
+        ok = seval_to_FontDefinition(args[1], &fontDef);
+        SE_PRECONDITION2(ok, false, "Convert arg1 fontDef failed!");
+        int32_t align;
+        ok = seval_to_int32(args[2], &align);
+        Device::TextAlign textAlign = (Device::TextAlign)align;
+        int width = 0;
+        int height = 0;
+        bool hasPremultipliedAlpha = false;
+        Data data = Device::getTextureDataForText(text.c_str(), fontDef, textAlign, width, height, hasPremultipliedAlpha);
+
+        se::HandleObject retObj(se::Object::createPlainObject());
+        se::Value dataVal;
+        if (Data_to_seval(data, &dataVal))
+            retObj->setProperty("data", dataVal);
+
+        retObj->setProperty("width", se::Value(width));
+        retObj->setProperty("height", se::Value(height));
+        retObj->setProperty("hasPremultipliedAlpha", se::Value(hasPremultipliedAlpha));
+
+        s.rval().setObject(retObj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_getTextTextureInfo)
+
 bool jsb_register_gfx_manual(se::Object* global)
 {
     __jsb_cocos2d_gfx_DeviceGraphics_proto->defineFunction("clear", _SE(js_gfx_DeviceGraphics_clear));
@@ -334,6 +381,7 @@ bool jsb_register_gfx_manual(se::Object* global)
     global->defineFunction("getDataFromFile", _SE(js_cocos2dx_FileUtils_getDataFromFile));
     global->defineFunction("getStringFromFile", _SE(js_cocos2dx_FileUtils_getStringFromFile));
     global->defineFunction("getImageInfo", _SE(js_gfx_getImageInfo));
+    global->defineFunction("getTextTextureInfo", _SE(js_gfx_getTextTextureInfo));
 
     se::ScriptEngine::getInstance()->clearException();
     return true;

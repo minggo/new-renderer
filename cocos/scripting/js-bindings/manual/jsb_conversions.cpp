@@ -788,154 +788,154 @@ bool seval_to_std_map_string_string(const se::Value& v, std::map<std::string, st
     return true;
 }
 
-//bool seval_to_FontDefinition(const se::Value& v, cocos2d::FontDefinition* ret)
-//{
-//    assert(ret != nullptr);
-//    assert(v.isObject());
-//    se::Object* obj = v.toObject();
-//
-//    // default values
-//    const char* defautlFontName = "Arial";
-//    const int defaultFontSize = 32;
-//    cocos2d::TextHAlignment defaultTextAlignment = cocos2d::TextHAlignment::LEFT;
-//    cocos2d::TextVAlignment defaultTextVAlignment = cocos2d::TextVAlignment::TOP;
-//
-//    // by default shadow and stroke are off
-//    ret->_shadow._shadowEnabled = false;
-//    ret->_stroke._strokeEnabled = false;
-//
-//    // white text by default
-//    ret->_fontFillColor = cocos2d::Color3B::WHITE;
-//
-//    se::Value tmp, tmp2;
-//
-//    // font name
-//    if (obj->getProperty("fontName", &tmp) && tmp.isString())
-//    {
-//        if (tmp.toString().empty())
-//        {
-//            ret->_fontName = defautlFontName;
-//        }
-//        else
-//        {
-//            ret->_fontName = tmp.toString();
-//        }
-//    }
-//    else
-//    {
-//        ret->_fontName = defautlFontName;
-//    }
-//
-//    // font size
-//    if (obj->getProperty("fontSize", &tmp) && tmp.isNumber())
-//    {
-//        ret->_fontSize = tmp.toInt32();
-//    }
-//    else
-//    {
-//        ret->_fontSize = defaultFontSize;
-//    }
-//
-//    // font alignment horizontal
-//    if (obj->getProperty("textAlign", &tmp) && tmp.isNumber())
-//    {
-//        ret->_alignment = (cocos2d::TextHAlignment)tmp.toInt32();
-//    }
-//    else
-//    {
-//        ret->_alignment = defaultTextAlignment;
-//    }
-//
-//    // font alignment vertical
-//    if (obj->getProperty("verticalAlign", &tmp) && tmp.isNumber())
-//    {
-//        ret->_vertAlignment = (cocos2d::TextVAlignment)tmp.toInt32();
-//    }
-//    else
-//    {
-//        ret->_vertAlignment = defaultTextVAlignment;
-//    }
-//
-//    // font fill color
-//    if (obj->getProperty("fillStyle", &tmp) && tmp.isObject())
-//    {
-//        seval_to_Color3B(tmp, &ret->_fontFillColor);
-//    }
-//
-//    // font rendering box dimensions
-//    if (obj->getProperty("boundingWidth", &tmp) && tmp.isNumber()
-//        && obj->getProperty("boundingHeight", &tmp2) && tmp2.isNumber())
-//    {
-//        ret->_dimensions.width = tmp.toFloat();
-//        ret->_dimensions.height = tmp2.toFloat();
-//    }
-//
-//    // shadow
-//    if (obj->getProperty("shadowEnabled", &tmp) && tmp.isBoolean())
-//    {
-//        ret->_shadow._shadowEnabled = tmp.toBoolean();
-//
-//        if (ret->_shadow._shadowEnabled)
-//        {
-//            // default shadow values
-//            ret->_shadow._shadowOffset  = cocos2d::Size(5, 5);
-//            ret->_shadow._shadowBlur    = 1;
-//            ret->_shadow._shadowOpacity = 1;
-//
-//            // shadow offset
-//            if (obj->getProperty("shadowOffsetX", &tmp) && tmp.isNumber()
-//                && obj->getProperty("shadowOffsetY", &tmp2) && tmp2.isNumber())
-//            {
-//                ret->_shadow._shadowOffset.width = tmp.toFloat();
-//                ret->_shadow._shadowOffset.height = tmp2.toFloat();
-//            }
-//
-//            // shadow blur
-//            if (obj->getProperty("shadowBlur", &tmp) && tmp.isNumber())
-//            {
-//                ret->_shadow._shadowBlur = tmp.toNumber();
-//            }
-//
-//            // shadow intensity
-//            if (obj->getProperty("shadowOpacity", &tmp) && tmp.isNumber())
-//            {
-//                ret->_shadow._shadowOpacity = tmp.toNumber();
-//            }
-//        }
-//    }
-//
-//    // stroke
-//    if (obj->getProperty("strokeEnabled", &tmp) && tmp.isBoolean())
-//    {
-//        ret->_stroke._strokeEnabled = tmp.toBoolean();
-//        if (ret->_stroke._strokeEnabled)
-//        {
-//            // default stroke values
-//            ret->_stroke._strokeSize  = 1;
-//            ret->_stroke._strokeColor = cocos2d::Color3B::BLUE;
-//
-//            // stroke color
-//            if (obj->getProperty("strokeStyle", &tmp) && tmp.isObject())
-//            {
-//                seval_to_Color3B(tmp, &ret->_stroke._strokeColor);
-//            }
-//
-//            // stroke size
-//            if (obj->getProperty("lineWidth", &tmp) && tmp.isNumber())
-//            {
-//                ret->_stroke._strokeSize = tmp.toNumber();
-//            }
-//
-//            // stroke alpha
-//            if (obj->getProperty("strokeAlpha", &tmp) && tmp.isNumber())
-//            {
-//                ret->_stroke._strokeAlpha = tmp.toUint8();
-//            }
-//        }
-//    }
-//
-//    return true;
-//}
+bool seval_to_FontDefinition(const se::Value& v, cocos2d::FontDefinition* ret)
+{
+    assert(ret != nullptr);
+    assert(v.isObject());
+    se::Object* obj = v.toObject();
+
+    // default values
+    const char* defautlFontName = "Arial";
+    const int defaultFontSize = 32;
+    cocos2d::TextHAlignment defaultTextAlignment = cocos2d::TextHAlignment::LEFT;
+    cocos2d::TextVAlignment defaultTextVAlignment = cocos2d::TextVAlignment::TOP;
+
+    // by default shadow and stroke are off
+    ret->_shadow._shadowEnabled = false;
+    ret->_stroke._strokeEnabled = false;
+
+    // white text by default
+    ret->_fontFillColor = cocos2d::Color3B::WHITE;
+
+    se::Value tmp, tmp2;
+
+    // font name
+    if (obj->getProperty("fontName", &tmp) && tmp.isString())
+    {
+        if (tmp.toString().empty())
+        {
+            ret->_fontName = defautlFontName;
+        }
+        else
+        {
+            ret->_fontName = tmp.toString();
+        }
+    }
+    else
+    {
+        ret->_fontName = defautlFontName;
+    }
+
+    // font size
+    if (obj->getProperty("fontSize", &tmp) && tmp.isNumber())
+    {
+        ret->_fontSize = tmp.toInt32();
+    }
+    else
+    {
+        ret->_fontSize = defaultFontSize;
+    }
+
+    // font alignment horizontal
+    if (obj->getProperty("textAlign", &tmp) && tmp.isNumber())
+    {
+        ret->_alignment = (cocos2d::TextHAlignment)tmp.toInt32();
+    }
+    else
+    {
+        ret->_alignment = defaultTextAlignment;
+    }
+
+    // font alignment vertical
+    if (obj->getProperty("verticalAlign", &tmp) && tmp.isNumber())
+    {
+        ret->_vertAlignment = (cocos2d::TextVAlignment)tmp.toInt32();
+    }
+    else
+    {
+        ret->_vertAlignment = defaultTextVAlignment;
+    }
+
+    // font fill color
+    if (obj->getProperty("fillStyle", &tmp) && tmp.isObject())
+    {
+        seval_to_Color3B(tmp, &ret->_fontFillColor);
+    }
+
+    // font rendering box dimensions
+    if (obj->getProperty("boundingWidth", &tmp) && tmp.isNumber()
+        && obj->getProperty("boundingHeight", &tmp2) && tmp2.isNumber())
+    {
+        ret->_dimensions.width = tmp.toFloat();
+        ret->_dimensions.height = tmp2.toFloat();
+    }
+
+    // shadow
+    if (obj->getProperty("shadowEnabled", &tmp) && tmp.isBoolean())
+    {
+        ret->_shadow._shadowEnabled = tmp.toBoolean();
+
+        if (ret->_shadow._shadowEnabled)
+        {
+            // default shadow values
+            ret->_shadow._shadowOffset  = cocos2d::Size(5, 5);
+            ret->_shadow._shadowBlur    = 1;
+            ret->_shadow._shadowOpacity = 1;
+
+            // shadow offset
+            if (obj->getProperty("shadowOffsetX", &tmp) && tmp.isNumber()
+                && obj->getProperty("shadowOffsetY", &tmp2) && tmp2.isNumber())
+            {
+                ret->_shadow._shadowOffset.width = tmp.toFloat();
+                ret->_shadow._shadowOffset.height = tmp2.toFloat();
+            }
+
+            // shadow blur
+            if (obj->getProperty("shadowBlur", &tmp) && tmp.isNumber())
+            {
+                ret->_shadow._shadowBlur = tmp.toNumber();
+            }
+
+            // shadow intensity
+            if (obj->getProperty("shadowOpacity", &tmp) && tmp.isNumber())
+            {
+                ret->_shadow._shadowOpacity = tmp.toNumber();
+            }
+        }
+    }
+
+    // stroke
+    if (obj->getProperty("strokeEnabled", &tmp) && tmp.isBoolean())
+    {
+        ret->_stroke._strokeEnabled = tmp.toBoolean();
+        if (ret->_stroke._strokeEnabled)
+        {
+            // default stroke values
+            ret->_stroke._strokeSize  = 1;
+            ret->_stroke._strokeColor = cocos2d::Color3B::BLUE;
+
+            // stroke color
+            if (obj->getProperty("strokeStyle", &tmp) && tmp.isObject())
+            {
+                seval_to_Color3B(tmp, &ret->_stroke._strokeColor);
+            }
+
+            // stroke size
+            if (obj->getProperty("lineWidth", &tmp) && tmp.isNumber())
+            {
+                ret->_stroke._strokeSize = tmp.toNumber();
+            }
+
+            // stroke alpha
+            if (obj->getProperty("strokeAlpha", &tmp) && tmp.isNumber())
+            {
+                ret->_stroke._strokeAlpha = tmp.toUint8();
+            }
+        }
+    }
+
+    return true;
+}
 //
 //bool seval_to_Acceleration(const se::Value& v, cocos2d::Acceleration* ret)
 //{
@@ -1306,13 +1306,177 @@ bool seval_to_TextureOptions(const se::Value& v, cocos2d::gfx::Texture::Options*
 
 bool seval_to_TextureSubImageOption(const se::Value& v, cocos2d::gfx::Texture::SubImageOption* ret)
 {
-    assert(false);
+    assert(ret != nullptr);
+    assert(v.isObject());
+    se::Object* obj = v.toObject();
+    se::Value imageVal;
+    if (obj->getProperty("image", &imageVal) && imageVal.isObject() && imageVal.toObject()->isTypedArray())
+    {
+        uint8_t* imgData = nullptr;
+        size_t imgDataLen = 0;
+        imageVal.toObject()->getTypedArrayData(&imgData, &imgDataLen);
+        ret->image.copy(imgData, imgDataLen);
+    }
+
+    se::Value tmp;
+    if (obj->getProperty("mipmap", &tmp))
+    {
+        seval_to_boolean(tmp, &ret->hasMipmap);
+    }
+
+    if (obj->getProperty("x", &tmp))
+    {
+        seval_to_uint16(tmp, &ret->x);
+    }
+
+    if (obj->getProperty("y", &tmp))
+    {
+        seval_to_uint16(tmp, &ret->y);
+    }
+
+    if (obj->getProperty("width", &tmp))
+    {
+        seval_to_uint16(tmp, &ret->width);
+    }
+
+    if (obj->getProperty("level", &tmp))
+    {
+        seval_to_int32(tmp, &ret->level);
+    }
+    
+    if (obj->getProperty("height", &tmp))
+    {
+        seval_to_uint16(tmp, &ret->height);
+    }
+
+    if (obj->getProperty("format", &tmp))
+    {
+        seval_to_uint8(tmp, (uint8_t*)&ret->format);
+    }
+
+    if (obj->getProperty("anisotropy", &tmp))
+    {
+        seval_to_int32(tmp, &ret->anisotropy);
+    }
+
+    if (obj->getProperty("minFilter", &tmp))
+    {
+        seval_to_int8(tmp, (int8_t*)&ret->minFilter);
+    }
+
+    if (obj->getProperty("magFilter", &tmp))
+    {
+        seval_to_int8(tmp, (int8_t*)&ret->magFilter);
+    }
+
+    if (obj->getProperty("mipFilter", &tmp))
+    {
+        seval_to_int8(tmp, (int8_t*)&ret->mipFilter);
+    }
+
+    if (obj->getProperty("wrapS", &tmp))
+    {
+        seval_to_uint16(tmp, (uint16_t*)&ret->wrapS);
+    }
+
+    if (obj->getProperty("wrapT", &tmp))
+    {
+        seval_to_uint16(tmp, (uint16_t*)&ret->wrapT);
+    }
+
+    if (obj->getProperty("flipY", &tmp))
+    {
+        seval_to_boolean(tmp, &ret->flipY);
+    }
+
+    if (obj->getProperty("premultiplyAlpha", &tmp))
+    {
+        seval_to_boolean(tmp, &ret->premultiplyAlpha);
+    }
+
     return true;
 }
 
 bool seval_to_TextureImageOption(const se::Value& v, cocos2d::gfx::Texture::ImageOption* ret)
 {
-    assert(false);
+    assert(ret != nullptr);
+    assert(v.isObject());
+    se::Object* obj = v.toObject();
+    se::Value imageVal;
+    if (obj->getProperty("image", &imageVal) && imageVal.isObject() && imageVal.toObject()->isTypedArray())
+    {
+        uint8_t* imgData = nullptr;
+        size_t imgDataLen = 0;
+        imageVal.toObject()->getTypedArrayData(&imgData, &imgDataLen);
+        ret->image.copy(imgData, imgDataLen);
+    }
+
+    se::Value tmp;
+    if (obj->getProperty("mipmap", &tmp))
+    {
+        seval_to_boolean(tmp, &ret->hasMipmap);
+    }
+
+    if (obj->getProperty("width", &tmp))
+    {
+        seval_to_uint16(tmp, &ret->width);
+    }
+
+    if (obj->getProperty("level", &tmp))
+    {
+        seval_to_int32(tmp, &ret->level);
+    }
+
+    if (obj->getProperty("height", &tmp))
+    {
+        seval_to_uint16(tmp, &ret->height);
+    }
+
+    if (obj->getProperty("format", &tmp))
+    {
+        seval_to_uint8(tmp, (uint8_t*)&ret->format);
+    }
+
+    if (obj->getProperty("anisotropy", &tmp))
+    {
+        seval_to_int32(tmp, &ret->anisotropy);
+    }
+
+    if (obj->getProperty("minFilter", &tmp))
+    {
+        seval_to_int8(tmp, (int8_t*)&ret->minFilter);
+    }
+
+    if (obj->getProperty("magFilter", &tmp))
+    {
+        seval_to_int8(tmp, (int8_t*)&ret->magFilter);
+    }
+
+    if (obj->getProperty("mipFilter", &tmp))
+    {
+        seval_to_int8(tmp, (int8_t*)&ret->mipFilter);
+    }
+
+    if (obj->getProperty("wrapS", &tmp))
+    {
+        seval_to_uint16(tmp, (uint16_t*)&ret->wrapS);
+    }
+
+    if (obj->getProperty("wrapT", &tmp))
+    {
+        seval_to_uint16(tmp, (uint16_t*)&ret->wrapT);
+    }
+
+    if (obj->getProperty("flipY", &tmp))
+    {
+        seval_to_boolean(tmp, &ret->flipY);
+    }
+
+    if (obj->getProperty("premultiplyAlpha", &tmp))
+    {
+        seval_to_boolean(tmp, &ret->premultiplyAlpha);
+    }
+
     return true;
 }
 
