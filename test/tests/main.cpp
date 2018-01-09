@@ -37,6 +37,7 @@
 #include "gfx/SubImage.h"
 #include "gfx/Texture2D.h"
 #include "gfx/GuiProjection.h"
+#include "Utils.h"
 
 namespace
 {
@@ -84,7 +85,10 @@ int main(int argc, char** argv)
     if (!glfwInit())
         return -1;
     
-    auto window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "New Renderer Test", nullptr, nullptr);
+    
+    utils::WINDOW_WIDTH = 960;
+    utils::WINDOW_HEIGHT = 640;
+    auto window = glfwCreateWindow(utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT, "New Renderer Test", nullptr, nullptr);
     if (!window)
     {
         glfwTerminate();

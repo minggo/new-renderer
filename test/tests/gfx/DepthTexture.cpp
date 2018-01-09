@@ -24,7 +24,7 @@
 
 #include "DepthTexture.h"
 #include "BunnyData.h"
-#include "../defines.h"
+#include "../Utils.h"
 
 using namespace cocos2d;
 
@@ -174,9 +174,12 @@ DepthTexture::DepthTexture()
 {
     _device = gfx::DeviceGraphics::getInstance();
     
+    if (!(_device->supportGLExtension("OES_depth_texture")))
+        GFX_LOGE("error: the device doesn't support OES_depth_texture");
+    
     gfx::Texture2D::Options options;
-    options.width = WINDOW_WIDTH;
-    options.height = WINDOW_HEIGHT;
+    options.width = utils::WINDOW_WIDTH;
+    options.height = utils::WINDOW_HEIGHT;
     options.format = gfx::Texture::Format::D16;
     options.wrapS = gfx::Texture::WrapMode::CLAMP;
     options.wrapT = gfx::Texture::WrapMode::CLAMP;
@@ -184,7 +187,7 @@ DepthTexture::DepthTexture()
     _depthTexture->init(_device, options);
     
     _frameBuffer = new gfx::FrameBuffer();
-    _frameBuffer->init(_device, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _frameBuffer->init(_device, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _frameBuffer->setDepthBuffer(_depthTexture);
     
     bunny = new Bunny();
@@ -209,10 +212,10 @@ void DepthTexture::tick(float dt)
     _up.set(0, 1.f, 0);
     Mat4::createLookAt(_eye, _center, _up, &_view);
     
-    Mat4::createPerspective(45.f, 1.0f * (WINDOW_WIDTH / WINDOW_HEIGHT), 0.01f, 100.f, &_projection);
+    Mat4::createPerspective(45.f, 1.0f * (utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT), 0.01f, 100.f, &_projection);
     
     _device->setFrameBuffer(_frameBuffer);
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     _device->clear(gfx::ClearFlag::DEPTH, nullptr, 1, 0);
     
@@ -246,7 +249,7 @@ void DepthTexture::tick(float dt)
     
     // Draw bg.
     _device->setFrameBuffer(nullptr);
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     Color4F clearColor(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(gfx::ClearFlag::COLOR | gfx::ClearFlag::DEPTH, &clearColor, 1, 0);
     _device->setTexture("texture", _depthTexture, 0);

@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "GuiProjection.h"
-#include "defines.h"
 #include "cocos2d.h"
 #include "../Utils.h"
 
@@ -117,13 +116,13 @@ GuiProjection::GuiProjection()
                         sizeof(vertexBuf)/sizeof(vertexBuf[0]));
 
 
-    Mat4::createOrthographicOffCenter(0.0f, WINDOW_WIDTH, 0.0f, WINDOW_HEIGHT, -100.0f, 100.0f, &_projection);
-    _translantion.translate(10.0f, (WINDOW_HEIGHT - _spriteHeight) / 2.0f, 0.0f);
+    Mat4::createOrthographicOffCenter(0.0f, utils::WINDOW_WIDTH, 0.0f, utils::WINDOW_HEIGHT, -100.0f, 100.0f, &_projection);
+    _translantion.translate(10.0f, (utils::WINDOW_HEIGHT - _spriteHeight) / 2.0f, 0.0f);
 
-    _rotation.translate(10 + _spriteWidth * 2.0f, (WINDOW_HEIGHT - _spriteHeight) / 2.0f, 0);
+    _rotation.translate(10 + _spriteWidth * 2.0f, (utils::WINDOW_HEIGHT - _spriteHeight) / 2.0f, 0);
     _rotation.rotateZ(CC_DEGREES_TO_RADIANS(15));
 
-    _scale.translate(10 + _spriteWidth * 4.0f, (WINDOW_HEIGHT - _spriteHeight) / 2.0f, 0);
+    _scale.translate(10 + _spriteWidth * 4.0f, (utils::WINDOW_HEIGHT - _spriteHeight) / 2.0f, 0);
     _scale.scale(1.2f, 0.5f, 1.0f);
 }
 
@@ -136,7 +135,7 @@ GuiProjection::~GuiProjection()
 
 void GuiProjection::tick(float dt)
 {
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     Color4F color(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1.0, 0);
 

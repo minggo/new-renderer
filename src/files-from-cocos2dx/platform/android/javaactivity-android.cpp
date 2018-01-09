@@ -83,31 +83,31 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved)
     return JNI_VERSION_1_4;
 }
 
-JNIEXPORT void Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeInit(JNIEnv*  env, jobject thiz, jint w, jint h)
-{
-    // auto director = cocos2d::Director::getInstance();
-    // auto glview = director->getOpenGLView();
-    // if (!glview)
-    // {
-    //     glview = cocos2d::GLViewImpl::create("Android app");
-    //     glview->setFrameSize(w, h);
-    //     director->setOpenGLView(glview);
+// JNIEXPORT void Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeInit(JNIEnv*  env, jobject thiz, jint w, jint h)
+// {
+//     // auto director = cocos2d::Director::getInstance();
+//     // auto glview = director->getOpenGLView();
+//     // if (!glview)
+//     // {
+//     //     glview = cocos2d::GLViewImpl::create("Android app");
+//     //     glview->setFrameSize(w, h);
+//     //     director->setOpenGLView(glview);
 
-    //     cocos2d::Application::getInstance()->run();
-    // }
-    // else
-    // {
-    //     cocos2d::GL::invalidateStateCache();
-    //     cocos2d::GLProgramCache::getInstance()->reloadDefaultGLPrograms();
-    //     cocos2d::DrawPrimitives::init();
-    //     cocos2d::VolatileTextureMgr::reloadAllTextures();
+//     //     cocos2d::Application::getInstance()->run();
+//     // }
+//     // else
+//     // {
+//     //     cocos2d::GL::invalidateStateCache();
+//     //     cocos2d::GLProgramCache::getInstance()->reloadDefaultGLPrograms();
+//     //     cocos2d::DrawPrimitives::init();
+//     //     cocos2d::VolatileTextureMgr::reloadAllTextures();
 
-    //     cocos2d::EventCustom recreatedEvent(EVENT_RENDERER_RECREATED);
-    //     director->getEventDispatcher()->dispatchEvent(&recreatedEvent);
-    //     director->setGLDefaultValues();
-    // }
-    // cocos2d::network::_preloadJavaDownloaderClass();
-}
+//     //     cocos2d::EventCustom recreatedEvent(EVENT_RENDERER_RECREATED);
+//     //     director->getEventDispatcher()->dispatchEvent(&recreatedEvent);
+//     //     director->setGLDefaultValues();
+//     // }
+//     // cocos2d::network::_preloadJavaDownloaderClass();
+// }
 
 JNIEXPORT jintArray Java_org_cocos2dx_lib_Cocos2dxActivity_getGLContextAttrs(JNIEnv*  env, jobject thiz)
 {
@@ -115,7 +115,7 @@ JNIEXPORT jintArray Java_org_cocos2dx_lib_Cocos2dxActivity_getGLContextAttrs(JNI
     // GLContextAttrs _glContextAttrs = GLView::getGLContextAttrs();
     
      int tmp[6] = {8, 8, 8,
-                            8, 8, 0};
+                            8, 16, 8};
 
 
      jintArray glContextAttrsJava = env->NewIntArray(6);

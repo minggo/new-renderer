@@ -15,10 +15,13 @@
 #include "../../../../tests/gfx/SubImage.h"
 #include "../../../../tests/gfx/Texture2D.h"
 
+#include "../../../../tests/Utils.h"
+
 #define  LOG_TAG    "main"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 
 namespace {
+    int nextIndex = 0;
     using createFunc = TestBaseI* (*)();
     std::vector<createFunc> tests;
     TestBaseI* test = nullptr;
@@ -26,8 +29,8 @@ namespace {
     void initTests()
     {
         tests = {
-           // Basic::create,
-           // Bunny::create,
+           Basic::create,
+           Bunny::create,
            Blending::create,
            MultiTextures::create,
            Particle::create,
@@ -43,9 +46,15 @@ namespace {
 
 extern "C" {
 
+    JNIEXPORT void Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeInit(JNIEnv*  env, jobject thiz, jint w, jint h)
+    {
+        utils::WINDOW_WIDTH = w;
+        utils::WINDOW_HEIGHT = h;
+    }
+
     JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeRender(JNIEnv* env) {
         if (!test)
-            test = test = tests[0]();
+            test = test = tests[nextIndex]();
         test->tick(0.016f);
     }
 
@@ -65,6 +74,25 @@ extern "C" {
     }
 
     JNIEXPORT jstring JNICALL Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeGetContentText() {
+    }
+
+    JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeTouchesBegin(JNIEnv * env, jobject thiz, jint id, jfloat x, jfloat y) {
+        
+    }
+
+    JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeTouchesEnd(JNIEnv * env, jobject thiz, jint id, jfloat x, jfloat y) {
+        nextIndex = ++nextIndex % tests.size();
+
+        if (test) delete test;
+        test = tests[nextIndex]();
+    }
+
+    JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeTouchesMove(JNIEnv * env, jobject thiz, jintArray ids, jfloatArray xs, jfloatArray ys) {
+        
+    }
+
+    JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeTouchesCancel(JNIEnv * env, jobject thiz, jintArray ids, jfloatArray xs, jfloatArray ys) {
+        
     }
 }
 

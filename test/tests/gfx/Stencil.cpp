@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "Stencil.h"
-#include "defines.h"
 #include "cocos2d.h"
 #include "../Utils.h"
 
@@ -143,12 +142,12 @@ Stencil::~Stencil()
 
 void Stencil::tick(float dt)
 {
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     Color4F color(1.f, 0.1f, 0.1f, 1.f);
     _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1.0, 0);
 
     // draw stencil and image
-    _device->setViewport(WINDOW_WIDTH / 6, WINDOW_HEIGHT / 2, WINDOW_WIDTH / 3, WINDOW_HEIGHT / 2);
+    _device->setViewport(utils::WINDOW_WIDTH / 6, utils::WINDOW_HEIGHT / 2, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
     if (_canvasTexture) {
         _device->setVertexBuffer(0, _vertexBuffer);
         _device->setUniformf("color", 1, 0, 0, 1);
@@ -159,7 +158,7 @@ void Stencil::tick(float dt)
         _device->draw(0, _vertexBuffer->getCount());
     }
 
-    _device->setViewport(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, WINDOW_WIDTH / 3, WINDOW_HEIGHT / 2);
+    _device->setViewport(utils::WINDOW_WIDTH / 2, utils::WINDOW_HEIGHT / 2, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
     if (_texture) {
         _device->setVertexBuffer(0, _vertexBuffer);
         _device->setUniformf("color", 1, 0, 0, 1);
@@ -171,7 +170,7 @@ void Stencil::tick(float dt)
     }
 
     // back and front
-    _device->setViewport(0, 0, WINDOW_WIDTH / 3, WINDOW_HEIGHT / 2);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
     if (_canvasTexture) {
         _device->setVertexBuffer(0, _vertexBuffer);
         _device->setUniformf("color", 1, 0, 0, 1);
@@ -198,7 +197,7 @@ void Stencil::tick(float dt)
     }
 
     // back
-    _device->setViewport(WINDOW_WIDTH / 3, 0, WINDOW_WIDTH / 3, WINDOW_HEIGHT / 2);
+    _device->setViewport(utils::WINDOW_WIDTH / 3, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
     if (_canvasTexture) {
         _device->setVertexBuffer(0, _vertexBuffer);
         _device->setUniformf("color", 1, 0, 0, 1);
@@ -226,7 +225,7 @@ void Stencil::tick(float dt)
     }
 
     // front
-    _device->setViewport(WINDOW_WIDTH * 2 / 3, 0, WINDOW_WIDTH / 3, WINDOW_HEIGHT / 2);
+    _device->setViewport(utils::WINDOW_WIDTH * 2 / 3, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
     if (_canvasTexture) {
         _device->setVertexBuffer(0, _vertexBuffer);
         _device->setUniformf("color", 1, 0, 0, 1);

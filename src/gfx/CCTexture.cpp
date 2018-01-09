@@ -156,13 +156,13 @@ Texture::GLTextureFmt Texture::_textureFmt[] = {
     { 0, 0, 0, 0 },
 
     // TEXTURE_FMT_SRGBA: 24
-    { 0, 0, 0 },
+    { 0, 0, 0, 0 },
     
     // TEXTURE_FMT_D16: 25
     { GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT16, GL_UNSIGNED_SHORT, 16 },
 
-    // TEXTURE_FMT_D24S8: 26
-    { 0, 0, 0 },
+    // TEXTURE_FMT_D24S8: 25
+    { 0, 0, 0, 0 },
 };
 
 Texture::Texture()

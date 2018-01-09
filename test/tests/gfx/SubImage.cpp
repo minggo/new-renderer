@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "SubImage.h"
-#include "defines.h"
 #include "cocos2d.h"
 #include "../Utils.h"
 
@@ -117,7 +116,7 @@ SubImage::~SubImage()
 
 void SubImage::tick(float dt)
 {
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     Color4F color(1.f, 0.1f, 0.1f, 1.f);
     _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1.0, 0);
 
