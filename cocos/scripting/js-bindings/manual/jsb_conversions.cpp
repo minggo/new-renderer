@@ -1239,10 +1239,6 @@ bool seval_to_TextureOptions(const se::Value& v, cocos2d::gfx::Texture::Options*
             }
         }
     }
-    else
-    {
-        SE_PRECONDITION2(false, false, "arg0 images isn't an array!");
-    }
 
     se::Value tmp;
     if (obj->getProperty("mipmap", &tmp))

@@ -530,22 +530,6 @@ array
 },
 
 /**
- * @method init
- * @param {cc.gfx::DeviceGraphics} arg0
- * @param {unsigned short} arg1
- * @param {unsigned short} arg2
- * @return {bool}
- */
-init : function (
-devicegraphics, 
-short, 
-short 
-)
-{
-    return false;
-},
-
-/**
  * @method getColorBuffers
  * @return {Array}
  */
@@ -573,22 +557,6 @@ getDepthStencilBuffer : function (
 )
 {
     return cc.gfx::RenderTarget;
-},
-
-/**
- * @method create
- * @param {cc.gfx::DeviceGraphics} arg0
- * @param {unsigned short} arg1
- * @param {unsigned short} arg2
- * @return {cc.gfx::FrameBuffer}
- */
-create : function (
-devicegraphics, 
-short, 
-short 
-)
-{
-    return cc.gfx::FrameBuffer;
 },
 
 /**
@@ -819,22 +787,6 @@ char
 link : function (
 )
 {
-},
-
-/**
- * @method create
- * @param {cc.gfx::DeviceGraphics} arg0
- * @param {char} arg1
- * @param {char} arg2
- * @return {cc.gfx::Program}
- */
-create : function (
-devicegraphics, 
-char, 
-char 
-)
-{
-    return cc.gfx::Program;
 },
 
 /**

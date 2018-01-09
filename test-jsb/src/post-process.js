@@ -1,5 +1,5 @@
 (() => {
-  let resl = window.resl;
+  // let resl = window.resl;
   let gfx = window.gfx;
   let device = window.device;
   let canvas = window.canvas;
@@ -8,7 +8,9 @@
   function _bigTriangle(device) {
     let program = new gfx.Program(device, {
       vert: `
+      #ifdef GL_ES
         precision highp float;
+      #endif
         attribute vec2 a_position;
         varying vec2 uv;
 
@@ -18,7 +20,9 @@
         }
       `,
       frag: `
+      #ifdef GL_ES
         precision highp float;
+      #endif
         varying vec2 uv;
         uniform sampler2D texture;
 
@@ -71,7 +75,9 @@
     // init resources
     let program = new gfx.Program(device, {
       vert: `
+      #ifdef GL_ES
       precision highp float;
+      #endif
       attribute vec3 a_position;
       uniform mat4 model, view, projection;
 
@@ -85,7 +91,9 @@
       }
     `,
       frag: `
+      #ifdef GL_ES
       precision highp float;
+      #endif
       varying vec3 position;
 
       uniform vec4 color;
@@ -97,16 +105,16 @@
     });
     program.link();
 
-    resl({
-      manifest: {
-        js: {
-          type: 'text',
-          src: './assets/bunny.js'
-        },
-      },
+    // resl({
+    //   manifest: {
+    //     js: {
+    //       type: 'text',
+    //       src: './assets/bunny.js'
+    //     },
+    //   },
 
-      onDone(assets) {
-        let bunny = eval(assets.js);
+    //   onDone(assets) {
+        let bunny = eval(getStringFromFile("assets/bunny.js"));
         let verts = new Array(bunny.positions.length * 3);
         let indices = new Array(bunny.cells.length * 3);
 
@@ -147,8 +155,8 @@
         callback ({
           program, vb, ib
         });
-      }
-    });
+    //   }
+    // });
   }
 
   let bunny = null;

@@ -416,6 +416,80 @@ static bool js_gfx_getTextTextureInfo(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_getTextTextureInfo)
 
+static bool js_gfx_FrameBuffer_init(se::State& s)
+{
+    cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_FrameBuffer_init : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 4) {
+        cocos2d::gfx::DeviceGraphics* device = nullptr;
+        uint16_t width = 0;
+        uint16_t height = 0;
+        ok &= seval_to_native_ptr(args[0], &device);
+        ok &= seval_to_uint16(args[1], &width);
+        ok &= seval_to_uint16(args[2], &height);
+        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_init : Error processing arguments");
+        SE_PRECONDITION2(args[3].isObject(), false, "options argument isn't an object!");
+
+        std::vector<RenderTarget*> colors;
+        RenderTarget* depth = nullptr;
+        RenderTarget* stencil = nullptr;
+        RenderTarget* depthStencil = nullptr;
+        se::Object* optionsObj = args[3].toObject();
+        se::Value colorsVal;
+
+        bool result = cobj->init(device, width, height);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_init : Error processing arguments");
+
+        if (optionsObj->getProperty("colors", &colorsVal) && colorsVal.isObject() && colorsVal.toObject()->isArray())
+        {
+            uint32_t len = 0;
+            if (colorsVal.toObject()->getArrayLength(&len) && len > 0)
+            {
+                for (uint32_t i = 0; i < len; ++i)
+                {
+                    RenderTarget* colorTarget = nullptr;
+                    se::Value colorTargetVal;
+                    colorsVal.toObject()->getArrayElement(i, &colorTargetVal);
+                    seval_to_native_ptr(colorTargetVal, &colorTarget);
+                    colors.push_back(colorTarget);
+                }
+
+                cobj->setColorBuffers(colors);
+            }
+        }
+
+        se::Value depthVal;
+        if (optionsObj->getProperty("depth", &depthVal) && depthVal.isObject())
+        {
+            seval_to_native_ptr(depthVal, &depth);
+            cobj->setDepthBuffer(depth);
+        }
+
+        se::Value stencilVal;
+        if (optionsObj->getProperty("stencil", &stencilVal) && stencilVal.isObject())
+        {
+            seval_to_native_ptr(stencilVal, &stencil);
+            cobj->setStencilBuffer(stencil);
+        }
+
+        se::Value depthStencilVal;
+        if (optionsObj->getProperty("depthStencil", &depthStencilVal) && depthStencilVal.isObject())
+        {
+            seval_to_native_ptr(depthStencilVal, &depthStencil);
+            cobj->setDepthStencilBuffer(depthStencil);
+        }
+
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_FrameBuffer_init)
+
 bool jsb_register_gfx_manual(se::Object* global)
 {
     __jsb_cocos2d_gfx_DeviceGraphics_proto->defineFunction("clear", _SE(js_gfx_DeviceGraphics_clear));
@@ -424,6 +498,7 @@ bool jsb_register_gfx_manual(se::Object* global)
     __jsb_cocos2d_gfx_VertexBuffer_proto->defineFunction("update", _SE(js_gfx_VertexBuffer_update));
     __jsb_cocos2d_gfx_IndexBuffer_proto->defineFunction("init", _SE(js_gfx_IndexBuffer_init));
     __jsb_cocos2d_gfx_Texture2D_proto->defineFunction("init", _SE(js_gfx_Texture2D_init));
+    __jsb_cocos2d_gfx_FrameBuffer_proto->defineFunction("init", _SE(js_gfx_FrameBuffer_init));
 
     global->defineFunction("getDataFromFile", _SE(js_cocos2dx_FileUtils_getDataFromFile));
     global->defineFunction("getStringFromFile", _SE(js_cocos2dx_FileUtils_getStringFromFile));

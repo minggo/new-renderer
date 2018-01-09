@@ -75,11 +75,9 @@ SE_DECLARE_FUNC(js_gfx_FrameBuffer_getDepthBuffer);
 SE_DECLARE_FUNC(js_gfx_FrameBuffer_setDepthStencilBuffer);
 SE_DECLARE_FUNC(js_gfx_FrameBuffer_getStencilBuffer);
 SE_DECLARE_FUNC(js_gfx_FrameBuffer_setColorBuffers);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_init);
 SE_DECLARE_FUNC(js_gfx_FrameBuffer_getColorBuffers);
 SE_DECLARE_FUNC(js_gfx_FrameBuffer_setDepthBuffer);
 SE_DECLARE_FUNC(js_gfx_FrameBuffer_getDepthStencilBuffer);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_create);
 SE_DECLARE_FUNC(js_gfx_FrameBuffer_FrameBuffer);
 
 extern se::Object* __jsb_cocos2d_gfx_RenderTarget_proto;
@@ -127,6 +125,5 @@ SE_DECLARE_FUNC(js_gfx_Program_isLinked);
 SE_DECLARE_FUNC(js_gfx_Program_getID);
 SE_DECLARE_FUNC(js_gfx_Program_init);
 SE_DECLARE_FUNC(js_gfx_Program_link);
-SE_DECLARE_FUNC(js_gfx_Program_create);
 SE_DECLARE_FUNC(js_gfx_Program_Program);
 

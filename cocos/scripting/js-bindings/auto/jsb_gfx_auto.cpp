@@ -1023,31 +1023,6 @@ static bool js_gfx_FrameBuffer_setColorBuffers(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_FrameBuffer_setColorBuffers)
 
-static bool js_gfx_FrameBuffer_init(se::State& s)
-{
-    cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_FrameBuffer_init : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 3) {
-        cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
-        unsigned short arg1 = 0;
-        unsigned short arg2 = 0;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        ok &= seval_to_uint16(args[1], &arg1);
-        ok &= seval_to_uint16(args[2], &arg2);
-        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_init : Error processing arguments");
-        bool result = cobj->init(arg0, arg1, arg2);
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_init : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_FrameBuffer_init)
-
 static bool js_gfx_FrameBuffer_getColorBuffers(se::State& s)
 {
     cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
@@ -1103,31 +1078,6 @@ static bool js_gfx_FrameBuffer_getDepthStencilBuffer(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_FrameBuffer_getDepthStencilBuffer)
 
-static bool js_gfx_FrameBuffer_create(se::State& s)
-{
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 3) {
-        cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
-        unsigned short arg1 = 0;
-        unsigned short arg2 = 0;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        ok &= seval_to_uint16(args[1], &arg1);
-        ok &= seval_to_uint16(args[2], &arg2);
-        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_create : Error processing arguments");
-        auto result = cocos2d::gfx::FrameBuffer::create(arg0, arg1, arg2);
-        result->retain();
-        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_gfx_FrameBuffer_class);
-        obj->setPrivateData(result);
-        s.rval().setObject(obj);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_FrameBuffer_create)
-
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_FrameBuffer_finalize)
 
 static bool js_gfx_FrameBuffer_constructor(se::State& s)
@@ -1164,11 +1114,9 @@ bool js_register_gfx_FrameBuffer(se::Object* obj)
     cls->defineFunction("setDepthStencilBuffer", _SE(js_gfx_FrameBuffer_setDepthStencilBuffer));
     cls->defineFunction("getStencilBuffer", _SE(js_gfx_FrameBuffer_getStencilBuffer));
     cls->defineFunction("setColorBuffers", _SE(js_gfx_FrameBuffer_setColorBuffers));
-    cls->defineFunction("init", _SE(js_gfx_FrameBuffer_init));
     cls->defineFunction("getColorBuffers", _SE(js_gfx_FrameBuffer_getColorBuffers));
     cls->defineFunction("setDepthBuffer", _SE(js_gfx_FrameBuffer_setDepthBuffer));
     cls->defineFunction("getDepthStencilBuffer", _SE(js_gfx_FrameBuffer_getDepthStencilBuffer));
-    cls->defineStaticFunction("create", _SE(js_gfx_FrameBuffer_create));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_FrameBuffer_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::FrameBuffer>(cls);
@@ -1634,31 +1582,6 @@ static bool js_gfx_Program_link(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_Program_link)
 
-static bool js_gfx_Program_create(se::State& s)
-{
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 3) {
-        cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
-        const char* arg1 = nullptr;
-        const char* arg2 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        std::string arg1_tmp; ok &= seval_to_std_string(args[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
-        std::string arg2_tmp; ok &= seval_to_std_string(args[2], &arg2_tmp); arg2 = arg2_tmp.c_str();
-        SE_PRECONDITION2(ok, false, "js_gfx_Program_create : Error processing arguments");
-        auto result = cocos2d::gfx::Program::create(arg0, arg1, arg2);
-        result->retain();
-        auto obj = se::Object::createObjectWithClass(__jsb_cocos2d_gfx_Program_class);
-        obj->setPrivateData(result);
-        s.rval().setObject(obj);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_Program_create)
-
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_Program_finalize)
 
 static bool js_gfx_Program_constructor(se::State& s)
@@ -1693,7 +1616,6 @@ bool js_register_gfx_Program(se::Object* obj)
     cls->defineFunction("getID", _SE(js_gfx_Program_getID));
     cls->defineFunction("init", _SE(js_gfx_Program_init));
     cls->defineFunction("link", _SE(js_gfx_Program_link));
-    cls->defineStaticFunction("create", _SE(js_gfx_Program_create));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Program_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::Program>(cls);
