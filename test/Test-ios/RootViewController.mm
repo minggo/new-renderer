@@ -42,7 +42,7 @@ namespace {
 //            Stencil::create,
 //            PostProcess::create,
             DepthTexture::create,
-            GuiProjection::create,
+//            GuiProjection::create,
         };
 
         test = tests[0]();

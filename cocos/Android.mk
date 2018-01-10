@@ -50,7 +50,7 @@ LOCAL_EXPORT_LDLIBS := -landroid -llog
 
 include $(BUILD_STATIC_LIBRARY)
 
-$(call import-add-path, $(LOCAL_PATH)/../../external/android/libs)
+$(call import-add-path, $(LOCAL_PATH)/../external/android/libs)
 $(call import-module, png)
 $(call import-module, jpeg)
 $(call import-module, zlib)

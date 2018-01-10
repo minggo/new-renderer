@@ -361,9 +361,9 @@ void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int s
     setUniformi(name, slot);
 }
 
-void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots)
+void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<Texture*>& textures, const std::vector<int>& slots)
 {
-    auto len = texutres.size();
+    auto len = textures.size();
     if (len >= _caps.maxTextureUints)
     {
         //TODO: add log
@@ -372,7 +372,7 @@ void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<
     for (size_t i = 0; i < len; ++i)
     {
         auto slot = slots[i];
-        _nextState.setTexture(slot, texutres[i]);
+        _nextState.setTexture(slot, textures[i]);
     }
     
     setUniformiv(name, slots.size(), slots.data());

@@ -26,7 +26,8 @@ conversions:
   to_native:
     # jsval to int
     int32_t: "ok &= seval_to_int32(${in_value}, (int32_t*)&${out_value})"
-    int: "ok &= seval_to_int32(${in_value}, (int32_t*)&${out_value})"
+    # int: "ok &= seval_to_int32(${in_value}, (int32_t*)&${out_value})"
+    int: "do { int32_t tmp = 0; ok &= seval_to_int32(${in_value}, &tmp); ${out_value} = (${arg_type})tmp; } while(false)"
     "unsigned int": "ok &= seval_to_uint32(${in_value}, (uint32_t*)&${out_value})"
     "unsigned char": "ok &= seval_to_uint8(${in_value}, (uint8_t*)&${out_value})"
     short: "ok &= seval_to_int16(${in_value}, &${out_value})"
@@ -63,6 +64,8 @@ conversions:
     "ValueVector": "ok &= seval_to_ccvaluevector(${in_value}, &${out_value})"
     "@vector<std::basic_string.*>": "ok &= seval_to_std_vector_string(${in_value}, &${out_value})"
     "@vector<int.*>": "ok &= seval_to_std_vector_int(${in_value}, &${out_value})"
+    "@vector<.*Texture.*>": "ok &= seval_to_std_vector_Texture(${in_value}, &${out_value})"
+    "@vector<.*RenderTarget.*>": "ok &= seval_to_std_vector_RenderTarget(${in_value}, &${out_value})"
     "Acceleration": "ok &= seval_to_Acceleration(${in_value}, &${out_value})"
     "Mat4": "ok &= seval_to_Mat4(${in_value}, &${out_value})"
     "Vec2": "ok &= seval_to_Vec2(${in_value}, &${out_value})"
@@ -86,12 +89,16 @@ conversions:
     "Data": "ok &= seval_to_Data(${in_value}, &${out_value})"
     "b2Vec2": "ok &= seval_to_b2Vec2(${in_value}, &${out_value})"
     "b2AABB": "ok &= seval_to_b2AABB(${in_value}, &${out_value})"
+    "Options": "ok &= seval_to_TextureOptions(${in_value}, &${out_value})"
+    "SubImageOption": "ok &= seval_to_TextureSubImageOption(${in_value}, &${out_value})"
+    "ImageOption": "ok &= seval_to_TextureImageOption(${in_value}, &${out_value})"
     object: "ok &= seval_to_native_ptr(${in_value}, &${out_value})"
 
   from_native:
     # int to jsval
     int32_t: "ok &= int32_to_seval(${in_value}, &${out_value})"
     int: "ok &= int32_to_seval(${in_value}, &${out_value})"
+    enum: "ok &= int32_to_seval(${in_value}, &${out_value})"
     "unsigned int": "ok &= uint32_to_seval(${in_value}, &${out_value})"
     "unsigned short": "ok &= int16_to_seval(${in_value}, &${out_value})"
     "unsigned char": "ok &= uint8_to_seval(${in_value}, &${out_value})"
@@ -129,6 +136,7 @@ conversions:
     "@vector<int.*>": "ok &= std_vector_int_to_seval(${in_value}, &${out_value})"
     "@vector<float.*>": "ok &= std_vector_float_to_seval(${in_value}, &${out_value})"
     "@vector<.*Touch.*>": "ok &= std_vector_Touch_to_seval(${in_value}, &${out_value})"
+    "@vector<.*RenderTarget.*>": "ok &= std_vector_RenderTarget_to_seval(${in_value}, &${out_value})"
     "Acceleration*": "ok &= Acceleration_to_seval(${in_value}, &${out_value})"
     "Mat4": "ok &= Mat4_to_seval(${in_value}, &${out_value})"
     "Vec2": "ok &= Vec2_to_seval(${in_value}, &${out_value})"
@@ -161,5 +169,6 @@ conversions:
     "b2Vec2": "ok &= b2Vec2_to_seval(${in_value}, &${out_value})"
     "b2Manifold*": "ok &= b2Manifold_to_seval(${in_value}, &${out_value})"
     "b2AABB": "ok &= b2AABB_to_seval(${in_value}, &${out_value})"
+    "VertexFormat": "ok &= VertexFormat_to_seval(${in_value}, &${out_value})"
     object: "ok &= native_ptr_to_seval<${ntype.replace('*', '').replace('const ', '')}>((${ntype.replace('const ', '')})${in_value}, &${out_value})"
     rooted_object: "ok &= native_ptr_to_rooted_seval<${ntype.replace('*', '').replace('const ', '')}>((${ntype.replace('const ', '')})${in_value}, &${out_value})"

@@ -534,7 +534,7 @@ void Texture2D::update(const Options& options)
 {
     bool genMipmap = _hasMipmap;
 
-     _width = options.width;
+    _width = options.width;
     _height = options.height;
     _anisotropy = options.anisotropy;
     _minFilter = options.minFilter;

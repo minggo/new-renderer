@@ -37,14 +37,14 @@ class VertexFormat
 public:
     struct Info
     {
-        Info(const char* name, AttribType type, uint32_t num, bool normalize = false)
+        Info(const std::string& name, AttribType type, uint32_t num, bool normalize = false)
         : _name(name)
         , _num(num)
         , _type(type)
         , _normalize(normalize)
         {
         }
-        const char* _name;
+        std::string _name;
         uint32_t _num;
         AttribType _type;
         bool _normalize;

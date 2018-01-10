@@ -87,7 +87,7 @@ public:
     void setIndexBuffer(IndexBuffer *buffer);
     void setProgram(Program *program);
     void setTexture(const std::string& name, Texture* texture, int slot);
-    void setTextureArray(const std::string& name, const std::vector<Texture*>& texutres, const std::vector<int>& slots);
+    void setTextureArray(const std::string& name, const std::vector<Texture*>& textures, const std::vector<int>& slots);
     
     void setUniformi(const std::string& name, int i1);
     void setUniformi(const std::string& name, int i1, int i2);

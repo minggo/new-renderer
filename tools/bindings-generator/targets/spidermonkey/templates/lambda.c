@@ -23,7 +23,9 @@ do {
             #set $count = 0
             #while $count < $arg_count
                 #set $arg = $param_types[$count]
+                #set $arg_type = $arg.to_string($generator)
             ${arg.from_native({"generator": $generator,
+                                 "arg_type": $arg_type,
                                  "in_value": "larg" + str(count),
                                  "out_value": "args[" + str(count) + "]",
                                  "class_name": $class_name,
@@ -43,8 +45,10 @@ do {
                 se::ScriptEngine::getInstance()->clearException();
             }
             #if $ret_type.name != "void"
-            ${ret_type.get_whole_name($generator)} result;
+            #set $ret_type_name = ${ret_type.get_whole_name($generator)}
+            $ret_type_name result;
             ${ret_type.to_native({"generator": $generator,
+                                 "arg_type": $ret_type_name,
                                  "in_value": "rval",
                                  "out_value": "result",
                                  "ntype": str($ret_type),

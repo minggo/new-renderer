@@ -114,3 +114,5 @@ CMakeLists.txt.user
 # Android
 project.properties
 *.iml
+.gradle
+build
