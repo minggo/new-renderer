@@ -106,7 +106,7 @@ public:
     void setUniformMat3(const std::string& name, float* value);
     void setUniformMat4(const std::string& name, float* value);
     void setUniformMat4(const std::string& name, const cocos2d::Mat4& value);
-    void setUniform(const std::string& name, const void* v, size_t bytes);
+    void setUniform(const std::string& name, const void* v, size_t bytes, UniformElementType elementType);
 
     void setPrimitiveType(PrimitiveType type);
     
@@ -126,7 +126,7 @@ private:
     
     struct Uniform
     {
-        Uniform(const void* v, size_t bytes);
+        Uniform(const void* v, size_t bytes, UniformElementType elementType_);
         Uniform(Uniform&& h);
         Uniform();
         ~Uniform();
@@ -135,8 +135,9 @@ private:
 
         void setValue(const void* v, size_t bytes);
 
-        bool dirty;
         void* value;
+        bool dirty;
+        UniformElementType elementType;
     private:
         // Disable copy operator
         Uniform& operator=(const Uniform& o);

@@ -427,7 +427,7 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
             continue;
         
         uniform.dirty = false;
-        uniformInfo.setUniform(uniform.value);
+        uniformInfo.setUniform(uniform.value, uniform.elementType);
     }
     
     // draw primitives
@@ -446,12 +446,12 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
     _currentState = std::move(_nextState);
 }
 
-void DeviceGraphics::setUniform(const std::string& name, const void* v, size_t bytes)
+void DeviceGraphics::setUniform(const std::string& name, const void* v, size_t bytes, UniformElementType elementType)
 {
     auto iter = _uniforms.find(name);
     if (iter == _uniforms.end())
     {
-        Uniform uniform(v, bytes);
+        Uniform uniform(v, bytes, elementType);
         _uniforms[name] = std::move(uniform);
     }
     else
@@ -464,93 +464,93 @@ void DeviceGraphics::setUniform(const std::string& name, const void* v, size_t b
 
 void DeviceGraphics::setUniformi(const std::string& name, int i1)
 {
-    setUniform(name, &i1, sizeof(int));
+    setUniform(name, &i1, sizeof(int), UniformElementType::INT);
 }
 
 void DeviceGraphics::setUniformi(const std::string& name, int i1, int i2)
 {
     int tempValue[] = {i1, i2};
-    setUniform(name, tempValue, 2 * sizeof(int));
+    setUniform(name, tempValue, 2 * sizeof(int), UniformElementType::INT);
 }
 
 void DeviceGraphics::setUniformi(const std::string& name, int i1, int i2, int i3)
 {
     int tempValue[] = {i1, i2, i3};
-    setUniform(name, tempValue, 3 * sizeof(int));
+    setUniform(name, tempValue, 3 * sizeof(int), UniformElementType::INT);
 }
 
 void DeviceGraphics::setUniformi(const std::string& name, int i1, int i2, int i3, int i4)
 {
     int tempValue[] = {i1, i2, i3, i4};
-    setUniform(name, tempValue, 4 * sizeof(int));
+    setUniform(name, tempValue, 4 * sizeof(int), UniformElementType::INT);
 }
 
 void DeviceGraphics::setUniformiv(const std::string& name, size_t count, const int* value)
 {
-    setUniform(name, value, count * sizeof(int));
+    setUniform(name, value, count * sizeof(int), UniformElementType::INT);
 }
 
 void DeviceGraphics::setUniformf(const std::string& name, float f1)
 {
-    setUniform(name, &f1, sizeof(float));
+    setUniform(name, &f1, sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformf(const std::string& name, float f1, float f2)
 {
     float tempValue[] = {f1, f2};
-    setUniform(name, tempValue, 2 * sizeof(float));
+    setUniform(name, tempValue, 2 * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformf(const std::string& name, float f1, float f2, float f3)
 {
     float tempValue[] = {f1, f2, f3};
-    setUniform(name, tempValue, 3 * sizeof(float));
+    setUniform(name, tempValue, 3 * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformf(const std::string& name, float f1, float f2, float f3, float f4)
 {
     float tempValue[] = {f1, f2, f3, f4};
-    setUniform(name, tempValue, 4 * sizeof(float));
+    setUniform(name, tempValue, 4 * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformfv(const std::string& name, size_t count, const float* value)
 {
-    setUniform(name, value, count * sizeof(float));
+    setUniform(name, value, count * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformVec2(const std::string& name, const cocos2d::Vec2& value)
 {
-    setUniform(name, &value, sizeof(Vec2));
+    setUniform(name, &value, sizeof(Vec2), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformVec3(const std::string& name, const cocos2d::Vec3& value)
 {
-    setUniform(name, &value, sizeof(Vec3));
+    setUniform(name, &value, sizeof(Vec3), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformVec4(const std::string& name, const cocos2d::Vec4& value)
 {
-    setUniform(name, &value, sizeof(Vec4));
+    setUniform(name, &value, sizeof(Vec4), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformMat2(const std::string& name, float* value)
 {
-    setUniform(name, value, 4 * sizeof(float));
+    setUniform(name, value, 4 * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformMat3(const std::string& name, float* value)
 {
-    setUniform(name, value, 9 * sizeof(float));
+    setUniform(name, value, 9 * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformMat4(const std::string& name, float* value)
 {
-    setUniform(name, value, 16 * sizeof(float));
+    setUniform(name, value, 16 * sizeof(float), UniformElementType::FLOAT);
 }
 
 void DeviceGraphics::setUniformMat4(const std::string& name, const cocos2d::Mat4& value)
 {
-    setUniform(name, value.m, 16 * sizeof(float));
+    setUniform(name, value.m, 16 * sizeof(float), UniformElementType::FLOAT);
 }
 
 //
@@ -1102,11 +1102,13 @@ void DeviceGraphics::commitTextures()
 DeviceGraphics::Uniform::Uniform()
 : dirty(true)
 , value(nullptr)
+, elementType(UniformElementType::FLOAT)
 {}
 
-DeviceGraphics::Uniform::Uniform(const void* v, size_t bytes)
+DeviceGraphics::Uniform::Uniform(const void* v, size_t bytes, UniformElementType elementType_)
 : dirty(true)
 , value(nullptr)
+, elementType(elementType_)
 {
     setValue(v, bytes);
 }
@@ -1124,6 +1126,7 @@ DeviceGraphics::Uniform::Uniform(Uniform&& h)
     h.value = nullptr;
     
     dirty = h.dirty;
+    elementType = h.elementType;
 }
 
 DeviceGraphics::Uniform::~Uniform()
@@ -1148,6 +1151,7 @@ DeviceGraphics::Uniform& DeviceGraphics::Uniform::operator=(Uniform&& h)
     }
     value = h.value;
     h.value = nullptr;
+    elementType = h.elementType;
     
     return *this;
 }

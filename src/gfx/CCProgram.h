@@ -53,8 +53,8 @@ public:
         GLsizei size;
         GLint location;
         GLenum type;
-        void setUniform(const void* value) const;
-        using SetUniformCallback = void (*)(GLint, GLsizei, const void*); // location, count, value
+        void setUniform(const void* value, UniformElementType elementType) const;
+        using SetUniformCallback = void (*)(GLint, GLsizei, const void*, UniformElementType); // location, count, value, elementType
     private:
         SetUniformCallback _callback;
         friend class Program;
