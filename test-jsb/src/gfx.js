@@ -19,7 +19,6 @@ cc.defineGetterSetter = function (proto, prop, getter, setter){
 
 
 window.device = gfx.Device.getInstance();
-window.canvas = { width: 1334, height: 750 };
 
 _p = gfx.Program.prototype;
 _p._ctor = function(device, options) {

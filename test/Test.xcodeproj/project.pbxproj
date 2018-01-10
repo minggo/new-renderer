@@ -393,6 +393,8 @@
 		1A255FA720048F8400069420 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61661FF5F23E0007F081 /* AppDelegate.mm */; };
 		1A255FA820048F8F00069420 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61741FF5F23E0007F081 /* main.m */; };
 		1A255FAA2004902A00069420 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A255FA92004902900069420 /* JavaScriptCore.framework */; };
+		1A50267C2005F84E003E668E /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
+		1A50267D2005F84E003E668E /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */; };
 		1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */; };
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
@@ -1789,6 +1791,7 @@
 				1A255E8A20034F1000069420 /* RefCounter.cpp in Sources */,
 				1A255E8B20034F1000069420 /* ScriptEngine.cpp in Sources */,
 				1A255E8C20034F1000069420 /* Class.cpp in Sources */,
+				1A50267D2005F84E003E668E /* Utils.cpp in Sources */,
 				1A255E8D20034F1000069420 /* CCGeometry.cpp in Sources */,
 				1A255E8E20034F1000069420 /* MappingUtils.cpp in Sources */,
 				1A255E8F20034F1000069420 /* Utils.cpp in Sources */,
@@ -1920,6 +1923,7 @@
 				1A255F3A20034F6D00069420 /* Value.cpp in Sources */,
 				1A255F3B20034F6D00069420 /* CCVertex.cpp in Sources */,
 				1A255F3C20034F6D00069420 /* Mat4.cpp in Sources */,
+				1A50267C2005F84E003E668E /* Utils.cpp in Sources */,
 				1A255F3D20034F6D00069420 /* CCVertexBuffer.cpp in Sources */,
 				1A255F3E20034F6D00069420 /* WebGLFormats.cpp in Sources */,
 				1A255F3F20034F6D00069420 /* etc1.cpp in Sources */,

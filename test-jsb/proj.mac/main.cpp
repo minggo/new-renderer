@@ -32,12 +32,16 @@
 #include "cocos/scripting/js-bindings/manual/jsb_classtype.hpp"
 #include "cocos/scripting/js-bindings/manual/jsb_gfx_manual.hpp"
 
+#include "Utils.h"
+
 int main(int argc, char** argv)
 {
     if (!glfwInit())
         return -1;
-    
-    auto window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "New Renderer Test", nullptr, nullptr);
+
+    utils::WINDOW_WIDTH = 960;
+    utils::WINDOW_HEIGHT = 640;
+    auto window = glfwCreateWindow(utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT, "New Renderer Test", nullptr, nullptr);
     if (!window)
     {
         glfwTerminate();
@@ -64,13 +68,16 @@ int main(int argc, char** argv)
 
     se::AutoHandleScope hs;
 
+    char commandBuf[200] = {0};
+    sprintf(commandBuf, "window.canvas = { width: %d, height: %d };", utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
+    se->evalString(commandBuf);
     se->runScript("src/gfx.js");
     se::Value tickVal;
 //    se->runScript("src/post-process.js", &tickVal);
-    se->runScript("src/depth-texture.js", &tickVal);
+//    se->runScript("src/depth-texture.js", &tickVal);
 //    se->runScript("src/gui-projection.js", &tickVal);
 //    se->runScript("src/multiple-textures.js", &tickVal);
-//    se->runScript("src/texture-2d.js", &tickVal);
+    se->runScript("src/texture-2d.js", &tickVal);
 
     std::chrono::steady_clock::time_point prevTime;
     std::chrono::steady_clock::time_point now;

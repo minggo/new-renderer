@@ -41,14 +41,19 @@ se::Value tickVal;
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
+    CGRect rect = [UIScreen mainScreen].bounds;
     // Initialize the CCEAGLView
-    CCEAGLView *eaglView = [CCEAGLView viewWithFrame: [UIScreen mainScreen].bounds
+    CCEAGLView *eaglView = [CCEAGLView viewWithFrame: rect
                                          pixelFormat: kEAGLColorFormatRGB565
                                          depthFormat: GL_DEPTH_COMPONENT24_OES
                                   preserveBackbuffer: NO
                                           sharegroup: nil
                                        multiSampling: NO
                                      numberOfSamples: 0 ];
+
+    float scale = [[UIScreen mainScreen] scale];
+    utils::WINDOW_WIDTH = rect.size.width * scale;
+    utils::WINDOW_HEIGHT = rect.size.height * scale;
 
     // Enable or disable multiple touches
     [eaglView setMultipleTouchEnabled:YES];
@@ -73,10 +78,13 @@ se::Value tickVal;
 
     se::AutoHandleScope hs;
 
+    char commandBuf[200] = {0};
+    sprintf(commandBuf, "window.canvas = { width: %d, height: %d };", utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
+    se->evalString(commandBuf);
     se->runScript("src/gfx.js");
 
-    se->runScript("src/depth-texture.js", &tickVal);
-//    se->runScript("src/gui-projection.js", &tickVal);
+//    se->runScript("src/depth-texture.js", &tickVal);
+    se->runScript("src/gui-projection.js", &tickVal);
 
     se->addAfterCleanupHook([](){
         JSBClassType::destroy();
