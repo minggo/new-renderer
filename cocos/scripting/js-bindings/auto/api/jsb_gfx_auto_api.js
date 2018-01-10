@@ -427,6 +427,18 @@ cullmode
 },
 
 /**
+ * @method supportGLExtension
+ * @param {String} arg0
+ * @return {bool}
+ */
+supportGLExtension : function (
+str 
+)
+{
+    return false;
+},
+
+/**
  * @method setStencilOp
  * @param {cc.gfx::StencilOp} arg0
  * @param {cc.gfx::StencilOp} arg1
