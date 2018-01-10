@@ -164,4 +164,10 @@ enum class AttribType : uint16_t
     FLOAT32 = GL_FLOAT
 };
 
+enum class UniformElementType : uint8_t
+{
+    FLOAT,
+    INT
+};
+
 GFX_END

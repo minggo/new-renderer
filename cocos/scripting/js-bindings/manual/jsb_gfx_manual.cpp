@@ -114,7 +114,7 @@ static bool js_gfx_DeviceGraphics_setUniform(se::State& s)
                 uint8_t* data = nullptr;
                 size_t bytes = 0;
                 if (value->getTypedArrayData(&data, &bytes))
-                    cobj->setUniform(name, data, bytes);
+                    cobj->setUniform(name, data, bytes, UniformElementType::FLOAT);
             }
             else
             {
@@ -124,8 +124,7 @@ static bool js_gfx_DeviceGraphics_setUniform(se::State& s)
         else if (arg1.isNumber())
         {
             float number = arg1.toFloat();
-                float f = (float)number;
-                cobj->setUniformf(name, f);
+            cobj->setUniformf(name, number);
         }
         else if (arg1.isBoolean())
         {
