@@ -31,7 +31,7 @@
 #include "base/ccTypes.h"
 #include "math/Vec2.h"
 #include "math/Vec3.h"
-#include "Vec4.h"
+#include "math/Vec4.h"
 #include "math/Mat4.h"
 #include "../macro.h"
 #include "../types.h"
@@ -50,6 +50,8 @@ class DeviceGraphics final
 {
 public:
     static DeviceGraphics* getInstance();
+    
+    bool supportGLExtension(const std::string& extension) const;
 
     void setFrameBuffer(const FrameBuffer* fb);
     void setViewport(int x, int y, int w, int h);
@@ -144,8 +146,8 @@ private:
     ~DeviceGraphics();
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(DeviceGraphics);
     
-    void initStates();
-    void initCaps();
+    inline void initStates();
+    inline void initCaps();
     void restoreTexture(uint32_t index);
     void restoreIndexBuffer();
 
@@ -167,6 +169,7 @@ private:
     int _sh;
     
     Capacity _caps;
+    char* _glExtensions;
     
     FrameBuffer *_frameBuffer;
     std::vector<int> _enabledAtrributes;

@@ -26,7 +26,6 @@
 
 #include "gfx/CCGFX.h"
 #include "math/Mat4.h"
-#include "../defines.h"
 #include "../TestBase.h"
 
 class PostProcess : public TestBaseI

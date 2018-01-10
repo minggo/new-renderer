@@ -43,7 +43,7 @@ public:
         RGB5_A1 = GL_RGB5_A1,
         D16 = GL_DEPTH_COMPONENT16,
         S8 = GL_STENCIL_INDEX8,
-        D24S8 = GL_DEPTH_STENCIL
+//        D24S8 = GL_DEPTH_STENCIL
     };
 
     GFX_DEFINE_CREATE_METHOD_4(RenderBuffer, init,  DeviceGraphics*, Format, uint16_t, uint16_t)

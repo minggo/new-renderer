@@ -31,6 +31,9 @@ namespace utils
 {
     const float PI = 3.1415926;
 
+    int WINDOW_WIDTH = 0;
+    int WINDOW_HEIGHT = 0;
+
     cocos2d::Data loadData(const std::string& filePath)
     {
         auto img = new cocos2d::Image();

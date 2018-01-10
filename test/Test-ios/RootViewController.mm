@@ -22,6 +22,7 @@
 #include "gfx/PostProcess.h"
 #include "gfx/DepthTexture.h"
 #include "gfx/GuiProjection.h"
+#include "Utils.h"
 
 namespace {
 
@@ -62,13 +63,18 @@ namespace {
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
     // Initialize the CCEAGLView
-    CCEAGLView *eaglView = [CCEAGLView viewWithFrame: [UIScreen mainScreen].bounds
+    CGRect rect = [UIScreen mainScreen].bounds;
+    CCEAGLView *eaglView = [CCEAGLView viewWithFrame: rect
                                          pixelFormat: kEAGLColorFormatRGB565
                                          depthFormat: GL_DEPTH_COMPONENT24_OES
                                   preserveBackbuffer: NO
                                           sharegroup: nil
                                        multiSampling: NO
                                      numberOfSamples: 0 ];
+    
+    float scale = [[UIScreen mainScreen] scale];
+    utils::WINDOW_WIDTH = rect.size.width * scale;
+    utils::WINDOW_HEIGHT = rect.size.height * scale;
 
     // Enable or disable multiple touches
     [eaglView setMultipleTouchEnabled:YES];

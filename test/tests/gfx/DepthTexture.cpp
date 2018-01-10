@@ -24,7 +24,8 @@
 
 #include "DepthTexture.h"
 #include "BunnyData.h"
-#include "../defines.h"
+#include "../Utils.h"
+#include "platform/CCPlatformConfig.h"
 
 using namespace cocos2d;
 
@@ -119,7 +120,7 @@ namespace
 #endif
                 varying vec3 position;
             
-                uniform vec4 color;
+                // uniform vec4 color;
             
                 void main ()
                 {
@@ -174,9 +175,14 @@ DepthTexture::DepthTexture()
 {
     _device = gfx::DeviceGraphics::getInstance();
     
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    if (!(_device->supportGLExtension("OES_depth_texture")))
+        GFX_LOGE("error: the device doesn't support OES_depth_texture");
+#endif
+    
     gfx::Texture2D::Options options;
-    options.width = WINDOW_WIDTH;
-    options.height = WINDOW_HEIGHT;
+    options.width = utils::WINDOW_WIDTH;
+    options.height = utils::WINDOW_HEIGHT;
     options.format = gfx::Texture::Format::D16;
     options.wrapS = gfx::Texture::WrapMode::CLAMP;
     options.wrapT = gfx::Texture::WrapMode::CLAMP;
@@ -184,7 +190,7 @@ DepthTexture::DepthTexture()
     _depthTexture->init(_device, options);
     
     _frameBuffer = new gfx::FrameBuffer();
-    _frameBuffer->init(_device, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _frameBuffer->init(_device, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _frameBuffer->setDepthBuffer(_depthTexture);
     
     bunny = new Bunny();
@@ -209,10 +215,10 @@ void DepthTexture::tick(float dt)
     _up.set(0, 1.f, 0);
     Mat4::createLookAt(_eye, _center, _up, &_view);
     
-    Mat4::createPerspective(45.f, 1.0f * (WINDOW_WIDTH / WINDOW_HEIGHT), 0.01f, 100.f, &_projection);
+    Mat4::createPerspective(45.f, 1.0f * utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT, 0.1f, 100.f, &_projection);
     
     _device->setFrameBuffer(_frameBuffer);
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     _device->clear(gfx::ClearFlag::DEPTH, nullptr, 1, 0);
     
@@ -226,7 +232,7 @@ void DepthTexture::tick(float dt)
     _device->setUniformMat4("model", _model);
     _device->setUniformMat4("view", _view);
     _device->setUniformMat4("projection", _projection);
-    _device->setUniformVec4("color", {0.5f, 0.5f, 0.5f, 1});
+    // _device->setUniformVec4("color", {0.5f, 0.5f, 0.5f, 1});
     _device->setProgram(bunny->program);
     _device->draw(0, bunny->indexBuffer->getCount());
     
@@ -240,13 +246,13 @@ void DepthTexture::tick(float dt)
     _device->setUniformMat4("model", _model);
     _device->setUniformMat4("view", _view);
     _device->setUniformMat4("projection", _projection);
-    _device->setUniformVec4("color", {0.5f, 0.5f, 0.5f, 1});
+    // _device->setUniformVec4("color", {0.5f, 0.5f, 0.5f, 1});
     _device->setProgram(bunny->program);
     _device->draw(0, bunny->indexBuffer->getCount());
     
     // Draw bg.
     _device->setFrameBuffer(nullptr);
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     Color4F clearColor(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(gfx::ClearFlag::COLOR | gfx::ClearFlag::DEPTH, &clearColor, 1, 0);
     _device->setTexture("texture", _depthTexture, 0);

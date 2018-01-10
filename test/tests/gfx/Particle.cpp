@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 #include "Particle.h"
-#include "defines.h"
 #include "../Utils.h"
 
 #include <vector>
@@ -148,7 +147,7 @@ Particle::Particle()
         _particles[i].life = cocos2d::random(1.0f, 10.0f);
     }
 
-    Mat4::createPerspective(60.0f, 1.0f * WINDOW_WIDTH / WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
+    Mat4::createPerspective(60.0f, 1.0f * utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
     Mat4::createLookAt(Vec3(30.0f , 20.0f, 30.0f), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
 }
 
@@ -207,7 +206,7 @@ void Particle::tick(float dt)
     }
     _vertexBuffer->update(0, &_vbufferArray[0][0][0], sizeof(_vbufferArray));
 
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     Color4F color(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1.0, 0);
 

@@ -79,8 +79,8 @@ THE SOFTWARE.
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    #include "platform/android/CCApplication-android.h"
-    #include "platform/android/CCGLViewImpl-android.h"
+//    #include "platform/android/CCApplication-android.h"
+//    #include "platform/android/CCGLViewImpl-android.h"
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)

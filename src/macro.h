@@ -24,6 +24,12 @@
 
 #pragma once
 
+#include "platform/CCPlatformConfig.h"
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include <android/log.h>
+#endif
+
 #ifndef GFX_BEGIN
 #define GFX_BEGIN namespace cocos2d { namespace gfx {
 #endif // GFX_BEGIN
@@ -47,14 +53,27 @@
 #define GFX_QUOTEME(x) GFX_QUOTEME_(x)
 
 #if defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#define GFX_LOGV(fmt, ...) __android_log_print(ANDROID_LOG_VERBOSE, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#else
 #define GFX_LOGV(fmt, ...) printf("V/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#endif // (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #else
 #define GFX_LOGV(fmt, ...) do {} while(false)
-#endif
+#endif // defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#define GFX_LOGD(fmt, ...) __android_log_print(ANDROID_LOG_DEBUG, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define GFX_LOGI(fmt, ...) __android_log_print(ANDROID_LOG_INFO, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define GFX_LOGW(fmt, ...) __android_log_print(ANDROID_LOG_WARN, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define GFX_LOGE(fmt, ...) __android_log_print(ANDROID_LOG_ERROR, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#else
 #define GFX_LOGD(fmt, ...) printf("D/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #define GFX_LOGI(fmt, ...) printf("I/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #define GFX_LOGW(fmt, ...) printf("W/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #define GFX_LOGE(fmt, ...) printf("E/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#endif // (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+
 
 #define GFX_DEBUG 1 // TODO: remove this
 

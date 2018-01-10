@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "CCTexture.h"
+#include "platform/CCPlatformConfig.h"
 
 namespace {
 
@@ -156,19 +157,17 @@ Texture::GLTextureFmt Texture::_textureFmt[] = {
     { 0, 0, 0, 0 },
 
     // TEXTURE_FMT_SRGBA: 24
-    { 0, 0, 0 },
+    { 0, 0, 0, 0 },
     
     // TEXTURE_FMT_D16: 25
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    { GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, 32 },
+#else
     { GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT16, GL_UNSIGNED_SHORT, 16 },
-    
-    // TEXTURE_FMT_D24: 26
-    { GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT24, GL_UNSIGNED_INT, 24 },
+#endif
 
-    // TEXTURE_FMT_D32: 27
-    { GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT32F, GL_FLOAT, 32 },
-
-    // TEXTURE_FMT_D24S8: 28
-    { 0, 0, 0 },
+    // TEXTURE_FMT_D24S8: 25
+    { 0, 0, 0, 0 },
 };
 
 Texture::Texture()

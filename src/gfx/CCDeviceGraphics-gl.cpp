@@ -63,6 +63,11 @@ DeviceGraphics* DeviceGraphics::getInstance()
     return __instance;
 }
 
+bool DeviceGraphics::supportGLExtension(const std::string& extension) const
+{
+    return  (_glExtensions && strstr(_glExtensions, extension.c_str() ) ) ? true : false;
+}
+
 void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
 {
     if (fb == _frameBuffer)
@@ -119,8 +124,8 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     if (_frameBuffer->getStencilBuffer())
         attach(GL_STENCIL_ATTACHMENT, _frameBuffer->getStencilBuffer());
     
-    if (_frameBuffer->getDepthStencilBuffer())
-        attach(GL_DEPTH_STENCIL_ATTACHMENT, _frameBuffer->getDepthStencilBuffer());
+    // if (_frameBuffer->getDepthStencilBuffer())
+    //     attach(GL_DEPTH_STENCIL_ATTACHMENT, _frameBuffer->getDepthStencilBuffer());
     
     auto result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (GL_FRAMEBUFFER_COMPLETE != result)
@@ -563,7 +568,7 @@ DeviceGraphics::DeviceGraphics()
 , _sh(0)
 , _frameBuffer(nullptr)
 {
-    // initExtensions?
+    _glExtensions = (char *)glGetString(GL_EXTENSIONS);
     
     initCaps();
     initStates();
@@ -578,6 +583,7 @@ DeviceGraphics::DeviceGraphics()
 
 DeviceGraphics::~DeviceGraphics()
 {
+    delete _glExtensions;
     GFX_SAFE_RELEASE(_frameBuffer);
 }
 
@@ -595,9 +601,17 @@ void DeviceGraphics::initCaps()
 #else
     GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &_caps.maxFragUniforms));
 #endif
+
     GL_CHECK(glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUints));
-    GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    // FIXME: how to get these infomations
+    _caps.maxColorAttatchments = 1;
+    _caps.maxDrawBuffers = 1;
+#else
     GL_CHECK(glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments));
+    GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
+#endif
 }
 
 void DeviceGraphics::initStates()

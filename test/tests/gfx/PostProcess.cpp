@@ -27,6 +27,7 @@
 
 #include "PostProcess.h"
 #include "BunnyData.h"
+#include "../Utils.h"
 
 using namespace cocos2d;
 
@@ -194,8 +195,8 @@ PostProcess::PostProcess()
     _device = gfx::DeviceGraphics::getInstance();
     
     gfx::Texture2D::Options options;
-    options.width = WINDOW_WIDTH;
-    options.height = WINDOW_HEIGHT;
+    options.width = utils::WINDOW_WIDTH;
+    options.height = utils::WINDOW_HEIGHT;
     options.format = gfx::Texture::Format::RGBA8;
     options.wrapS = gfx::Texture::WrapMode::CLAMP;
     options.wrapT = gfx::Texture::WrapMode::CLAMP;
@@ -203,12 +204,12 @@ PostProcess::PostProcess()
     _colorTexture->init(_device, options);
     
     _frameBuffer = new gfx::FrameBuffer();
-    _frameBuffer->init(_device, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _frameBuffer->init(_device, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
 
     _frameBuffer->setColorBuffer(_colorTexture, 0);
     
     auto depthBuffer = new gfx::RenderBuffer();
-    depthBuffer->init(_device, gfx::RenderBuffer::Format::D16, WINDOW_WIDTH, WINDOW_HEIGHT);
+    depthBuffer->init(_device, gfx::RenderBuffer::Format::D16, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _frameBuffer->setDepthBuffer(depthBuffer);
     depthBuffer->release();
     
@@ -234,10 +235,10 @@ void PostProcess::tick(float dt)
     _up.set(0, 1.f, 0);
     Mat4::createLookAt(_eye, _center, _up, &_view);
     
-    Mat4::createPerspective(45.f, 1.0f * (WINDOW_WIDTH / WINDOW_HEIGHT), 0.01f, 1000.f, &_projection);
+    Mat4::createPerspective(45.f, 1.0f * (utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT), 0.01f, 1000.f, &_projection);
     
     _device->setFrameBuffer(_frameBuffer);
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     Color4F clearColor(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(gfx::ClearFlag::COLOR | gfx::ClearFlag::DEPTH, &clearColor, 1, 0);
@@ -272,7 +273,7 @@ void PostProcess::tick(float dt)
     
     // Draw bg.
     _device->setFrameBuffer(nullptr);
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _device->clear(gfx::ClearFlag::COLOR | gfx::ClearFlag::DEPTH, &clearColor, 1, 0);
     _device->setTexture("texture", _colorTexture, 0);
     _device->setVertexBuffer(0, bg->vertexBuffer);

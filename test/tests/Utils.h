@@ -30,6 +30,8 @@
 namespace utils
 {
     extern const float PI;
+    extern int WINDOW_WIDTH;
+    extern int WINDOW_HEIGHT;
 
     cocos2d::Data loadData(const std::string& filePath);
     void fillRectWithColor(uint8_t* buf, uint32_t totalWidth, uint32_t totalHeight, uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint8_t r, uint8_t g, uint8_t b);

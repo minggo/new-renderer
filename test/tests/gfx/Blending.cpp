@@ -24,7 +24,6 @@
 
 #include "Blending.h"
 #include "math/Mat4.h"
-#include "../defines.h"
 #include "../Utils.h"
 
 using namespace cocos2d;
@@ -237,8 +236,8 @@ void Blending::tick(float dt)
 {
     _dt += dt;
     
-    Mat4::createOrthographicOffCenter(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0, 1000.f, &_projection);
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    Mat4::createOrthographicOffCenter(0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT, 0, 0, 1000.f, &_projection);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     Color4F clearColor(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(gfx::ClearFlag::COLOR | gfx::ClearFlag::DEPTH,
@@ -256,7 +255,7 @@ void Blending::tick(float dt)
 
     // sprites
     
-    float size = std::min(WINDOW_WIDTH, WINDOW_HEIGHT) * 0.15f;
+    float size = std::min(utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT) * 0.15f;
     float hsize = size * 0.5f;
     
     // no blending

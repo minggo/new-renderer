@@ -25,7 +25,7 @@
 #include <vector>
 #include "Bunny.h"
 #include "BunnyData.h"
-#include "defines.h"
+#include "../Utils.h"
 
 using namespace cocos2d;
 using namespace cocos2d::gfx;
@@ -85,7 +85,7 @@ Bunny::Bunny()
                        sizeof(bunny_cells),
                        sizeof(bunny_cells) / sizeof(bunny_cells[0]));
 
-    Mat4::createPerspective(60.0f, 1.0f * WINDOW_WIDTH / WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
+    Mat4::createPerspective(60.0f, 1.0f * utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
 }
 
 Bunny::~Bunny()
@@ -100,7 +100,7 @@ void Bunny::tick(float dt)
     _time += dt;
     Mat4::createLookAt(Vec3(30.0f * std::cos(_time), 20.0f, 30.0f * std::sin(_time)), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
 
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     Color4F color(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1.0, 0);
 

@@ -24,7 +24,7 @@
 
 #include <vector>
 #include "Basic.h"
-#include "defines.h"
+#include "../Utils.h"
 
 using namespace cocos2d;
 using namespace cocos2d::gfx;
@@ -83,7 +83,7 @@ void Basic::tick(float dt)
 {
     _time += dt;
     
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     Color4F color(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(ClearFlag::COLOR | ClearFlag::DEPTH, &color, 1, 0);
     _device->setVertexBuffer(0, _vertexBuffer);

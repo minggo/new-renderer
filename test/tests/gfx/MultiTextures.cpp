@@ -25,7 +25,6 @@
 #include "MultiTextures.h"
 #include "base/ccTypes.h"
 #include "../Utils.h"
-#include "../defines.h"
 
 using namespace cocos2d;
 
@@ -120,7 +119,7 @@ MultiTextures::~MultiTextures()
 
 void MultiTextures::tick(float dt)
 {
-    _device->setViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     Color4F clearColor(0.1f, 0.1f, 0.1f, 1.f);
     _device->clear(gfx::ClearFlag::DEPTH | gfx::ClearFlag::COLOR, &clearColor, 1, 0);
