@@ -36,4 +36,4 @@ LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 include $(BUILD_STATIC_LIBRARY)
 
 $(call import-add-path, $(path))
-$(call import-module, files-from-cocos2dx)
+$(call import-module, ../cocos)

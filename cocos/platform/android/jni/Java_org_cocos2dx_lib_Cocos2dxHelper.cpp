@@ -31,7 +31,7 @@ THE SOFTWARE.
 #include "android/asset_manager_jni.h"
 #include "platform/android/jni/Java_org_cocos2dx_lib_Cocos2dxHelper.h"
 
-#include "base/ccUTF8.h"
+// #include "base/ccUTF8.h"
 
 #define  LOG_TAG    "Java_org_cocos2dx_lib_Cocos2dxHelper.cpp"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)

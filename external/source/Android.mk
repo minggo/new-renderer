@@ -21,8 +21,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/firefox \
                     $(LOCAL_PATH)/tinyxml2 \
                     $(LOCAL_PATH) \
                     $(LOCAL_PATH)/../android/include \
-                    $(LOCAL_PATH)/../../src/files-from-cocos2dx \
-                    $(LOCAL_PATH)/../../src/files-from-cocos2dx/platform
+                    $(LOCAL_PATH)/../../cocos \
+                    $(LOCAL_PATH)/../../cocos/platform
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/firefox \
                            $(LOCAL_PATH)/tinydir \
