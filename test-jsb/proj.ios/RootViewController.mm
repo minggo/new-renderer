@@ -20,6 +20,8 @@
 #include "cocos/scripting/js-bindings/manual/jsb_classtype.hpp"
 #include "cocos/scripting/js-bindings/manual/jsb_gfx_manual.hpp"
 
+#include "Utils.h"
+
 
 @interface RootViewController ()
 
