@@ -2,14 +2,16 @@
   let gfx = window.gfx;
   let device = window.device;
   let canvas = window.canvas;
-  let resl = window.resl;
+  // let resl = window.resl;
   let { quat, vec3, mat4 } = window.vmath;
   let texture = null;
 
   // init resources
   let program = new gfx.Program(device, {
     vert: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       uniform mat4 transform;
       attribute vec2 a_position;
       varying vec2 v_texcoord;
@@ -19,7 +21,9 @@
       }
     `,
     frag: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       uniform sampler2D texture[2];
       uniform vec4 color;
       varying vec2 v_texcoord;
@@ -29,36 +33,49 @@
     `,
   });
   program.link();
-  let canvasElement = document.createElement('canvas');
-  canvasElement.width = 512;
-  canvasElement.height = 512;
-  let ctx = canvasElement.getContext('2d');
-  ctx.fillStyle = 'rgb(199,237,204)';
-  ctx.fillRect(0, 0, 512, 512);
-  ctx.fillStyle = 'rgb(0,0,0)';
-  ctx.fillText('use canvas element as texture, filled by rgb(199,237,204)', 90, 256);
-  let canvasTexture = new gfx.Texture2D(device, {
+  // let canvasElement = document.createElement('canvas');
+  // canvasElement.width = 512;
+  // canvasElement.height = 512;
+  // let ctx = canvasElement.getContext('2d');
+  // ctx.fillStyle = 'rgb(199,237,204)';
+  // ctx.fillRect(0, 0, 512, 512);
+  // ctx.fillStyle = 'rgb(0,0,0)';
+  // ctx.fillText('use canvas element as texture, filled by rgb(199,237,204)', 90, 256);
+
+  let textTextureInfo = getTextTextureInfo("use canvas element as texture, filled by rgb(199,237,204)", {
+      fontSize: 32,
+      textAlign: TextHAlignment.CENTER,
+      verticalAlign: TextVAlignment.CENTER,
+      boundingWidth: 512,
+      boundingHeight: 512
+  }, DeviceTextAlign.CENTER);
+
+  let canvasTexture;
+
+  canvasTexture = new gfx.Texture2D(device, {
     width: 512,
     height: 512,
-    images: [canvasElement]
+    images: [textTextureInfo.data], //[canvasElement]
   });
 
-  resl({
-    manifest: {
-      image: {
-        type: 'image',
-        src: './assets/uv_checker_01.jpg'
-      },
-    },
-    onDone(assets) {
-      let image = assets.image;
+
+  // resl({
+  //   manifest: {
+  //     image: {
+  //       type: 'image',
+  //       src: './assets/uv_checker_01.jpg'
+  //     },
+  //   },
+  //   onDone(assets) {
+      let image = getImageInfo("assets/uv_checker_01.jpg"); //assets.image;
       texture = new gfx.Texture2D(device, {
         width: image.width,
         height: image.height,
-        images: [image]
+        images: [image.data],
+        format: gfx.TEXTURE_FMT_RGB8,
       });
-    }
-  });
+  //   }
+  // });
   let vertexFmt = new gfx.VertexFormat([
     { name: gfx.ATTR_POSITION, type: gfx.ATTR_TYPE_FLOAT32, num: 2 },
   ]);

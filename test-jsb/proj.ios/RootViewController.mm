@@ -13,40 +13,13 @@
 #include <chrono>
 #include "TestBase.h"
 #include "defines.h"
-#include "gfx/Basic.h"
-#include "gfx/Bunny.h"
-#include "gfx/Blending.h"
-#include "gfx/MultiTextures.h"
-#include "gfx/Particle.h"
-#include "gfx/Stencil.h"
-#include "gfx/PostProcess.h"
-#include "gfx/DepthTexture.h"
-#include "gfx/GuiProjection.h"
 
-namespace {
+#include "cocos/scripting/js-bindings/jswrapper/SeApi.h"
+#include "cocos/scripting/js-bindings/auto/jsb_gfx_auto.hpp"
+#include "cocos/scripting/js-bindings/manual/jsb_global.h"
+#include "cocos/scripting/js-bindings/manual/jsb_classtype.hpp"
+#include "cocos/scripting/js-bindings/manual/jsb_gfx_manual.hpp"
 
-    int nextIndex = 0;
-    using createFunc = TestBaseI* (*)();
-    std::vector<createFunc> tests;
-    TestBaseI* test = nullptr;
-
-    void initTests()
-    {
-        tests = {
-//            Basic::create,
-//            Bunny::create,
-//            Blending::create,
-//            MultiTextures::create,
-//            Particle::create,
-//            Stencil::create,
-//            PostProcess::create,
-            DepthTexture::create,
-//            GuiProjection::create,
-        };
-
-        test = tests[0]();
-    }
-}
 
 @interface RootViewController ()
 
@@ -54,8 +27,15 @@ namespace {
 
 @implementation RootViewController
 
+se::Value tickVal;
+
 - (void) tick: (id) sender {
-    test->tick(0.016f); // FIXME:
+     // FIXME:
+    float dt = 0.016f;
+    se::ValueArray args;
+    args.push_back(se::Value(dt));
+    tickVal.toObject()->call(args, nullptr);
+
     [((CCEAGLView*)self.view) swapBuffers];
 }
 
@@ -76,7 +56,31 @@ namespace {
     // Set EAGLView as view of RootViewController
     self.view = eaglView;
 
-    initTests();
+    auto se = se::ScriptEngine::getInstance();
+    se->addRegisterCallback(jsb_register_global_variables);
+    se->addRegisterCallback(register_all_gfx);
+    se->addRegisterCallback(jsb_register_gfx_manual);
+
+    se->enableDebugger("0.0.0.0", 5678);
+
+    se->addBeforeInitHook([](){
+        JSBClassType::init();
+    });
+
+    jsb_init_file_operation_delegate();
+
+    se->start();
+
+    se::AutoHandleScope hs;
+
+    se->runScript("src/gfx.js");
+
+    se->runScript("src/depth-texture.js", &tickVal);
+//    se->runScript("src/gui-projection.js", &tickVal);
+
+    se->addAfterCleanupHook([](){
+        JSBClassType::destroy();
+    });
 
     [[CCDirectorCaller sharedDirectorCaller] startMainLoop:self selector: @selector(tick:)];
 }

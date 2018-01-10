@@ -666,18 +666,71 @@ bool seval_to_std_vector_int(const se::Value& v, std::vector<int>* ret)
     assert(ret != nullptr);
     assert(v.isObject());
     se::Object* obj = v.toObject();
-    assert(obj->isArray());
-    uint32_t len = 0;
-    if (obj->getArrayLength(&len))
+
+    if (obj->isArray())
     {
-        se::Value value;
-        for (uint32_t i = 0; i < len; ++i)
+        uint32_t len = 0;
+        if (obj->getArrayLength(&len))
         {
-            SE_PRECONDITION3(obj->getArrayElement(i, &value), false, ret->clear());
-            assert(value.isNumber());
-            ret->push_back(value.toInt32());
+            se::Value value;
+            for (uint32_t i = 0; i < len; ++i)
+            {
+                SE_PRECONDITION3(obj->getArrayElement(i, &value), false, ret->clear());
+                assert(value.isNumber());
+                ret->push_back(value.toInt32());
+            }
+            return true;
         }
+    }
+    else if (obj->isTypedArray())
+    {
+        size_t bytesPerElements = 0;
+        uint8_t* data = nullptr;
+        size_t dataBytes = 0;
+        se::Object::TypedArrayType type = obj->getTypedArrayType();
+
+#define SE_UINT8_PTR_TO_INT(ptr)  (*((uint8_t*)(ptr)))
+#define SE_UINT16_PTR_TO_INT(ptr) (*((uint16_t*)(ptr)))
+#define SE_UINT32_PTR_TO_INT(ptr) (*((uint32_t*)(ptr)))
+
+        if (obj->getTypedArrayData(&data, &dataBytes))
+        {
+            for (size_t i = 0; i < dataBytes; i += bytesPerElements)
+            {
+                switch (type) {
+                    case se::Object::TypedArrayType::INT8:
+                    case se::Object::TypedArrayType::UINT8:
+                    case se::Object::TypedArrayType::UINT8_CLAMPED:
+                        ret->push_back(SE_UINT8_PTR_TO_INT(data + i));
+                        bytesPerElements = 1;
+                        break;
+                    case se::Object::TypedArrayType::INT16:
+                    case se::Object::TypedArrayType::UINT16:
+                        ret->push_back(SE_UINT16_PTR_TO_INT(data + i));
+                        bytesPerElements = 2;
+                        break;
+                    case se::Object::TypedArrayType::INT32:
+                    case se::Object::TypedArrayType::UINT32:
+                        ret->push_back(SE_UINT32_PTR_TO_INT(data + i));
+                        bytesPerElements = 4;
+                        break;
+                    default:
+                        SE_LOGE("Unsupported typed array: %d\n", (int)type);
+                        assert(false);
+                        break;
+                }
+            }
+        }
+
+#undef SE_UINT8_PTR_TO_INT
+#undef SE_UINT16_PTR_TO_INT
+#undef SE_UINT32_PTR_TO_INT
+
         return true;
+    }
+    else
+    {
+        assert(false);
     }
 
     ret->clear();
@@ -1202,7 +1255,27 @@ bool seval_to_Data(const se::Value& v, cocos2d::Data* ret)
 
 bool seval_to_std_vector_Texture(const se::Value& v, std::vector<cocos2d::gfx::Texture*>* ret)
 {
-    assert(false);
+    assert(ret != nullptr);
+    assert(v.isObject());
+    assert(v.toObject()->isArray());
+
+    se::Object* obj = v.toObject();
+
+    uint32_t len = 0;
+    if (obj->getArrayLength(&len) && len > 0)
+    {
+        for (uint32_t i = 0; i < len; ++i)
+        {
+            se::Value textureVal;
+            if (obj->getArrayElement(i, &textureVal) && textureVal.isObject())
+            {
+                cocos2d::gfx::Texture* texture = nullptr;
+                seval_to_native_ptr(textureVal, &texture);
+                ret->push_back(texture);
+            }
+        }
+    }
+
     return true;
 }
 

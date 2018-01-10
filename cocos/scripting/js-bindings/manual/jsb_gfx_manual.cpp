@@ -123,18 +123,9 @@ static bool js_gfx_DeviceGraphics_setUniform(se::State& s)
         }
         else if (arg1.isNumber())
         {
-            double number = arg1.toNumber();
-            double remainder = fmod(number, 1.0);
-            if (std::abs(remainder) > 0)
-            {
+            float number = arg1.toFloat();
                 float f = (float)number;
                 cobj->setUniformf(name, f);
-            }
-            else
-            {
-                int integer = (int)number;
-                cobj->setUniformi(name, integer);
-            }
         }
         else if (arg1.isBoolean())
         {

@@ -66,10 +66,6 @@
 		1A255DF820034B0D00069420 /* ScriptEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D3320034B0D00069420 /* ScriptEngine.cpp */; };
 		1A255DF920034B0D00069420 /* Class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D3720034B0D00069420 /* Class.cpp */; };
 		1A255DFA20034B0D00069420 /* Class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D3720034B0D00069420 /* Class.cpp */; };
-		1A255DFB20034B0D00069420 /* HandleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D3B20034B0D00069420 /* HandleObject.cpp */; };
-		1A255DFC20034B0D00069420 /* HandleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D3B20034B0D00069420 /* HandleObject.cpp */; };
-		1A255DFD20034B0D00069420 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D3C20034B0D00069420 /* State.cpp */; };
-		1A255DFE20034B0D00069420 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D3C20034B0D00069420 /* State.cpp */; };
 		1A255DFF20034B0D00069420 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4020034B0D00069420 /* Utils.cpp */; };
 		1A255E0020034B0D00069420 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4020034B0D00069420 /* Utils.cpp */; };
 		1A255E0120034B0D00069420 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4120034B0D00069420 /* Object.cpp */; };
@@ -78,32 +74,6 @@
 		1A255E0420034B0D00069420 /* ScriptEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4220034B0D00069420 /* ScriptEngine.cpp */; };
 		1A255E0520034B0D00069420 /* Class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4620034B0D00069420 /* Class.cpp */; };
 		1A255E0620034B0D00069420 /* Class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4620034B0D00069420 /* Class.cpp */; };
-		1A255E0720034B0D00069420 /* MappingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4B20034B0D00069420 /* MappingUtils.cpp */; };
-		1A255E0820034B0D00069420 /* MappingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4B20034B0D00069420 /* MappingUtils.cpp */; };
-		1A255E0920034B0D00069420 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4F20034B0D00069420 /* config.cpp */; };
-		1A255E0A20034B0D00069420 /* config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D4F20034B0D00069420 /* config.cpp */; };
-		1A255E0B20034B0D00069420 /* Value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5020034B0D00069420 /* Value.cpp */; };
-		1A255E0C20034B0D00069420 /* Value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5020034B0D00069420 /* Value.cpp */; };
-		1A255E0D20034B0D00069420 /* RefCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5320034B0D00069420 /* RefCounter.cpp */; };
-		1A255E0E20034B0D00069420 /* RefCounter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5320034B0D00069420 /* RefCounter.cpp */; };
-		1A255E0F20034B0D00069420 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5720034B0D00069420 /* Utils.cpp */; };
-		1A255E1020034B0D00069420 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5720034B0D00069420 /* Utils.cpp */; };
-		1A255E1120034B0D00069420 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5920034B0D00069420 /* Object.cpp */; };
-		1A255E1220034B0D00069420 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5920034B0D00069420 /* Object.cpp */; };
-		1A255E1320034B0D00069420 /* ScriptEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5A20034B0D00069420 /* ScriptEngine.cpp */; };
-		1A255E1420034B0D00069420 /* ScriptEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5A20034B0D00069420 /* ScriptEngine.cpp */; };
-		1A255E1520034B0D00069420 /* PlatformUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5D20034B0D00069420 /* PlatformUtils.mm */; };
-		1A255E1620034B0D00069420 /* PlatformUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5D20034B0D00069420 /* PlatformUtils.mm */; };
-		1A255E1720034B0D00069420 /* Class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5F20034B0D00069420 /* Class.cpp */; };
-		1A255E1820034B0D00069420 /* Class.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D5F20034B0D00069420 /* Class.cpp */; };
-		1A255E1920034B0D00069420 /* jsb_gfx_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D6320034B0D00069420 /* jsb_gfx_auto.cpp */; };
-		1A255E1A20034B0D00069420 /* jsb_gfx_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D6320034B0D00069420 /* jsb_gfx_auto.cpp */; };
-		1A255E1D20034B0D00069420 /* jsb_global.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D6920034B0D00069420 /* jsb_global.cpp */; };
-		1A255E1E20034B0D00069420 /* jsb_global.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D6920034B0D00069420 /* jsb_global.cpp */; };
-		1A255E1F20034B0D00069420 /* jsb_classtype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D6A20034B0D00069420 /* jsb_classtype.cpp */; };
-		1A255E2020034B0D00069420 /* jsb_classtype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D6A20034B0D00069420 /* jsb_classtype.cpp */; };
-		1A255E2120034B0D00069420 /* jsb_conversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D6B20034B0D00069420 /* jsb_conversions.cpp */; };
-		1A255E2220034B0D00069420 /* jsb_conversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D6B20034B0D00069420 /* jsb_conversions.cpp */; };
 		1A255E2320034B0D00069420 /* CCDevice-apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D7120034B0D00069420 /* CCDevice-apple.mm */; };
 		1A255E2420034B0D00069420 /* CCDevice-apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D7120034B0D00069420 /* CCDevice-apple.mm */; };
 		1A255E2520034B0D00069420 /* CCFileUtils-apple.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A255D7220034B0D00069420 /* CCFileUtils-apple.mm */; };
@@ -419,6 +389,10 @@
 		1A255F9C2003526700069420 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 1A255F9A2003526700069420 /* src */; };
 		1A255FA12003602300069420 /* jsb_gfx_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255F9F2003602300069420 /* jsb_gfx_manual.cpp */; };
 		1A255FA22003602300069420 /* jsb_gfx_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A255F9F2003602300069420 /* jsb_gfx_manual.cpp */; };
+		1A255FA620048F8100069420 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1A255FA520048F8100069420 /* RootViewController.mm */; };
+		1A255FA720048F8400069420 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61661FF5F23E0007F081 /* AppDelegate.mm */; };
+		1A255FA820048F8F00069420 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61741FF5F23E0007F081 /* main.m */; };
+		1A255FAA2004902A00069420 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A255FA92004902900069420 /* JavaScriptCore.framework */; };
 		1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */; };
 		1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */; };
 		1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F06B1FF0FB4200B224DF /* CCVertexBuffer.cpp */; };
@@ -731,6 +705,9 @@
 		1A255F9F2003602300069420 /* jsb_gfx_manual.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_gfx_manual.cpp; sourceTree = "<group>"; };
 		1A255FA02003602300069420 /* jsb_gfx_manual.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = jsb_gfx_manual.hpp; sourceTree = "<group>"; };
 		1A255FA3200468AB00069420 /* Test-mac-jsb.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Test-mac-jsb.entitlements"; sourceTree = "<group>"; };
+		1A255FA420048F8000069420 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		1A255FA520048F8100069420 /* RootViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
+		1A255FA92004902900069420 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		1A69F0681FF0FB4200B224DF /* CCVertexFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCVertexFormat.cpp; sourceTree = "<group>"; };
 		1A69F0691FF0FB4200B224DF /* CCIndexBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCIndexBuffer.cpp; sourceTree = "<group>"; };
 		1A69F06A1FF0FB4200B224DF /* CCVertexBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCVertexBuffer.h; sourceTree = "<group>"; };
@@ -863,6 +840,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A255FAA2004902A00069420 /* JavaScriptCore.framework in Frameworks */,
 				1A255F7620034F6D00069420 /* AudioToolbox.framework in Frameworks */,
 				1A255F7720034F6D00069420 /* CoreMotion.framework in Frameworks */,
 				1A255F7820034F6D00069420 /* libz.tbd in Frameworks */,
@@ -1090,19 +1068,19 @@
 		1A255D5420034B0D00069420 /* jsc */ = {
 			isa = PBXGroup;
 			children = (
+				1A255D6120034B0D00069420 /* Base.h */,
+				1A255D5F20034B0D00069420 /* Class.cpp */,
 				1A255D5520034B0D00069420 /* Class.hpp */,
 				1A255D5620034B0D00069420 /* HelperMacros.h */,
-				1A255D5720034B0D00069420 /* Utils.cpp */,
-				1A255D5820034B0D00069420 /* PlatformUtils.h */,
 				1A255D5920034B0D00069420 /* Object.cpp */,
-				1A255D5A20034B0D00069420 /* ScriptEngine.cpp */,
 				1A255D5B20034B0D00069420 /* Object.hpp */,
-				1A255D5C20034B0D00069420 /* ScriptEngine.hpp */,
+				1A255D5820034B0D00069420 /* PlatformUtils.h */,
 				1A255D5D20034B0D00069420 /* PlatformUtils.mm */,
+				1A255D5A20034B0D00069420 /* ScriptEngine.cpp */,
+				1A255D5C20034B0D00069420 /* ScriptEngine.hpp */,
 				1A255D5E20034B0D00069420 /* SeApi.h */,
-				1A255D5F20034B0D00069420 /* Class.cpp */,
+				1A255D5720034B0D00069420 /* Utils.cpp */,
 				1A255D6020034B0D00069420 /* Utils.hpp */,
-				1A255D6120034B0D00069420 /* Base.h */,
 			);
 			path = jsc;
 			sourceTree = "<group>";
@@ -1123,10 +1101,10 @@
 				1A255D6C20034B0D00069420 /* jsb_classtype.hpp */,
 				1A255D6B20034B0D00069420 /* jsb_conversions.cpp */,
 				1A255D6D20034B0D00069420 /* jsb_conversions.hpp */,
-				1A255D6920034B0D00069420 /* jsb_global.cpp */,
-				1A255D6820034B0D00069420 /* jsb_global.h */,
 				1A255F9F2003602300069420 /* jsb_gfx_manual.cpp */,
 				1A255FA02003602300069420 /* jsb_gfx_manual.hpp */,
+				1A255D6920034B0D00069420 /* jsb_global.cpp */,
+				1A255D6820034B0D00069420 /* jsb_global.h */,
 			);
 			path = manual;
 			sourceTree = "<group>";
@@ -1287,6 +1265,8 @@
 		1A255F942003503D00069420 /* proj.ios */ = {
 			isa = PBXGroup;
 			children = (
+				1A255FA420048F8000069420 /* RootViewController.h */,
+				1A255FA520048F8100069420 /* RootViewController.mm */,
 			);
 			path = proj.ios;
 			sourceTree = "<group>";
@@ -1498,6 +1478,7 @@
 			isa = PBXGroup;
 			children = (
 				1A255E7720034ED600069420 /* JavaScriptCore.framework */,
+				1A255FA92004902900069420 /* JavaScriptCore.framework */,
 				1A1A4E371FFB7BEF0061A6E1 /* AudioToolbox.framework */,
 				1A1A4E351FFB7BE50061A6E1 /* CoreAudio.framework */,
 				1A1A4E331FFB7BC80061A6E1 /* CoreMotion.framework */,
@@ -1933,6 +1914,7 @@
 				1A255F3520034F6D00069420 /* WebGLTexelConversions.cpp in Sources */,
 				1A255F3620034F6D00069420 /* Object.cpp in Sources */,
 				1A255F3720034F6D00069420 /* xxtea.cpp in Sources */,
+				1A255FA620048F8100069420 /* RootViewController.mm in Sources */,
 				1A255F3820034F6D00069420 /* State.cpp in Sources */,
 				1A255F3920034F6D00069420 /* CCGFX.cpp in Sources */,
 				1A255F3A20034F6D00069420 /* Value.cpp in Sources */,
@@ -1949,6 +1931,7 @@
 				1A255F4720034F6D00069420 /* ioapi_mem.cpp in Sources */,
 				1A255F4820034F6D00069420 /* Class.cpp in Sources */,
 				1A255F4920034F6D00069420 /* Assertions.cpp in Sources */,
+				1A255FA720048F8400069420 /* AppDelegate.mm in Sources */,
 				1A255F4A20034F6D00069420 /* CCES2Renderer-ios.m in Sources */,
 				1A255F4C20034F6D00069420 /* jsb_conversions.cpp in Sources */,
 				1A255F4D20034F6D00069420 /* CCImage.cpp in Sources */,
@@ -1959,6 +1942,7 @@
 				1A255F5620034F6D00069420 /* inspector_socket_server.cc in Sources */,
 				1A255F5720034F6D00069420 /* CCDevice-apple.mm in Sources */,
 				1A255F5820034F6D00069420 /* CCEAGLView-ios.mm in Sources */,
+				1A255FA820048F8F00069420 /* main.m in Sources */,
 				1A255F5920034F6D00069420 /* CCVertexFormat.cpp in Sources */,
 				1A255F5A20034F6D00069420 /* Vec3.cpp in Sources */,
 				1A255F5B20034F6D00069420 /* pvr.cpp in Sources */,
@@ -1997,7 +1981,6 @@
 			files = (
 				1A255E0620034B0D00069420 /* Class.cpp in Sources */,
 				1ACB61AD1FF5F34A0007F081 /* Blending.cpp in Sources */,
-				1A255E1620034B0D00069420 /* PlatformUtils.mm in Sources */,
 				1ACB616A1FF5F23E0007F081 /* RootViewController.mm in Sources */,
 				1ACB61A71FF5F33D0007F081 /* CCTexture2D.cpp in Sources */,
 				1ACB61AB1FF5F34A0007F081 /* Bunny.cpp in Sources */,
@@ -2009,15 +1992,11 @@
 				1ACB61A51FF5F33D0007F081 /* CCState.cpp in Sources */,
 				1A255E0220034B0D00069420 /* Object.cpp in Sources */,
 				1A255E6820034B0D00069420 /* CCRef.cpp in Sources */,
-				1A255E0820034B0D00069420 /* MappingUtils.cpp in Sources */,
-				1A255DFC20034B0D00069420 /* HandleObject.cpp in Sources */,
 				1A1A4E181FFB45E20061A6E1 /* Utils.cpp in Sources */,
 				46ABB09D1FFC765700287AA5 /* PostProcess.cpp in Sources */,
 				1ACB61A01FF5F33D0007F081 /* CCGraphicsHandle.cpp in Sources */,
 				1A255E7620034B0D00069420 /* CCValue.cpp in Sources */,
 				1A255DE820034B0D00069420 /* inspector_socket.cc in Sources */,
-				1A255E0A20034B0D00069420 /* config.cpp in Sources */,
-				1A255E1A20034B0D00069420 /* jsb_gfx_auto.cpp in Sources */,
 				46ABB0A11FFCD71C00287AA5 /* DepthTexture.cpp in Sources */,
 				1ACB619C1FF5F33D0007F081 /* CCDeviceGraphics-gl.cpp in Sources */,
 				1A255E2620034B0D00069420 /* CCFileUtils-apple.mm in Sources */,
@@ -2028,9 +2007,7 @@
 				1A255DD820034B0D00069420 /* node.cc in Sources */,
 				1ACB61A41FF5F33D0007F081 /* CCRenderTarget.cpp in Sources */,
 				1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
-				1A255E2020034B0D00069420 /* jsb_classtype.cpp in Sources */,
 				1A255DDE20034B0D00069420 /* ScriptEngine.cpp in Sources */,
-				1A255E1220034B0D00069420 /* Object.cpp in Sources */,
 				1A255E6220034B0D00069420 /* ccRandom.cpp in Sources */,
 				1A255DF820034B0D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255DEA20034B0D00069420 /* inspector_io.cc in Sources */,
@@ -2040,9 +2017,7 @@
 				1A1A4FF31FFF0D870061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				1A255DDC20034B0D00069420 /* Object.cpp in Sources */,
 				1A255E7D20034EE700069420 /* xxtea.cpp in Sources */,
-				1A255DFE20034B0D00069420 /* State.cpp in Sources */,
 				1ACB619E1FF5F33D0007F081 /* CCGFX.cpp in Sources */,
-				1A255E0C20034B0D00069420 /* Value.cpp in Sources */,
 				1A255E5420034B0D00069420 /* CCVertex.cpp in Sources */,
 				1A255E4E20034B0D00069420 /* Mat4.cpp in Sources */,
 				1ACB61A81FF5F33D0007F081 /* CCVertexBuffer.cpp in Sources */,
@@ -2060,11 +2035,9 @@
 				1A1A4F341FFCA6230061A6E1 /* Assertions.cpp in Sources */,
 				1A255E2C20034B0D00069420 /* CCES2Renderer-ios.m in Sources */,
 				1ACB61AC1FF5F34A0007F081 /* Basic.cpp in Sources */,
-				1A255E2220034B0D00069420 /* jsb_conversions.cpp in Sources */,
 				1A255E2A20034B0D00069420 /* CCImage.cpp in Sources */,
 				1A255E3020034B0D00069420 /* CCDevice-ios.mm in Sources */,
 				1A255E2820034B0D00069420 /* CCSAXParser.cpp in Sources */,
-				1A255E1820034B0D00069420 /* Class.cpp in Sources */,
 				1A1A4E1C1FFB57EB0061A6E1 /* Stencil.cpp in Sources */,
 				1AC21AD51FF639EC008D9724 /* Particle.cpp in Sources */,
 				1A255DEC20034B0D00069420 /* Class.cpp in Sources */,
@@ -2084,20 +2057,16 @@
 				1A255DF220034B0D00069420 /* env.cc in Sources */,
 				1ACB61B71FF6028B0007F081 /* unzip.cpp in Sources */,
 				1A255E4820034B0D00069420 /* MathUtil.cpp in Sources */,
-				1A255E1420034B0D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255DD420034B0D00069420 /* ObjectWrap.cpp in Sources */,
 				1ACB61A61FF5F33D0007F081 /* CCTexture.cpp in Sources */,
 				1A255DF620034B0D00069420 /* Object.cpp in Sources */,
 				1A255DE020034B0D00069420 /* inspector_agent.cc in Sources */,
-				1A255E1020034B0D00069420 /* Utils.cpp in Sources */,
 				1A255E6620034B0D00069420 /* CCConfiguration.cpp in Sources */,
 				1A255DE620034B0D00069420 /* util.cc in Sources */,
 				1A255DE220034B0D00069420 /* SHA1.cpp in Sources */,
 				1ACB61B81FF6028F0007F081 /* tinyxml2.cpp in Sources */,
 				1A255E5020034B0D00069420 /* TransformUtils.cpp in Sources */,
 				1ACB61A11FF5F33D0007F081 /* CCIndexBuffer.cpp in Sources */,
-				1A255E0E20034B0D00069420 /* RefCounter.cpp in Sources */,
-				1A255E1E20034B0D00069420 /* jsb_global.cpp in Sources */,
 				1A255E5A20034B0D00069420 /* Vec2.cpp in Sources */,
 				1ACB61AA1FF5F3450007F081 /* types.cpp in Sources */,
 				1A255E0420034B0D00069420 /* ScriptEngine.cpp in Sources */,
@@ -2109,20 +2078,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4627245F1FF47B82000D13BC /* Basic.cpp in Sources */,
-				1A255E0920034B0D00069420 /* config.cpp in Sources */,
 				1A255DED20034B0D00069420 /* http_parser.c in Sources */,
-				1A255DFD20034B0D00069420 /* State.cpp in Sources */,
 				1A1A4FD51FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */,
 				1A255E6720034B0D00069420 /* CCRef.cpp in Sources */,
 				1A1A4E1B1FFB57EB0061A6E1 /* Stencil.cpp in Sources */,
 				1A69F06F1FF0FB4200B224DF /* CCIndexBuffer.cpp in Sources */,
 				1A1A4FE31FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
 				462724671FF4D68D000D13BC /* Bunny.cpp in Sources */,
-				1A255E0D20034B0D00069420 /* RefCounter.cpp in Sources */,
 				1A255DF720034B0D00069420 /* ScriptEngine.cpp in Sources */,
-				1A255E1720034B0D00069420 /* Class.cpp in Sources */,
 				1A255E4B20034B0D00069420 /* CCGeometry.cpp in Sources */,
-				1A255E0720034B0D00069420 /* MappingUtils.cpp in Sources */,
 				1A255DD520034B0D00069420 /* Utils.cpp in Sources */,
 				1A69F0801FF1F52C00B224DF /* CCTexture2D.cpp in Sources */,
 				1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */,
@@ -2135,17 +2099,14 @@
 				1A255DEB20034B0D00069420 /* Class.cpp in Sources */,
 				1A255E7520034B0D00069420 /* CCValue.cpp in Sources */,
 				1A255DF120034B0D00069420 /* env.cc in Sources */,
-				1A255E1D20034B0D00069420 /* jsb_global.cpp in Sources */,
 				1A255E5120034B0D00069420 /* Quaternion.cpp in Sources */,
 				1A255DE120034B0D00069420 /* SHA1.cpp in Sources */,
 				1A69F07A1FF1E41A00B224DF /* CCRenderTarget.cpp in Sources */,
-				1A255E1920034B0D00069420 /* jsb_gfx_auto.cpp in Sources */,
 				46ABB0941FFC719500287AA5 /* MultiTextures.cpp in Sources */,
 				1A69F0741FF102A300B224DF /* CCRenderBuffer.cpp in Sources */,
 				1A255DE520034B0D00069420 /* util.cc in Sources */,
 				1A255DD720034B0D00069420 /* node.cc in Sources */,
 				4694928B1FE26CB5008D19CC /* main.cpp in Sources */,
-				1A255E1320034B0D00069420 /* ScriptEngine.cpp in Sources */,
 				1A69F0FE1FF22B0200B224DF /* ioapi_mem.cpp in Sources */,
 				1A255E7C20034EE700069420 /* xxtea.cpp in Sources */,
 				1A255E3720034B0D00069420 /* CCFileUtils.cpp in Sources */,
@@ -2159,14 +2120,12 @@
 				4694929A1FE2775C008D19CC /* CCFrameBuffer.cpp in Sources */,
 				1A255E6120034B0D00069420 /* ccRandom.cpp in Sources */,
 				1A255DD920034B0D00069420 /* inspector_socket_server.cc in Sources */,
-				1A255E0F20034B0D00069420 /* Utils.cpp in Sources */,
 				1A255E5320034B0D00069420 /* CCVertex.cpp in Sources */,
 				1A255E2720034B0D00069420 /* CCSAXParser.cpp in Sources */,
 				1A255DEF20034B0D00069420 /* node_debug_options.cc in Sources */,
 				1A69F1161FF380A200B224DF /* CCGFXUtils.cpp in Sources */,
 				1A255E0520034B0D00069420 /* Class.cpp in Sources */,
 				1A255DDD20034B0D00069420 /* ScriptEngine.cpp in Sources */,
-				1A255E1120034B0D00069420 /* Object.cpp in Sources */,
 				1A255E2920034B0D00069420 /* CCImage.cpp in Sources */,
 				1A255E6D20034B0D00069420 /* pvr.cpp in Sources */,
 				1A255DF520034B0D00069420 /* Object.cpp in Sources */,
@@ -2179,7 +2138,6 @@
 				1A69F1131FF37C1A00B224DF /* CCGFX.cpp in Sources */,
 				1A69F0FF1FF22B0200B224DF /* ioapi.cpp in Sources */,
 				1A255E6320034B0D00069420 /* ZipUtils.cpp in Sources */,
-				1A255E2120034B0D00069420 /* jsb_conversions.cpp in Sources */,
 				1A255E6F20034B0D00069420 /* CCData.cpp in Sources */,
 				1A255E3320034B0D00069420 /* CCDevice-mac.mm in Sources */,
 				1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */,
@@ -2195,13 +2153,9 @@
 				1A255DD320034B0D00069420 /* ObjectWrap.cpp in Sources */,
 				1A255E5520034B0D00069420 /* Vec4.cpp in Sources */,
 				1A255DE920034B0D00069420 /* inspector_io.cc in Sources */,
-				1A255E1520034B0D00069420 /* PlatformUtils.mm in Sources */,
 				1A69F1001FF22B0200B224DF /* unzip.cpp in Sources */,
-				1A255DFB20034B0D00069420 /* HandleObject.cpp in Sources */,
 				4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */,
 				469492971FE270F2008D19CC /* CCDeviceGraphics-gl.cpp in Sources */,
-				1A255E0B20034B0D00069420 /* Value.cpp in Sources */,
-				1A255E1F20034B0D00069420 /* jsb_classtype.cpp in Sources */,
 				1A255DFF20034B0D00069420 /* Utils.cpp in Sources */,
 				1A255E5B20034B0D00069420 /* Vec3.cpp in Sources */,
 				466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */,
@@ -2295,7 +2249,7 @@
 					"COCOS2D_DEBUG=1",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "Test-ios copy-Info.plist";
+				INFOPLIST_FILE = "Test-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -2321,7 +2275,7 @@
 				DEVELOPMENT_TEAM = NQ596S94Q5;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "Test-ios copy-Info.plist";
+				INFOPLIST_FILE = "Test-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (

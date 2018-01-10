@@ -2,31 +2,34 @@
   let gfx = window.gfx;
   let device = window.device;
   let canvas = window.canvas;
-  let resl = window.resl;
+  // let resl = window.resl;
   let { vec2, mat23, mat4, toRadian } = window.vmath;
 
   let texture = null;
-  resl({
-    manifest: {
-      image: {
-        type: 'image',
-        src: './assets/uv_checker_02.jpg'
-      },
-    },
-    onDone (assets) {
-      let image = assets.image;
+  // resl({
+  //   manifest: {
+  //     image: {
+  //       type: 'image',
+  //       src: './assets/uv_checker_02.jpg'
+  //     },
+  //   },
+  //   onDone (assets) {
+      let image = getImageInfo("assets/uv_checker_02.jpg"); //assets.image;
       texture = new gfx.Texture2D(device, {
         width : image.width,
         height : image.height,
-        images : [image],
+        images : [image.data],
+        format: gfx.TEXTURE_FMT_RGB8,
       });
-    }
-  });
+  //   }
+  // });
 
   // init resources
   let program = new gfx.Program(device, {
     vert: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       uniform mat4 projection;
       uniform mat4 transform;
       attribute vec2 a_position;
@@ -39,7 +42,9 @@
       }
     `,
     frag: `
+    #ifdef GL_ES
       precision highp float;
+    #endif
       uniform sampler2D texture;
       uniform vec4 color;
       varying vec2 v_uv;
