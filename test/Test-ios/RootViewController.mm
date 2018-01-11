@@ -22,10 +22,13 @@
 #include "gfx/PostProcess.h"
 #include "gfx/DepthTexture.h"
 #include "gfx/GuiProjection.h"
+#include "gfx/SubImage.h"
+#include "gfx/Texture2D.h"
+
 #include "Utils.h"
 
-namespace {
-
+namespace
+{
     int nextIndex = 0;
     using createFunc = TestBaseI* (*)();
     std::vector<createFunc> tests;
@@ -34,15 +37,17 @@ namespace {
     void initTests()
     {
         tests = {
-//            Basic::create,
-//            Bunny::create,
-//            Blending::create,
-//            MultiTextures::create,
-//            Particle::create,
-//            Stencil::create,
-//            PostProcess::create,
+            Basic::create,
+            Bunny::create,
+            Blending::create,
+            MultiTextures::create,
+            Particle::create,
+            Stencil::create,
+            PostProcess::create,
             DepthTexture::create,
-//            GuiProjection::create,
+            SubImage::create,
+            Texture2DTest::create,
+            GuiProjection::create,
         };
 
         test = tests[0]();
@@ -81,6 +86,23 @@ namespace {
 
     // Set EAGLView as view of RootViewController
     self.view = eaglView;
+
+    eaglView.touchCallback = ^(TouchEventType type, NSSet* touches, UIEvent* event) {
+        if (type == TouchEventType::ENDED || type == TouchEventType::CANCELLED)
+        {
+            UITouch* touch = [touches anyObject];
+            float x = [touch locationInView: [touch view]].x * scale;
+//            float y = [touch locationInView: [touch view]].y * scale;
+
+            if (x >= utils::WINDOW_WIDTH / 2)
+                nextIndex = (++nextIndex) % tests.size();
+            else
+                nextIndex = int((--nextIndex + tests.size()) % tests.size());
+
+            delete test;
+            test = tests[nextIndex]();
+        }
+    };
 
     initTests();
 
