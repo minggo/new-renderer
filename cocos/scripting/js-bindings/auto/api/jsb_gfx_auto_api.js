@@ -502,16 +502,6 @@ rendertarget
 },
 
 /**
- * @method getDepthBuffer
- * @return {cc.gfx::RenderTarget}
- */
-getDepthBuffer : function (
-)
-{
-    return cc.gfx::RenderTarget;
-},
-
-/**
  * @method setDepthStencilBuffer
  * @param {cc.gfx::RenderTarget} arg0
  */
@@ -519,16 +509,6 @@ setDepthStencilBuffer : function (
 rendertarget 
 )
 {
-},
-
-/**
- * @method getStencilBuffer
- * @return {cc.gfx::RenderTarget}
- */
-getStencilBuffer : function (
-)
-{
-    return cc.gfx::RenderTarget;
 },
 
 /**
@@ -542,16 +522,6 @@ array
 },
 
 /**
- * @method getColorBuffers
- * @return {Array}
- */
-getColorBuffers : function (
-)
-{
-    return new Array();
-},
-
-/**
  * @method setDepthBuffer
  * @param {cc.gfx::RenderTarget} arg0
  */
@@ -559,16 +529,6 @@ setDepthBuffer : function (
 rendertarget 
 )
 {
-},
-
-/**
- * @method getDepthStencilBuffer
- * @return {cc.gfx::RenderTarget}
- */
-getDepthStencilBuffer : function (
-)
-{
-    return cc.gfx::RenderTarget;
 },
 
 /**
