@@ -44,7 +44,6 @@ RenderBuffer::~RenderBuffer()
         return;
     }
 
-    GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, 0));
     GL_CHECK(glDeleteRenderbuffers(1, &_glID));
 }
 
@@ -54,10 +53,13 @@ bool RenderBuffer::init(DeviceGraphics* device, Format format, uint16_t width, u
     _format = format;
     _width = width;
     _height = height;
+    
+    GLint oldRenderBuffer;
+    glGetIntegerv(GL_RENDERBUFFER_BINDING, &oldRenderBuffer);
     GL_CHECK(glGenRenderbuffers(1, &_glID));
     GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, _glID));
     GL_CHECK(glRenderbufferStorage(GL_RENDERBUFFER, (GLenum)format, width, height));
-    GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, 0));
+    GL_CHECK(glBindRenderbuffer(GL_RENDERBUFFER, oldRenderBuffer));
     return true;
 }
 
