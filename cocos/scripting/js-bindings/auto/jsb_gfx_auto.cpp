@@ -39,7 +39,7 @@ SE_BIND_CTOR(js_gfx_GraphicsHandle_constructor, __jsb_cocos2d_gfx_GraphicsHandle
 
 static bool js_cocos2d_gfx_GraphicsHandle_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::GraphicsHandle)", s.nativeThisObject());
+    CCLOG("jsbindings: finalizing JS object %p (cocos2d::gfx::GraphicsHandle)", s.nativeThisObject());
     cocos2d::gfx::GraphicsHandle* cobj = (cocos2d::gfx::GraphicsHandle*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -138,7 +138,7 @@ extern se::Object* __jsb_cocos2d_gfx_GraphicsHandle_proto;
 
 static bool js_cocos2d_gfx_IndexBuffer_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::IndexBuffer)", s.nativeThisObject());
+    CCLOG("jsbindings: finalizing JS object %p (cocos2d::gfx::IndexBuffer)", s.nativeThisObject());
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -221,7 +221,7 @@ extern se::Object* __jsb_cocos2d_gfx_GraphicsHandle_proto;
 
 static bool js_cocos2d_gfx_VertexBuffer_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::VertexBuffer)", s.nativeThisObject());
+    CCLOG("jsbindings: finalizing JS object %p (cocos2d::gfx::VertexBuffer)", s.nativeThisObject());
     cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -1116,7 +1116,7 @@ extern se::Object* __jsb_cocos2d_gfx_GraphicsHandle_proto;
 
 static bool js_cocos2d_gfx_FrameBuffer_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::FrameBuffer)", s.nativeThisObject());
+    CCLOG("jsbindings: finalizing JS object %p (cocos2d::gfx::FrameBuffer)", s.nativeThisObject());
     cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -1158,7 +1158,7 @@ extern se::Object* __jsb_cocos2d_gfx_GraphicsHandle_proto;
 
 static bool js_cocos2d_gfx_RenderTarget_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::RenderTarget)", s.nativeThisObject());
+    CCLOG("jsbindings: finalizing JS object %p (cocos2d::gfx::RenderTarget)", s.nativeThisObject());
     cocos2d::gfx::RenderTarget* cobj = (cocos2d::gfx::RenderTarget*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -1256,7 +1256,7 @@ extern se::Object* __jsb_cocos2d_gfx_RenderTarget_proto;
 
 static bool js_cocos2d_gfx_RenderBuffer_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::RenderBuffer)", s.nativeThisObject());
+    CCLOG("jsbindings: finalizing JS object %p (cocos2d::gfx::RenderBuffer)", s.nativeThisObject());
     cocos2d::gfx::RenderBuffer* cobj = (cocos2d::gfx::RenderBuffer*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -1345,7 +1345,7 @@ extern se::Object* __jsb_cocos2d_gfx_RenderTarget_proto;
 
 static bool js_cocos2d_gfx_Texture_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Texture)", s.nativeThisObject());
+    CCLOG("jsbindings: finalizing JS object %p (cocos2d::gfx::Texture)", s.nativeThisObject());
     cocos2d::gfx::Texture* cobj = (cocos2d::gfx::Texture*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -1495,7 +1495,7 @@ extern se::Object* __jsb_cocos2d_gfx_Texture_proto;
 
 static bool js_cocos2d_gfx_Texture2D_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Texture2D)", s.nativeThisObject());
+    CCLOG("jsbindings: finalizing JS object %p (cocos2d::gfx::Texture2D)", s.nativeThisObject());
     cocos2d::gfx::Texture2D* cobj = (cocos2d::gfx::Texture2D*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
@@ -1620,7 +1620,7 @@ extern se::Object* __jsb_cocos2d_gfx_GraphicsHandle_proto;
 
 static bool js_cocos2d_gfx_Program_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Program)", s.nativeThisObject());
+    CCLOG("jsbindings: finalizing JS object %p (cocos2d::gfx::Program)", s.nativeThisObject());
     cocos2d::gfx::Program* cobj = (cocos2d::gfx::Program*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
