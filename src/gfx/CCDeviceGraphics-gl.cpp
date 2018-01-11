@@ -79,21 +79,7 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     
     if (nullptr == fb)
     {
-        // TODO: iOS creates its own frame buffer (1). It is a hack here, should
-        // fix it in two ways:
-        // 1. add a function to get default frame buffer id.
-        // 2. use glfw for all platforms to handle platform specific things.
-        // I think way 2 is better.
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-        GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 1));
-#else
-        GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-#endif
-        
-        auto result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        if (GL_FRAMEBUFFER_COMPLETE != result)
-            GFX_LOGE("Framebuffer status error: 0x%x", result);
-        
+        GL_CHECK(glBindFramebuffer(GL_FRAMEBUFFER, _defaultFbo));
         return;
     }
     
@@ -579,6 +565,8 @@ DeviceGraphics::DeviceGraphics()
     // Make sure _currentState and _nextState have enough sapce for textures.
     _currentState.setTexture(_caps.maxTextureUints, nullptr);
     _nextState.setTexture(_caps.maxTextureUints, nullptr);
+    
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &_defaultFbo);
 }
 
 DeviceGraphics::~DeviceGraphics()

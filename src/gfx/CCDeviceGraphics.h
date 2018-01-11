@@ -169,6 +169,8 @@ private:
     int _sw;
     int _sh;
     
+    int _defaultFbo;
+    
     Capacity _caps;
     char* _glExtensions;
     
