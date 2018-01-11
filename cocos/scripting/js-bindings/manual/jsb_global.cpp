@@ -191,10 +191,10 @@ bool jsb_set_extend_property(const char* ns, const char* clsName)
     return false;
 }
 
-bool jsb_run_script(const std::string& filePath)
+bool jsb_run_script(const std::string& filePath, se::Value* rval/* = nullptr */)
 {
     se::AutoHandleScope hs;
-    return se::ScriptEngine::getInstance()->runScript(filePath);
+    return se::ScriptEngine::getInstance()->runScript(filePath, rval);
 }
 
 namespace {
@@ -206,7 +206,7 @@ namespace {
         assert(argc >= 1);
         assert(args[0].isString());
 
-        return jsb_run_script(args[0].toString());
+        return jsb_run_script(args[0].toString(), &s.rval());
     }
     SE_BIND_FUNC(require)
 

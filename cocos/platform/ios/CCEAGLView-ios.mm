@@ -93,6 +93,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 @synthesize multiSampling=multiSampling_;
 @synthesize isKeyboardShown=isKeyboardShown_;
 @synthesize keyboardShowNotification = keyboardShowNotification_;
+@synthesize touchCallback = touchCallback_;
+
 + (Class) layerClass
 {
     return [CAEAGLLayer class];
@@ -390,6 +392,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 #pragma mark CCEAGLView - Touch Delegate
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (touchCallback_)
+        touchCallback_(TouchEventType::BEGAN, touches, event);
 //    cocos2d::Director *director = cocos2d::Director::getInstance();
 //    if (director == nullptr) {
 //        return;
@@ -419,6 +423,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (touchCallback_)
+        touchCallback_(TouchEventType::MOVED, touches, event);
 //    UITouch* ids[IOS_MAX_TOUCHES_COUNT] = {0};
 //    float xs[IOS_MAX_TOUCHES_COUNT] = {0.0f};
 //    float ys[IOS_MAX_TOUCHES_COUNT] = {0.0f};
@@ -446,6 +452,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (touchCallback_)
+        touchCallback_(TouchEventType::ENDED, touches, event);
 //    UITouch* ids[IOS_MAX_TOUCHES_COUNT] = {0};
 //    float xs[IOS_MAX_TOUCHES_COUNT] = {0.0f};
 //    float ys[IOS_MAX_TOUCHES_COUNT] = {0.0f};
@@ -464,6 +472,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (touchCallback_)
+        touchCallback_(TouchEventType::CANCELLED, touches, event);
 //    UITouch* ids[IOS_MAX_TOUCHES_COUNT] = {0};
 //    float xs[IOS_MAX_TOUCHES_COUNT] = {0.0f};
 //    float ys[IOS_MAX_TOUCHES_COUNT] = {0.0f};

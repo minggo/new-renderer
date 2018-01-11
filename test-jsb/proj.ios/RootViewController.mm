@@ -63,6 +63,28 @@ se::Value tickVal;
     // Set EAGLView as view of RootViewController
     self.view = eaglView;
 
+    eaglView.touchCallback = ^(TouchEventType type, NSSet* touches, UIEvent* event) {
+//        NSLog(@"type: %d", (int)type);
+        auto se = se::ScriptEngine::getInstance();
+        se->clearException();
+        se::AutoHandleScope hs;
+
+        auto global = se->getGlobalObject();
+        se::Value touchUpFuncVal;
+        if (global->getProperty("onTouchEvent", &touchUpFuncVal))
+        {
+            UITouch* touch = [touches anyObject];
+            float x = [touch locationInView: [touch view]].x * scale;
+            float y = [touch locationInView: [touch view]].y * scale;
+
+            se::ValueArray args;
+            args.push_back(se::Value((int)type));
+            args.push_back(se::Value(x));
+            args.push_back(se::Value(y));
+            touchUpFuncVal.toObject()->call(args, nullptr);
+        }
+    };
+
     auto se = se::ScriptEngine::getInstance();
     se->addRegisterCallback(jsb_register_global_variables);
     se->addRegisterCallback(register_all_gfx);
@@ -84,9 +106,7 @@ se::Value tickVal;
     sprintf(commandBuf, "window.canvas = { width: %d, height: %d };", utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     se->evalString(commandBuf);
     se->runScript("src/gfx.js");
-
-//    se->runScript("src/depth-texture.js", &tickVal);
-    se->runScript("src/gui-projection.js", &tickVal);
+    se->runScript("src/main.js", &tickVal);
 
     se->addAfterCleanupHook([](){
         JSBClassType::destroy();

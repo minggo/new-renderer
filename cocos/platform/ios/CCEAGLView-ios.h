@@ -73,6 +73,14 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 #import "platform/ios/CCESRenderer-ios.h"
 
+enum class TouchEventType
+{
+    BEGAN,
+    MOVED,
+    ENDED,
+    CANCELLED
+};
+
 //CLASS INTERFACE:
 
 /** CCEAGLView Class.
@@ -129,6 +137,10 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 /** Initializes an CCEAGLView with a frame, a color buffer format, a depth buffer format, a sharegroup and multisampling support */
 - (id) initWithFrame:(CGRect)frame pixelFormat:(NSString*)format depthFormat:(GLuint)depth preserveBackbuffer:(BOOL)retained sharegroup:(EAGLSharegroup*)sharegroup multiSampling:(BOOL)sampling numberOfSamples:(unsigned int)nSamples;
 
+
+
+typedef void (^TouchCallback)(TouchEventType, NSSet*, UIEvent*);
+
 /** pixel format: it could be RGBA8 (32-bit) or RGB565 (16-bit) */
 @property(nonatomic,readonly) NSString* pixelFormat;
 /** depth format of the render buffer: 0, 16 or 24 bits*/
@@ -141,7 +153,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 @property(nonatomic,readonly) EAGLContext *context;
 
 @property(nonatomic,readwrite) BOOL multiSampling;
-
+@property(nonatomic,copy) TouchCallback touchCallback;
 
 /** CCEAGLView uses double-buffer. This method swaps the buffers */
 -(void) swapBuffers;

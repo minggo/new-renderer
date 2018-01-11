@@ -34,6 +34,25 @@
 
 #include "Utils.h"
 
+static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (GLFW_RELEASE == action)
+    {
+        auto se = se::ScriptEngine::getInstance();
+        se->clearException();
+        se::AutoHandleScope hs;
+
+        auto global = se->getGlobalObject();
+        se::Value keyUpFuncVal;
+        if (global->getProperty("onKeyUp", &keyUpFuncVal))
+        {
+            se::ValueArray args;
+            args.push_back(se::Value(key));
+            keyUpFuncVal.toObject()->call(args, nullptr);
+        }
+    }
+}
+
 int main(int argc, char** argv)
 {
     if (!glfwInit())
@@ -48,7 +67,7 @@ int main(int argc, char** argv)
         return -1;
     }
     
-//    glfwSetKeyCallback(window, keyCallback);
+    glfwSetKeyCallback(window, keyCallback);
     glfwMakeContextCurrent(window);
     
     auto se = se::ScriptEngine::getInstance();
@@ -73,11 +92,7 @@ int main(int argc, char** argv)
     se->evalString(commandBuf);
     se->runScript("src/gfx.js");
     se::Value tickVal;
-//    se->runScript("src/post-process.js", &tickVal);
-//    se->runScript("src/depth-texture.js", &tickVal);
-//    se->runScript("src/gui-projection.js", &tickVal);
-//    se->runScript("src/multiple-textures.js", &tickVal);
-    se->runScript("src/texture-2d.js", &tickVal);
+    se->runScript("src/main.js", &tickVal);
 
     std::chrono::steady_clock::time_point prevTime;
     std::chrono::steady_clock::time_point now;
