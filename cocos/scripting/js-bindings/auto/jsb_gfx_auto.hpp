@@ -16,9 +16,7 @@ extern se::Class* __jsb_cocos2d_gfx_IndexBuffer_class;
 
 bool js_register_cocos2d_gfx_IndexBuffer(se::Object* obj);
 bool register_all_gfx(se::Object* obj);
-SE_DECLARE_FUNC(js_gfx_IndexBuffer_getBytesPerIndex);
 SE_DECLARE_FUNC(js_gfx_IndexBuffer_getCount);
-SE_DECLARE_FUNC(js_gfx_IndexBuffer_getFormat);
 SE_DECLARE_FUNC(js_gfx_IndexBuffer_IndexBuffer);
 
 extern se::Object* __jsb_cocos2d_gfx_VertexBuffer_proto;
@@ -27,7 +25,6 @@ extern se::Class* __jsb_cocos2d_gfx_VertexBuffer_class;
 bool js_register_cocos2d_gfx_VertexBuffer(se::Object* obj);
 bool register_all_gfx(se::Object* obj);
 SE_DECLARE_FUNC(js_gfx_VertexBuffer_getCount);
-SE_DECLARE_FUNC(js_gfx_VertexBuffer_getFormat);
 SE_DECLARE_FUNC(js_gfx_VertexBuffer_VertexBuffer);
 
 extern se::Object* __jsb_cocos2d_gfx_DeviceGraphics_proto;
@@ -70,15 +67,6 @@ extern se::Class* __jsb_cocos2d_gfx_FrameBuffer_class;
 
 bool js_register_cocos2d_gfx_FrameBuffer(se::Object* obj);
 bool register_all_gfx(se::Object* obj);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_setColorBuffer);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_setStencilBuffer);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_getDepthBuffer);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_setDepthStencilBuffer);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_getStencilBuffer);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_setColorBuffers);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_getColorBuffers);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_setDepthBuffer);
-SE_DECLARE_FUNC(js_gfx_FrameBuffer_getDepthStencilBuffer);
 SE_DECLARE_FUNC(js_gfx_FrameBuffer_FrameBuffer);
 
 extern se::Object* __jsb_cocos2d_gfx_RenderTarget_proto;
@@ -122,7 +110,6 @@ extern se::Class* __jsb_cocos2d_gfx_Program_class;
 
 bool js_register_cocos2d_gfx_Program(se::Object* obj);
 bool register_all_gfx(se::Object* obj);
-SE_DECLARE_FUNC(js_gfx_Program_isLinked);
 SE_DECLARE_FUNC(js_gfx_Program_getID);
 SE_DECLARE_FUNC(js_gfx_Program_init);
 SE_DECLARE_FUNC(js_gfx_Program_link);
