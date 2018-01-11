@@ -35,30 +35,10 @@ GraphicsHandle : function (
 gfx.IndexBuffer = {
 
 /**
- * @method getBytesPerIndex
- * @return {unsigned int}
- */
-getBytesPerIndex : function (
-)
-{
-    return 0;
-},
-
-/**
  * @method getCount
  * @return {unsigned int}
  */
 getCount : function (
-)
-{
-    return 0;
-},
-
-/**
- * @method getFormat
- * @return {cc.gfx::IndexFormat}
- */
-getFormat : function (
 )
 {
     return 0;
@@ -88,16 +68,6 @@ getCount : function (
 )
 {
     return 0;
-},
-
-/**
- * @method getFormat
- * @return {cc.gfx::VertexFormat}
- */
-getFormat : function (
-)
-{
-    return cc.gfx::VertexFormat;
 },
 
 /**
@@ -480,58 +450,6 @@ getInstance : function (
 gfx.FrameBuffer = {
 
 /**
- * @method setColorBuffer
- * @param {cc.gfx::RenderTarget} arg0
- * @param {int} arg1
- */
-setColorBuffer : function (
-rendertarget, 
-int 
-)
-{
-},
-
-/**
- * @method setStencilBuffer
- * @param {cc.gfx::RenderTarget} arg0
- */
-setStencilBuffer : function (
-rendertarget 
-)
-{
-},
-
-/**
- * @method setDepthStencilBuffer
- * @param {cc.gfx::RenderTarget} arg0
- */
-setDepthStencilBuffer : function (
-rendertarget 
-)
-{
-},
-
-/**
- * @method setColorBuffers
- * @param {Array} arg0
- */
-setColorBuffers : function (
-array 
-)
-{
-},
-
-/**
- * @method setDepthBuffer
- * @param {cc.gfx::RenderTarget} arg0
- */
-setDepthBuffer : function (
-rendertarget 
-)
-{
-},
-
-/**
  * @method FrameBuffer
  * @constructor
  */
@@ -716,16 +634,6 @@ Texture2D : function (
  * @class Program
  */
 gfx.Program = {
-
-/**
- * @method isLinked
- * @return {bool}
- */
-isLinked : function (
-)
-{
-    return false;
-},
 
 /**
  * @method getID

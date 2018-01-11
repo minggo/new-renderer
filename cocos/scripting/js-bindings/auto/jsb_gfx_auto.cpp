@@ -68,24 +68,6 @@ bool js_register_gfx_GraphicsHandle(se::Object* obj)
 se::Object* __jsb_cocos2d_gfx_IndexBuffer_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_IndexBuffer_class = nullptr;
 
-static bool js_gfx_IndexBuffer_getBytesPerIndex(se::State& s)
-{
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_getBytesPerIndex : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        unsigned int result = cobj->getBytesPerIndex();
-        ok &= uint32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_getBytesPerIndex : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_IndexBuffer_getBytesPerIndex)
-
 static bool js_gfx_IndexBuffer_getCount(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
@@ -103,24 +85,6 @@ static bool js_gfx_IndexBuffer_getCount(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_gfx_IndexBuffer_getCount)
-
-static bool js_gfx_IndexBuffer_getFormat(se::State& s)
-{
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_getFormat : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        int result = (int)cobj->getFormat();
-        ok &= int32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_getFormat : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_IndexBuffer_getFormat)
 
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_IndexBuffer_finalize)
 
@@ -152,9 +116,7 @@ bool js_register_gfx_IndexBuffer(se::Object* obj)
 {
     auto cls = se::Class::create("IndexBuffer", obj, __jsb_cocos2d_gfx_GraphicsHandle_proto, _SE(js_gfx_IndexBuffer_constructor));
 
-    cls->defineFunction("getBytesPerIndex", _SE(js_gfx_IndexBuffer_getBytesPerIndex));
     cls->defineFunction("getCount", _SE(js_gfx_IndexBuffer_getCount));
-    cls->defineFunction("getFormat", _SE(js_gfx_IndexBuffer_getFormat));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_IndexBuffer_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::IndexBuffer>(cls);
@@ -187,24 +149,6 @@ static bool js_gfx_VertexBuffer_getCount(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_VertexBuffer_getCount)
 
-static bool js_gfx_VertexBuffer_getFormat(se::State& s)
-{
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_getFormat : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        const cocos2d::gfx::VertexFormat& result = cobj->getFormat();
-        ok &= VertexFormat_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_gfx_VertexBuffer_getFormat : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_VertexBuffer_getFormat)
-
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_VertexBuffer_finalize)
 
 static bool js_gfx_VertexBuffer_constructor(se::State& s)
@@ -236,7 +180,6 @@ bool js_register_gfx_VertexBuffer(se::Object* obj)
     auto cls = se::Class::create("VertexBuffer", obj, __jsb_cocos2d_gfx_GraphicsHandle_proto, _SE(js_gfx_VertexBuffer_constructor));
 
     cls->defineFunction("getCount", _SE(js_gfx_VertexBuffer_getCount));
-    cls->defineFunction("getFormat", _SE(js_gfx_VertexBuffer_getFormat));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_VertexBuffer_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::VertexBuffer>(cls);
@@ -931,103 +874,6 @@ bool js_register_gfx_DeviceGraphics(se::Object* obj)
 se::Object* __jsb_cocos2d_gfx_FrameBuffer_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_FrameBuffer_class = nullptr;
 
-static bool js_gfx_FrameBuffer_setColorBuffer(se::State& s)
-{
-    cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_FrameBuffer_setColorBuffer : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        cocos2d::gfx::RenderTarget* arg0 = nullptr;
-        int arg1 = 0;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (int)tmp; } while(false);
-        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_setColorBuffer : Error processing arguments");
-        cobj->setColorBuffer(arg0, arg1);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_FrameBuffer_setColorBuffer)
-
-static bool js_gfx_FrameBuffer_setStencilBuffer(se::State& s)
-{
-    cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_FrameBuffer_setStencilBuffer : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::gfx::RenderTarget* arg0 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_setStencilBuffer : Error processing arguments");
-        cobj->setStencilBuffer(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_FrameBuffer_setStencilBuffer)
-
-static bool js_gfx_FrameBuffer_setDepthStencilBuffer(se::State& s)
-{
-    cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_FrameBuffer_setDepthStencilBuffer : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::gfx::RenderTarget* arg0 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_setDepthStencilBuffer : Error processing arguments");
-        cobj->setDepthStencilBuffer(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_FrameBuffer_setDepthStencilBuffer)
-
-static bool js_gfx_FrameBuffer_setColorBuffers(se::State& s)
-{
-    cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_FrameBuffer_setColorBuffers : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        std::vector<cocos2d::gfx::RenderTarget *> arg0;
-        ok &= seval_to_std_vector_RenderTarget(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_setColorBuffers : Error processing arguments");
-        cobj->setColorBuffers(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_FrameBuffer_setColorBuffers)
-
-static bool js_gfx_FrameBuffer_setDepthBuffer(se::State& s)
-{
-    cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_FrameBuffer_setDepthBuffer : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        cocos2d::gfx::RenderTarget* arg0 = nullptr;
-        ok &= seval_to_native_ptr(args[0], &arg0);
-        SE_PRECONDITION2(ok, false, "js_gfx_FrameBuffer_setDepthBuffer : Error processing arguments");
-        cobj->setDepthBuffer(arg0);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_FrameBuffer_setDepthBuffer)
-
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_FrameBuffer_finalize)
 
 static bool js_gfx_FrameBuffer_constructor(se::State& s)
@@ -1058,11 +904,6 @@ bool js_register_gfx_FrameBuffer(se::Object* obj)
 {
     auto cls = se::Class::create("FrameBuffer", obj, __jsb_cocos2d_gfx_GraphicsHandle_proto, _SE(js_gfx_FrameBuffer_constructor));
 
-    cls->defineFunction("setColorBuffer", _SE(js_gfx_FrameBuffer_setColorBuffer));
-    cls->defineFunction("setStencilBuffer", _SE(js_gfx_FrameBuffer_setStencilBuffer));
-    cls->defineFunction("setDepthStencilBuffer", _SE(js_gfx_FrameBuffer_setDepthStencilBuffer));
-    cls->defineFunction("setColorBuffers", _SE(js_gfx_FrameBuffer_setColorBuffers));
-    cls->defineFunction("setDepthBuffer", _SE(js_gfx_FrameBuffer_setDepthBuffer));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_FrameBuffer_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::FrameBuffer>(cls);
@@ -1452,24 +1293,6 @@ bool js_register_gfx_Texture2D(se::Object* obj)
 se::Object* __jsb_cocos2d_gfx_Program_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_Program_class = nullptr;
 
-static bool js_gfx_Program_isLinked(se::State& s)
-{
-    cocos2d::gfx::Program* cobj = (cocos2d::gfx::Program*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_Program_isLinked : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        bool result = cobj->isLinked();
-        ok &= boolean_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_gfx_Program_isLinked : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
-    return false;
-}
-SE_BIND_FUNC(js_gfx_Program_isLinked)
-
 static bool js_gfx_Program_getID(se::State& s)
 {
     cocos2d::gfx::Program* cobj = (cocos2d::gfx::Program*)s.nativeThisObject();
@@ -1558,7 +1381,6 @@ bool js_register_gfx_Program(se::Object* obj)
 {
     auto cls = se::Class::create("Program", obj, __jsb_cocos2d_gfx_GraphicsHandle_proto, _SE(js_gfx_Program_constructor));
 
-    cls->defineFunction("isLinked", _SE(js_gfx_Program_isLinked));
     cls->defineFunction("getID", _SE(js_gfx_Program_getID));
     cls->defineFunction("init", _SE(js_gfx_Program_init));
     cls->defineFunction("link", _SE(js_gfx_Program_link));
