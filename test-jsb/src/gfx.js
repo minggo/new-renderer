@@ -1,21 +1,7 @@
+require("src/jsb_prepare.js")
 require("src/enums.js");
 require("src/vertex-format.js");
 require("src/vmath.js");
-
-/**
- * Common getter setter configuration function
- * @function
- * @param {Object}   proto      A class prototype or an object to config
- * @param {String}   prop       Property name
- * @param {function} getter     Getter function for the property
- * @param {function} setter     Setter function for the property
- */
-cc.defineGetterSetter = function (proto, prop, getter, setter){
-    var desc = { enumerable: false, configurable: true };
-    getter && (desc.get = getter);
-    setter && (desc.set = setter);
-    Object.defineProperty(proto, prop, desc);
-};
 
 
 window.device = gfx.Device.getInstance();
