@@ -462,6 +462,10 @@
 		462724621FF4A2BA000D13BC /* Blending.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724601FF4A2BA000D13BC /* Blending.cpp */; };
 		462724671FF4D68D000D13BC /* Bunny.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724641FF4D68C000D13BC /* Bunny.cpp */; };
 		4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
+		4653997A2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
+		4653997B2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
+		4653997C2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
+		4653997D2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -792,6 +796,8 @@
 		462724661FF4D68C000D13BC /* Bunny.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bunny.h; sourceTree = "<group>"; };
 		462724681FF4E39E000D13BC /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		462724691FF4E39E000D13BC /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		465399782015CDB400EAE1FC /* Config.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Config.cpp; path = ../renderer/Config.cpp; sourceTree = "<group>"; };
+		465399792015CDB400EAE1FC /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../renderer/Config.h; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1450,6 +1456,16 @@
 			path = gfx;
 			sourceTree = "<group>";
 		};
+		465399772015CD8B00EAE1FC /* renderer */ = {
+			isa = PBXGroup;
+			children = (
+				465399782015CDB400EAE1FC /* Config.cpp */,
+				465399792015CDB400EAE1FC /* Config.h */,
+			);
+			name = renderer;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		469492531FE24978008D19CC = {
 			isa = PBXGroup;
 			children = (
@@ -1522,6 +1538,7 @@
 		469492921FE270F2008D19CC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				465399772015CD8B00EAE1FC /* renderer */,
 				469492941FE270F2008D19CC /* gfx */,
 				469492931FE270F2008D19CC /* macro.h */,
 				1A69F10C1FF32D9300B224DF /* types.cpp */,
@@ -1807,6 +1824,7 @@
 				1A255E9B20034F1000069420 /* jsb_global.cpp in Sources */,
 				1A255E9C20034F1000069420 /* Quaternion.cpp in Sources */,
 				1A255E9D20034F1000069420 /* SHA1.cpp in Sources */,
+				4653997C2015CDB400EAE1FC /* Config.cpp in Sources */,
 				1A255E9E20034F1000069420 /* CCRenderTarget.cpp in Sources */,
 				1A255E9F20034F1000069420 /* jsb_gfx_auto.cpp in Sources */,
 				1A255EA120034F1000069420 /* CCRenderBuffer.cpp in Sources */,
@@ -1957,6 +1975,7 @@
 				1A255F6020034F6D00069420 /* CCAffineTransform.cpp in Sources */,
 				1A255F6120034F6D00069420 /* env.cc in Sources */,
 				1A255F6220034F6D00069420 /* unzip.cpp in Sources */,
+				4653997D2015CDB400EAE1FC /* Config.cpp in Sources */,
 				1A255F6320034F6D00069420 /* MathUtil.cpp in Sources */,
 				1A255F6420034F6D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255F6520034F6D00069420 /* ObjectWrap.cpp in Sources */,
@@ -2008,6 +2027,7 @@
 				1A255DF020034B0D00069420 /* node_debug_options.cc in Sources */,
 				1A255E3820034B0D00069420 /* CCFileUtils.cpp in Sources */,
 				46ABB0951FFC719500287AA5 /* MultiTextures.cpp in Sources */,
+				4653997B2015CDB400EAE1FC /* Config.cpp in Sources */,
 				1A255DD820034B0D00069420 /* node.cc in Sources */,
 				1ACB61A41FF5F33D0007F081 /* CCRenderTarget.cpp in Sources */,
 				1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
@@ -2081,6 +2101,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4653997A2015CDB400EAE1FC /* Config.cpp in Sources */,
 				4627245F1FF47B82000D13BC /* Basic.cpp in Sources */,
 				1A255DED20034B0D00069420 /* http_parser.c in Sources */,
 				1A1A4FD51FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */,
