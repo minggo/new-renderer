@@ -6,6 +6,19 @@ require("src/vmath.js");
 
 window.device = gfx.Device.getInstance();
 
+//FIXME:
+window.device._stats = { vb: 0 };
+window.device._caps = {
+    maxVextexTextures: 16,
+    maxFragUniforms: 1024,
+    maxTextureUints: 8,
+    maxVertexAttributes: 16,
+    maxDrawBuffers: 8,
+    maxColorAttatchments: 8
+};
+
+device.setBlendColor32 = device.setBlendColor;
+
 _p = gfx.Program.prototype;
 _p._ctor = function(device, options) {
     this.init(device, options.vert, options.frag);

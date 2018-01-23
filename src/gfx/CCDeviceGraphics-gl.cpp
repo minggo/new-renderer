@@ -600,6 +600,9 @@ void DeviceGraphics::initCaps()
     GL_CHECK(glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &_caps.maxColorAttatchments));
     GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
 #endif
+
+    GFX_LOGD("Device caps: maxVextexTextures: %d, maxFragUniforms: %d, maxTextureUints: %d, maxVertexAttributes: %d, maxDrawBuffers: %d, maxColorAttatchments: %d",
+             _caps.maxVextexTextures, _caps.maxFragUniforms, _caps.maxTextureUints, _caps.maxVertexAttributes, _caps.maxDrawBuffers, _caps.maxColorAttatchments);
 }
 
 void DeviceGraphics::initStates()

@@ -1300,14 +1300,22 @@ bool seval_to_TextureOptions(const se::Value& v, cocos2d::gfx::Texture::Options*
             se::Value imageVal;
             for (uint32_t i = 0; i < len; ++i)
             {
-                if (arr->getArrayElement(i, &imageVal) && imageVal.isObject() && imageVal.toObject()->isTypedArray())
+                if (arr->getArrayElement(i, &imageVal))
                 {
-                    uint8_t* data = nullptr;
-                    size_t bytes = 0;
-                    cocos2d::Data imgData;
-                    imageVal.toObject()->getTypedArrayData(&data, &bytes);
-                    imgData.copy((unsigned char*)data, bytes);
-                    ret->images.push_back(std::move(imgData));
+                    if (imageVal.isObject() && imageVal.toObject()->isTypedArray())
+                    {
+                        uint8_t* data = nullptr;
+                        size_t bytes = 0;
+                        cocos2d::Data imgData;
+                        imageVal.toObject()->getTypedArrayData(&data, &bytes);
+                        imgData.copy((unsigned char*)data, bytes);
+                        ret->images.push_back(std::move(imgData));
+                    }
+                    else
+                    {
+                        SE_LOGE("Texture image isn't a typed array object!");
+                        assert(false);
+                    }
                 }
             }
         }

@@ -396,6 +396,8 @@ namespace se {
         _globalObj = Object::_createJSObject(nullptr, _context.Get(_isolate)->Global());
         _globalObj->root();
 
+        _globalObj->setProperty("window", Value(_globalObj));
+
         se::Value consoleVal;
         if (_globalObj->getProperty("console", &consoleVal) && consoleVal.isObject())
         {
@@ -675,6 +677,7 @@ namespace se {
     {
         assert(!path.empty());
         assert(_fileOperationDelegate.isValid());
+        SE_LOGD("ScriptEngine::runScript script %s\n", path.c_str());
 
         std::string scriptBuffer = _fileOperationDelegate.onGetStringFromFile(path);
 
