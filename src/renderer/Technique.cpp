@@ -22,25 +22,28 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
-
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include "../macro.h"
+#include "Technique.h"
+#include "Config.h"
 
 GFX_BEGIN
 
-class Config
+uint32_t Technique::_genID = 0;
+
+Technique::Technique(const std::vector<std::string>& stages,
+                     const std::vector<Parameter>& parameters,
+                     const Vector<Pass*>& passes,
+                     int layer)
+: _id(_genID++)
+, _stageIDs(Config::getStageIDs(stages))
+, _parameters(parameters)
+, _passes(passes)
+, _layer(layer)
 {
-public:
-    static void addStage(const std::string& name);
-    static int getStageID(const std::string& name);
-    static unsigned int getStageIDs(const std::vector<std::string>& nameList);
-    
-private:
-    static unsigned int _stageOffset;
-    static std::unordered_map<std::string, unsigned int> _name2stageID;
-};
+}
+
+void Technique::setStages(const std::vector<std::string>& stages)
+{
+    _stageIDs = Config::getStageIDs(stages);
+}
 
 GFX_END

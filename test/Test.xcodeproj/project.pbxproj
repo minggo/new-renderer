@@ -474,6 +474,10 @@
 		465399872015EA0700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399842015EA0700EAE1FC /* View.cpp */; };
 		465399882015EA0700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399842015EA0700EAE1FC /* View.cpp */; };
 		465399892015EA0700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399842015EA0700EAE1FC /* View.cpp */; };
+		4653998C2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
+		4653998D2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
+		4653998E2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
+		4653998F2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -810,6 +814,8 @@
 		4653997F2015DD0500EAE1FC /* Pass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Pass.h; path = ../renderer/Pass.h; sourceTree = "<group>"; };
 		465399842015EA0700EAE1FC /* View.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = View.cpp; path = ../renderer/View.cpp; sourceTree = "<group>"; };
 		465399852015EA0700EAE1FC /* View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = View.h; path = ../renderer/View.h; sourceTree = "<group>"; };
+		4653998A2016CEFA00EAE1FC /* Technique.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Technique.cpp; path = ../renderer/Technique.cpp; sourceTree = "<group>"; };
+		4653998B2016CEFA00EAE1FC /* Technique.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Technique.h; path = ../renderer/Technique.h; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1477,6 +1483,8 @@
 				4653997F2015DD0500EAE1FC /* Pass.h */,
 				465399842015EA0700EAE1FC /* View.cpp */,
 				465399852015EA0700EAE1FC /* View.h */,
+				4653998A2016CEFA00EAE1FC /* Technique.cpp */,
+				4653998B2016CEFA00EAE1FC /* Technique.h */,
 			);
 			name = renderer;
 			path = "New Group";
@@ -1889,6 +1897,7 @@
 				1A255ECB20034F1000069420 /* MathUtil.cpp in Sources */,
 				1A255ECC20034F1000069420 /* Mat4.cpp in Sources */,
 				1A255ECD20034F1000069420 /* CCAffineTransform.cpp in Sources */,
+				4653998E2016CEFA00EAE1FC /* Technique.cpp in Sources */,
 				1A255ECE20034F1000069420 /* Utils.cpp in Sources */,
 				1A255ECF20034F1000069420 /* CCFileUtils-apple.mm in Sources */,
 				1A255ED020034F1000069420 /* CCConfiguration.cpp in Sources */,
@@ -2000,6 +2009,7 @@
 				1A255F6420034F6D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255F6520034F6D00069420 /* ObjectWrap.cpp in Sources */,
 				1A255F6620034F6D00069420 /* CCTexture.cpp in Sources */,
+				4653998F2016CEFA00EAE1FC /* Technique.cpp in Sources */,
 				1A255F6720034F6D00069420 /* Object.cpp in Sources */,
 				1A255F6820034F6D00069420 /* inspector_agent.cc in Sources */,
 				1A255F6920034F6D00069420 /* Utils.cpp in Sources */,
@@ -2096,6 +2106,7 @@
 				1A255E5C20034B0D00069420 /* Vec3.cpp in Sources */,
 				1A255E6E20034B0D00069420 /* pvr.cpp in Sources */,
 				1A255E4C20034B0D00069420 /* CCGeometry.cpp in Sources */,
+				4653998D2016CEFA00EAE1FC /* Technique.cpp in Sources */,
 				1A255DD620034B0D00069420 /* Utils.cpp in Sources */,
 				1A255E0020034B0D00069420 /* Utils.cpp in Sources */,
 				1ACB61B61FF6028B0007F081 /* ioapi.cpp in Sources */,
@@ -2147,6 +2158,7 @@
 				1A255E7520034B0D00069420 /* CCValue.cpp in Sources */,
 				1A255DF120034B0D00069420 /* env.cc in Sources */,
 				1A255E5120034B0D00069420 /* Quaternion.cpp in Sources */,
+				4653998C2016CEFA00EAE1FC /* Technique.cpp in Sources */,
 				1A255DE120034B0D00069420 /* SHA1.cpp in Sources */,
 				1A69F07A1FF1E41A00B224DF /* CCRenderTarget.cpp in Sources */,
 				46ABB0941FFC719500287AA5 /* MultiTextures.cpp in Sources */,

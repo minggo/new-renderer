@@ -25,12 +25,13 @@
 #pragma once
 
 #include <string>
+#include <base/CCRef.h>
 #include "../macro.h"
 #include "../types.h"
 
 GFX_BEGIN
 
-struct Pass
+struct Pass : public Ref
 {
     Pass(const std::string& programName);
     

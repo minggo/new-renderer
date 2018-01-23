@@ -59,15 +59,15 @@ private:
     uint8_t _clearFlags = ClearFlag::COLOR | ClearFlag::DEPTH;
     
     // matrix
-    Mat4 _matView = {};
-    Mat4 _matProj = {};
-    Mat4 _matViewProj = {};
-    Mat4 _matInvViewPorj = {};
+    Mat4 _matView;
+    Mat4 _matProj;
+    Mat4 _matViewProj;
+    Mat4 _matInvViewPorj;
     
     // stages & framebuffer
-    std::vector<int> _stages = {};
+    std::vector<int> _stages;
     bool _cullingByID = false;
-    FrameBuffer *_frameBuffer;
+    FrameBuffer *_frameBuffer = nullptr;
     
     //TODO: shadow light
 };

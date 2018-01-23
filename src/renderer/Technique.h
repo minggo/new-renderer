@@ -26,21 +26,65 @@
 
 #include <string>
 #include <vector>
-#include <unordered_map>
+#include "platform/CCGL.h"
+#include "base/CCVector.h"
 #include "../macro.h"
+#include "Pass.h"
 
 GFX_BEGIN
 
-class Config
+class Technique
 {
 public:
-    static void addStage(const std::string& name);
-    static int getStageID(const std::string& name);
-    static unsigned int getStageIDs(const std::vector<std::string>& nameList);
+    
+    enum class ParameterType : uint8_t
+    {
+        INT = 0,
+        INT2,
+        INT3,
+        INT4,
+        FLOAT,
+        FLOAT2,
+        FLOAT3,
+        FLOAT4,
+        COLOR3,
+        COLOR4,
+        MAT2,
+        MAT3,
+        MAT4,
+        TEXTURE_2D,
+        TEXTURE_CUBE
+    };
+    
+    struct Parameter
+    {
+        std::string name = "";
+        GLsizei size = 0;
+        ParameterType type = ParameterType::INT;
+        void* value = nullptr;
+    };
+    
+    Technique(const std::vector<std::string>& stages,
+              const std::vector<Parameter>& parameters,
+              const Vector<Pass*>& passes,
+              int layer = 0);
+    
+    void setStages(const std::vector<std::string>& stages);
+    
+    // Should rename function name in binding codes.
+    const Vector<Pass*>& getPasses() const { return _passes; }
+    uint32_t getStageIDs() const { return _stageIDs; }
+    
+    // TODO: add get functions
     
 private:
-    static unsigned int _stageOffset;
-    static std::unordered_map<std::string, unsigned int> _name2stageID;
+    static uint32_t _genID;
+    
+    uint32_t _id = 0;
+    uint32_t _stageIDs = 0;
+    int _layer = 0;
+    std::vector<Parameter> _parameters;
+    Vector<Pass*> _passes;
 };
 
 GFX_END

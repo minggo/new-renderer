@@ -40,7 +40,7 @@ void Config::addStage(const std::string& name)
     ++Config::_stageOffset;
 }
 
-int Config::getStageID(const std::string &name) const
+int Config::getStageID(const std::string &name)
 {
     auto foundIter = Config::_name2stageID.find(name);
     if (Config::_name2stageID.end() == foundIter)
@@ -49,7 +49,7 @@ int Config::getStageID(const std::string &name) const
     return (int)foundIter->second;
 }
 
-unsigned int Config::getStageIDs(const std::vector<std::string>& nameList) const
+unsigned int Config::getStageIDs(const std::vector<std::string>& nameList)
 {
     unsigned int ret = 0;
     
@@ -66,4 +66,3 @@ unsigned int Config::getStageIDs(const std::vector<std::string>& nameList) const
 }
 
 GFX_END
-
