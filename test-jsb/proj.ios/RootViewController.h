@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RootViewController : UIViewController
+@interface RootViewController : UIViewController {
+    UITextView* _fpsTextView;
+}
 
+@property (nonatomic, strong) UITextView* fpsTextView;
 
 @end
 

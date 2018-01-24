@@ -22,6 +22,21 @@
 
 #include "Utils.h"
 
+static std::chrono::steady_clock::time_point prevTime;
+static float dtSum = 0.0f;
+static float dt = 0.0f;
+static int dtCounter = 0;
+static se::Value tickVal;
+static UITextView* __bunnyCoutTextView = nil;
+
+static bool setBunnyCount(se::State& s)
+{
+    const auto& args = s.args();
+    assert(args.size() > 0);
+    [__bunnyCoutTextView setText:[NSString stringWithFormat:@"Bunny: %d", args[0].toInt32()]];
+    return true;
+}
+SE_BIND_FUNC(setBunnyCount)
 
 @interface RootViewController ()
 
@@ -29,16 +44,29 @@
 
 @implementation RootViewController
 
-se::Value tickVal;
+@synthesize fpsTextView = _fpsTextView;
 
 - (void) tick: (id) sender {
-     // FIXME:
-    float dt = 0.016f;
+
+    se::AutoHandleScope hs;
     se::ValueArray args;
     args.push_back(se::Value(dt));
     tickVal.toObject()->call(args, nullptr);
-
     [((CCEAGLView*)self.view) swapBuffers];
+
+    dt = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - prevTime).count() / 1000000.f;
+
+    dtSum += dt;
+    ++dtCounter;
+    if (dtSum > 1.0f)
+    {
+        int fps = (int)std::ceil(1.0f / (dtSum / dtCounter));
+        [self.fpsTextView setText:[NSString stringWithFormat:@"FPS: %d", fps]];
+        dtCounter = 0;
+        dtSum = 0.0f;
+    }
+
+    prevTime = std::chrono::steady_clock::now();
 }
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -62,6 +90,15 @@ se::Value tickVal;
 
     // Set EAGLView as view of RootViewController
     self.view = eaglView;
+
+    self.fpsTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    [self.fpsTextView setTextAlignment:NSTextAlignmentLeft];
+    [eaglView addSubview: self.fpsTextView];
+
+    __bunnyCoutTextView = [[UITextView alloc] initWithFrame:CGRectMake(0, 40, 100, 30)];
+    [__bunnyCoutTextView setTextAlignment:NSTextAlignmentLeft];
+    [__bunnyCoutTextView setText:@"Bunny: 20"];
+    [eaglView addSubview: __bunnyCoutTextView];
 
     eaglView.touchCallback = ^(TouchEventType type, NSSet* touches, UIEvent* event) {
 //        NSLog(@"type: %d", (int)type);
@@ -100,6 +137,8 @@ se::Value tickVal;
 
     se->start();
 
+    se->getGlobalObject()->defineFunction("__setBunnyCount", _SE(setBunnyCount));
+
     se::AutoHandleScope hs;
 
     char commandBuf[200] = {0};
@@ -121,6 +160,12 @@ se::Value tickVal;
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+-(void) dealloc {
+    self.fpsTextView = nil;
+    [__bunnyCoutTextView release];
+    __bunnyCoutTextView = nil;
+    [super dealloc];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
