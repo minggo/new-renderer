@@ -462,34 +462,34 @@
 		462724621FF4A2BA000D13BC /* Blending.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724601FF4A2BA000D13BC /* Blending.cpp */; };
 		462724671FF4D68D000D13BC /* Bunny.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724641FF4D68C000D13BC /* Bunny.cpp */; };
 		4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
-		4653997A2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
-		4653997B2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
-		4653997C2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
-		4653997D2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
-		465399802015DD0500EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653997E2015DD0500EAE1FC /* Pass.cpp */; };
-		465399812015DD0500EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653997E2015DD0500EAE1FC /* Pass.cpp */; };
-		465399822015DD0500EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653997E2015DD0500EAE1FC /* Pass.cpp */; };
-		465399832015DD0500EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653997E2015DD0500EAE1FC /* Pass.cpp */; };
-		465399862015EA0700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399842015EA0700EAE1FC /* View.cpp */; };
-		465399872015EA0700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399842015EA0700EAE1FC /* View.cpp */; };
-		465399882015EA0700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399842015EA0700EAE1FC /* View.cpp */; };
-		465399892015EA0700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399842015EA0700EAE1FC /* View.cpp */; };
-		4653998C2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
-		4653998D2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
-		4653998E2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
-		4653998F2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
-		4653999820172D1300EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999620172D1300EAE1FC /* Effect.cpp */; };
-		4653999920172D1300EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999620172D1300EAE1FC /* Effect.cpp */; };
-		4653999A20172D1300EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999620172D1300EAE1FC /* Effect.cpp */; };
-		4653999B20172D1300EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999620172D1300EAE1FC /* Effect.cpp */; };
-		4653999E2018147500EAE1FC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999C2018147500EAE1FC /* Model.cpp */; };
-		4653999F2018147500EAE1FC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999C2018147500EAE1FC /* Model.cpp */; };
-		465399A02018147500EAE1FC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999C2018147500EAE1FC /* Model.cpp */; };
-		465399A12018147500EAE1FC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999C2018147500EAE1FC /* Model.cpp */; };
-		465399A420181D7C00EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399A220181D7C00EAE1FC /* InputAssembler.cpp */; };
-		465399A520181D7C00EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399A220181D7C00EAE1FC /* InputAssembler.cpp */; };
-		465399A620181D7C00EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399A220181D7C00EAE1FC /* InputAssembler.cpp */; };
-		465399A720181D7C00EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399A220181D7C00EAE1FC /* InputAssembler.cpp */; };
+		465399BD20185D9700EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399AF20185D9700EAE1FC /* Pass.cpp */; };
+		465399BE20185D9700EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399AF20185D9700EAE1FC /* Pass.cpp */; };
+		465399BF20185D9700EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399AF20185D9700EAE1FC /* Pass.cpp */; };
+		465399C020185D9700EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399AF20185D9700EAE1FC /* Pass.cpp */; };
+		465399C120185D9700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B320185D9700EAE1FC /* View.cpp */; };
+		465399C220185D9700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B320185D9700EAE1FC /* View.cpp */; };
+		465399C320185D9700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B320185D9700EAE1FC /* View.cpp */; };
+		465399C420185D9700EAE1FC /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B320185D9700EAE1FC /* View.cpp */; };
+		465399C520185D9700EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B420185D9700EAE1FC /* Effect.cpp */; };
+		465399C620185D9700EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B420185D9700EAE1FC /* Effect.cpp */; };
+		465399C720185D9700EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B420185D9700EAE1FC /* Effect.cpp */; };
+		465399C820185D9700EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B420185D9700EAE1FC /* Effect.cpp */; };
+		465399C920185D9700EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B520185D9700EAE1FC /* Config.cpp */; };
+		465399CA20185D9700EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B520185D9700EAE1FC /* Config.cpp */; };
+		465399CB20185D9700EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B520185D9700EAE1FC /* Config.cpp */; };
+		465399CC20185D9700EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B520185D9700EAE1FC /* Config.cpp */; };
+		465399CD20185D9700EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B720185D9700EAE1FC /* Technique.cpp */; };
+		465399CE20185D9700EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B720185D9700EAE1FC /* Technique.cpp */; };
+		465399CF20185D9700EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B720185D9700EAE1FC /* Technique.cpp */; };
+		465399D020185D9700EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B720185D9700EAE1FC /* Technique.cpp */; };
+		465399D120185D9700EAE1FC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B920185D9700EAE1FC /* Model.cpp */; };
+		465399D220185D9700EAE1FC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B920185D9700EAE1FC /* Model.cpp */; };
+		465399D320185D9700EAE1FC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B920185D9700EAE1FC /* Model.cpp */; };
+		465399D420185D9700EAE1FC /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399B920185D9700EAE1FC /* Model.cpp */; };
+		465399D520185D9700EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399BC20185D9700EAE1FC /* InputAssembler.cpp */; };
+		465399D620185D9700EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399BC20185D9700EAE1FC /* InputAssembler.cpp */; };
+		465399D720185D9700EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399BC20185D9700EAE1FC /* InputAssembler.cpp */; };
+		465399D820185D9700EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399BC20185D9700EAE1FC /* InputAssembler.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -820,20 +820,20 @@
 		462724661FF4D68C000D13BC /* Bunny.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bunny.h; sourceTree = "<group>"; };
 		462724681FF4E39E000D13BC /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		462724691FF4E39E000D13BC /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
-		465399782015CDB400EAE1FC /* Config.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Config.cpp; path = ../renderer/Config.cpp; sourceTree = "<group>"; };
-		465399792015CDB400EAE1FC /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../renderer/Config.h; sourceTree = "<group>"; };
-		4653997E2015DD0500EAE1FC /* Pass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Pass.cpp; path = ../renderer/Pass.cpp; sourceTree = "<group>"; };
-		4653997F2015DD0500EAE1FC /* Pass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Pass.h; path = ../renderer/Pass.h; sourceTree = "<group>"; };
-		465399842015EA0700EAE1FC /* View.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = View.cpp; path = ../renderer/View.cpp; sourceTree = "<group>"; };
-		465399852015EA0700EAE1FC /* View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = View.h; path = ../renderer/View.h; sourceTree = "<group>"; };
-		4653998A2016CEFA00EAE1FC /* Technique.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Technique.cpp; path = ../renderer/Technique.cpp; sourceTree = "<group>"; };
-		4653998B2016CEFA00EAE1FC /* Technique.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Technique.h; path = ../renderer/Technique.h; sourceTree = "<group>"; };
-		4653999620172D1300EAE1FC /* Effect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Effect.cpp; path = ../renderer/Effect.cpp; sourceTree = "<group>"; };
-		4653999720172D1300EAE1FC /* Effect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Effect.h; path = ../renderer/Effect.h; sourceTree = "<group>"; };
-		4653999C2018147500EAE1FC /* Model.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Model.cpp; path = ../renderer/Model.cpp; sourceTree = "<group>"; };
-		4653999D2018147500EAE1FC /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../renderer/Model.h; sourceTree = "<group>"; };
-		465399A220181D7C00EAE1FC /* InputAssembler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = InputAssembler.cpp; path = ../renderer/InputAssembler.cpp; sourceTree = "<group>"; };
-		465399A320181D7C00EAE1FC /* InputAssembler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = InputAssembler.h; path = ../renderer/InputAssembler.h; sourceTree = "<group>"; };
+		465399AF20185D9700EAE1FC /* Pass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pass.cpp; sourceTree = "<group>"; };
+		465399B020185D9700EAE1FC /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		465399B120185D9700EAE1FC /* Technique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Technique.h; sourceTree = "<group>"; };
+		465399B220185D9700EAE1FC /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View.h; sourceTree = "<group>"; };
+		465399B320185D9700EAE1FC /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
+		465399B420185D9700EAE1FC /* Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Effect.cpp; sourceTree = "<group>"; };
+		465399B520185D9700EAE1FC /* Config.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Config.cpp; sourceTree = "<group>"; };
+		465399B620185D9700EAE1FC /* Pass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pass.h; sourceTree = "<group>"; };
+		465399B720185D9700EAE1FC /* Technique.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Technique.cpp; sourceTree = "<group>"; };
+		465399B820185D9700EAE1FC /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		465399B920185D9700EAE1FC /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
+		465399BA20185D9700EAE1FC /* Effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Effect.h; sourceTree = "<group>"; };
+		465399BB20185D9700EAE1FC /* InputAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputAssembler.h; sourceTree = "<group>"; };
+		465399BC20185D9700EAE1FC /* InputAssembler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputAssembler.cpp; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1492,26 +1492,25 @@
 			path = gfx;
 			sourceTree = "<group>";
 		};
-		465399772015CD8B00EAE1FC /* renderer */ = {
+		465399AE20185D9700EAE1FC /* renderer */ = {
 			isa = PBXGroup;
 			children = (
-				465399782015CDB400EAE1FC /* Config.cpp */,
-				465399792015CDB400EAE1FC /* Config.h */,
-				4653997E2015DD0500EAE1FC /* Pass.cpp */,
-				4653997F2015DD0500EAE1FC /* Pass.h */,
-				465399842015EA0700EAE1FC /* View.cpp */,
-				465399852015EA0700EAE1FC /* View.h */,
-				4653998A2016CEFA00EAE1FC /* Technique.cpp */,
-				4653998B2016CEFA00EAE1FC /* Technique.h */,
-				4653999620172D1300EAE1FC /* Effect.cpp */,
-				4653999720172D1300EAE1FC /* Effect.h */,
-				4653999C2018147500EAE1FC /* Model.cpp */,
-				4653999D2018147500EAE1FC /* Model.h */,
-				465399A220181D7C00EAE1FC /* InputAssembler.cpp */,
-				465399A320181D7C00EAE1FC /* InputAssembler.h */,
+				465399AF20185D9700EAE1FC /* Pass.cpp */,
+				465399B020185D9700EAE1FC /* Config.h */,
+				465399B120185D9700EAE1FC /* Technique.h */,
+				465399B220185D9700EAE1FC /* View.h */,
+				465399B320185D9700EAE1FC /* View.cpp */,
+				465399B420185D9700EAE1FC /* Effect.cpp */,
+				465399B520185D9700EAE1FC /* Config.cpp */,
+				465399B620185D9700EAE1FC /* Pass.h */,
+				465399B720185D9700EAE1FC /* Technique.cpp */,
+				465399B820185D9700EAE1FC /* Model.h */,
+				465399B920185D9700EAE1FC /* Model.cpp */,
+				465399BA20185D9700EAE1FC /* Effect.h */,
+				465399BB20185D9700EAE1FC /* InputAssembler.h */,
+				465399BC20185D9700EAE1FC /* InputAssembler.cpp */,
 			);
-			name = renderer;
-			path = "New Group";
+			path = renderer;
 			sourceTree = "<group>";
 		};
 		469492531FE24978008D19CC = {
@@ -1586,7 +1585,7 @@
 		469492921FE270F2008D19CC /* src */ = {
 			isa = PBXGroup;
 			children = (
-				465399772015CD8B00EAE1FC /* renderer */,
+				465399AE20185D9700EAE1FC /* renderer */,
 				469492941FE270F2008D19CC /* gfx */,
 				469492931FE270F2008D19CC /* macro.h */,
 				1A69F10C1FF32D9300B224DF /* types.cpp */,
@@ -1851,6 +1850,7 @@
 				1A255E8220034F1000069420 /* http_parser.c in Sources */,
 				1A255E8320034F1000069420 /* State.cpp in Sources */,
 				1A255E8420034F1000069420 /* WebGLFormats.cpp in Sources */,
+				465399BF20185D9700EAE1FC /* Pass.cpp in Sources */,
 				1A255E8520034F1000069420 /* CCRef.cpp in Sources */,
 				1A255E8720034F1000069420 /* CCIndexBuffer.cpp in Sources */,
 				1A255E8A20034F1000069420 /* RefCounter.cpp in Sources */,
@@ -1863,7 +1863,6 @@
 				1A255E9020034F1000069420 /* CCTexture2D.cpp in Sources */,
 				1A255E9120034F1000069420 /* CCVertexBuffer.cpp in Sources */,
 				1A255E9320034F1000069420 /* ScriptEngine.cpp in Sources */,
-				465399882015EA0700EAE1FC /* View.cpp in Sources */,
 				1A255E9420034F1000069420 /* CCGraphicsHandle.cpp in Sources */,
 				1A255E9620034F1000069420 /* CCDevice-apple.mm in Sources */,
 				1A255E9720034F1000069420 /* CCProgram.cpp in Sources */,
@@ -1872,9 +1871,7 @@
 				1A255E9A20034F1000069420 /* env.cc in Sources */,
 				1A255E9B20034F1000069420 /* jsb_global.cpp in Sources */,
 				1A255E9C20034F1000069420 /* Quaternion.cpp in Sources */,
-				465399822015DD0500EAE1FC /* Pass.cpp in Sources */,
 				1A255E9D20034F1000069420 /* SHA1.cpp in Sources */,
-				4653997C2015CDB400EAE1FC /* Config.cpp in Sources */,
 				1A255E9E20034F1000069420 /* CCRenderTarget.cpp in Sources */,
 				1A255E9F20034F1000069420 /* jsb_gfx_auto.cpp in Sources */,
 				1A255EA120034F1000069420 /* CCRenderBuffer.cpp in Sources */,
@@ -1882,12 +1879,13 @@
 				1A255EA320034F1000069420 /* node.cc in Sources */,
 				1A255EA520034F1000069420 /* ScriptEngine.cpp in Sources */,
 				1A255EA620034F1000069420 /* ioapi_mem.cpp in Sources */,
+				465399C320185D9700EAE1FC /* View.cpp in Sources */,
 				1A255EA720034F1000069420 /* xxtea.cpp in Sources */,
 				1A255EA820034F1000069420 /* CCFileUtils.cpp in Sources */,
+				465399CF20185D9700EAE1FC /* Technique.cpp in Sources */,
 				1A255EA920034F1000069420 /* CCConsole.cpp in Sources */,
 				1A255EAA20034F1000069420 /* CCTexture.cpp in Sources */,
 				1A255EAC20034F1000069420 /* WebGLTexelConversions.cpp in Sources */,
-				4653999A20172D1300EAE1FC /* Effect.cpp in Sources */,
 				1A255EAD20034F1000069420 /* inspector_socket.cc in Sources */,
 				1A255EAE20034F1000069420 /* Class.cpp in Sources */,
 				1A255EAF20034F1000069420 /* Object.cpp in Sources */,
@@ -1912,9 +1910,11 @@
 				1A255EC120034F1000069420 /* types.cpp in Sources */,
 				1A255EC320034F1000069420 /* Vec2.cpp in Sources */,
 				1A255EC420034F1000069420 /* CCGFX.cpp in Sources */,
+				465399CB20185D9700EAE1FC /* Config.cpp in Sources */,
 				1A255EC520034F1000069420 /* ioapi.cpp in Sources */,
 				1A255EC620034F1000069420 /* ZipUtils.cpp in Sources */,
 				1A255EC720034F1000069420 /* jsb_conversions.cpp in Sources */,
+				465399C720185D9700EAE1FC /* Effect.cpp in Sources */,
 				1A255FA12003602300069420 /* jsb_gfx_manual.cpp in Sources */,
 				1A255EC820034F1000069420 /* CCData.cpp in Sources */,
 				1A255EC920034F1000069420 /* CCDevice-mac.mm in Sources */,
@@ -1922,7 +1922,6 @@
 				1A255ECB20034F1000069420 /* MathUtil.cpp in Sources */,
 				1A255ECC20034F1000069420 /* Mat4.cpp in Sources */,
 				1A255ECD20034F1000069420 /* CCAffineTransform.cpp in Sources */,
-				4653998E2016CEFA00EAE1FC /* Technique.cpp in Sources */,
 				1A255ECE20034F1000069420 /* Utils.cpp in Sources */,
 				1A255ECF20034F1000069420 /* CCFileUtils-apple.mm in Sources */,
 				1A255ED020034F1000069420 /* CCConfiguration.cpp in Sources */,
@@ -1931,10 +1930,10 @@
 				1A255ED320034F1000069420 /* tinyxml2.cpp in Sources */,
 				1A255ED420034F1000069420 /* ObjectWrap.cpp in Sources */,
 				1A255ED520034F1000069420 /* Vec4.cpp in Sources */,
-				465399A02018147500EAE1FC /* Model.cpp in Sources */,
+				465399D320185D9700EAE1FC /* Model.cpp in Sources */,
 				1A255ED620034F1000069420 /* inspector_io.cc in Sources */,
 				1A255ED720034F1000069420 /* PlatformUtils.mm in Sources */,
-				465399A620181D7C00EAE1FC /* InputAssembler.cpp in Sources */,
+				465399D720185D9700EAE1FC /* InputAssembler.cpp in Sources */,
 				1A255ED820034F1000069420 /* unzip.cpp in Sources */,
 				1A255ED920034F1000069420 /* HandleObject.cpp in Sources */,
 				1A255EDB20034F1000069420 /* CCDeviceGraphics-gl.cpp in Sources */,
@@ -1956,20 +1955,22 @@
 				1A255F0D20034F6D00069420 /* PlatformUtils.mm in Sources */,
 				1A255F0F20034F6D00069420 /* CCTexture2D.cpp in Sources */,
 				1A255F1120034F6D00069420 /* TGAlib.cpp in Sources */,
+				465399C820185D9700EAE1FC /* Effect.cpp in Sources */,
 				1A255F1220034F6D00069420 /* Quaternion.cpp in Sources */,
 				1A255F1320034F6D00069420 /* CCDirectorCaller-ios.mm in Sources */,
 				1A255F1420034F6D00069420 /* ccTypes.cpp in Sources */,
 				1A255F1520034F6D00069420 /* Utils.cpp in Sources */,
+				465399D420185D9700EAE1FC /* Model.cpp in Sources */,
 				1A255F1620034F6D00069420 /* CCState.cpp in Sources */,
-				465399A12018147500EAE1FC /* Model.cpp in Sources */,
 				1A255F1720034F6D00069420 /* Object.cpp in Sources */,
 				1A255F1820034F6D00069420 /* CCRef.cpp in Sources */,
 				1A255F1920034F6D00069420 /* MappingUtils.cpp in Sources */,
+				465399CC20185D9700EAE1FC /* Config.cpp in Sources */,
 				1A255F1A20034F6D00069420 /* HandleObject.cpp in Sources */,
 				1A255F1D20034F6D00069420 /* CCGraphicsHandle.cpp in Sources */,
+				465399D820185D9700EAE1FC /* InputAssembler.cpp in Sources */,
 				1A255F1E20034F6D00069420 /* CCValue.cpp in Sources */,
 				1A255F1F20034F6D00069420 /* inspector_socket.cc in Sources */,
-				465399A720181D7C00EAE1FC /* InputAssembler.cpp in Sources */,
 				1A255F2020034F6D00069420 /* config.cpp in Sources */,
 				1A255F2120034F6D00069420 /* jsb_gfx_auto.cpp in Sources */,
 				1A255F2320034F6D00069420 /* CCDeviceGraphics-gl.cpp in Sources */,
@@ -1980,6 +1981,7 @@
 				1A255F2920034F6D00069420 /* node.cc in Sources */,
 				1A255F2A20034F6D00069420 /* CCRenderTarget.cpp in Sources */,
 				1A255F2C20034F6D00069420 /* jsb_classtype.cpp in Sources */,
+				465399C020185D9700EAE1FC /* Pass.cpp in Sources */,
 				1A255F2D20034F6D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255F2E20034F6D00069420 /* Object.cpp in Sources */,
 				1A255F2F20034F6D00069420 /* ccRandom.cpp in Sources */,
@@ -1996,22 +1998,21 @@
 				1A255F3920034F6D00069420 /* CCGFX.cpp in Sources */,
 				1A255F3A20034F6D00069420 /* Value.cpp in Sources */,
 				1A255F3B20034F6D00069420 /* CCVertex.cpp in Sources */,
-				4653999B20172D1300EAE1FC /* Effect.cpp in Sources */,
 				1A255F3C20034F6D00069420 /* Mat4.cpp in Sources */,
 				1A50267C2005F84E003E668E /* Utils.cpp in Sources */,
 				1A255F3D20034F6D00069420 /* CCVertexBuffer.cpp in Sources */,
-				465399892015EA0700EAE1FC /* View.cpp in Sources */,
 				1A255F3E20034F6D00069420 /* WebGLFormats.cpp in Sources */,
 				1A255F3F20034F6D00069420 /* etc1.cpp in Sources */,
 				1A255F4120034F6D00069420 /* CCFrameBuffer.cpp in Sources */,
-				465399832015DD0500EAE1FC /* Pass.cpp in Sources */,
 				1A255F4220034F6D00069420 /* Vec4.cpp in Sources */,
 				1A255F4420034F6D00069420 /* ZipUtils.cpp in Sources */,
 				1A255F4520034F6D00069420 /* CCConsole.cpp in Sources */,
 				1A255F4620034F6D00069420 /* CCData.cpp in Sources */,
+				465399D020185D9700EAE1FC /* Technique.cpp in Sources */,
 				1A255F4720034F6D00069420 /* ioapi_mem.cpp in Sources */,
 				1A255F4820034F6D00069420 /* Class.cpp in Sources */,
 				1A255F4920034F6D00069420 /* Assertions.cpp in Sources */,
+				465399C420185D9700EAE1FC /* View.cpp in Sources */,
 				1A255FA720048F8400069420 /* AppDelegate.mm in Sources */,
 				1A255F4A20034F6D00069420 /* CCES2Renderer-ios.m in Sources */,
 				1A255F4C20034F6D00069420 /* jsb_conversions.cpp in Sources */,
@@ -2034,12 +2035,10 @@
 				1A255F6020034F6D00069420 /* CCAffineTransform.cpp in Sources */,
 				1A255F6120034F6D00069420 /* env.cc in Sources */,
 				1A255F6220034F6D00069420 /* unzip.cpp in Sources */,
-				4653997D2015CDB400EAE1FC /* Config.cpp in Sources */,
 				1A255F6320034F6D00069420 /* MathUtil.cpp in Sources */,
 				1A255F6420034F6D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255F6520034F6D00069420 /* ObjectWrap.cpp in Sources */,
 				1A255F6620034F6D00069420 /* CCTexture.cpp in Sources */,
-				4653998F2016CEFA00EAE1FC /* Technique.cpp in Sources */,
 				1A255F6720034F6D00069420 /* Object.cpp in Sources */,
 				1A255F6820034F6D00069420 /* inspector_agent.cc in Sources */,
 				1A255F6920034F6D00069420 /* Utils.cpp in Sources */,
@@ -2066,6 +2065,7 @@
 				1ACB61AD1FF5F34A0007F081 /* Blending.cpp in Sources */,
 				1ACB616A1FF5F23E0007F081 /* RootViewController.mm in Sources */,
 				1ACB61A71FF5F33D0007F081 /* CCTexture2D.cpp in Sources */,
+				465399BE20185D9700EAE1FC /* Pass.cpp in Sources */,
 				1ACB61AB1FF5F34A0007F081 /* Bunny.cpp in Sources */,
 				1A255E6C20034B0D00069420 /* TGAlib.cpp in Sources */,
 				1A255E5220034B0D00069420 /* Quaternion.cpp in Sources */,
@@ -2078,7 +2078,6 @@
 				1A1A4E181FFB45E20061A6E1 /* Utils.cpp in Sources */,
 				46ABB09D1FFC765700287AA5 /* PostProcess.cpp in Sources */,
 				1ACB61A01FF5F33D0007F081 /* CCGraphicsHandle.cpp in Sources */,
-				465399872015EA0700EAE1FC /* View.cpp in Sources */,
 				1A255E7620034B0D00069420 /* CCValue.cpp in Sources */,
 				1A255DE820034B0D00069420 /* inspector_socket.cc in Sources */,
 				46ABB0A11FFCD71C00287AA5 /* DepthTexture.cpp in Sources */,
@@ -2087,9 +2086,7 @@
 				1ACB61A21FF5F33D0007F081 /* CCProgram.cpp in Sources */,
 				1A255DF020034B0D00069420 /* node_debug_options.cc in Sources */,
 				1A255E3820034B0D00069420 /* CCFileUtils.cpp in Sources */,
-				465399812015DD0500EAE1FC /* Pass.cpp in Sources */,
 				46ABB0951FFC719500287AA5 /* MultiTextures.cpp in Sources */,
-				4653997B2015CDB400EAE1FC /* Config.cpp in Sources */,
 				1A255DD820034B0D00069420 /* node.cc in Sources */,
 				1ACB61A41FF5F33D0007F081 /* CCRenderTarget.cpp in Sources */,
 				1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
@@ -2097,12 +2094,13 @@
 				1A255E6220034B0D00069420 /* ccRandom.cpp in Sources */,
 				1A255DF820034B0D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255DEA20034B0D00069420 /* inspector_io.cc in Sources */,
+				465399C220185D9700EAE1FC /* View.cpp in Sources */,
 				1A255DEE20034B0D00069420 /* http_parser.c in Sources */,
 				1ACB61A31FF5F33D0007F081 /* CCRenderBuffer.cpp in Sources */,
+				465399CE20185D9700EAE1FC /* Technique.cpp in Sources */,
 				1ACB619F1FF5F33D0007F081 /* CCGFXUtils.cpp in Sources */,
 				1A1A4FF31FFF0D870061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				1A255DDC20034B0D00069420 /* Object.cpp in Sources */,
-				4653999920172D1300EAE1FC /* Effect.cpp in Sources */,
 				1A255E7D20034EE700069420 /* xxtea.cpp in Sources */,
 				1ACB619E1FF5F33D0007F081 /* CCGFX.cpp in Sources */,
 				1A255E5420034B0D00069420 /* CCVertex.cpp in Sources */,
@@ -2127,9 +2125,11 @@
 				1A255E2820034B0D00069420 /* CCSAXParser.cpp in Sources */,
 				1A1A4E1C1FFB57EB0061A6E1 /* Stencil.cpp in Sources */,
 				1AC21AD51FF639EC008D9724 /* Particle.cpp in Sources */,
+				465399CA20185D9700EAE1FC /* Config.cpp in Sources */,
 				1A255DEC20034B0D00069420 /* Class.cpp in Sources */,
 				1A1A4FEE1FFE2B0D0061A6E1 /* Texture2D.cpp in Sources */,
 				1ACB61671FF5F23E0007F081 /* AppDelegate.mm in Sources */,
+				465399C620185D9700EAE1FC /* Effect.cpp in Sources */,
 				1A255DDA20034B0D00069420 /* inspector_socket_server.cc in Sources */,
 				1A255E2420034B0D00069420 /* CCDevice-apple.mm in Sources */,
 				1A255E2E20034B0D00069420 /* CCEAGLView-ios.mm in Sources */,
@@ -2137,7 +2137,6 @@
 				1A255E5C20034B0D00069420 /* Vec3.cpp in Sources */,
 				1A255E6E20034B0D00069420 /* pvr.cpp in Sources */,
 				1A255E4C20034B0D00069420 /* CCGeometry.cpp in Sources */,
-				4653998D2016CEFA00EAE1FC /* Technique.cpp in Sources */,
 				1A255DD620034B0D00069420 /* Utils.cpp in Sources */,
 				1A255E0020034B0D00069420 /* Utils.cpp in Sources */,
 				1ACB61B61FF6028B0007F081 /* ioapi.cpp in Sources */,
@@ -2146,10 +2145,10 @@
 				1ACB61B71FF6028B0007F081 /* unzip.cpp in Sources */,
 				1A255E4820034B0D00069420 /* MathUtil.cpp in Sources */,
 				1A255DD420034B0D00069420 /* ObjectWrap.cpp in Sources */,
-				4653999F2018147500EAE1FC /* Model.cpp in Sources */,
+				465399D220185D9700EAE1FC /* Model.cpp in Sources */,
 				1ACB61A61FF5F33D0007F081 /* CCTexture.cpp in Sources */,
 				1A255DF620034B0D00069420 /* Object.cpp in Sources */,
-				465399A520181D7C00EAE1FC /* InputAssembler.cpp in Sources */,
+				465399D620185D9700EAE1FC /* InputAssembler.cpp in Sources */,
 				1A255DE020034B0D00069420 /* inspector_agent.cc in Sources */,
 				1A255E6620034B0D00069420 /* CCConfiguration.cpp in Sources */,
 				1A255DE620034B0D00069420 /* util.cc in Sources */,
@@ -2167,7 +2166,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4653997A2015CDB400EAE1FC /* Config.cpp in Sources */,
 				4627245F1FF47B82000D13BC /* Basic.cpp in Sources */,
 				1A255DED20034B0D00069420 /* http_parser.c in Sources */,
 				1A1A4FD51FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */,
@@ -2180,8 +2178,10 @@
 				1A255E4B20034B0D00069420 /* CCGeometry.cpp in Sources */,
 				1A255DD520034B0D00069420 /* Utils.cpp in Sources */,
 				1A69F0801FF1F52C00B224DF /* CCTexture2D.cpp in Sources */,
+				465399C120185D9700EAE1FC /* View.cpp in Sources */,
 				1A69F0701FF0FB4200B224DF /* CCVertexBuffer.cpp in Sources */,
 				462724621FF4A2BA000D13BC /* Blending.cpp in Sources */,
+				465399CD20185D9700EAE1FC /* Technique.cpp in Sources */,
 				1A255E0320034B0D00069420 /* ScriptEngine.cpp in Sources */,
 				1A69F0771FF1E19D00B224DF /* CCGraphicsHandle.cpp in Sources */,
 				46ABB0A01FFCD71C00287AA5 /* DepthTexture.cpp in Sources */,
@@ -2191,22 +2191,21 @@
 				1A255E7520034B0D00069420 /* CCValue.cpp in Sources */,
 				1A255DF120034B0D00069420 /* env.cc in Sources */,
 				1A255E5120034B0D00069420 /* Quaternion.cpp in Sources */,
-				4653998C2016CEFA00EAE1FC /* Technique.cpp in Sources */,
 				1A255DE120034B0D00069420 /* SHA1.cpp in Sources */,
 				1A69F07A1FF1E41A00B224DF /* CCRenderTarget.cpp in Sources */,
 				46ABB0941FFC719500287AA5 /* MultiTextures.cpp in Sources */,
-				465399A420181D7C00EAE1FC /* InputAssembler.cpp in Sources */,
+				465399D520185D9700EAE1FC /* InputAssembler.cpp in Sources */,
 				1A69F0741FF102A300B224DF /* CCRenderBuffer.cpp in Sources */,
 				1A255DE520034B0D00069420 /* util.cc in Sources */,
 				1A255DD720034B0D00069420 /* node.cc in Sources */,
 				4694928B1FE26CB5008D19CC /* main.cpp in Sources */,
 				1A69F0FE1FF22B0200B224DF /* ioapi_mem.cpp in Sources */,
 				1A255E7C20034EE700069420 /* xxtea.cpp in Sources */,
+				465399C920185D9700EAE1FC /* Config.cpp in Sources */,
 				1A255E3720034B0D00069420 /* CCFileUtils.cpp in Sources */,
 				1A255E7120034B0D00069420 /* CCConsole.cpp in Sources */,
 				1A69F07D1FF1F50D00B224DF /* CCTexture.cpp in Sources */,
 				1A1A4FF11FFE30FB0061A6E1 /* GuiProjection.cpp in Sources */,
-				465399862015EA0700EAE1FC /* View.cpp in Sources */,
 				1A1A4F1B1FFCA6230061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				1A255DE720034B0D00069420 /* inspector_socket.cc in Sources */,
 				1A255DF920034B0D00069420 /* Class.cpp in Sources */,
@@ -2215,11 +2214,11 @@
 				1A255E6120034B0D00069420 /* ccRandom.cpp in Sources */,
 				1A255DD920034B0D00069420 /* inspector_socket_server.cc in Sources */,
 				1A255E5320034B0D00069420 /* CCVertex.cpp in Sources */,
-				4653999E2018147500EAE1FC /* Model.cpp in Sources */,
+				465399D120185D9700EAE1FC /* Model.cpp in Sources */,
+				465399C520185D9700EAE1FC /* Effect.cpp in Sources */,
 				1A255E2720034B0D00069420 /* CCSAXParser.cpp in Sources */,
 				1A255DEF20034B0D00069420 /* node_debug_options.cc in Sources */,
 				1A69F1161FF380A200B224DF /* CCGFXUtils.cpp in Sources */,
-				465399802015DD0500EAE1FC /* Pass.cpp in Sources */,
 				1A255E0520034B0D00069420 /* Class.cpp in Sources */,
 				1A255DDD20034B0D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255E2920034B0D00069420 /* CCImage.cpp in Sources */,
@@ -2227,7 +2226,6 @@
 				1A255DF520034B0D00069420 /* Object.cpp in Sources */,
 				1A255E6B20034B0D00069420 /* TGAlib.cpp in Sources */,
 				1A255E7320034B0D00069420 /* etc1.cpp in Sources */,
-				4653999820172D1300EAE1FC /* Effect.cpp in Sources */,
 				1A255E0120034B0D00069420 /* Object.cpp in Sources */,
 				1A69F10D1FF32D9300B224DF /* types.cpp in Sources */,
 				1AC21AD41FF639EC008D9724 /* Particle.cpp in Sources */,
@@ -2240,6 +2238,7 @@
 				1A69F06E1FF0FB4200B224DF /* CCVertexFormat.cpp in Sources */,
 				1A255E4720034B0D00069420 /* MathUtil.cpp in Sources */,
 				1A255E4D20034B0D00069420 /* Mat4.cpp in Sources */,
+				465399BD20185D9700EAE1FC /* Pass.cpp in Sources */,
 				1A255E5D20034B0D00069420 /* CCAffineTransform.cpp in Sources */,
 				1A255DF320034B0D00069420 /* Utils.cpp in Sources */,
 				1A255E2520034B0D00069420 /* CCFileUtils-apple.mm in Sources */,
