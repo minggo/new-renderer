@@ -36,7 +36,13 @@
 
 static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+    const char* funcName = nullptr;
     if (GLFW_RELEASE == action)
+        funcName = "onKeyUp";
+    else if (GLFW_PRESS == action)
+        funcName = "onKeyDown";
+
+    if (funcName != nullptr)
     {
         auto se = se::ScriptEngine::getInstance();
         se->clearException();
@@ -44,7 +50,7 @@ static void keyCallback(GLFWwindow* window, int key, int scancode, int action, i
 
         auto global = se->getGlobalObject();
         se::Value keyUpFuncVal;
-        if (global->getProperty("onKeyUp", &keyUpFuncVal))
+        if (global->getProperty(funcName, &keyUpFuncVal))
         {
             se::ValueArray args;
             args.push_back(se::Value(key));
@@ -91,8 +97,9 @@ int main(int argc, char** argv)
     sprintf(commandBuf, "window.canvas = { width: %d, height: %d };", utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     se->evalString(commandBuf);
     se->runScript("src/gfx.js");
+    se->runScript("src/renderer-test/main-jsb.js");
     se::Value tickVal;
-    se->runScript("src/main.js", &tickVal);
+    se->runScript("src/renderer-test/src/basic.js", &tickVal);
 
     std::chrono::steady_clock::time_point prevTime;
     std::chrono::steady_clock::time_point now;

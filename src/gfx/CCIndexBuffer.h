@@ -40,12 +40,22 @@ public:
     virtual ~IndexBuffer();
 
     bool init(DeviceGraphics* device, IndexFormat format, Usage usage, const void* data, size_t dataByteLength, uint32_t numIndices);
-
     void update(uint32_t offset, const void* data, size_t dataByteLength);
-    uint32_t getCount() const { return _numIndices; }
-    inline IndexFormat getFormat() const { return _format; }
-    inline uint32_t getBytesPerIndex() const { return _bytesPerIndex; }
 
+    inline uint32_t getCount() const { return _numIndices; }
+    inline void setCount(uint32_t numIndices) { _numIndices = numIndices; }
+
+    inline IndexFormat getFormat() const { return _format; }
+    inline void setFormat(IndexFormat format) { _format = format; }
+
+    inline uint32_t getBytesPerIndex() const { return _bytesPerIndex; }
+    inline void setBytesPerIndex(uint32_t bytesPerIndex) {_bytesPerIndex = bytesPerIndex; }
+
+    inline Usage getUsage() const { return _usage; }
+    inline void setUsage(Usage usage) { _usage = usage; }
+
+    inline uint32_t getBytes() const { return _bytes; }
+    inline void setBytes(uint32_t bytes) { _bytes = bytes; }
 private:
     DeviceGraphics* _device;
     IndexFormat _format;
