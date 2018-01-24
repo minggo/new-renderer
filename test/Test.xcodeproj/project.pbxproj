@@ -462,6 +462,14 @@
 		462724621FF4A2BA000D13BC /* Blending.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724601FF4A2BA000D13BC /* Blending.cpp */; };
 		462724671FF4D68D000D13BC /* Bunny.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724641FF4D68C000D13BC /* Bunny.cpp */; };
 		4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
+		4653997A2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
+		4653997B2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
+		4653997C2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
+		4653997D2015CDB400EAE1FC /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399782015CDB400EAE1FC /* Config.cpp */; };
+		465399802015DD0500EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653997E2015DD0500EAE1FC /* Pass.cpp */; };
+		465399812015DD0500EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653997E2015DD0500EAE1FC /* Pass.cpp */; };
+		465399822015DD0500EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653997E2015DD0500EAE1FC /* Pass.cpp */; };
+		465399832015DD0500EAE1FC /* Pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653997E2015DD0500EAE1FC /* Pass.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -792,6 +800,10 @@
 		462724661FF4D68C000D13BC /* Bunny.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bunny.h; sourceTree = "<group>"; };
 		462724681FF4E39E000D13BC /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		462724691FF4E39E000D13BC /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		465399782015CDB400EAE1FC /* Config.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Config.cpp; path = ../renderer/Config.cpp; sourceTree = "<group>"; };
+		465399792015CDB400EAE1FC /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Config.h; path = ../renderer/Config.h; sourceTree = "<group>"; };
+		4653997E2015DD0500EAE1FC /* Pass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Pass.cpp; path = ../renderer/Pass.cpp; sourceTree = "<group>"; };
+		4653997F2015DD0500EAE1FC /* Pass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Pass.h; path = ../renderer/Pass.h; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -989,44 +1001,44 @@
 		1A255D0720034B0D00069420 /* v8 */ = {
 			isa = PBXGroup;
 			children = (
-				1A255D2D20034B0D00069420 /* Base.h */,
-				1A255D1020034B0D00069420 /* base64.h */,
-				1A255D2620034B0D00069420 /* Class.cpp */,
-				1A255D0A20034B0D00069420 /* Class.hpp */,
-				1A255D2C20034B0D00069420 /* env.cc */,
+				1A255D0820034B0D00069420 /* inspector_socket_server.h */,
 				1A255D0920034B0D00069420 /* env.h */,
+				1A255D0A20034B0D00069420 /* Class.hpp */,
+				1A255D0B20034B0D00069420 /* ObjectWrap.cpp */,
 				1A255D0C20034B0D00069420 /* HelperMacros.h */,
-				1A255D2720034B0D00069420 /* http_parser.c */,
-				1A255D1620034B0D00069420 /* http_parser.h */,
-				1A255D1820034B0D00069420 /* inspector_agent.cc */,
+				1A255D0D20034B0D00069420 /* Utils.cpp */,
+				1A255D0E20034B0D00069420 /* node.cc */,
 				1A255D0F20034B0D00069420 /* inspector_agent.h */,
-				1A255D2120034B0D00069420 /* inspector_io.cc */,
+				1A255D1020034B0D00069420 /* base64.h */,
 				1A255D1120034B0D00069420 /* inspector_io.h */,
 				1A255D1220034B0D00069420 /* inspector_socket_server.cc */,
-				1A255D0820034B0D00069420 /* inspector_socket_server.h */,
+				1A255D1320034B0D00069420 /* node_mutex.h */,
+				1A255D1420034B0D00069420 /* ObjectWrap.h */,
+				1A255D1520034B0D00069420 /* Object.cpp */,
+				1A255D1620034B0D00069420 /* http_parser.h */,
+				1A255D1720034B0D00069420 /* ScriptEngine.cpp */,
+				1A255D1820034B0D00069420 /* inspector_agent.cc */,
+				1A255D1920034B0D00069420 /* SHA1.cpp */,
+				1A255D1A20034B0D00069420 /* node.h */,
+				1A255D1B20034B0D00069420 /* README.md */,
+				1A255D1C20034B0D00069420 /* Object.hpp */,
+				1A255D1D20034B0D00069420 /* util.cc */,
+				1A255D1E20034B0D00069420 /* util-inl.h */,
 				1A255D1F20034B0D00069420 /* inspector_socket.cc */,
+				1A255D2020034B0D00069420 /* ScriptEngine.hpp */,
+				1A255D2120034B0D00069420 /* inspector_io.cc */,
+				1A255D2220034B0D00069420 /* util.h */,
+				1A255D2320034B0D00069420 /* v8_inspector_protocol_json.h */,
+				1A255D2420034B0D00069420 /* SHA1.h */,
+				1A255D2520034B0D00069420 /* SeApi.h */,
+				1A255D2620034B0D00069420 /* Class.cpp */,
+				1A255D2720034B0D00069420 /* http_parser.c */,
 				1A255D2820034B0D00069420 /* inspector_socket.h */,
 				1A255D2920034B0D00069420 /* node_debug_options.cc */,
-				1A255D2B20034B0D00069420 /* node_debug_options.h */,
-				1A255D1320034B0D00069420 /* node_mutex.h */,
-				1A255D0E20034B0D00069420 /* node.cc */,
-				1A255D1A20034B0D00069420 /* node.h */,
-				1A255D1520034B0D00069420 /* Object.cpp */,
-				1A255D1C20034B0D00069420 /* Object.hpp */,
-				1A255D0B20034B0D00069420 /* ObjectWrap.cpp */,
-				1A255D1420034B0D00069420 /* ObjectWrap.h */,
-				1A255D1B20034B0D00069420 /* README.md */,
-				1A255D1720034B0D00069420 /* ScriptEngine.cpp */,
-				1A255D2020034B0D00069420 /* ScriptEngine.hpp */,
-				1A255D2520034B0D00069420 /* SeApi.h */,
-				1A255D1920034B0D00069420 /* SHA1.cpp */,
-				1A255D2420034B0D00069420 /* SHA1.h */,
-				1A255D1E20034B0D00069420 /* util-inl.h */,
-				1A255D1D20034B0D00069420 /* util.cc */,
-				1A255D2220034B0D00069420 /* util.h */,
-				1A255D0D20034B0D00069420 /* Utils.cpp */,
 				1A255D2A20034B0D00069420 /* Utils.hpp */,
-				1A255D2320034B0D00069420 /* v8_inspector_protocol_json.h */,
+				1A255D2B20034B0D00069420 /* node_debug_options.h */,
+				1A255D2C20034B0D00069420 /* env.cc */,
+				1A255D2D20034B0D00069420 /* Base.h */,
 			);
 			path = v8;
 			sourceTree = "<group>";
@@ -1450,6 +1462,18 @@
 			path = gfx;
 			sourceTree = "<group>";
 		};
+		465399772015CD8B00EAE1FC /* renderer */ = {
+			isa = PBXGroup;
+			children = (
+				465399782015CDB400EAE1FC /* Config.cpp */,
+				465399792015CDB400EAE1FC /* Config.h */,
+				4653997E2015DD0500EAE1FC /* Pass.cpp */,
+				4653997F2015DD0500EAE1FC /* Pass.h */,
+			);
+			name = renderer;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		469492531FE24978008D19CC = {
 			isa = PBXGroup;
 			children = (
@@ -1522,6 +1546,7 @@
 		469492921FE270F2008D19CC /* src */ = {
 			isa = PBXGroup;
 			children = (
+				465399772015CD8B00EAE1FC /* renderer */,
 				469492941FE270F2008D19CC /* gfx */,
 				469492931FE270F2008D19CC /* macro.h */,
 				1A69F10C1FF32D9300B224DF /* types.cpp */,
@@ -1806,7 +1831,9 @@
 				1A255E9A20034F1000069420 /* env.cc in Sources */,
 				1A255E9B20034F1000069420 /* jsb_global.cpp in Sources */,
 				1A255E9C20034F1000069420 /* Quaternion.cpp in Sources */,
+				465399822015DD0500EAE1FC /* Pass.cpp in Sources */,
 				1A255E9D20034F1000069420 /* SHA1.cpp in Sources */,
+				4653997C2015CDB400EAE1FC /* Config.cpp in Sources */,
 				1A255E9E20034F1000069420 /* CCRenderTarget.cpp in Sources */,
 				1A255E9F20034F1000069420 /* jsb_gfx_auto.cpp in Sources */,
 				1A255EA120034F1000069420 /* CCRenderBuffer.cpp in Sources */,
@@ -1928,6 +1955,7 @@
 				1A255F3E20034F6D00069420 /* WebGLFormats.cpp in Sources */,
 				1A255F3F20034F6D00069420 /* etc1.cpp in Sources */,
 				1A255F4120034F6D00069420 /* CCFrameBuffer.cpp in Sources */,
+				465399832015DD0500EAE1FC /* Pass.cpp in Sources */,
 				1A255F4220034F6D00069420 /* Vec4.cpp in Sources */,
 				1A255F4420034F6D00069420 /* ZipUtils.cpp in Sources */,
 				1A255F4520034F6D00069420 /* CCConsole.cpp in Sources */,
@@ -1957,6 +1985,7 @@
 				1A255F6020034F6D00069420 /* CCAffineTransform.cpp in Sources */,
 				1A255F6120034F6D00069420 /* env.cc in Sources */,
 				1A255F6220034F6D00069420 /* unzip.cpp in Sources */,
+				4653997D2015CDB400EAE1FC /* Config.cpp in Sources */,
 				1A255F6320034F6D00069420 /* MathUtil.cpp in Sources */,
 				1A255F6420034F6D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255F6520034F6D00069420 /* ObjectWrap.cpp in Sources */,
@@ -2007,7 +2036,9 @@
 				1ACB61A21FF5F33D0007F081 /* CCProgram.cpp in Sources */,
 				1A255DF020034B0D00069420 /* node_debug_options.cc in Sources */,
 				1A255E3820034B0D00069420 /* CCFileUtils.cpp in Sources */,
+				465399812015DD0500EAE1FC /* Pass.cpp in Sources */,
 				46ABB0951FFC719500287AA5 /* MultiTextures.cpp in Sources */,
+				4653997B2015CDB400EAE1FC /* Config.cpp in Sources */,
 				1A255DD820034B0D00069420 /* node.cc in Sources */,
 				1ACB61A41FF5F33D0007F081 /* CCRenderTarget.cpp in Sources */,
 				1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
@@ -2081,6 +2112,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4653997A2015CDB400EAE1FC /* Config.cpp in Sources */,
 				4627245F1FF47B82000D13BC /* Basic.cpp in Sources */,
 				1A255DED20034B0D00069420 /* http_parser.c in Sources */,
 				1A1A4FD51FFCAA3C0061A6E1 /* WebGLFormats.cpp in Sources */,
@@ -2128,6 +2160,7 @@
 				1A255E2720034B0D00069420 /* CCSAXParser.cpp in Sources */,
 				1A255DEF20034B0D00069420 /* node_debug_options.cc in Sources */,
 				1A69F1161FF380A200B224DF /* CCGFXUtils.cpp in Sources */,
+				465399802015DD0500EAE1FC /* Pass.cpp in Sources */,
 				1A255E0520034B0D00069420 /* Class.cpp in Sources */,
 				1A255DDD20034B0D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255E2920034B0D00069420 /* CCImage.cpp in Sources */,

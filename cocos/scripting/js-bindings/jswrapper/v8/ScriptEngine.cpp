@@ -677,7 +677,6 @@ namespace se {
     {
         assert(!path.empty());
         assert(_fileOperationDelegate.isValid());
-        SE_LOGD("ScriptEngine::runScript script %s\n", path.c_str());
 
         std::string scriptBuffer = _fileOperationDelegate.onGetStringFromFile(path);
 

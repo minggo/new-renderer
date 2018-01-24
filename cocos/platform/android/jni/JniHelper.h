@@ -251,7 +251,6 @@ public:
 
         cocos2d::JniMethodInfo t;
         std::string signature = "(" + std::string(getJNISignature(xs...)) + ")Ljava/lang/String;";
-        __android_log_print(ANDROID_LOG_DEBUG, "cjh", "signature: %s", signature.c_str());
         if (cocos2d::JniHelper::getStaticMethodInfo(t, className.c_str(), methodName.c_str(), signature.c_str())) {
             LocalRefMapType localRefs;
             jstring jret = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID, convert(localRefs, t, xs)...);
