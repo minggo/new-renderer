@@ -26,6 +26,7 @@
 #include "CCGFXUtils.h"
 
 #include <unordered_map>
+#include <stdlib.h>
 
 namespace {
 

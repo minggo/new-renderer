@@ -43,9 +43,19 @@ public:
 
     bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, const void* data, size_t dataByteLength, uint32_t numVertices);
     void update(uint32_t offset, const void* data, size_t dataByteLength);
-    inline uint32_t getCount() const { return _numVertices; }
-    inline const VertexFormat& getFormat() { return _format; };
 
+    inline uint32_t getCount() const { return _numVertices; }
+    inline void setCount(uint32_t numVertices) { _numVertices = numVertices; }
+
+    inline const VertexFormat& getFormat() const { return _format; };
+    inline void setFormat(VertexFormat&& format) { _format = std::move(format); }
+    inline void setFormat(const VertexFormat& format) { _format = format; }
+
+    inline Usage getUsage() const { return _usage; }
+    inline void setUsage(Usage usage) { _usage = usage; }
+
+    inline uint32_t getBytes() const { return _bytes; }
+    inline void setBytes(uint32_t bytes) { _bytes = bytes; }
 private:
     DeviceGraphics* _device;
     VertexFormat _format;

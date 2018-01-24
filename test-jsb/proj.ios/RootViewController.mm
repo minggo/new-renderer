@@ -106,7 +106,8 @@ se::Value tickVal;
     sprintf(commandBuf, "window.canvas = { width: %d, height: %d };", utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     se->evalString(commandBuf);
     se->runScript("src/gfx.js");
-    se->runScript("src/main.js", &tickVal);
+    se->runScript("src/renderer-test/main-jsb.js");
+    se->runScript("src/renderer-test/src/basic.js", &tickVal);
 
     se->addAfterCleanupHook([](){
         JSBClassType::destroy();

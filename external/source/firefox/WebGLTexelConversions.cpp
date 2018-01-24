@@ -210,7 +210,7 @@ class WebGLImageConverter
                 convertType(unpackedSrc, unpackedDst);
                 // pack the destination texel.
                 // for example, pack RGBA32F to RGB32F
-                pack<DstFormat, PremultiplicationOp>(unpackedDst, dstPtr);
+//                pack<DstFormat, PremultiplicationOp>(unpackedDst, dstPtr);
 
                 srcPtr += NumElementsPerSrcTexel;
                 dstPtr += NumElementsPerDstTexel;
