@@ -478,6 +478,10 @@
 		4653998D2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
 		4653998E2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
 		4653998F2016CEFA00EAE1FC /* Technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653998A2016CEFA00EAE1FC /* Technique.cpp */; };
+		4653999820172D1300EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999620172D1300EAE1FC /* Effect.cpp */; };
+		4653999920172D1300EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999620172D1300EAE1FC /* Effect.cpp */; };
+		4653999A20172D1300EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999620172D1300EAE1FC /* Effect.cpp */; };
+		4653999B20172D1300EAE1FC /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4653999620172D1300EAE1FC /* Effect.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -816,6 +820,8 @@
 		465399852015EA0700EAE1FC /* View.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = View.h; path = ../renderer/View.h; sourceTree = "<group>"; };
 		4653998A2016CEFA00EAE1FC /* Technique.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Technique.cpp; path = ../renderer/Technique.cpp; sourceTree = "<group>"; };
 		4653998B2016CEFA00EAE1FC /* Technique.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Technique.h; path = ../renderer/Technique.h; sourceTree = "<group>"; };
+		4653999620172D1300EAE1FC /* Effect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Effect.cpp; path = ../renderer/Effect.cpp; sourceTree = "<group>"; };
+		4653999720172D1300EAE1FC /* Effect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Effect.h; path = ../renderer/Effect.h; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1485,6 +1491,8 @@
 				465399852015EA0700EAE1FC /* View.h */,
 				4653998A2016CEFA00EAE1FC /* Technique.cpp */,
 				4653998B2016CEFA00EAE1FC /* Technique.h */,
+				4653999620172D1300EAE1FC /* Effect.cpp */,
+				4653999720172D1300EAE1FC /* Effect.h */,
 			);
 			name = renderer;
 			path = "New Group";
@@ -1863,6 +1871,7 @@
 				1A255EA920034F1000069420 /* CCConsole.cpp in Sources */,
 				1A255EAA20034F1000069420 /* CCTexture.cpp in Sources */,
 				1A255EAC20034F1000069420 /* WebGLTexelConversions.cpp in Sources */,
+				4653999A20172D1300EAE1FC /* Effect.cpp in Sources */,
 				1A255EAD20034F1000069420 /* inspector_socket.cc in Sources */,
 				1A255EAE20034F1000069420 /* Class.cpp in Sources */,
 				1A255EAF20034F1000069420 /* Object.cpp in Sources */,
@@ -1967,6 +1976,7 @@
 				1A255F3920034F6D00069420 /* CCGFX.cpp in Sources */,
 				1A255F3A20034F6D00069420 /* Value.cpp in Sources */,
 				1A255F3B20034F6D00069420 /* CCVertex.cpp in Sources */,
+				4653999B20172D1300EAE1FC /* Effect.cpp in Sources */,
 				1A255F3C20034F6D00069420 /* Mat4.cpp in Sources */,
 				1A50267C2005F84E003E668E /* Utils.cpp in Sources */,
 				1A255F3D20034F6D00069420 /* CCVertexBuffer.cpp in Sources */,
@@ -2072,6 +2082,7 @@
 				1ACB619F1FF5F33D0007F081 /* CCGFXUtils.cpp in Sources */,
 				1A1A4FF31FFF0D870061A6E1 /* WebGLTexelConversions.cpp in Sources */,
 				1A255DDC20034B0D00069420 /* Object.cpp in Sources */,
+				4653999920172D1300EAE1FC /* Effect.cpp in Sources */,
 				1A255E7D20034EE700069420 /* xxtea.cpp in Sources */,
 				1ACB619E1FF5F33D0007F081 /* CCGFX.cpp in Sources */,
 				1A255E5420034B0D00069420 /* CCVertex.cpp in Sources */,
@@ -2192,6 +2203,7 @@
 				1A255DF520034B0D00069420 /* Object.cpp in Sources */,
 				1A255E6B20034B0D00069420 /* TGAlib.cpp in Sources */,
 				1A255E7320034B0D00069420 /* etc1.cpp in Sources */,
+				4653999820172D1300EAE1FC /* Effect.cpp in Sources */,
 				1A255E0120034B0D00069420 /* Object.cpp in Sources */,
 				1A69F10D1FF32D9300B224DF /* types.cpp in Sources */,
 				1AC21AD41FF639EC008D9724 /* Particle.cpp in Sources */,

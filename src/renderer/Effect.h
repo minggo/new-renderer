@@ -24,68 +24,39 @@
 
 #pragma once
 
-#include <string>
 #include <vector>
-#include "platform/CCGL.h"
-#include "base/CCVector.h"
-#include "base/CCRef.h"
+#include "base/CCValue.h"
 #include "../macro.h"
-#include "Pass.h"
+#include "Technique.h"
 
 GFX_BEGIN
 
-class Technique : public Ref
+// Define may look like `{ name: 'lightCount', min: 1, max: 4 }`, so it may have many keys.
+// FIXME: Property is the same.
+typedef ValueMap Define;
+typedef ValueMap Property;
+typedef Value DefineValue;
+
+class Effect
 {
 public:
+    Effect(const Vector<Technique*>& techniques,
+           const std::unordered_map<std::string, Property>& properties,
+           const std::vector<Define>& defines);
     
-    enum class ParameterType : uint8_t
-    {
-        INT = 0,
-        INT2,
-        INT3,
-        INT4,
-        FLOAT,
-        FLOAT2,
-        FLOAT3,
-        FLOAT4,
-        COLOR3,
-        COLOR4,
-        MAT2,
-        MAT3,
-        MAT4,
-        TEXTURE_2D,
-        TEXTURE_CUBE
-    };
+    void clear();
     
-    struct Parameter
-    {
-        std::string name = "";
-        GLsizei size = 0;
-        ParameterType type = ParameterType::INT;
-        void* value = nullptr;
-    };
+    Technique* getTechnique(const std::string& stage) const;
+    Property getProperty(const std::string& name) const;
     
-    Technique(const std::vector<std::string>& stages,
-              const std::vector<Parameter>& parameters,
-              const Vector<Pass*>& passes,
-              int layer = 0);
-    
-    void setStages(const std::vector<std::string>& stages);
-    
-    // Should rename function name in binding codes.
-    const Vector<Pass*>& getPasses() const { return _passes; }
-    uint32_t getStageIDs() const { return _stageIDs; }
-    
-    // TODO: add get functions
+    DefineValue getDefine(const std::string& name) const;
+    void setDefine(const std::string& name, const DefineValue& value);
+    void extractDefines(ValueMap& out) const;
     
 private:
-    static uint32_t _genID;
-    
-    uint32_t _id = 0;
-    uint32_t _stageIDs = 0;
-    int _layer = 0;
-    std::vector<Parameter> _parameters;
-    Vector<Pass*> _passes;
+    Vector<Technique*> _techniques;
+    std::unordered_map<std::string, Property> _properties;
+    std::vector<Define> _defines;
 };
 
 GFX_END

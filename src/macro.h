@@ -46,8 +46,6 @@
         type& operator =(const type &&) = delete;
 //#endif // DISALLOW_COPY_ASSIGN_AND_MOVE
 
-#define CC_UINT    unsigned int
-
 #define GFX_LOG_TAG "gfx"
 #define GFX_QUOTEME_(x) #x
 #define GFX_QUOTEME(x) GFX_QUOTEME_(x)
