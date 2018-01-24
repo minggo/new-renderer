@@ -142,6 +142,7 @@
             }
             number.innerText = nodes.length;
             console.log("==> number: " + number.innerText);
+            __setBunnyCount(number.innerText);
         }
     }
 
