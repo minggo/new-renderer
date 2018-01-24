@@ -6,6 +6,7 @@
 #include "jsb_conversions.hpp"
 
 #include <memory>
+#include <chrono>
 
 #include <android/log.h>
 #include <jni.h>
@@ -80,13 +81,32 @@ extern "C" {
         });
     }
 
+    static std::chrono::steady_clock::time_point prevTime;
+    static float dtSum = 0.0f;
+    static float dt = 0.0f;
+    static int dtCounter = 0;
+
+
     JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeRender(JNIEnv* env) {
-        // FIXME:
+
         se::AutoHandleScope hs;
-        float dt = 0.016f;
         se::ValueArray args;
         args.push_back(se::Value(dt));
         tickVal.toObject()->call(args, nullptr);
+
+        dt = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - prevTime).count() / 1000000.f;
+
+        dtSum += dt;
+        ++dtCounter;
+        if (dtSum > 1.0f)
+        {
+            int fps = (int)std::ceil(1.0f / (dtSum / dtCounter));
+            LOGD("==> FPS: %d", fps);
+            dtCounter = 0;
+            dtSum = 0.0f;
+        }
+
+        prevTime = std::chrono::steady_clock::now();
     }
 
     JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeOnPause() {
@@ -127,4 +147,5 @@ extern "C" {
 
 void cocos_android_app_init(JNIEnv* env) {
     LOGD("cocos_android_app_init");
+    prevTime = std::chrono::steady_clock::now();
 }
