@@ -490,6 +490,10 @@
 		465399D620185D9700EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399BC20185D9700EAE1FC /* InputAssembler.cpp */; };
 		465399D720185D9700EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399BC20185D9700EAE1FC /* InputAssembler.cpp */; };
 		465399D820185D9700EAE1FC /* InputAssembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399BC20185D9700EAE1FC /* InputAssembler.cpp */; };
+		465399DB2018625200EAE1FC /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399D92018625200EAE1FC /* Camera.cpp */; };
+		465399DC2018625200EAE1FC /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399D92018625200EAE1FC /* Camera.cpp */; };
+		465399DD2018625200EAE1FC /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399D92018625200EAE1FC /* Camera.cpp */; };
+		465399DE2018625200EAE1FC /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399D92018625200EAE1FC /* Camera.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -834,6 +838,8 @@
 		465399BA20185D9700EAE1FC /* Effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Effect.h; sourceTree = "<group>"; };
 		465399BB20185D9700EAE1FC /* InputAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputAssembler.h; sourceTree = "<group>"; };
 		465399BC20185D9700EAE1FC /* InputAssembler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputAssembler.cpp; sourceTree = "<group>"; };
+		465399D92018625200EAE1FC /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		465399DA2018625200EAE1FC /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1500,15 +1506,17 @@
 				465399B120185D9700EAE1FC /* Technique.h */,
 				465399B220185D9700EAE1FC /* View.h */,
 				465399B320185D9700EAE1FC /* View.cpp */,
-				465399B420185D9700EAE1FC /* Effect.cpp */,
 				465399B520185D9700EAE1FC /* Config.cpp */,
 				465399B620185D9700EAE1FC /* Pass.h */,
 				465399B720185D9700EAE1FC /* Technique.cpp */,
 				465399B820185D9700EAE1FC /* Model.h */,
 				465399B920185D9700EAE1FC /* Model.cpp */,
+				465399B420185D9700EAE1FC /* Effect.cpp */,
 				465399BA20185D9700EAE1FC /* Effect.h */,
 				465399BB20185D9700EAE1FC /* InputAssembler.h */,
 				465399BC20185D9700EAE1FC /* InputAssembler.cpp */,
+				465399D92018625200EAE1FC /* Camera.cpp */,
+				465399DA2018625200EAE1FC /* Camera.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -1850,6 +1858,7 @@
 				1A255E8220034F1000069420 /* http_parser.c in Sources */,
 				1A255E8320034F1000069420 /* State.cpp in Sources */,
 				1A255E8420034F1000069420 /* WebGLFormats.cpp in Sources */,
+				465399DD2018625200EAE1FC /* Camera.cpp in Sources */,
 				465399BF20185D9700EAE1FC /* Pass.cpp in Sources */,
 				1A255E8520034F1000069420 /* CCRef.cpp in Sources */,
 				1A255E8720034F1000069420 /* CCIndexBuffer.cpp in Sources */,
@@ -2003,6 +2012,7 @@
 				1A255F3D20034F6D00069420 /* CCVertexBuffer.cpp in Sources */,
 				1A255F3E20034F6D00069420 /* WebGLFormats.cpp in Sources */,
 				1A255F3F20034F6D00069420 /* etc1.cpp in Sources */,
+				465399DE2018625200EAE1FC /* Camera.cpp in Sources */,
 				1A255F4120034F6D00069420 /* CCFrameBuffer.cpp in Sources */,
 				1A255F4220034F6D00069420 /* Vec4.cpp in Sources */,
 				1A255F4420034F6D00069420 /* ZipUtils.cpp in Sources */,
@@ -2065,6 +2075,7 @@
 				1ACB61AD1FF5F34A0007F081 /* Blending.cpp in Sources */,
 				1ACB616A1FF5F23E0007F081 /* RootViewController.mm in Sources */,
 				1ACB61A71FF5F33D0007F081 /* CCTexture2D.cpp in Sources */,
+				465399DC2018625200EAE1FC /* Camera.cpp in Sources */,
 				465399BE20185D9700EAE1FC /* Pass.cpp in Sources */,
 				1ACB61AB1FF5F34A0007F081 /* Bunny.cpp in Sources */,
 				1A255E6C20034B0D00069420 /* TGAlib.cpp in Sources */,
@@ -2202,6 +2213,7 @@
 				1A69F0FE1FF22B0200B224DF /* ioapi_mem.cpp in Sources */,
 				1A255E7C20034EE700069420 /* xxtea.cpp in Sources */,
 				465399C920185D9700EAE1FC /* Config.cpp in Sources */,
+				465399DB2018625200EAE1FC /* Camera.cpp in Sources */,
 				1A255E3720034B0D00069420 /* CCFileUtils.cpp in Sources */,
 				1A255E7120034B0D00069420 /* CCConsole.cpp in Sources */,
 				1A69F07D1FF1F50D00B224DF /* CCTexture.cpp in Sources */,

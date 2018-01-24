@@ -28,19 +28,16 @@
 GFX_BEGIN
 
 Effect::Effect(const Vector<Technique*>& techniques,
-               const std::unordered_map<std::string, Property>& properties,
-               const std::vector<Define>& defines)
+               const std::vector<ValueMap>& defineTemplates)
 : _techniques(techniques)
-, _properties(properties)
-, _defines(defines)
+, _defineTemplates(defineTemplates)
 {
 }
 
 void Effect::clear()
 {
     _techniques.clear();
-    _properties.clear();
-    _defines.clear();
+    _defineTemplates.clear();
 }
 
 Technique* Effect::getTechnique(const std::string& stage) const
@@ -58,17 +55,9 @@ Technique* Effect::getTechnique(const std::string& stage) const
     return nullptr;
 }
 
-Property Effect::getProperty(const std::string& name) const
+Value Effect::getDefineValue(const std::string& name) const
 {
-    if (_properties.end() != _properties.find(name))
-        return _properties.at(name);
-    else
-        return Property();
-}
-
-DefineValue Effect::getDefine(const std::string& name) const
-{
-    for (const auto& def : _defines)
+    for (const auto& def : _defineTemplates)
     {
         if (name == def.at("name").asString())
             return def.at("value");
@@ -78,9 +67,9 @@ DefineValue Effect::getDefine(const std::string& name) const
     return Value::Null;
 }
 
-void Effect::setDefine(const std::string& name, const DefineValue& value)
+void Effect::setDefineValue(const std::string& name, const Value& value)
 {
-    for (auto& def : _defines)
+    for (auto& def : _defineTemplates)
     {
         if (name == def.at("name").asString())
         {
@@ -92,7 +81,7 @@ void Effect::setDefine(const std::string& name, const DefineValue& value)
 
 ValueMap* Effect::extractDefines(ValueMap& out) const
 {
-    for (auto& def : _defines)
+    for (auto& def : _defineTemplates)
         out[def.at("name").asString()] = def.at("value");
     
     return &out;

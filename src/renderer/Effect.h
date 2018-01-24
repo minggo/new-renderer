@@ -32,32 +32,25 @@
 
 GFX_BEGIN
 
-// Define may look like `{ name: 'lightCount', min: 1, max: 4 }`, so it may have many keys.
-// FIXME: Property is the same.
-typedef ValueMap Define;
-typedef ValueMap Property;
-typedef Value DefineValue;
+// TODO: support property, but it seems it is not used.
 
 class Effect : public Ref
 {
 public:
     Effect(const Vector<Technique*>& techniques,
-           const std::unordered_map<std::string, Property>& properties,
-           const std::vector<Define>& defines);
+           const std::vector<ValueMap>& defineTemplates);
     
     void clear();
     
     Technique* getTechnique(const std::string& stage) const;
-    Property getProperty(const std::string& name) const;
     
-    DefineValue getDefine(const std::string& name) const;
-    void setDefine(const std::string& name, const DefineValue& value);
+    Value getDefineValue(const std::string& name) const;
+    void setDefineValue(const std::string& name, const Value& value);
     ValueMap* extractDefines(ValueMap& out) const;
     
 private:
     Vector<Technique*> _techniques;
-    std::unordered_map<std::string, Property> _properties;
-    std::vector<Define> _defines;
+    std::vector<ValueMap> _defineTemplates;
 };
 
 GFX_END

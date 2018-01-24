@@ -26,21 +26,24 @@
 
 GFX_BEGIN
 
-uint32_t View::_genID = 0;
+namespace
+{
+    uint32_t g_genID = 0;
+}
 
 View::View()
-: _id(View::_genID++)
+: id(g_genID++)
 {
 }
 
 void View::getForward(Vec3& out) const
 {
-    out.set(_matView.m[2], _matView.m[6], _matView.m[10]);
+    out.set(matView.m[2], matView.m[6], matView.m[10]);
 }
 
 void View::getPosition(Vec3& out) const
 {
-    _matView.getInversed().getTranslation(&out);
+    matView.getInversed().getTranslation(&out);
 }
 
 GFX_END

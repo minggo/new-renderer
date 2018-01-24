@@ -148,6 +148,14 @@ struct CC_DLL Color4F
     {
         return (*this == other);
     }
+    
+    void set(float _r, float _g, float _b, float _a)
+    {
+        r = _r;
+        g = _g;
+        b = _b;
+        a = _a;
+    }
 
     GLfloat r;
     GLfloat g;

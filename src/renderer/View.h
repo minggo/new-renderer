@@ -34,9 +34,8 @@
 
 GFX_BEGIN
 
-class View
+struct View
 {
-public:
     View();
     
     void getForward(Vec3& out) const;
@@ -44,30 +43,27 @@ public:
     
     // TODO: set/get member variable
     
-private:
-    static uint32_t _genID;
-    
-    uint32_t _id;
+    uint32_t id;
     
     // viewport
-    Rect _rect = {0, 0, 1.f, 1.f};
+    Rect rect = {0, 0, 1.f, 1.f};
     
     // clear options
-    Color4F _color = {0.3f, 0.3f, 0.3f, 1.f};
-    int _depth = 1;
-    int _stencil = 1;
-    uint8_t _clearFlags = ClearFlag::COLOR | ClearFlag::DEPTH;
+    Color4F color = {0.3f, 0.3f, 0.3f, 1.f};
+    int depth = 1;
+    int stencil = 1;
+    uint8_t clearFlags = ClearFlag::COLOR | ClearFlag::DEPTH;
     
     // matrix
-    Mat4 _matView;
-    Mat4 _matProj;
-    Mat4 _matViewProj;
-    Mat4 _matInvViewPorj;
+    Mat4 matView;
+    Mat4 matProj;
+    Mat4 matViewProj;
+    Mat4 matInvViewPorj;
     
     // stages & framebuffer
-    std::vector<int> _stages;
-    bool _cullingByID = false;
-    FrameBuffer *_frameBuffer = nullptr;
+    std::vector<int> stages;
+    bool cullingByID = false;
+    FrameBuffer* frameBuffer = nullptr;
     
     //TODO: shadow light
 };

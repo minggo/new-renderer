@@ -186,3 +186,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
 #else
 #   define GL_CHECK(_call)   _call
 #endif // BGFX_CONFIG_DEBUG
+
+#ifndef GFX_PI
+#define GFX_PI 3.1415926535897932385f
+#endif // GFX_PI

@@ -28,6 +28,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <assert.h>
+#include <string>
+#include "base/CCValue.h"
 
 #include "macro.h"
 #include "platform/CCGL.h"
@@ -169,5 +171,18 @@ enum class UniformElementType : uint8_t
     FLOAT,
     INT
 };
+
+enum class ProjectionType : uint8_t
+{
+    PERSPECTIVE,
+    ORTHOGRAPHIC
+};
+
+struct Define
+{
+    std::string key;
+    Value value;
+};
+typedef std::vector<Define> DefineVector;
 
 GFX_END
