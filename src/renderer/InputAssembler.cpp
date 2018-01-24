@@ -22,42 +22,35 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
-
-#include <vector>
-#include "CCRef.h"
-#include "base/CCValue.h"
-#include "../macro.h"
-#include "Technique.h"
+#include "InputAssembler.h"
 
 GFX_BEGIN
 
-// Define may look like `{ name: 'lightCount', min: 1, max: 4 }`, so it may have many keys.
-// FIXME: Property is the same.
-typedef ValueMap Define;
-typedef ValueMap Property;
-typedef Value DefineValue;
-
-class Effect : public Ref
+InputAssembler::InputAssembler(VertexBuffer* vb, IndexBuffer* ib, PrimitiveType pt)
+: _vertexBuffer(vb)
+, _indexBuffer(ib)
+, _primitiveType(pt)
 {
-public:
-    Effect(const Vector<Technique*>& techniques,
-           const std::unordered_map<std::string, Property>& properties,
-           const std::vector<Define>& defines);
+    GFX_SAFE_RETAIN(_vertexBuffer);
+    GFX_SAFE_RETAIN(_indexBuffer);
+}
+
+InputAssembler::~InputAssembler()
+{
+    GFX_SAFE_RELEASE(_vertexBuffer);
+    GFX_SAFE_RELEASE(_indexBuffer);
+}
+
+uint32_t InputAssembler::getPrimitiveCount() const
+{
+    if (-1 != _count)
+        return _count;
     
-    void clear();
+    if (_indexBuffer)
+        return _indexBuffer->getCount();
     
-    Technique* getTechnique(const std::string& stage) const;
-    Property getProperty(const std::string& name) const;
-    
-    DefineValue getDefine(const std::string& name) const;
-    void setDefine(const std::string& name, const DefineValue& value);
-    ValueMap* extractDefines(ValueMap& out) const;
-    
-private:
-    Vector<Technique*> _techniques;
-    std::unordered_map<std::string, Property> _properties;
-    std::vector<Define> _defines;
-};
+    assert(_vertexBuffer);
+    return _vertexBuffer->getCount();
+}
 
 GFX_END

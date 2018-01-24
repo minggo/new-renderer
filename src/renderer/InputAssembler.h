@@ -24,40 +24,29 @@
 
 #pragma once
 
-#include <vector>
-#include "CCRef.h"
-#include "base/CCValue.h"
+#include "gfx/CCVertexBuffer.h"
+#include "gfx/CCIndexBuffer.h"
+#include "../types.h"
 #include "../macro.h"
-#include "Technique.h"
 
 GFX_BEGIN
 
-// Define may look like `{ name: 'lightCount', min: 1, max: 4 }`, so it may have many keys.
-// FIXME: Property is the same.
-typedef ValueMap Define;
-typedef ValueMap Property;
-typedef Value DefineValue;
-
-class Effect : public Ref
+class InputAssembler : public Ref
 {
 public:
-    Effect(const Vector<Technique*>& techniques,
-           const std::unordered_map<std::string, Property>& properties,
-           const std::vector<Define>& defines);
+    InputAssembler(VertexBuffer* vb,
+                   IndexBuffer* ib,
+                   PrimitiveType pt = PrimitiveType::TRIANGLES);
+    ~InputAssembler();
     
-    void clear();
-    
-    Technique* getTechnique(const std::string& stage) const;
-    Property getProperty(const std::string& name) const;
-    
-    DefineValue getDefine(const std::string& name) const;
-    void setDefine(const std::string& name, const DefineValue& value);
-    ValueMap* extractDefines(ValueMap& out) const;
+    uint32_t getPrimitiveCount() const;
     
 private:
-    Vector<Technique*> _techniques;
-    std::unordered_map<std::string, Property> _properties;
-    std::vector<Define> _defines;
+    VertexBuffer* _vertexBuffer = nullptr;
+    IndexBuffer* _indexBuffer = nullptr;
+    PrimitiveType _primitiveType = PrimitiveType::TRIANGLES;
+    int _start = 0;
+    int _count = -1;
 };
 
 GFX_END

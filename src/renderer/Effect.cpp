@@ -90,10 +90,12 @@ void Effect::setDefine(const std::string& name, const DefineValue& value)
     }
 }
 
-void Effect::extractDefines(ValueMap& out) const
+ValueMap* Effect::extractDefines(ValueMap& out) const
 {
     for (auto& def : _defines)
         out[def.at("name").asString()] = def.at("value");
+    
+    return &out;
 }
 
 GFX_END

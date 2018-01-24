@@ -25,39 +25,54 @@
 #pragma once
 
 #include <vector>
-#include "CCRef.h"
+#include "base/CCVector.h"
 #include "base/CCValue.h"
+#include "math/Mat4.h"
 #include "../macro.h"
-#include "Technique.h"
 
 GFX_BEGIN
 
-// Define may look like `{ name: 'lightCount', min: 1, max: 4 }`, so it may have many keys.
-// FIXME: Property is the same.
-typedef ValueMap Define;
-typedef ValueMap Property;
-typedef Value DefineValue;
+class Effect;
+class InputAssembler;
+class Model;
 
-class Effect : public Ref
+typedef struct DrawItem
 {
-public:
-    Effect(const Vector<Technique*>& techniques,
-           const std::unordered_map<std::string, Property>& properties,
-           const std::vector<Define>& defines);
+    DrawItem(Model* model,
+             InputAssembler* ia,
+             Effect* effect,
+             ValueMap* defines);
     
-    void clear();
+    Model* model = nullptr;
+    InputAssembler* ia = nullptr;
+    Effect* effect = nullptr;
+    ValueMap* defines;
+} DrawItem;
+
+class Model
+{
+    Model() {}
     
-    Technique* getTechnique(const std::string& stage) const;
-    Property getProperty(const std::string& name) const;
+    inline uint32_t getInputAssemblerCount() const { return (uint32_t)_inputAssemblers.size(); }
+    inline bool isDynamicIA() const { return _dynamicIA; }
+    inline void setDynamicIA(bool value) { _dynamicIA =  value; }
+    inline uint32_t getDrawItemCount() const { return _dynamicIA ? 1 :  (uint32_t)_inputAssemblers.size(); }
+    inline void setWorldMatix(const Mat4& matrix) { _worldMatrix = matrix; }
     
-    DefineValue getDefine(const std::string& name) const;
-    void setDefine(const std::string& name, const DefineValue& value);
-    ValueMap* extractDefines(ValueMap& out) const;
-    
+    void addInputAssembler(InputAssembler* ia);
+    void clearInputAssemblers();
+    void addEffect(Effect* effect);
+    void clearEffects();
+    void extractDrawItem(DrawItem& out, uint32_t index) const;
+
 private:
-    Vector<Technique*> _techniques;
-    std::unordered_map<std::string, Property> _properties;
-    std::vector<Define> _defines;
+    // Record world matrix instead of Node.
+    Mat4 _worldMatrix;
+    Vector<Effect*> _effects;
+    Vector<InputAssembler*> _inputAssemblers;
+    std::vector<ValueMap> _defines;
+    bool _dynamicIA = false;
+    int _viewID = -1;
 };
 
 GFX_END
