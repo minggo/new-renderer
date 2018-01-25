@@ -34,7 +34,7 @@ GFX_BEGIN
 
 class FrameBuffer;
 
-class Camera
+class Camera : public Ref
 {
 public:
     Camera();

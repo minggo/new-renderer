@@ -24,12 +24,13 @@
 
 #pragma once
 
-#include "gfx/CCVertexBuffer.h"
-#include "gfx/CCIndexBuffer.h"
 #include "../types.h"
 #include "../macro.h"
 
 GFX_BEGIN
+
+class VertexBuffer;
+class IndexBuffer;
 
 class InputAssembler : public Ref
 {

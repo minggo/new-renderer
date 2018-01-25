@@ -30,14 +30,15 @@
 #include "base/ccTypes.h"
 #include "../macro.h"
 #include "../types.h"
-#include "../gfx/CCFrameBuffer.h"
 
 GFX_BEGIN
 
 class Light;
+class FrameBuffer;
 
-struct View
+class View : public Ref
 {
+public:
     View();
     
     void getForward(Vec3& out) const;

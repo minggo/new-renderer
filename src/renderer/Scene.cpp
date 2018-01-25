@@ -22,35 +22,89 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
-
-#include <vector>
-#include "base/CCRef.h"
-#include "base/CCValue.h"
-#include "../macro.h"
-#include "Technique.h"
+#include "Scene.h"
+#include "Camera.h"
+#include "Light.h"
+#include "Model.h"
+#include "View.h"
+#include "InputAssembler.h"
+#include "Effect.h"
 
 GFX_BEGIN
 
-// TODO: support property, but it seems it is not used.
-
-class Effect : public Ref
+Scene::Scene()
 {
-public:
-    Effect(const Vector<Technique*>& techniques,
-           const std::vector<ValueMap>& defineTemplates);
+}
+
+void Scene::reset()
+{
+    for (auto& model : _models)
+        model->setViewId(-1);
+}
+
+void Scene::setDebugCamera(Camera* debugCamera)
+{
+    if (_debugCamera == debugCamera)
+        return;
     
-    void clear();
-    
-    Technique* getTechnique(const std::string& stage) const;
-    
-    Value getDefineValue(const std::string& name) const;
-    void setDefineValue(const std::string& name, const Value& value);
-    ValueMap* extractDefines(ValueMap& out) const;
-    
-private:
-    Vector<Technique*> _techniques;
-    std::vector<ValueMap> _defineTemplates;
-};
+    GFX_SAFE_RELEASE(_debugCamera);
+    GFX_SAFE_RETAIN(debugCamera);
+    _debugCamera = debugCamera;
+}
+
+Camera* Scene::getCamera(uint32_t index) const
+{
+    return _cameras.at(index);
+}
+
+void Scene::addCamera(Camera* camera)
+{
+    _cameras.pushBack(camera);
+}
+
+void Scene::rmoveCamera(Camera* camera)
+{
+    _cameras.eraseObject(camera);
+}
+
+Model* Scene::getModel(uint32_t index)
+{
+    return _models.at(index);
+}
+
+void Scene::addModel(Model* model)
+{
+    _models.pushBack(model);
+}
+
+void Scene::removeModel(Model* model)
+{
+    _models.eraseObject(model);
+}
+
+Light* Scene::getLight(uint32_t index)
+{
+    return _lights.at(index);
+}
+
+void Scene::addLight(Light* light)
+{
+    _lights.pushBack(light);
+}
+
+void Scene::removeLight(Light* light)
+{
+    _lights.eraseObject(light);
+}
+
+void Scene::addView(View* view)
+{
+    _views.pushBack(view);
+}
+
+void Scene::removeView(View* view)
+{
+    _views.eraseObject(view);
+}
 
 GFX_END

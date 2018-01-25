@@ -24,6 +24,7 @@
 
 #include "Technique.h"
 #include "Config.h"
+#include "Pass.h"
 
 GFX_BEGIN
 

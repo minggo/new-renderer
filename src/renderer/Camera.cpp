@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "Camera.h"
+#include "gfx/CCFrameBuffer.h"
 
 GFX_BEGIN
 

@@ -37,7 +37,7 @@ class Texture2D;
 class RenderBuffer;
 class DeviceGraphics;
 
-class Light
+class Light : public Ref
 {
 public:
     enum class LightType

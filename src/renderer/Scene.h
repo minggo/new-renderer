@@ -24,33 +24,53 @@
 
 #pragma once
 
-#include <vector>
-#include "base/CCRef.h"
-#include "base/CCValue.h"
+#include "base/CCVector.h"
 #include "../macro.h"
-#include "Technique.h"
 
 GFX_BEGIN
 
-// TODO: support property, but it seems it is not used.
+class Camera;
+class Light;
+class Model;
+class View;
 
-class Effect : public Ref
+class Scene
 {
 public:
-    Effect(const Vector<Technique*>& techniques,
-           const std::vector<ValueMap>& defineTemplates);
+    Scene();
     
-    void clear();
+    void reset();
+    void setDebugCamera(Camera* debugCamera);
     
-    Technique* getTechnique(const std::string& stage) const;
+    // camera
+    inline uint32_t getCameraCount() const { return (uint32_t)_cameras.size(); }
+    Camera* getCamera(uint32_t index) const;
+    void addCamera(Camera* camera);
+    void rmoveCamera(Camera* camera);
     
-    Value getDefineValue(const std::string& name) const;
-    void setDefineValue(const std::string& name, const Value& value);
-    ValueMap* extractDefines(ValueMap& out) const;
+    // model
+    inline uint32_t getModelCount() const { return (uint32_t)_models.size(); }
+    Model* getModel(uint32_t index);
+    void addModel(Model* model);
+    void removeModel(Model* model);
+    
+    // light
+    inline uint32_t getLightCount() const { return (uint32_t)_lights.size(); }
+    Light* getLight(uint32_t index);
+    void addLight(Light* light);
+    void removeLight(Light* light);
+    
+    // view
+    void addView(View* view);
+    void removeView(View* view);
     
 private:
-    Vector<Technique*> _techniques;
-    std::vector<ValueMap> _defineTemplates;
+    //TODO: optimize speed.
+    Vector<Camera*> _cameras;
+    Vector<Light*> _lights;
+    Vector<Model*> _models;
+    Vector<View*> _views;
+    Camera* _debugCamera = nullptr;
 };
 
 GFX_END

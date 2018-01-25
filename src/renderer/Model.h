@@ -49,8 +49,9 @@ typedef struct DrawItem
     ValueMap* defines;
 } DrawItem;
 
-class Model
+class Model : public Ref
 {
+public:
     Model() {}
     
     inline uint32_t getInputAssemblerCount() const { return (uint32_t)_inputAssemblers.size(); }
@@ -58,6 +59,7 @@ class Model
     inline void setDynamicIA(bool value) { _dynamicIA =  value; }
     inline uint32_t getDrawItemCount() const { return _dynamicIA ? 1 :  (uint32_t)_inputAssemblers.size(); }
     inline void setWorldMatix(const Mat4& matrix) { _worldMatrix = matrix; }
+    inline void setViewId(int val) { _viewID = val; }
     
     void addInputAssembler(InputAssembler* ia);
     void clearInputAssemblers();

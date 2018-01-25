@@ -30,9 +30,10 @@
 #include "base/CCVector.h"
 #include "base/CCRef.h"
 #include "../macro.h"
-#include "Pass.h"
 
 GFX_BEGIN
+
+class Pass;
 
 class Technique : public Ref
 {
