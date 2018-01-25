@@ -26,6 +26,15 @@
 
 GFX_BEGIN
 
+namespace
+{
+    Mat4 g_tempMatProj;
+    Mat4 g_tempMatView;
+    Mat4 g_tempMatViewProj;
+    Mat4 g_tempMatInvViewProj;
+    Vec3 g_tempVec3;
+}
+
 Camera::Camera()
 {}
 
@@ -61,29 +70,109 @@ void Camera::extractView(View& out, int width, int height) const
     // TODO: view matrix
     
     // projecton matrix
-    float aspect = ((float)width) / height;
+    float aspect = (float)width / height;
     if (ProjectionType::PERSPECTIVE == _projection)
         Mat4::createPerspective(_fov, aspect, _near, _far, &out.matProj);
     else
     {
         float x = _orthoHeight * aspect;
         float y = _orthoHeight;
-        Mat4::createOrthographic(-x, -y, _near, _far, &out.matProj);
+        Mat4::createOrthographic(-x, x, -y, y, &out.matProj);
     }
     
     // view projection
     Mat4::multiply(out.matProj, out.matView, &out.matViewProj);
-    
+    out.matInvViewPorj = out.matViewProj.getInversed();
 }
 
-void Camera::screenToWorld(Mat4& out, float screenPos, int width, int height) const
+Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int height) const
 {
+    float aspect = (float)width / height;
+    float cx = _rect.origin.x * width;
+    float cy = _rect.origin.y * height;
+    float cw = _rect.size.width * width;
+    float ch = _rect.size.height * height;
     
+    // TODO: view matrix
+    
+    // projection matrix
+    if (ProjectionType::PERSPECTIVE == _projection)
+        Mat4::createPerspective(_fov, aspect, _near, _far, &g_tempMatProj);
+    else
+    {
+        float x = _orthoHeight * aspect;
+        float y = _orthoHeight;
+        Mat4::createOrthographic(-x, x, -y, y, &g_tempMatProj);
+    }
+    
+    // view projection
+    Mat4::multiply(g_tempMatProj, g_tempMatView, &g_tempMatViewProj);
+    
+    // invert view projection
+    g_tempMatInvViewProj = g_tempMatViewProj.getInversed();
+    
+    if (ProjectionType::PERSPECTIVE == _projection)
+    {
+        // Caculate screen pos in far clip plane.
+        out.set((screenPos.x - cx) * 2.0f / cw - 1.0f,
+                (screenPos.y - cy) * 2.0f / ch - 1.0f,
+                1.0f);
+        
+        // Transform to world position.
+        g_tempMatInvViewProj.transformVector(&out);
+        
+        // TODO: get world position of the camera
+        g_tempVec3.lerp(out, screenPos.z / _far);
+        out = g_tempVec3;
+    }
+    else
+    {
+        float range = _far - _near;
+        out.set((screenPos.x - cx) * 2.0f / cw - 1.0f,
+                (screenPos.y - cy) * 2.0f / ch - 1.0f,
+                (_far - screenPos.z) / range * 2.0f - 1.0f);
+        
+        // Transform to world position.
+        g_tempMatInvViewProj.transformVector(&out);
+    }
+    
+    return out;
 }
 
-void Camera::worldToScreen(Mat4& out, float worldPos, int width, int height) const
+Vec3& Camera::worldToScreen(Vec3& out, const Vec3& worldPos, int width, int height) const
 {
+    float aspect = (float)width / height;
+    float cx = _rect.origin.x * width;
+    float cy = _rect.origin.y * height;
+    float cw = _rect.size.width * width;
+    float ch = _rect.size.height * height;
     
+    // projection matrix
+    if (ProjectionType::PERSPECTIVE == _projection)
+        Mat4::createPerspective(_fov, aspect, _near, _far, &g_tempMatProj);
+    else
+    {
+        float x = _orthoHeight * aspect;
+        float y = _orthoHeight;
+        Mat4::createOrthographic(-x, x, -y, y, &g_tempMatProj);
+    }
+    
+    // TODO: view matrix
+    
+    // view projection
+    Mat4::multiply(g_tempMatProj, g_tempMatView, &g_tempMatViewProj);
+    
+    // caculate w
+    float w = worldPos.x * g_tempMatViewProj.m[3] +
+              worldPos.y * g_tempMatViewProj.m[7] +
+              worldPos.z * g_tempMatViewProj.m[11] +
+              g_tempMatViewProj.m[15];
+    
+    g_tempMatViewProj.transformVector(worldPos, &out);
+    out.x = cx + (out.x / w + 1) * 0.5f * cw;
+    out.y = cy + (out.y / w + 1) * 0.5f * ch;
+    
+    return out;
 }
 
 GFX_END

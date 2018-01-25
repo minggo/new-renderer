@@ -77,8 +77,8 @@ public:
     
     void extractView(View& out, int width, int height) const;
     
-    void screenToWorld(Mat4& out, float screenPos, int width, int height) const;
-    void worldToScreen(Mat4& out, float worldPos, int width, int height) const;
+    Vec3& screenToWorld(Vec3& out, const Vec3& screenPos, int width, int height) const;
+    Vec3& worldToScreen(Vec3& out, const Vec3& worldPos, int width, int height) const;
     
 private:
     ProjectionType _projection = ProjectionType::PERSPECTIVE;
