@@ -458,6 +458,10 @@
 		1ACB61B71FF6028B0007F081 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0DD1FF22B0200B224DF /* unzip.cpp */; };
 		1ACB61B81FF6028F0007F081 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0E31FF22B0200B224DF /* tinyxml2.cpp */; };
 		1ACB61B91FF602A80007F081 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 1A69F1101FF36A4600B224DF /* assets */; };
+		1ACD54F62019B2E10012EB0F /* ProgramLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ACD54F42019B2E10012EB0F /* ProgramLib.cpp */; };
+		1ACD54F72019B2E10012EB0F /* ProgramLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ACD54F42019B2E10012EB0F /* ProgramLib.cpp */; };
+		1ACD54F82019B2E10012EB0F /* ProgramLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ACD54F42019B2E10012EB0F /* ProgramLib.cpp */; };
+		1ACD54F92019B2E10012EB0F /* ProgramLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ACD54F42019B2E10012EB0F /* ProgramLib.cpp */; };
 		4627245F1FF47B82000D13BC /* Basic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4627245D1FF47B82000D13BC /* Basic.cpp */; };
 		462724621FF4A2BA000D13BC /* Blending.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724601FF4A2BA000D13BC /* Blending.cpp */; };
 		462724671FF4D68D000D13BC /* Bunny.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724641FF4D68C000D13BC /* Bunny.cpp */; };
@@ -817,6 +821,8 @@
 		1ACB617F1FF5F2E60007F081 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		1ACB61B11FF5F4770007F081 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		1ACB61B31FF6027B0007F081 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		1ACD54F42019B2E10012EB0F /* ProgramLib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProgramLib.cpp; sourceTree = "<group>"; };
+		1ACD54F52019B2E10012EB0F /* ProgramLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramLib.h; sourceTree = "<group>"; };
 		462724581FF3A00E000D13BC /* TestBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestBase.h; sourceTree = "<group>"; };
 		4627245D1FF47B82000D13BC /* Basic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Basic.cpp; sourceTree = "<group>"; };
 		4627245E1FF47B82000D13BC /* Basic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Basic.h; sourceTree = "<group>"; };
@@ -1507,6 +1513,8 @@
 		465399AE20185D9700EAE1FC /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				1ACD54F42019B2E10012EB0F /* ProgramLib.cpp */,
+				1ACD54F52019B2E10012EB0F /* ProgramLib.h */,
 				465399AF20185D9700EAE1FC /* Pass.cpp */,
 				465399B020185D9700EAE1FC /* Config.h */,
 				465399B120185D9700EAE1FC /* Technique.h */,
@@ -1941,6 +1949,7 @@
 				1A255ECC20034F1000069420 /* Mat4.cpp in Sources */,
 				1A255ECD20034F1000069420 /* CCAffineTransform.cpp in Sources */,
 				1A255ECE20034F1000069420 /* Utils.cpp in Sources */,
+				1ACD54F82019B2E10012EB0F /* ProgramLib.cpp in Sources */,
 				1A255ECF20034F1000069420 /* CCFileUtils-apple.mm in Sources */,
 				1A255ED020034F1000069420 /* CCConfiguration.cpp in Sources */,
 				1A255ED120034F1000069420 /* Assertions.cpp in Sources */,
@@ -2073,6 +2082,7 @@
 				1A255F7220034F6D00069420 /* Vec2.cpp in Sources */,
 				1A255F7320034F6D00069420 /* types.cpp in Sources */,
 				1A255F7420034F6D00069420 /* ScriptEngine.cpp in Sources */,
+				1ACD54F92019B2E10012EB0F /* ProgramLib.cpp in Sources */,
 				1A255FA22003602300069420 /* jsb_gfx_manual.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2160,6 +2170,7 @@
 				1A255E6E20034B0D00069420 /* pvr.cpp in Sources */,
 				1A255E4C20034B0D00069420 /* CCGeometry.cpp in Sources */,
 				1A255DD620034B0D00069420 /* Utils.cpp in Sources */,
+				1ACD54F72019B2E10012EB0F /* ProgramLib.cpp in Sources */,
 				1A255E0020034B0D00069420 /* Utils.cpp in Sources */,
 				1ACB61B61FF6028B0007F081 /* ioapi.cpp in Sources */,
 				1A255E5E20034B0D00069420 /* CCAffineTransform.cpp in Sources */,
@@ -2221,6 +2232,7 @@
 				1A255DE520034B0D00069420 /* util.cc in Sources */,
 				1A255DD720034B0D00069420 /* node.cc in Sources */,
 				4694928B1FE26CB5008D19CC /* main.cpp in Sources */,
+				1ACD54F62019B2E10012EB0F /* ProgramLib.cpp in Sources */,
 				1A69F0FE1FF22B0200B224DF /* ioapi_mem.cpp in Sources */,
 				1A255E7C20034EE700069420 /* xxtea.cpp in Sources */,
 				465399C920185D9700EAE1FC /* Config.cpp in Sources */,
