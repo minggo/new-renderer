@@ -26,6 +26,8 @@
 #include "Basic.h"
 #include "../Utils.h"
 
+std::string test_unrollLoops(const std::string& text);
+
 using namespace cocos2d;
 using namespace cocos2d::gfx;
 
@@ -71,6 +73,105 @@ Basic::Basic()
                         data,
                         sizeof(data),
                         3);
+
+
+    static const char* testCode = R"(#if 3 > 0
+#pragma for id in range(0, 3)
+    uniform vec3 dir_light{id}_direction;
+    uniform vec3 dir_light{id}_color;
+#pragma endFor
+#endif
+
+#if 4 > 0
+#pragma for id in range(0, 4)
+    uniform vec3 point_light{id}_position;
+    uniform vec3 point_light{id}_color;
+    uniform float point_light{id}_range;
+#pragma endFor
+#endif
+
+#if 5 > 0
+#pragma for id in range(0, 5)
+    uniform vec3 spot_light{id}_position;
+    uniform vec3 spot_light{id}_direction;
+    uniform vec3 spot_light{id}_color;
+    uniform vec2 spot_light{id}_spot;
+    uniform float spot_light{id}_range;
+#pragma endFor
+#endif)";
+
+    const std::string correctResult = R"(#if 3 > 0
+
+    uniform vec3 dir_light0_direction;
+    uniform vec3 dir_light0_color;
+
+    uniform vec3 dir_light1_direction;
+    uniform vec3 dir_light1_color;
+
+    uniform vec3 dir_light2_direction;
+    uniform vec3 dir_light2_color;
+
+#endif
+
+#if 4 > 0
+
+    uniform vec3 point_light0_position;
+    uniform vec3 point_light0_color;
+    uniform float point_light0_range;
+
+    uniform vec3 point_light1_position;
+    uniform vec3 point_light1_color;
+    uniform float point_light1_range;
+
+    uniform vec3 point_light2_position;
+    uniform vec3 point_light2_color;
+    uniform float point_light2_range;
+
+    uniform vec3 point_light3_position;
+    uniform vec3 point_light3_color;
+    uniform float point_light3_range;
+
+#endif
+
+#if 5 > 0
+
+    uniform vec3 spot_light0_position;
+    uniform vec3 spot_light0_direction;
+    uniform vec3 spot_light0_color;
+    uniform vec2 spot_light0_spot;
+    uniform float spot_light0_range;
+
+    uniform vec3 spot_light1_position;
+    uniform vec3 spot_light1_direction;
+    uniform vec3 spot_light1_color;
+    uniform vec2 spot_light1_spot;
+    uniform float spot_light1_range;
+
+    uniform vec3 spot_light2_position;
+    uniform vec3 spot_light2_direction;
+    uniform vec3 spot_light2_color;
+    uniform vec2 spot_light2_spot;
+    uniform float spot_light2_range;
+
+    uniform vec3 spot_light3_position;
+    uniform vec3 spot_light3_direction;
+    uniform vec3 spot_light3_color;
+    uniform vec2 spot_light3_spot;
+    uniform float spot_light3_range;
+
+    uniform vec3 spot_light4_position;
+    uniform vec3 spot_light4_direction;
+    uniform vec3 spot_light4_color;
+    uniform vec2 spot_light4_spot;
+    uniform float spot_light4_range;
+
+#endif)";
+
+    GFX_LOGD("%s", correctResult.c_str());
+
+    std::string out = test_unrollLoops(testCode);
+    GFX_LOGD("===>\n%s, correct: %d, out: %d", out.c_str(), (int)correctResult.length(), (int)out.length());
+    assert(out == correctResult);
 }
 
 Basic::~Basic()
