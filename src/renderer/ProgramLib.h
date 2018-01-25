@@ -26,10 +26,10 @@
 
 #include "../macro.h"
 #include "base/CCRef.h"
+#include "base/CCValue.h"
 
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include <functional>
 
 GFX_BEGIN
@@ -40,44 +40,24 @@ class Program;
 class ProgramLib : public Ref
 {
 public:
-    struct Option
-    {
-        std::string name;
-        int32_t min = -1;
-        int32_t max = -1;
-        int32_t _offset = 0;
-        int32_t _map_1(int32_t value)
-        {
-            return (value - min) << _offset;
-        }
-        int32_t _map_2(int32_t value)
-        {
-            if (value != -1) {
-                return 1 << _offset;
-            }
-            return 0;
-        }
-        std::function<int32_t(int32_t)> _map;
-    };
-
     struct Template
     {
-        uint32_t id;
+        uint32_t id = 0;
         std::string name;
         std::string vert;
         std::string frag;
-        std::vector<Option> defines;
+        ValueVector defines;
     };
 
     ProgramLib();
 
-    void define(const std::string& name, const std::string& vert, const std::string& frag, std::vector<Option>& defines);
-    uint32_t getKey(const std::string& name, const std::unordered_map<std::string, Option>& defines);
-    Program* getProgram(const std::string& name, const std::unordered_map<std::string, Option>& defines);
+    void define(const std::string& name, const std::string& vert, const std::string& frag, ValueVector& defines);
+    uint32_t getKey(const std::string& name, const ValueMap& defines);
+    Program* getProgram(const std::string& name, const ValueMap& defines);
 
 private:
     DeviceGraphics* _device = nullptr;
-    const char* _precision = "precision highp float;\n";
+    const char* _precision = "#ifdef GL_ES\nprecision highp float;\n#endif\n";
     std::unordered_map<std::string, Template> _templates;
     std::unordered_map<uint32_t, Program*> _cache;
 };

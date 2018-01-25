@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include "ProgramLib.h"
+#include "../gfx/CCProgram.h"
 
 #include <regex>
 #include <string>
@@ -32,11 +33,38 @@
 namespace {
     uint32_t _shdID = 0;
 
-    std::string generateDefines(std::)
+    std::string generateDefines(const cocos2d::ValueMap& defMap)
     {
-
+        std::string ret;
+        for (const auto& def : defMap)
+        {
+            if (def.second.asBool())
+            {
+                ret += "#define "  + def.first + "\n";
+            }
+        }
+        return ret;
     }
 
+    std::string replaceMacroNums(const std::string str, const cocos2d::ValueMap& defMap)
+    {
+        cocos2d::ValueMap cache;
+        std::string tmp = str;
+        for (const auto& def : defMap)
+        {
+            if (def.second.getType() == cocos2d::Value::Type::INTEGER || def.second.getType() == cocos2d::Value::Type::UNSIGNED)
+            {
+                cache.emplace(def.first, def.second);
+            }
+        }
+
+        for (const auto& def : cache)
+        {
+            std::regex pattern(def.first);
+            tmp = std::regex_replace(tmp, pattern, def.second.asString());
+        }
+        return tmp;
+    }
 
     using RegexReplaceCallback = std::function<std::string(const std::match_results<std::string::const_iterator>&)>;
 
@@ -103,7 +131,7 @@ ProgramLib::ProgramLib()
 
 }
 
-void ProgramLib::define(const std::string& name, const std::string& vert, const std::string& frag, std::vector<Option>& defines)
+void ProgramLib::define(const std::string& name, const std::string& vert, const std::string& frag, ValueVector& defines)
 {
     auto iter = _templates.find(name);
     if (iter != _templates.end())
@@ -118,56 +146,62 @@ void ProgramLib::define(const std::string& name, const std::string& vert, const 
     uint32_t offset = 0;
     for (auto& def : defines)
     {
-        def._offset = offset;
-
+        ValueMap& oneDefMap = def.asValueMap();
         uint32_t cnt = 1;
 
-        if (def.min != -1 && def.max != -1) {
-            cnt = (uint32_t)std::ceil((def.max - def.min) * 0.5);
-
-            def._map = std::bind(&Option::_map_1, def, std::placeholders::_1);
-        } else {
-            def._map = std::bind(&Option::_map_2, def, std::placeholders::_1);
-        }
+        //FIXME: currently we don't use min, max.
+//        if (def.min != -1 && def.max != -1) {
+//            cnt = (uint32_t)std::ceil((def.max - def.min) * 0.5);
+//
+//            def._map = std::bind(&Option::_map_1, def, std::placeholders::_1);
+//        }
+//        else
+//        {
+//            def._map = std::bind(&Option::_map_2, def, std::placeholders::_1);
+//        }
 
         offset += cnt;
 
-        def._offset = offset;
+        oneDefMap["_offset"] = offset;
     }
 
     std::string newVert = _precision + vert;
     std::string newFrag = _precision + frag;
 
     // store it
-    _templates[name] = {
-        id,
-        name,
-        newVert,
-        newFrag,
-        defines
-    };
+    auto& templ = _templates[name];
+    templ.id = id;
+    templ.name = name;
+    templ.vert = newVert;
+    templ.frag = newFrag;
+    templ.defines = defines;
 }
 
-uint32_t ProgramLib::getKey(const std::string& name, const std::unordered_map<std::string, Option>& defines)
+uint32_t ProgramLib::getKey(const std::string& name, const ValueMap& defines)
 {
     auto iter = _templates.find(name);
     assert(iter != _templates.end());
 
-    const auto& tmpl = iter->second;
+    auto& tmpl = iter->second;
     int32_t key = 0;
-    for (const auto& tmplDefs : tmpl.defines) {
-        auto iter2 = defines.find(tmplDefs.name);
+    for (auto& tmplDefs : tmpl.defines) {
+        auto& tmplDefMap = tmplDefs.asValueMap();
+        std::string tempName = tmplDefMap["name"].asString();
+        auto iter2 = defines.find(tempName);
         if (iter2 == defines.end()) {
             continue;
         }
-        const auto& value = iter2->second;
-        key |= tmplDefs._map(100); //FIXME:
+//        const auto& value = iter2->second;
+//        key |= tmplDefs._map(100); //FIXME:
+        uint32_t offset = tmplDefMap["_offset"].asUnsignedInt();
+        key |= 1 << offset;
     }
 
     return key << 8 | tmpl.id;
 }
 
-Program* ProgramLib::getProgram(const std::string& name, const std::unordered_map<std::string, Option>& defines)
+//FIXME:cjh: How to release the return value?
+Program* ProgramLib::getProgram(const std::string& name, const ValueMap& defines)
 {
     uint32_t key = getKey(name, defines);
     auto iter = _cache.find(key);
@@ -177,19 +211,21 @@ Program* ProgramLib::getProgram(const std::string& name, const std::unordered_ma
 
     Program* program = nullptr;
     // get template
-//    let tmpl = _templates[name];
-//    let customDef = _generateDefines(defines) + '\n';
-//    let vert = _replaceMacroNums(tmpl.vert, defines);
-//    vert = customDef + _unrollLoops(vert);
-//    let frag = _replaceMacroNums(tmpl.frag, defines);
-//    frag = customDef + _unrollLoops(frag);
-//
-//    program = new gfx.Program(this._device, {
-//        vert,
-//        frag
-//    });
-//    program.link();
-//    _cache[key] = program;
+    auto templIter = _templates.find(name);
+    if (templIter != _templates.end())
+    {
+        const auto& tmpl = templIter->second;
+        std::string customDef = generateDefines(defines) + "\n";
+        std::string vert = replaceMacroNums(tmpl.vert, defines);
+        vert = customDef + unrollLoops(vert);
+        std::string frag = replaceMacroNums(tmpl.frag, defines);
+        frag = customDef + unrollLoops(frag);
+
+        program = new Program();
+        program->init(_device, vert.c_str(), frag.c_str());
+        program->link();
+        _cache.emplace(key, program);
+    }
 
     return program;
 }
