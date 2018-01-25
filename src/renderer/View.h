@@ -34,6 +34,8 @@
 
 GFX_BEGIN
 
+class Light;
+
 struct View
 {
     View();
@@ -65,7 +67,7 @@ struct View
     bool cullingByID = false;
     FrameBuffer* frameBuffer = nullptr;
     
-    //TODO: shadow light
+    Light* shadowLight = nullptr;
 };
 
 GFX_END

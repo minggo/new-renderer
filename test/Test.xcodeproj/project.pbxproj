@@ -494,6 +494,10 @@
 		465399DC2018625200EAE1FC /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399D92018625200EAE1FC /* Camera.cpp */; };
 		465399DD2018625200EAE1FC /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399D92018625200EAE1FC /* Camera.cpp */; };
 		465399DE2018625200EAE1FC /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399D92018625200EAE1FC /* Camera.cpp */; };
+		465399E1201982B800EAE1FC /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399DF201982B800EAE1FC /* Light.cpp */; };
+		465399E2201982B800EAE1FC /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399DF201982B800EAE1FC /* Light.cpp */; };
+		465399E3201982B800EAE1FC /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399DF201982B800EAE1FC /* Light.cpp */; };
+		465399E4201982B800EAE1FC /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399DF201982B800EAE1FC /* Light.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -840,6 +844,8 @@
 		465399BC20185D9700EAE1FC /* InputAssembler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputAssembler.cpp; sourceTree = "<group>"; };
 		465399D92018625200EAE1FC /* Camera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		465399DA2018625200EAE1FC /* Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		465399DF201982B800EAE1FC /* Light.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
+		465399E0201982B800EAE1FC /* Light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1517,6 +1523,8 @@
 				465399BC20185D9700EAE1FC /* InputAssembler.cpp */,
 				465399D92018625200EAE1FC /* Camera.cpp */,
 				465399DA2018625200EAE1FC /* Camera.h */,
+				465399DF201982B800EAE1FC /* Light.cpp */,
+				465399E0201982B800EAE1FC /* Light.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -1864,6 +1872,7 @@
 				1A255E8720034F1000069420 /* CCIndexBuffer.cpp in Sources */,
 				1A255E8A20034F1000069420 /* RefCounter.cpp in Sources */,
 				1A255E8B20034F1000069420 /* ScriptEngine.cpp in Sources */,
+				465399E3201982B800EAE1FC /* Light.cpp in Sources */,
 				1A255E8C20034F1000069420 /* Class.cpp in Sources */,
 				1A50267D2005F84E003E668E /* Utils.cpp in Sources */,
 				1A255E8D20034F1000069420 /* CCGeometry.cpp in Sources */,
@@ -1960,6 +1969,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				465399E4201982B800EAE1FC /* Light.cpp in Sources */,
 				1A255F0B20034F6D00069420 /* Class.cpp in Sources */,
 				1A255F0D20034F6D00069420 /* PlatformUtils.mm in Sources */,
 				1A255F0F20034F6D00069420 /* CCTexture2D.cpp in Sources */,
@@ -2081,6 +2091,7 @@
 				1A255E6C20034B0D00069420 /* TGAlib.cpp in Sources */,
 				1A255E5220034B0D00069420 /* Quaternion.cpp in Sources */,
 				1A255E3220034B0D00069420 /* CCDirectorCaller-ios.mm in Sources */,
+				465399E2201982B800EAE1FC /* Light.cpp in Sources */,
 				1A255E6A20034B0D00069420 /* ccTypes.cpp in Sources */,
 				1A255DF420034B0D00069420 /* Utils.cpp in Sources */,
 				1ACB61A51FF5F33D0007F081 /* CCState.cpp in Sources */,
@@ -2227,6 +2238,7 @@
 				1A255DD920034B0D00069420 /* inspector_socket_server.cc in Sources */,
 				1A255E5320034B0D00069420 /* CCVertex.cpp in Sources */,
 				465399D120185D9700EAE1FC /* Model.cpp in Sources */,
+				465399E1201982B800EAE1FC /* Light.cpp in Sources */,
 				465399C520185D9700EAE1FC /* Effect.cpp in Sources */,
 				1A255E2720034B0D00069420 /* CCSAXParser.cpp in Sources */,
 				1A255DEF20034B0D00069420 /* node_debug_options.cc in Sources */,

@@ -119,7 +119,7 @@ Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int hei
                 1.0f);
         
         // Transform to world position.
-        g_tempMatInvViewProj.transformVector(&out);
+        g_tempMatInvViewProj.transformPoint(&out);
         
         // TODO: get world position of the camera
         g_tempVec3.lerp(out, screenPos.z / _far);
@@ -133,7 +133,7 @@ Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int hei
                 (_far - screenPos.z) / range * 2.0f - 1.0f);
         
         // Transform to world position.
-        g_tempMatInvViewProj.transformVector(&out);
+        g_tempMatInvViewProj.transformPoint(&out);
     }
     
     return out;
@@ -168,7 +168,7 @@ Vec3& Camera::worldToScreen(Vec3& out, const Vec3& worldPos, int width, int heig
               worldPos.z * g_tempMatViewProj.m[11] +
               g_tempMatViewProj.m[15];
     
-    g_tempMatViewProj.transformVector(worldPos, &out);
+    g_tempMatViewProj.transformPoint(worldPos, &out);
     out.x = cx + (out.x / w + 1) * 0.5f * cw;
     out.y = cy + (out.y / w + 1) * 0.5f * ch;
     
