@@ -28,17 +28,6 @@
 
 GFX_BEGIN
 
-DrawItem::DrawItem(Model* model,
-                   InputAssembler* ia,
-                   Effect* effect,
-                   ValueMap* defines)
-: model(model)
-, ia(ia)
-, effect(effect)
-, defines(defines)
-{
-}
-
 void Model::addInputAssembler(InputAssembler* ia)
 {
     if (_inputAssemblers.contains(ia))

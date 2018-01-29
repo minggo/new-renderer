@@ -337,7 +337,7 @@ void DeviceGraphics::setProgram(Program *program)
 
 void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int slot)
 {
-    if (slot >= _caps.maxTextureUints)
+    if (slot >= _caps.maxTextureUnits)
     {
         // TODO: add log
         return;
@@ -350,7 +350,7 @@ void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int s
 void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<Texture*>& textures, const std::vector<int>& slots)
 {
     auto len = textures.size();
-    if (len >= _caps.maxTextureUints)
+    if (len >= _caps.maxTextureUnits)
     {
         //TODO: add log
         return;
@@ -563,8 +563,8 @@ DeviceGraphics::DeviceGraphics()
     _enabledAtrributes.resize(_caps.maxVertexAttributes);
     
     // Make sure _currentState and _nextState have enough sapce for textures.
-    _currentState.setTexture(_caps.maxTextureUints, nullptr);
-    _nextState.setTexture(_caps.maxTextureUints, nullptr);
+    _currentState.setTexture(_caps.maxTextureUnits, nullptr);
+    _nextState.setTexture(_caps.maxTextureUnits, nullptr);
     
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &_defaultFbo);
 }
@@ -590,7 +590,7 @@ void DeviceGraphics::initCaps()
     GL_CHECK(glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS, &_caps.maxFragUniforms));
 #endif
 
-    GL_CHECK(glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUints));
+    GL_CHECK(glGetIntegerv(GL_MAX_TEXTURE_UNITS, &_caps.maxTextureUnits));
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
     // FIXME: how to get these infomations
@@ -602,7 +602,7 @@ void DeviceGraphics::initCaps()
 #endif
 
     GFX_LOGD("Device caps: maxVextexTextures: %d, maxFragUniforms: %d, maxTextureUints: %d, maxVertexAttributes: %d, maxDrawBuffers: %d, maxColorAttatchments: %d",
-             _caps.maxVextexTextures, _caps.maxFragUniforms, _caps.maxTextureUints, _caps.maxVertexAttributes, _caps.maxDrawBuffers, _caps.maxColorAttatchments);
+             _caps.maxVextexTextures, _caps.maxFragUniforms, _caps.maxTextureUnits, _caps.maxVertexAttributes, _caps.maxDrawBuffers, _caps.maxColorAttatchments);
 }
 
 void DeviceGraphics::initStates()

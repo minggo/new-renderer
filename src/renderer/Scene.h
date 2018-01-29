@@ -24,6 +24,7 @@
 
 #pragma once
 
+#include <stdint.h>
 #include "base/CCVector.h"
 #include "../macro.h"
 
@@ -53,6 +54,7 @@ public:
     Model* getModel(uint32_t index);
     void addModel(Model* model);
     void removeModel(Model* model);
+    inline const Vector<Model*>& getModels() const { return _models; }
     
     // light
     inline uint32_t getLightCount() const { return (uint32_t)_lights.size(); }

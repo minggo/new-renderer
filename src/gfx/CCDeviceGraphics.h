@@ -29,6 +29,7 @@
 #include <vector>
 #include <unordered_map>
 #include "base/ccTypes.h"
+#include "base/CCRef.h"
 #include "math/Vec2.h"
 #include "math/Vec3.h"
 #include "math/Vec4.h"
@@ -46,11 +47,22 @@ class IndexBuffer;
 class Program;
 class Texture;
 
-class DeviceGraphics final
+class DeviceGraphics final : public Ref
 {
 public:
+    struct Capacity
+    {
+        int maxVextexTextures;
+        int maxFragUniforms;
+        int maxTextureUnits;
+        int maxVertexAttributes;
+        int maxDrawBuffers;
+        int maxColorAttatchments;
+    };
+    
     static DeviceGraphics* getInstance();
     
+    inline const Capacity& getCapacity() const { return _caps; }
     bool supportGLExtension(const std::string& extension) const;
 
     void setFrameBuffer(const FrameBuffer* fb);
@@ -113,16 +125,6 @@ public:
     void draw(size_t base, GLsizei count);
     
 private:
-    
-    struct Capacity
-    {
-        int maxVextexTextures;
-        int maxFragUniforms;
-        int maxTextureUints;
-        int maxVertexAttributes;
-        int maxDrawBuffers;
-        int maxColorAttatchments;
-    };
     
     struct Uniform
     {

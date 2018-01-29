@@ -24,6 +24,8 @@
 
 #pragma once
 
+#include <vector>
+#include <string>
 #include "base/ccTypes.h"
 #include "math/Mat4.h"
 #include "../macro.h"
@@ -103,7 +105,7 @@ public:
     inline void setFrustumEdgeFalloff(uint32_t val) { _frustumEdgeFalloff = val; }
     inline uint32_t getFrustumEdgeFalloff() const { return _frustumEdgeFalloff; }
     
-    void extractView(View& out, const std::vector<int>& stages);
+    void extractView(View& out, const std::vector<std::string>& stages);
     
     void update(DeviceGraphics* device);
     

@@ -36,18 +36,13 @@ class Effect;
 class InputAssembler;
 class Model;
 
-typedef struct DrawItem
+struct DrawItem
 {
-    DrawItem(Model* model,
-             InputAssembler* ia,
-             Effect* effect,
-             ValueMap* defines);
-    
     Model* model = nullptr;
     InputAssembler* ia = nullptr;
     Effect* effect = nullptr;
     ValueMap* defines;
-} DrawItem;
+};
 
 class Model : public Ref
 {
@@ -55,11 +50,15 @@ public:
     Model() {}
     
     inline uint32_t getInputAssemblerCount() const { return (uint32_t)_inputAssemblers.size(); }
+    
     inline bool isDynamicIA() const { return _dynamicIA; }
     inline void setDynamicIA(bool value) { _dynamicIA =  value; }
+    
     inline uint32_t getDrawItemCount() const { return _dynamicIA ? 1 :  (uint32_t)_inputAssemblers.size(); }
     inline void setWorldMatix(const Mat4& matrix) { _worldMatrix = matrix; }
+    
     inline void setViewId(int val) { _viewID = val; }
+    inline int getViewId() const { return _viewID; }
     
     void addInputAssembler(InputAssembler* ia);
     void clearInputAssemblers();

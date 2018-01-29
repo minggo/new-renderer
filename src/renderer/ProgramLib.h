@@ -25,7 +25,6 @@
 #pragma once
 
 #include "../macro.h"
-#include "base/CCRef.h"
 #include "base/CCValue.h"
 
 #include <string>
@@ -37,7 +36,7 @@ GFX_BEGIN
 class DeviceGraphics;
 class Program;
 
-class ProgramLib : public Ref
+class ProgramLib final
 {
 public:
     struct Template
@@ -49,7 +48,7 @@ public:
         ValueVector defines;
     };
 
-    ProgramLib();
+    ProgramLib(std::vector<Template>& templates);
 
     void define(const std::string& name, const std::string& vert, const std::string& frag, ValueVector& defines);
     uint32_t getKey(const std::string& name, const ValueMap& defines);

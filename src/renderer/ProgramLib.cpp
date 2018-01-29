@@ -126,9 +126,10 @@ std::string test_unrollLoops(const std::string& text)
 
 GFX_BEGIN
 
-ProgramLib::ProgramLib()
+ProgramLib::ProgramLib(std::vector<Template>& templates)
 {
-
+    for (auto& templ : templates)
+        define(templ.name, templ.vert, templ.frag, templ.defines);
 }
 
 void ProgramLib::define(const std::string& name, const std::string& vert, const std::string& frag, ValueVector& defines)

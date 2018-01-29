@@ -64,7 +64,7 @@ public:
     Mat4 matInvViewPorj;
     
     // stages & framebuffer
-    std::vector<int> stages;
+    std::vector<std::string> stages;
     bool cullingByID = false;
     FrameBuffer* frameBuffer = nullptr;
     

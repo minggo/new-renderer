@@ -97,7 +97,7 @@ float Light::getShadowMaxDepth() const
         return _shadowMaxDepth;
 }
 
-void Light::extractView(View& out, const std::vector<int>& stages)
+void Light::extractView(View& out, const std::vector<std::string>& stages)
 {
     out.shadowLight = const_cast<Light*>(this);
     out.rect = { 0, 0, (float)_shadowResolution, (float)_shadowResolution };

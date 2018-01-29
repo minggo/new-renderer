@@ -26,40 +26,67 @@
 
 #include <vector>
 #include <unordered_map>
-#include "base/CCRef.h"
-#include "base/CCValue.h"
+#include <string>
+#include <functional>
 #include "../macro.h"
-#include "Technique.h"
+#include "ProgramLib.h"
+#include "Model.h"
 
 GFX_BEGIN
 
-// TODO: support property, but it seems it is not used.
+class DeviceGraphics;
+class View;
+class Scene;
+class ProgramLib;
+class Model;
+class InputAssembler;
+class Effect;
+class Technique;
 
-class Effect : public Ref
+class BaseRenderer
 {
 public:
+    struct StageItem
+    {
+        Model* model = nullptr;
+        InputAssembler *ia = nullptr;
+        Effect* effect = nullptr;
+        ValueMap* defines = nullptr;
+        Technique* technique = nullptr;
+        int sortKey = -1;
+    };
+    typedef std::function<void(const View&, const std::vector<StageItem>&)> StageCallback;
     
-    typedef Technique::Parameter Property;
+    BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates);
+    virtual ~BaseRenderer();
     
-    Effect(const Vector<Technique*>& techniques,
-           const std::unordered_map<std::string, Property>& properties,
-           const std::vector<ValueMap>& defineTemplates);
+protected:
+    virtual void render(const View*, const Scene* scene);
+    virtual void draw(const StageItem& item);
     
-    void clear();
-    
-    Technique* getTechnique(const std::string& stage) const;
-    
-    Value getDefineValue(const std::string& name) const;
-    void setDefineValue(const std::string& name, const Value& value);
-    ValueMap* extractDefines(ValueMap& out) const;
-    
-    Property getProperty(const std::string& name) const;
-    void setProperty(const std::string& name, const Property& property);
+    void registerState(const std::string& name, const StageCallback& callback);
     
 private:
-    Vector<Technique*> _techniques;
-    std::vector<ValueMap> _defineTemplates;
-    std::unordered_map<std::string, Property> _properties;
+    
+    struct StageInfo
+    {
+        std::vector<StageItem> items;
+        std::string stage = "";
+    };
+    
+    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(BaseRenderer);
+    
+    void resetTextureUint();
+    int allocTextureUnit();
+    void reset();
+    View* requestView();
+    
+    int _usedTextureUnits = 0;
+    DeviceGraphics *_device = nullptr;
+    ProgramLib *_programLib = nullptr;
+    std::unordered_map<std::string, StageCallback> _stage2fn;
+    std::vector<DrawItem> _drawItems;
+    std::vector<StageInfo> _stageInfos;
 };
 
 GFX_END

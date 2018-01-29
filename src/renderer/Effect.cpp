@@ -28,8 +28,10 @@
 GFX_BEGIN
 
 Effect::Effect(const Vector<Technique*>& techniques,
+               const std::unordered_map<std::string, Property>& properties,
                const std::vector<ValueMap>& defineTemplates)
 : _techniques(techniques)
+, _properties(properties)
 , _defineTemplates(defineTemplates)
 {
 }
@@ -85,6 +87,19 @@ ValueMap* Effect::extractDefines(ValueMap& out) const
         out[def.at("name").asString()] = def.at("value");
     
     return &out;
+}
+
+Effect::Property Effect::getProperty(const std::string& name) const
+{
+    if (_properties.end() == _properties.find(name))
+        return Property();
+    else
+        return _properties.at(name);
+}
+
+void Effect::setProperty(const std::string& name, const Property& property)
+{
+    _properties[name] = property;
 }
 
 GFX_END

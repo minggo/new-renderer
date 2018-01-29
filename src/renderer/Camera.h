@@ -25,6 +25,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include "base/ccTypes.h"
 #include "../macro.h"
 #include "../types.h"
@@ -69,8 +70,8 @@ public:
     inline Rect* getRect(Rect& out) const { out = _rect; return &out; }
     inline void setRect(float x, float y, float w, float h) { _rect.setRect(x, y, w, h); }
     
-    inline const std::vector<int>& getStages() const { return _stages; }
-    inline void setStages(const std::vector<int>& stages) { _stages = stages; }
+    inline const std::vector<std::string>& getStages() const { return _stages; }
+    inline void setStages(const std::vector<std::string>& stages) { _stages = stages; }
     
     inline FrameBuffer* getFrameBuffer() const { return _framebuffer; }
     void setFrameBuffer(FrameBuffer* framebuffer);
@@ -90,7 +91,7 @@ private:
     uint8_t _clearFlags = ClearFlag::COLOR | ClearFlag::DEPTH;
     
     // stage & framebuffer
-    std::vector<int> _stages;
+    std::vector<std::string> _stages;
     FrameBuffer* _framebuffer;
     
     // projection properties

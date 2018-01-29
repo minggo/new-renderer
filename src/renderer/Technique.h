@@ -39,30 +39,30 @@ class Technique : public Ref
 {
 public:
     
-    enum class ParameterType : uint8_t
-    {
-        INT = 0,
-        INT2,
-        INT3,
-        INT4,
-        FLOAT,
-        FLOAT2,
-        FLOAT3,
-        FLOAT4,
-        COLOR3,
-        COLOR4,
-        MAT2,
-        MAT3,
-        MAT4,
-        TEXTURE_2D,
-        TEXTURE_CUBE
-    };
-    
     struct Parameter
     {
+        enum class Type : uint8_t
+        {
+            INT = 0,
+            INT2,
+            INT3,
+            INT4,
+            FLOAT,
+            FLOAT2,
+            FLOAT3,
+            FLOAT4,
+            COLOR3,
+            COLOR4,
+            MAT2,
+            MAT3,
+            MAT4,
+            TEXTURE_2D,
+            TEXTURE_CUBE
+        };
+        
         std::string name = "";
         GLsizei size = 0;
-        ParameterType type = ParameterType::INT;
+        Type type = Type::INT;
         void* value = nullptr;
     };
     
@@ -78,6 +78,7 @@ public:
     uint32_t getStageIDs() const { return _stageIDs; }
     
     // TODO: add get functions
+    const std::vector<Parameter>& getParameters() const { return _parameters; }
     
 private:
     static uint32_t _genID;

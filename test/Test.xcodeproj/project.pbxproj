@@ -506,6 +506,10 @@
 		465399E82019C29500EAE1FC /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399E52019C29500EAE1FC /* Scene.cpp */; };
 		465399E92019C29500EAE1FC /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399E52019C29500EAE1FC /* Scene.cpp */; };
 		465399EA2019C29500EAE1FC /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399E52019C29500EAE1FC /* Scene.cpp */; };
+		465399ED201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399EB201ADAEB00EAE1FC /* BaseRenderer.cpp */; };
+		465399EE201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399EB201ADAEB00EAE1FC /* BaseRenderer.cpp */; };
+		465399EF201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399EB201ADAEB00EAE1FC /* BaseRenderer.cpp */; };
+		465399F0201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 465399EB201ADAEB00EAE1FC /* BaseRenderer.cpp */; };
 		466C44E11FF0D98F00AA277B /* CCState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466C44DF1FF0D98F00AA277B /* CCState.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -858,6 +862,8 @@
 		465399E0201982B800EAE1FC /* Light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 		465399E52019C29500EAE1FC /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		465399E62019C29500EAE1FC /* Scene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
+		465399EB201ADAEB00EAE1FC /* BaseRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BaseRenderer.cpp; sourceTree = "<group>"; };
+		465399EC201ADAEB00EAE1FC /* BaseRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseRenderer.h; sourceTree = "<group>"; };
 		466C44DF1FF0D98F00AA277B /* CCState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CCState.cpp; sourceTree = "<group>"; };
 		466C44E01FF0D98F00AA277B /* CCState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCState.h; sourceTree = "<group>"; };
 		4694925C1FE24978008D19CC /* Test-mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1541,6 +1547,8 @@
 				465399E0201982B800EAE1FC /* Light.h */,
 				465399E52019C29500EAE1FC /* Scene.cpp */,
 				465399E62019C29500EAE1FC /* Scene.h */,
+				465399EB201ADAEB00EAE1FC /* BaseRenderer.cpp */,
+				465399EC201ADAEB00EAE1FC /* BaseRenderer.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -1911,6 +1919,7 @@
 				1A255EA120034F1000069420 /* CCRenderBuffer.cpp in Sources */,
 				1A255EA220034F1000069420 /* util.cc in Sources */,
 				1A255EA320034F1000069420 /* node.cc in Sources */,
+				465399EF201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */,
 				1A255EA520034F1000069420 /* ScriptEngine.cpp in Sources */,
 				1A255EA620034F1000069420 /* ioapi_mem.cpp in Sources */,
 				465399C320185D9700EAE1FC /* View.cpp in Sources */,
@@ -2030,6 +2039,7 @@
 				1A255F3520034F6D00069420 /* WebGLTexelConversions.cpp in Sources */,
 				1A255F3620034F6D00069420 /* Object.cpp in Sources */,
 				1A255F3720034F6D00069420 /* xxtea.cpp in Sources */,
+				465399F0201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */,
 				1A255FA620048F8100069420 /* RootViewController.mm in Sources */,
 				1A255F3820034F6D00069420 /* State.cpp in Sources */,
 				1A255F3920034F6D00069420 /* CCGFX.cpp in Sources */,
@@ -2134,6 +2144,7 @@
 				1A1A4FE41FFDF5BE0061A6E1 /* SubImage.cpp in Sources */,
 				1A255DDE20034B0D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255E6220034B0D00069420 /* ccRandom.cpp in Sources */,
+				465399EE201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */,
 				1A255DF820034B0D00069420 /* ScriptEngine.cpp in Sources */,
 				1A255DEA20034B0D00069420 /* inspector_io.cc in Sources */,
 				465399C220185D9700EAE1FC /* View.cpp in Sources */,
@@ -2241,6 +2252,7 @@
 				465399D520185D9700EAE1FC /* InputAssembler.cpp in Sources */,
 				1A69F0741FF102A300B224DF /* CCRenderBuffer.cpp in Sources */,
 				1A255DE520034B0D00069420 /* util.cc in Sources */,
+				465399ED201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */,
 				1A255DD720034B0D00069420 /* node.cc in Sources */,
 				4694928B1FE26CB5008D19CC /* main.cpp in Sources */,
 				1ACD54F62019B2E10012EB0F /* ProgramLib.cpp in Sources */,
