@@ -52,6 +52,8 @@ public:
 
     void define(const std::string& name, const std::string& vert, const std::string& frag, ValueVector& defines);
     uint32_t getKey(const std::string& name, const ValueMap& defines);
+
+    //note: the return value needs to be released by its 'release' method.
     Program* getProgram(const std::string& name, const ValueMap& defines);
 
 private:

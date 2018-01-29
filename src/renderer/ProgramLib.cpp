@@ -201,12 +201,12 @@ uint32_t ProgramLib::getKey(const std::string& name, const ValueMap& defines)
     return key << 8 | tmpl.id;
 }
 
-//FIXME:cjh: How to release the return value?
 Program* ProgramLib::getProgram(const std::string& name, const ValueMap& defines)
 {
     uint32_t key = getKey(name, defines);
     auto iter = _cache.find(key);
     if (iter != _cache.end()) {
+        iter->second->retain();
         return iter->second;
     }
 
