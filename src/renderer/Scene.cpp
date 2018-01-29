@@ -62,7 +62,7 @@ void Scene::addCamera(Camera* camera)
     _cameras.pushBack(camera);
 }
 
-void Scene::rmoveCamera(Camera* camera)
+void Scene::removeCamera(Camera* camera)
 {
     _cameras.eraseObject(camera);
 }
