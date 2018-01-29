@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A179631201F1BAD0050E573 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A179630201F1BAD0050E573 /* Utils.cpp */; };
+		1A179632201F1BAD0050E573 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A179630201F1BAD0050E573 /* Utils.cpp */; };
+		1A179633201F1BAD0050E573 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A179630201F1BAD0050E573 /* Utils.cpp */; };
+		1A179634201F1BAD0050E573 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A179630201F1BAD0050E573 /* Utils.cpp */; };
 		1A1A4E181FFB45E20061A6E1 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		1A1A4E1B1FFB57EB0061A6E1 /* Stencil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */; };
 		1A1A4E1C1FFB57EB0061A6E1 /* Stencil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */; };
@@ -527,6 +531,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A17962F201F1BAC0050E573 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		1A179630201F1BAD0050E573 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Stencil.cpp; sourceTree = "<group>"; };
 		1A1A4E1A1FFB57EB0061A6E1 /* Stencil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stencil.h; sourceTree = "<group>"; };
 		1A1A4E2B1FFB6BE40061A6E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1525,30 +1531,32 @@
 		465399AE20185D9700EAE1FC /* renderer */ = {
 			isa = PBXGroup;
 			children = (
-				1ACD54F42019B2E10012EB0F /* ProgramLib.cpp */,
-				1ACD54F52019B2E10012EB0F /* ProgramLib.h */,
-				465399AF20185D9700EAE1FC /* Pass.cpp */,
-				465399B020185D9700EAE1FC /* Config.h */,
-				465399B120185D9700EAE1FC /* Technique.h */,
-				465399B220185D9700EAE1FC /* View.h */,
-				465399B320185D9700EAE1FC /* View.cpp */,
-				465399B520185D9700EAE1FC /* Config.cpp */,
-				465399B620185D9700EAE1FC /* Pass.h */,
-				465399B720185D9700EAE1FC /* Technique.cpp */,
-				465399B820185D9700EAE1FC /* Model.h */,
-				465399B920185D9700EAE1FC /* Model.cpp */,
-				465399B420185D9700EAE1FC /* Effect.cpp */,
-				465399BA20185D9700EAE1FC /* Effect.h */,
-				465399BB20185D9700EAE1FC /* InputAssembler.h */,
-				465399BC20185D9700EAE1FC /* InputAssembler.cpp */,
-				465399D92018625200EAE1FC /* Camera.cpp */,
-				465399DA2018625200EAE1FC /* Camera.h */,
-				465399DF201982B800EAE1FC /* Light.cpp */,
-				465399E0201982B800EAE1FC /* Light.h */,
-				465399E52019C29500EAE1FC /* Scene.cpp */,
-				465399E62019C29500EAE1FC /* Scene.h */,
 				465399EB201ADAEB00EAE1FC /* BaseRenderer.cpp */,
 				465399EC201ADAEB00EAE1FC /* BaseRenderer.h */,
+				465399D92018625200EAE1FC /* Camera.cpp */,
+				465399DA2018625200EAE1FC /* Camera.h */,
+				465399B520185D9700EAE1FC /* Config.cpp */,
+				465399B020185D9700EAE1FC /* Config.h */,
+				465399B420185D9700EAE1FC /* Effect.cpp */,
+				465399BA20185D9700EAE1FC /* Effect.h */,
+				465399BC20185D9700EAE1FC /* InputAssembler.cpp */,
+				465399BB20185D9700EAE1FC /* InputAssembler.h */,
+				465399DF201982B800EAE1FC /* Light.cpp */,
+				465399E0201982B800EAE1FC /* Light.h */,
+				465399B920185D9700EAE1FC /* Model.cpp */,
+				465399B820185D9700EAE1FC /* Model.h */,
+				465399AF20185D9700EAE1FC /* Pass.cpp */,
+				465399B620185D9700EAE1FC /* Pass.h */,
+				1ACD54F42019B2E10012EB0F /* ProgramLib.cpp */,
+				1ACD54F52019B2E10012EB0F /* ProgramLib.h */,
+				465399E52019C29500EAE1FC /* Scene.cpp */,
+				465399E62019C29500EAE1FC /* Scene.h */,
+				465399B720185D9700EAE1FC /* Technique.cpp */,
+				465399B120185D9700EAE1FC /* Technique.h */,
+				1A179630201F1BAD0050E573 /* Utils.cpp */,
+				1A17962F201F1BAC0050E573 /* Utils.h */,
+				465399B320185D9700EAE1FC /* View.cpp */,
+				465399B220185D9700EAE1FC /* View.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -1921,6 +1929,7 @@
 				1A255EA320034F1000069420 /* node.cc in Sources */,
 				465399EF201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */,
 				1A255EA520034F1000069420 /* ScriptEngine.cpp in Sources */,
+				1A179633201F1BAD0050E573 /* Utils.cpp in Sources */,
 				1A255EA620034F1000069420 /* ioapi_mem.cpp in Sources */,
 				465399C320185D9700EAE1FC /* View.cpp in Sources */,
 				1A255EA720034F1000069420 /* xxtea.cpp in Sources */,
@@ -2015,6 +2024,7 @@
 				1A255F1A20034F6D00069420 /* HandleObject.cpp in Sources */,
 				1A255F1D20034F6D00069420 /* CCGraphicsHandle.cpp in Sources */,
 				465399D820185D9700EAE1FC /* InputAssembler.cpp in Sources */,
+				1A179634201F1BAD0050E573 /* Utils.cpp in Sources */,
 				1A255F1E20034F6D00069420 /* CCValue.cpp in Sources */,
 				1A255F1F20034F6D00069420 /* inspector_socket.cc in Sources */,
 				1A255F2020034F6D00069420 /* config.cpp in Sources */,
@@ -2146,6 +2156,7 @@
 				1A255E6220034B0D00069420 /* ccRandom.cpp in Sources */,
 				465399EE201ADAEB00EAE1FC /* BaseRenderer.cpp in Sources */,
 				1A255DF820034B0D00069420 /* ScriptEngine.cpp in Sources */,
+				1A179632201F1BAD0050E573 /* Utils.cpp in Sources */,
 				1A255DEA20034B0D00069420 /* inspector_io.cc in Sources */,
 				465399C220185D9700EAE1FC /* View.cpp in Sources */,
 				1A255DEE20034B0D00069420 /* http_parser.c in Sources */,
@@ -2306,6 +2317,7 @@
 				1A1A4F331FFCA6230061A6E1 /* Assertions.cpp in Sources */,
 				1A255DDF20034B0D00069420 /* inspector_agent.cc in Sources */,
 				1A69F1011FF22B0200B224DF /* tinyxml2.cpp in Sources */,
+				1A179631201F1BAD0050E573 /* Utils.cpp in Sources */,
 				1A255DD320034B0D00069420 /* ObjectWrap.cpp in Sources */,
 				1A255E5520034B0D00069420 /* Vec4.cpp in Sources */,
 				1A255DE920034B0D00069420 /* inspector_io.cc in Sources */,
