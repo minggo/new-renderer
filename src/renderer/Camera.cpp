@@ -53,10 +53,10 @@ void Camera::setFrameBuffer(FrameBuffer* framebuffer)
 void Camera::extractView(View& out, int width, int height) const
 {
     // rect
-    out.rect.setRect(_rect.origin.x * width,
-                     _rect.origin.y * height,
-                     _rect.size.width * width,
-                     _rect.size.height * height);
+    out.rect.set(_rect.x * width,
+                 _rect.y * height,
+                 _rect.w * width,
+                 _rect.h * height);
     
     // clear options
     out.color = _color;
@@ -89,10 +89,10 @@ void Camera::extractView(View& out, int width, int height) const
 Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int height) const
 {
     float aspect = (float)width / height;
-    float cx = _rect.origin.x * width;
-    float cy = _rect.origin.y * height;
-    float cw = _rect.size.width * width;
-    float ch = _rect.size.height * height;
+    float cx = _rect.x * width;
+    float cy = _rect.y * height;
+    float cw = _rect.w * width;
+    float ch = _rect.h * height;
     
     // TODO: view matrix
     
@@ -143,10 +143,10 @@ Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int hei
 Vec3& Camera::worldToScreen(Vec3& out, const Vec3& worldPos, int width, int height) const
 {
     float aspect = (float)width / height;
-    float cx = _rect.origin.x * width;
-    float cy = _rect.origin.y * height;
-    float cw = _rect.size.width * width;
-    float ch = _rect.size.height * height;
+    float cx = _rect.x * width;
+    float cy = _rect.y * height;
+    float cw = _rect.w * width;
+    float ch = _rect.h * height;
     
     // projection matrix
     if (ProjectionType::PERSPECTIVE == _projection)

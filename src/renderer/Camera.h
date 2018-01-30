@@ -68,7 +68,7 @@ public:
     inline void setClearFlags(uint8_t flags ) { _clearFlags = flags; }
     
     inline Rect* getRect(Rect& out) const { out = _rect; return &out; }
-    inline void setRect(float x, float y, float w, float h) { _rect.setRect(x, y, w, h); }
+    inline void setRect(float x, float y, float w, float h) { _rect.set(x, y, w, h); }
     
     inline const std::vector<std::string>& getStages() const { return _stages; }
     inline void setStages(const std::vector<std::string>& stages) { _stages = stages; }

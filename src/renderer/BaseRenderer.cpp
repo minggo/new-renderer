@@ -77,10 +77,10 @@ void BaseRenderer::render(const View* view, const Scene* scene)
     _device->setFrameBuffer(view->frameBuffer);
     
     // setup viewport
-    _device->setViewport(view->rect.origin.x,
-                         view->rect.origin.y,
-                         view->rect.size.width,
-                         view->rect.size.height);
+    _device->setViewport(view->rect.x,
+                         view->rect.y,
+                         view->rect.w,
+                         view->rect.h);
     
     // setup clear
     Color4F clearColor;
