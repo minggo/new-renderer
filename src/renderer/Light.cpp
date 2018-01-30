@@ -37,7 +37,7 @@ Light::Light()
 
 void Light::setColor(float r, float g, float b)
 {
-    _color.set(r, g, b, 0);
+    _color.set(r, g, b);
     _colorUniform.set(r * _intensity, g * _intensity, b * _intensity);
 }
 

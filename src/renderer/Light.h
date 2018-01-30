@@ -59,7 +59,7 @@ public:
     Light();
     
     void setColor(float r, float g, float b);
-    inline Color4F getColor() const { return _color; }
+    inline Color3F getColor() const { return _color; }
     
     void setIntensity(float val);
     inline float getIntensity() const { return _intensity; }
@@ -118,8 +118,7 @@ private:
     void computePointLightViewProjMatrix(Mat4& matView, Mat4& matProj) const;
     
     LightType _type = LightType::DIRECTIONAL;
-    // TODO: add Color3F
-    Color4F _color = {1.f, 1.f, 1.f, 0};
+    Color3F _color = {1.f, 1.f, 1.f};
     float _intensity = 1.f;
     
     // used for spot and point light

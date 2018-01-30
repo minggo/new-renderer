@@ -173,6 +173,23 @@ struct CC_DLL Color4F
     static const Color4F GRAY;
 };
 
+struct CC_DLL Color3F
+{
+    Color3F();
+    Color3F(float _r, float _g, float _b);
+    
+    void set(float _r, float _g, float _b)
+    {
+        r = _r;
+        g = _g;
+        b = _b;
+    }
+    
+    GLfloat r;
+    GLfloat g;
+    GLfloat b;
+};
+
 /** A vertex composed of 2 floats: x, y
  @since v3.0
  */
