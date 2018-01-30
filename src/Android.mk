@@ -9,7 +9,7 @@ LOCAL_MODULE := newrenderer
 LOCAL_MODULE_FILENAME := libnewrenderer
 
 LOCAL_SRC_FILES := $(LOCAL_PATH)/types.cpp \
-                   $(LOCAL_PATH)/gfx/CCDeviceGraphics-gl.cpp \
+                   $(LOCAL_PATH)/gfx/CCDeviceGraphics.cpp \
                    $(LOCAL_PATH)/gfx/CCFrameBuffer.cpp \
                    $(LOCAL_PATH)/gfx/CCGFX.cpp \
                    $(LOCAL_PATH)/gfx/CCGFXUtils.cpp \
