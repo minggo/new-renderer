@@ -47,7 +47,7 @@ public:
     inline uint32_t getCameraCount() const { return (uint32_t)_cameras.size(); }
     Camera* getCamera(uint32_t index) const;
     void addCamera(Camera* camera);
-    void rmoveCamera(Camera* camera);
+    void removeCamera(Camera* camera);
     
     // model
     inline uint32_t getModelCount() const { return (uint32_t)_models.size(); }

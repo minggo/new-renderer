@@ -25,42 +25,23 @@
 #pragma once
 
 #include "../macro.h"
-#include "base/CCValue.h"
 
 #include <string>
 #include <vector>
-#include <functional>
 
 GFX_BEGIN
 
+class InputAssembler;
 class DeviceGraphics;
-class Program;
 
-class ProgramLib final
+struct IAData
 {
-public:
-    struct Template
-    {
-        uint32_t id = 0;
-        std::string name;
-        std::string vert;
-        std::string frag;
-        ValueVector defines;
-    };
-
-    ProgramLib(std::vector<Template>& templates);
-
-    void define(const std::string& name, const std::string& vert, const std::string& frag, ValueVector& defines);
-    uint32_t getKey(const std::string& name, const ValueMap& defines);
-
-    //note: the return value needs to be released by its 'release' method.
-    Program* getProgram(const std::string& name, const ValueMap& defines);
-
-private:
-    DeviceGraphics* _device = nullptr;
-    const char* _precision = "#ifdef GL_ES\nprecision highp float;\n#endif\n";
-    std::unordered_map<std::string, Template> _templates;
-    std::unordered_map<uint32_t, Program*> _cache;
+    std::vector<float> positions;
+    std::vector<float> normals;
+    std::vector<float> uvs;
+    std::vector<uint16_t> indices;
 };
+
+InputAssembler* createIA(DeviceGraphics* device, const IAData& data);
 
 GFX_END
