@@ -28,6 +28,8 @@
 
 GFX_BEGIN
 
+// implementation of Technique
+
 uint32_t Technique::_genID = 0;
 
 Technique::Technique(const std::vector<std::string>& stages,

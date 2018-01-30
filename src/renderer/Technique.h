@@ -57,12 +57,15 @@ public:
             MAT3,
             MAT4,
             TEXTURE_2D,
-            TEXTURE_CUBE
+            TEXTURE_CUBE,
+            UNKNOWN
         };
         
         std::string name = "";
-        GLsizei size = 0;
-        Type type = Type::INT;
+        // how many elements, for example, how many INT2 or how many MAT2
+        uint8_t size = 0;
+        Type type = Type::UNKNOWN;
+        // should use byte array except TEXTURE_2D and TEXTURE_CUBE
         void* value = nullptr;
     };
     

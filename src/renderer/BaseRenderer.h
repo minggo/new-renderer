@@ -42,6 +42,7 @@ class Model;
 class InputAssembler;
 class Effect;
 class Technique;
+class Texture2D;
 
 class BaseRenderer
 {
@@ -58,6 +59,7 @@ public:
     typedef std::function<void(const View&, const std::vector<StageItem>&)> StageCallback;
     
     BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates);
+    BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture);
     virtual ~BaseRenderer();
     
 protected:
@@ -82,8 +84,9 @@ private:
     View* requestView();
     
     int _usedTextureUnits = 0;
-    DeviceGraphics *_device = nullptr;
-    ProgramLib *_programLib = nullptr;
+    DeviceGraphics* _device = nullptr;
+    ProgramLib* _programLib = nullptr;
+    Texture2D* _defaultTexture = nullptr;
     std::unordered_map<std::string, StageCallback> _stage2fn;
     std::vector<DrawItem> _drawItems;
     std::vector<StageInfo> _stageInfos;

@@ -61,6 +61,9 @@ struct Pass : public Ref
                         StencilOp stencilZPassOp = StencilOp::KEEP,
                         uint8_t stencilWriteMask = 0xff);
     
+private:
+    friend class BaseRenderer;
+    
     // blending
     bool _blend = false;
     BlendOp _blendEq = BlendOp::ADD;

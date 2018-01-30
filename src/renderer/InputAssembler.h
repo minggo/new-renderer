@@ -42,7 +42,15 @@ public:
     
     uint32_t getPrimitiveCount() const;
     
+    inline const VertexBuffer* getVertexBuffer() const { return _vertexBuffer; }
+    inline const IndexBuffer* getIndexBuffer() const { return _indexBuffer; }
+    inline int getStart() const { return _start; }
+    inline int getCount() const { return _count; }
+    inline PrimitiveType getPrimitiveType() const { return _primitiveType; }
+    
 private:
+    friend class BaseRenderer;
+    
     VertexBuffer* _vertexBuffer = nullptr;
     IndexBuffer* _indexBuffer = nullptr;
     PrimitiveType _primitiveType = PrimitiveType::TRIANGLES;

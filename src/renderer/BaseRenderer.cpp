@@ -25,11 +25,13 @@
 #include "BaseRenderer.h"
 #include <new>
 #include "gfx/CCDeviceGraphics.h"
+#include "gfx/CCTexture2D.h"
 #include "ProgramLib.h"
 #include "View.h"
 #include "Scene.h"
 #include "Effect.h"
 #include "InputAssembler.h"
+#include "Pass.h"
 
 GFX_BEGIN
 
@@ -40,6 +42,15 @@ BaseRenderer::BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Templ
     _programLib = new (std::nothrow) ProgramLib(programTemplates);
 }
 
+BaseRenderer::BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture)
+: _device(&device)
+, _defaultTexture(defaultTexture)
+{
+    _device->retain();
+    GFX_SAFE_RETAIN(_defaultTexture);
+    _programLib = new (std::nothrow) ProgramLib(programTemplates);
+}
+
 BaseRenderer::~BaseRenderer()
 {
     _device->release();
@@ -47,6 +58,9 @@ BaseRenderer::~BaseRenderer()
     
     delete _programLib;
     _programLib = nullptr;
+    
+    GFX_SAFE_RELEASE(_defaultTexture);
+    _defaultTexture = nullptr;
 }
 
 // protected functions
@@ -139,44 +153,149 @@ namespace
     Effect::Property type2defaultValue(Effect::Property::Type type)
     {
         Effect::Property ret;
+        
+        if (Effect::Property::Type::TEXTURE_2D == type ||
+            Effect::Property::Type::TEXTURE_CUBE == type ||
+            Effect::Property::Type::UNKNOWN == type)
+            return ret;
+
+        ret.type = type;
+        ret.size = 1;
+        uint8_t bytes = 0;
         switch (type)
         {
             case Effect::Property::Type::INT:
+                bytes = sizeof(int);
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::INT2:
+                bytes = sizeof(int) * 2;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::INT3:
+                bytes = sizeof(int) * 3;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::INT4:
+                bytes = sizeof(int) * 4;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::FLOAT:
+                bytes = sizeof(float);
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::FLOAT2:
+                bytes = sizeof(float) * 2;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::FLOAT3:
+                bytes = sizeof(float) * 3;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::FLOAT4:
+                bytes = sizeof(float) * 4;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::COLOR3:
+                bytes = sizeof(float) * 3;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::COLOR4:
+                bytes = sizeof(float) * 4;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
+                *((float*)ret.value + 3) = 1.f;
                 break;
             case Effect::Property::Type::MAT2:
+                bytes = sizeof(float) * 4;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::MAT3:
+                bytes = sizeof(float) * 9;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
             case Effect::Property::Type::MAT4:
+                bytes = sizeof(float) * 16;
+                ret.value = malloc(bytes);
+                memset(ret.value, 0, bytes);
                 break;
-            case Effect::Property::Type::TEXTURE_2D:
-                break;
-            case Effect::Property::Type::TEXTURE_CUBE:
-                break;
+//            case Effect::Property::Type::TEXTURE_2D:
+//                break;
+//            case Effect::Property::Type::TEXTURE_CUBE:
+//                break;
                 
             default:
                 break;
         }
         
         return ret;
+    }
+    
+    void freeDefaultValue(Effect::Property& property)
+    {
+        free(property.value);
+        property.value = nullptr;
+        
+        property.size = 0;
+    }
+    
+    uint8_t getBytesOfType(Effect::Property::Type type)
+    {
+        uint8_t bytes = 0;
+        switch (type)
+        {
+            case Effect::Property::Type::INT:
+                bytes = sizeof(int);
+                break;
+            case Effect::Property::Type::INT2:
+                bytes = sizeof(int) * 2;
+                break;
+            case Effect::Property::Type::INT4:
+                bytes = sizeof(int) * 4;
+                break;
+            case Effect::Property::Type::FLOAT:
+                bytes = sizeof(float);
+                break;
+            case Effect::Property::Type::FLOAT2:
+                bytes = sizeof(float) * 2;
+                break;
+            case Effect::Property::Type::FLOAT4:
+                bytes = sizeof(float) * 4;
+                break;
+            case Effect::Property::Type::COLOR4:
+                bytes = sizeof(float) * 4;
+                break;
+            case Effect::Property::Type::MAT2:
+                bytes = sizeof(float) * 4;
+                break;
+            case Effect::Property::Type::MAT4:
+                bytes = sizeof(float) * 16;
+                break;
+            // doesn't support array of these types
+            case Effect::Property::Type::INT3:
+            case Effect::Property::Type::FLOAT3:
+            case Effect::Property::Type::COLOR3:
+            case Effect::Property::Type::MAT3:
+            case Effect::Property::Type::TEXTURE_2D:
+            case Effect::Property::Type::TEXTURE_CUBE:
+                    break;
+                
+            default:
+                break;
+        }
+        
+        return bytes;
     }
 }
 
@@ -193,14 +312,143 @@ void BaseRenderer::draw(const StageItem& item)
     _device->setUniformMat4("normalMatrix", worldMatrix.m);
     
     // set technique uniforms
+    auto ia = item.ia;
     for (const auto& prop : item.technique->getParameters())
     {
         Effect::Property param = item.effect->getProperty(prop.name);
         if (nullptr == param.value)
             param = prop;
         
+        if (Effect::Property::Type::UNKNOWN == param.type)
+        {
+            GFX_LOGW("Failed to set technique property %s, value not found", prop.name.c_str());
+            continue;
+        }
+        
         if (nullptr == param.value)
+        {
             param = type2defaultValue(prop.type);
+            if (Effect::Property::Type::TEXTURE_2D == prop.type)
+                param.value = _defaultTexture;
+        }
+        
+        if (Effect::Property::Type::TEXTURE_2D == prop.type ||
+            Effect::Property::Type::TEXTURE_CUBE == prop.type)
+        {
+            if (prop.size != 0)
+            {
+                if (prop.size != param.size)
+                {
+                    GFX_LOGW("The length of texture array %d is not correct(expect %d)", param.size, prop.size);
+                    continue;
+                }
+                
+                std::vector<int> slots;
+                for (int i = 0; i < param.size; ++i)
+                    slots.push_back(allocTextureUnit());
+                _device->setTextureArray(param.name,
+                                         *(const std::vector<Texture *>*)(param.value),
+                                         slots);
+            }
+            else
+                _device->setTexture(param.name,
+                                    (cocos2d::gfx::Texture *)(param.value),
+                                    allocTextureUnit());
+        }
+        else
+        {
+            uint8_t bytes = getBytesOfType(prop.type);
+            if (0 != param.size)
+            {
+                if (0 == bytes)
+                {
+                    GFX_LOGW("Uinform array of color3/int3/float3/mat3 can not be supported!");
+                    continue;
+                }
+                if (bytes * param.size > 64)
+                {
+                    GFX_LOGW("Uniform array is too long!");
+                    continue;
+                }
+            }
+            
+            if (Effect::Property::Type::INT == prop.type ||
+                Effect::Property::Type::INT2 == prop.type ||
+                Effect::Property::Type::INT4 == prop.type)
+                _device->setUniformiv(prop.name, bytes, (const int*)param.value);
+            else
+                _device->setUniformfv(prop.name, bytes, (const float*)param.value);
+            
+            freeDefaultValue(param);
+        }
+        
+        // for each pass
+        for (const auto& pass : item.technique->getPasses())
+        {
+            // set vertex buffer
+            if (ia->_indexBuffer)
+                _device->setIndexBuffer(ia->_indexBuffer);
+            
+            // set primitive type
+            _device->setPrimitiveType(ia->_primitiveType);
+            
+            // set program
+            auto program = _programLib->getProgram(pass->_programName, *(item.defines));
+            _device->setProgram(program);
+            
+            // cull mode
+            _device->setCullMode(pass->_cullMode);
+            
+            // blend
+            if (pass->_blend)
+            {
+                _device->enableBlend();
+                _device->setBlendFuncSeparate(pass->_blendSrc,
+                                              pass->_blendDst,
+                                              pass->_blendSrcAlpha,
+                                              pass->_blendDstAlpha);
+                _device->setBlendEquationSeparate(pass->_blendEq, pass->_blendAlphaEq);
+                _device->setBlendColor(pass->_blendColor);
+            }
+            
+            // dpeth test & write
+            if (pass->_depthTest)
+            {
+                _device->enableDepthTest();
+                _device->setDepthFunc(pass->_depthFunc);
+            }
+            if (pass->_depthWrite)
+                _device->enableDepthWrite();
+            
+            // setencil
+            if (pass->_stencilTest)
+            {
+                _device->enableStencilTest();
+                
+                // front
+                _device->setStencilFuncFront(pass->_stencilFuncFront,
+                                             pass->_stencilRefFront,
+                                             pass->_stencilMaskFront);
+                _device->setStencilOpFront(pass->_stencilFailOpFront,
+                                           pass->_stencilZFailOpFront,
+                                           pass->_stencilZPassOpFront,
+                                           pass->_stencilWriteMaskFront);
+                
+                // back
+                _device->setStencilFuncBack(pass->_stencilFuncBack,
+                                            pass->_stencilRefBack,
+                                            pass->_stencilMaskBack);
+                _device->setStencilOpBack(pass->_stencilFailOpBack,
+                                          pass->_stencilZFailOpBack,
+                                          pass->_stencilZPassOpBack,
+                                          pass->_stencilWriteMaskBack);
+                
+                // draw pass
+                _device->draw(ia->_start, ia->getPrimitiveCount());
+                
+                resetTextureUint();
+            }
+        }
     }
 }
 
