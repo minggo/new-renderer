@@ -44,7 +44,7 @@ class Effect;
 class Technique;
 class Texture2D;
 
-class BaseRenderer
+class BaseRenderer : public Ref
 {
 public:
     struct StageItem
@@ -63,10 +63,9 @@ public:
     virtual ~BaseRenderer();
     
 protected:
-    virtual void render(const View*, const Scene* scene);
-    virtual void draw(const StageItem& item);
-    
-    void registerState(const std::string& name, const StageCallback& callback);
+    void render(const View*, const Scene* scene);
+    void draw(const StageItem& item);
+    void registerStage(const std::string& name, const StageCallback& callback);
     
 private:
     

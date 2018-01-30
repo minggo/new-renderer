@@ -411,7 +411,7 @@ void BaseRenderer::draw(const StageItem& item)
                 _device->setBlendColor(pass->_blendColor);
             }
             
-            // dpeth test & write
+            // depth test & write
             if (pass->_depthTest)
             {
                 _device->enableDepthTest();
@@ -452,7 +452,7 @@ void BaseRenderer::draw(const StageItem& item)
     }
 }
 
-void BaseRenderer::registerState(const std::string& name, const StageCallback& callback)
+void BaseRenderer::registerStage(const std::string& name, const StageCallback& callback)
 {
     _stage2fn.emplace(std::make_pair(name, callback));
 }
