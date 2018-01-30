@@ -339,7 +339,8 @@ void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int s
 {
     if (slot >= _caps.maxTextureUnits)
     {
-        // TODO: add log
+        GFX_LOGW("Can not set texture %s at stage %d, max texture exceed: %d",
+                 name.c_str(), slot, _caps.maxTextureUnits);
         return;
     }
     
@@ -352,7 +353,8 @@ void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<
     auto len = textures.size();
     if (len >= _caps.maxTextureUnits)
     {
-        //TODO: add log
+        GFX_LOGW("Can not set %d textures for %s, max texture exceed: %d",
+                 (int)len, name.c_str(), _caps.maxTextureUnits);
         return;
     }
     for (size_t i = 0; i < len; ++i)
@@ -392,9 +394,8 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
             GL_CHECK(glUseProgram(_nextState.getProgram()->getHandle()));
         }
         else
-        {
-            //TODO: log
-        }
+            GFX_LOGW("Failed to use program: has not linked yet.");
+            
         programDirty = true;
     }
     
@@ -986,14 +987,13 @@ void DeviceGraphics::commitCullMode()
 }
 void DeviceGraphics::commitVertexBuffer()
 {
-    bool attrsDirty = false;
-    
     if (-1 == _nextState.maxStream)
     {
-        //TODO: log
+        GFX_LOGW("VertexBuffer not assigned, please call setVertexBuffer before every draw.");
         return;
     }
     
+    bool attrsDirty = false;
     if (_currentState.maxStream != _nextState.maxStream)
         attrsDirty = true;
     else if (_currentState.getProgram() != _nextState.getProgram())
@@ -1033,7 +1033,7 @@ void DeviceGraphics::commitVertexBuffer()
                 const auto& el = vb->getFormat().getElement(attr.name);
                 if (!el.isValid())
                 {
-                    //TODO: log
+                    GFX_LOGW("Can not find vertex attribute: %s", attr.name.c_str());
                     continue;
                 }
                 
