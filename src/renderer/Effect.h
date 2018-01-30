@@ -1,6 +1,6 @@
 /****************************************************************************
- Copyright (c) 2018 Chukong Technologies
- 
+ Copyright (c) 2018 Xiamen Yaji Software Co., Ltd.
+
  http://www.cocos2d-x.org
  
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -32,8 +32,6 @@
 #include "Technique.h"
 
 GFX_BEGIN
-
-// TODO: support property, but it seems it is not used.
 
 class Effect : public Ref
 {
