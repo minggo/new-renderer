@@ -62,10 +62,11 @@ public:
     BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture);
     virtual ~BaseRenderer();
     
+    void registerStage(const std::string& name, const StageCallback& callback);
+    
 protected:
     void render(const View*, const Scene* scene);
     void draw(const StageItem& item);
-    void registerStage(const std::string& name, const StageCallback& callback);
     
 private:
     

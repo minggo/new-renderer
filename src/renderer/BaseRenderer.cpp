@@ -32,6 +32,7 @@
 #include "Effect.h"
 #include "InputAssembler.h"
 #include "Pass.h"
+#include "Camera.h"
 
 GFX_BEGIN
 
@@ -61,6 +62,11 @@ BaseRenderer::~BaseRenderer()
     
     GFX_SAFE_RELEASE(_defaultTexture);
     _defaultTexture = nullptr;
+}
+
+void BaseRenderer::registerStage(const std::string& name, const StageCallback& callback)
+{
+    _stage2fn.emplace(std::make_pair(name, callback));
 }
 
 // protected functions
@@ -450,11 +456,6 @@ void BaseRenderer::draw(const StageItem& item)
             }
         }
     }
-}
-
-void BaseRenderer::registerStage(const std::string& name, const StageCallback& callback)
-{
-    _stage2fn.emplace(std::make_pair(name, callback));
 }
 
 // private functions
