@@ -37,11 +37,8 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/types.cpp \
                    $(LOCAL_PATH)/renderer/Utils.cpp \
                    $(LOCAL_PATH)/renderer/View.cpp
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH) \
-                    $(LOCAL_PATH)/gfx \
-                    $(LOCAL_PATH)/renderer
-
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) $(LOCAL_PATH)/gfx
+LOCAL_C_INCLUDES := $(LOCAL_PATH)
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
 
 LOCAL_EXPORT_LDLIBS := -lGLESv2
 
