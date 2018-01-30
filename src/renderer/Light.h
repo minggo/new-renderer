@@ -68,13 +68,13 @@ public:
     inline LightType getType() const { return _type; }
     
     void setSpotAngle(float val);
-    float getSpotAngle() const { return _spotAngle; }
+    inline float getSpotAngle() const { return _spotAngle; }
     
     void setSpotExp(float val);
-    float getSpotExp() const { return _spotExp; }
+    inline float getSpotExp() const { return _spotExp; }
     
     inline void setRange(float val) { _range = val; }
-    float getRange() const { return _range; }
+    inline float getRange() const { return _range; }
     
     void setShadowType(ShadowType val);
     inline ShadowType getShadowType() const { return _shadowType; }
