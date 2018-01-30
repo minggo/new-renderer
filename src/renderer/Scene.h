@@ -48,6 +48,7 @@ public:
     Camera* getCamera(uint32_t index) const;
     void addCamera(Camera* camera);
     void removeCamera(Camera* camera);
+    inline const Vector<Camera*> getCameras() const { return _cameras; }
     
     // model
     inline uint32_t getModelCount() const { return (uint32_t)_models.size(); }
