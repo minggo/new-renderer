@@ -146,6 +146,7 @@ def main():
 
         cmd_args = {
                     'gfx.ini': ('gfx', 'jsb_gfx_auto'),
+                    'renderer.ini': ('renderer', 'jsb_renderer_auto'),
                     }
         target = 'spidermonkey'
         generator_py = '%s/generator.py' % cxx_generator_root

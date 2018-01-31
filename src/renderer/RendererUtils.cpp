@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "Utils.h"
+#include "RendererUtils.h"
 
 #include "gfx/CCVertexFormat.h"
 #include "gfx/CCVertexBuffer.h"
