@@ -180,6 +180,30 @@ static bool js_renderer_Effect_extractDefines(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_Effect_extractDefines)
 
+static bool js_renderer_Light_extractView(se::State& s)
+{
+    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Light_extractView : Invalid Native Object");
+    auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        cocos2d::gfx::View* view;
+        ok = seval_to_native_ptr(args[0], &view);
+        SE_PRECONDITION2(ok, false, "Convert arg0 failed!");
+
+        std::vector<std::string> stages;
+        ok = seval_to_std_vector_string(args[1], &stages);
+        SE_PRECONDITION2(ok, false, "Convert arg1 failed!");
+
+        cobj->extractView(*view, stages);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Light_extractView)
+
 bool jsb_register_renderer_manual(se::Object* global)
 {
     // Camera
@@ -191,6 +215,9 @@ bool jsb_register_renderer_manual(se::Object* global)
 
     // Effect
     __jsb_cocos2d_gfx_Effect_proto->defineFunction("extractDefines", _SE(js_renderer_Effect_extractDefines));
+
+    // Light
+    __jsb_cocos2d_gfx_Light_proto->defineFunction("extractView", _SE(js_renderer_Light_extractView));
 
     return true;
 }
