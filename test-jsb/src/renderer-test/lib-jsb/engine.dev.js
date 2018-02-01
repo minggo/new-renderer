@@ -10598,8 +10598,10 @@ class ForwardRenderer$1 extends renderer.Base {
   render (scene) {
     this._reset();
 
+    const canvas = window.canvas;
     for (let i = 0; i < scene._cameras.length; ++i) {
-      let view = scene._cameras.data[i].getView();
+      let view = new renderer.View();
+      scene._cameras.data[i].extractView(view, canvas.width, canvas.height);
       this._render(view, scene);
     }
   }
