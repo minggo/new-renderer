@@ -31,6 +31,13 @@ SE_DECLARE_FUNC(js_renderer_Model_clearInputAssemblers);
 SE_DECLARE_FUNC(js_renderer_Model_addInputAssembler);
 SE_DECLARE_FUNC(js_renderer_Model_Model);
 
+extern se::Object* __jsb_cocos2d_gfx_BaseRenderer_proto;
+extern se::Class* __jsb_cocos2d_gfx_BaseRenderer_class;
+
+bool js_register_cocos2d_gfx_BaseRenderer(se::Object* obj);
+bool register_all_renderer(se::Object* obj);
+SE_DECLARE_FUNC(js_renderer_BaseRenderer_BaseRenderer);
+
 extern se::Object* __jsb_cocos2d_gfx_View_proto;
 extern se::Class* __jsb_cocos2d_gfx_View_class;
 

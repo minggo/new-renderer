@@ -188,6 +188,28 @@ Model : function (
 };
 
 /**
+ * @class BaseRenderer
+ */
+renderer.BaseRenderer = {
+
+/**
+ * @method BaseRenderer
+ * @constructor
+* @param {cc.gfx::DeviceGraphics|cc.gfx::DeviceGraphics} devicegraphics
+* @param {Array|Array} array
+* @param {cc.gfx::Texture2D} texture2d
+*/
+BaseRenderer : function(
+devicegraphics,
+array,
+texture2d 
+)
+{
+},
+
+};
+
+/**
  * @class View
  */
 renderer.View = {

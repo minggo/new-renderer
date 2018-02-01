@@ -379,6 +379,80 @@ bool js_register_renderer_Model(se::Object* obj)
     return true;
 }
 
+se::Object* __jsb_cocos2d_gfx_BaseRenderer_proto = nullptr;
+se::Class* __jsb_cocos2d_gfx_BaseRenderer_class = nullptr;
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_BaseRenderer_finalize)
+
+static bool js_renderer_BaseRenderer_constructor(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    size_t argc = args.size();
+    do {
+        if (argc == 3) {
+            cocos2d::gfx::DeviceGraphics arg0;
+            ok &= seval_to_native_ptr(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::vector<cocos2d::gfx::ProgramLib::Template> arg1;
+            ok &= seval_to_std_vector_ProgramLib_Template(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::gfx::Texture2D* arg2 = nullptr;
+            ok &= seval_to_native_ptr(args[2], &arg2);
+            if (!ok) { ok = true; break; }
+            cocos2d::gfx::BaseRenderer* cobj = new (std::nothrow) cocos2d::gfx::BaseRenderer(arg0, arg1, arg2);
+            s.thisObject()->setPrivateData(cobj);
+            return true;
+        }
+    } while(false);
+    do {
+        if (argc == 2) {
+            cocos2d::gfx::DeviceGraphics arg0;
+            ok &= seval_to_native_ptr(args[0], &arg0);
+            if (!ok) { ok = true; break; }
+            std::vector<cocos2d::gfx::ProgramLib::Template> arg1;
+            ok &= seval_to_std_vector_ProgramLib_Template(args[1], &arg1);
+            if (!ok) { ok = true; break; }
+            cocos2d::gfx::BaseRenderer* cobj = new (std::nothrow) cocos2d::gfx::BaseRenderer(arg0, arg1);
+            s.thisObject()->setPrivateData(cobj);
+            return true;
+        }
+    } while(false);
+    SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
+    return false;
+}
+SE_BIND_CTOR(js_renderer_BaseRenderer_constructor, __jsb_cocos2d_gfx_BaseRenderer_class, js_cocos2d_gfx_BaseRenderer_finalize)
+
+
+
+
+static bool js_cocos2d_gfx_BaseRenderer_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::BaseRenderer)", s.nativeThisObject());
+    cocos2d::gfx::BaseRenderer* cobj = (cocos2d::gfx::BaseRenderer*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_gfx_BaseRenderer_finalize)
+
+bool js_register_renderer_BaseRenderer(se::Object* obj)
+{
+    auto cls = se::Class::create("BaseRenderer", obj, nullptr, _SE(js_renderer_BaseRenderer_constructor));
+
+    cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_BaseRenderer_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::gfx::BaseRenderer>(cls);
+
+    __jsb_cocos2d_gfx_BaseRenderer_proto = cls->getProto();
+    __jsb_cocos2d_gfx_BaseRenderer_class = cls;
+
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
 se::Object* __jsb_cocos2d_gfx_View_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_View_class = nullptr;
 
@@ -2449,6 +2523,7 @@ bool register_all_renderer(se::Object* obj)
     js_register_renderer_Effect(ns);
     js_register_renderer_Scene(ns);
     js_register_renderer_Camera(ns);
+    js_register_renderer_BaseRenderer(ns);
     js_register_renderer_InputAssembler(ns);
     js_register_renderer_Model(ns);
     js_register_renderer_View(ns);
