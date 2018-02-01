@@ -228,7 +228,7 @@ Color3F::Color3F(float _r, float _g, float _b)
 , b(_b)
 {}
 
-
+const Color3F Color3F::BLACK = {0, 0, 0};
 
 /**
  * Color constants
