@@ -84,7 +84,7 @@ static bool js_renderer_ProgramLib_constructor(se::State& s)
     CC_UNUSED bool ok = true;
     const auto& args = s.args();
     std::vector<cocos2d::gfx::ProgramLib::Template> arg0;
-    ok &= seval_to_ProgramLib_Template(args[0], &arg0);
+    ok &= seval_to_std_vector_ProgramLib_Template(args[0], &arg0);
     SE_PRECONDITION2(ok, false, "js_renderer_ProgramLib_constructor : Error processing arguments");
     cocos2d::gfx::ProgramLib* cobj = new (std::nothrow) cocos2d::gfx::ProgramLib(arg0);
     s.thisObject()->setPrivateData(cobj);

@@ -1629,7 +1629,7 @@ bool seval_to_std_vector_TechniqueParameter(const se::Value& v, std::vector<coco
     return false;
 }
 
-bool seval_to_ProgramLib_Template(const se::Value& v, std::vector<cocos2d::gfx::ProgramLib::Template>* ret)
+bool seval_to_std_vector_ProgramLib_Template(const se::Value& v, std::vector<cocos2d::gfx::ProgramLib::Template>* ret)
 {
     assert(false);
     return false;

@@ -72,7 +72,7 @@ conversions:
     "Acceleration": "ok &= seval_to_Acceleration(${in_value}, &${out_value})"
     "Parameter": "ok &= seval_to_TechniqueParameter(${in_value}, &${out_value})"
     "vector<cocos2d::gfx::Technique::Parameter>": "ok &= seval_to_std_vector_TechniqueParameter(${in_value}, &${out_value})"
-    "vector<cocos2d::gfx::ProgramLib::Template>": "ok &= seval_to_ProgramLib_Template(${in_value}, &${out_value})"
+    "vector<cocos2d::gfx::ProgramLib::Template>": "ok &= seval_to_std_vector_ProgramLib_Template(${in_value}, &${out_value})"
     "Mat4": "ok &= seval_to_Mat4(${in_value}, &${out_value})"
     "Vec2": "ok &= seval_to_Vec2(${in_value}, &${out_value})"
     "Vec3": "ok &= seval_to_Vec3(${in_value}, &${out_value})"
