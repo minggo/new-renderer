@@ -391,7 +391,7 @@ static bool js_renderer_BaseRenderer_constructor(se::State& s)
     size_t argc = args.size();
     do {
         if (argc == 3) {
-            cocos2d::gfx::DeviceGraphics arg0;
+            cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
             ok &= seval_to_native_ptr(args[0], &arg0);
             if (!ok) { ok = true; break; }
             std::vector<cocos2d::gfx::ProgramLib::Template> arg1;
@@ -407,7 +407,7 @@ static bool js_renderer_BaseRenderer_constructor(se::State& s)
     } while(false);
     do {
         if (argc == 2) {
-            cocos2d::gfx::DeviceGraphics arg0;
+            cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
             ok &= seval_to_native_ptr(args[0], &arg0);
             if (!ok) { ok = true; break; }
             std::vector<cocos2d::gfx::ProgramLib::Template> arg1;

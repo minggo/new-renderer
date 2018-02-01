@@ -36,15 +36,15 @@
 
 GFX_BEGIN
 
-BaseRenderer::BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates)
-: _device(&device)
+BaseRenderer::BaseRenderer(DeviceGraphics* device, std::vector<ProgramLib::Template>& programTemplates)
+: _device(device)
 {
     _device->retain();
     _programLib = new (std::nothrow) ProgramLib(programTemplates);
 }
 
-BaseRenderer::BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture)
-: _device(&device)
+BaseRenderer::BaseRenderer(DeviceGraphics* device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture)
+: _device(device)
 , _defaultTexture(defaultTexture)
 {
     _device->retain();
@@ -149,7 +149,7 @@ void BaseRenderer::render(const View* view, const Scene* scene)
         if (_stage2fn.end() != _stage2fn.find(stageInfo.stage))
         {
             auto& fn = _stage2fn.at(stageInfo.stage);
-            fn(*view, stageInfo.items);
+            fn(view, stageInfo.items);
         }
     }
 }
