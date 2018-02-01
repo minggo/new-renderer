@@ -1607,32 +1607,217 @@ bool seval_to_TextureImageOption(const se::Value& v, cocos2d::gfx::Texture::Imag
 
 bool seval_to_EffectProperty(const se::Value& v, std::unordered_map<std::string, cocos2d::gfx::Effect::Property>* ret)
 {
-    assert(false);
-    return false;
+    assert(ret != nullptr);
+    assert(v.isObject());
+
+    se::Object* obj = v.toObject();
+    std::vector<std::string> keys;
+    obj->getAllKeys(&keys);
+
+    for (const auto& key : keys)
+    {
+        se::Value value;
+        cocos2d::gfx::Effect::Property property;
+        if (obj->getProperty(key.c_str(), &value) && value.isObject())
+        {
+            if (seval_to_TechniqueParameter(value, &property))
+            {
+                ret->emplace(key, std::move(property));
+            }
+        }
+    }
+
+    return true;
 }
 
 bool seval_to_EffectDefineTemplate(const se::Value& v, std::vector<cocos2d::ValueMap>* ret)
 {
-    assert(false);
-    return false;
+    assert(ret != nullptr);
+    assert(v.isObject() && v.toObject()->isArray());
+
+    se::Object* obj = v.toObject();
+    uint32_t len = 0;
+    obj->getArrayLength(&len);
+    for (uint32_t i = 0; i < len; ++i)
+    {
+        se::Value value;
+        cocos2d::ValueMap valMap;
+        if (obj->getArrayElement(i, &value) && value.isObject())
+        {
+            if (seval_to_ccvaluemap(value, &valMap))
+            {
+                ret->push_back(std::move(valMap));
+            }
+        }
+    }
+
+    return true;
 }
 
 bool seval_to_TechniqueParameter(const se::Value& v, cocos2d::gfx::Technique::Parameter* ret)
 {
-    assert(false);
-    return false;
+    assert(ret != nullptr);
+    assert(v.isObject());
+    se::Object* obj = v.toObject();
+    se::Value tmp;
+    std::string name;
+    uint8_t size = 0;
+    cocos2d::gfx::Technique::Parameter::Type type = cocos2d::gfx::Technique::Parameter::Type::UNKNOWN;
+
+    bool ok = false;
+    if (obj->getProperty("name", &tmp))
+    {
+        ok = seval_to_std_string(tmp, &name);
+        SE_PRECONDITION2(ok, false, "Convert Parameter name failed!");
+    }
+
+    if (obj->getProperty("type", &tmp))
+    {
+        uint8_t v = 0;
+        ok = seval_to_uint8(tmp, &v);
+        SE_PRECONDITION2(ok, false, "Convert Parameter type failed!");
+        type = (cocos2d::gfx::Technique::Parameter::Type)v;
+    }
+
+    if (obj->getProperty("size", &tmp))
+    {
+        ok = seval_to_uint8(tmp, &size);
+        SE_PRECONDITION2(ok, false, "Convert Parameter size failed!");
+    }
+
+    if (obj->getProperty("val", &tmp))
+    {
+        if (tmp.isNumber())
+        {
+
+        }
+        else if (tmp.isObject())
+        {
+            se::Object* valObj = tmp.toObject();
+            if (valObj->isArray())
+            {
+
+            }
+            else if (valObj->isTypedArray())
+            {
+                uint8_t* data = nullptr;
+                size_t len = 0;
+                if (valObj->getTypedArrayData(&data, &len))
+                {
+
+                }
+            }
+            else if (valObj->isArrayBuffer())
+            {
+                uint8_t* data = nullptr;
+                size_t len = 0;
+                if (valObj->getArrayBufferData(&data, &len))
+                {
+
+                }
+            }
+            else
+            {
+                assert(false);
+            }
+        }
+        else
+        {
+            assert(false);
+        }
+    }
+
+    return true;
 }
 
 bool seval_to_std_vector_TechniqueParameter(const se::Value& v, std::vector<cocos2d::gfx::Technique::Parameter>* ret)
 {
-    assert(false);
-    return false;
+    assert(ret != nullptr);
+    assert(v.isObject());
+
+    se::Object* obj = v.toObject();
+    uint32_t len = 0;
+    obj->getArrayLength(&len);
+    ret->reserve(len);
+    for (uint32_t i = 0; i < len; ++i)
+    {
+        se::Value data;
+        if (obj->getArrayElement(i, &data))
+        {
+            cocos2d::gfx::Technique::Parameter parameter;
+            seval_to_TechniqueParameter(data, &parameter);
+            ret->push_back(std::move(parameter));
+        }
+    }
+
+    return true;
+}
+
+bool seval_to_ProgramLib_Template(const se::Value& v, cocos2d::gfx::ProgramLib::Template* ret)
+{
+    assert(ret != nullptr);
+    assert(v.isObject());
+    se::Object* obj = v.toObject();
+
+    bool ok = false;
+    se::Value tmp;
+
+    if (obj->getProperty("id", &tmp))
+    {
+        ok = seval_to_uint32(tmp, &ret->id);
+        SE_PRECONDITION2(ok, false, "Convert id failed!");
+    }
+
+    if (obj->getProperty("name", &tmp))
+    {
+        ok = seval_to_std_string(tmp, &ret->name);
+        SE_PRECONDITION2(ok, false, "Convert name failed!");
+    }
+
+    if (obj->getProperty("vert", &tmp))
+    {
+        ok = seval_to_std_string(tmp, &ret->vert);
+        SE_PRECONDITION2(ok, false, "Convert vert failed!");
+    }
+
+    if (obj->getProperty("frag", &tmp))
+    {
+        ok = seval_to_std_string(tmp, &ret->frag);
+        SE_PRECONDITION2(ok, false, "Convert frag failed!");
+    }
+
+    if (obj->getProperty("defines", &tmp))
+    {
+        ok = seval_to_ccvaluevector(tmp, &ret->defines);
+        SE_PRECONDITION2(ok, false, "Convert defines failed!");
+    }
+
+    return true;
 }
 
 bool seval_to_std_vector_ProgramLib_Template(const se::Value& v, std::vector<cocos2d::gfx::ProgramLib::Template>* ret)
 {
-    assert(false);
-    return false;
+    assert(ret != nullptr);
+    assert(v.isObject());
+
+    se::Object* obj = v.toObject();
+    uint32_t len = 0;
+    obj->getArrayLength(&len);
+    ret->reserve(len);
+    for (uint32_t i = 0; i < len; ++i)
+    {
+        se::Value data;
+        if (obj->getArrayElement(i, &data))
+        {
+            cocos2d::gfx::ProgramLib::Template parameter;
+            if (seval_to_ProgramLib_Template(data, &parameter))
+            {
+                ret->push_back(std::move(parameter));
+            }
+        }
+    }
+
+    return true;
 }
 
 
@@ -2631,13 +2816,32 @@ bool VertexFormat_to_seval(const cocos2d::gfx::VertexFormat& v, se::Value* ret)
 
 bool TechniqueParameter_to_seval(const cocos2d::gfx::Technique::Parameter& v, se::Value* ret)
 {
-    assert(false);
+    assert(ret != nullptr);
+    se::HandleObject obj(se::Object::createPlainObject());
+    obj->setProperty("name", se::Value(v.name));
+    obj->setProperty("type", se::Value((uint8_t)v.type));
+    obj->setProperty("size", se::Value(v.size));
+    //    obj->setProperty("val", const se::Value &value);
+
     return true;
 }
 
 bool std_vector_TechniqueParameter_to_seval(const std::vector<cocos2d::gfx::Technique::Parameter>& v, se::Value* ret)
 {
-    assert(false);
+    assert(ret != nullptr);
+    se::HandleObject arr(se::Object::createArrayObject(v.size()));
+    ret->setObject(arr);
+
+    uint32_t i = 0;
+    for (const auto& param : v)
+    {
+        se::Value out;
+        if (TechniqueParameter_to_seval(param, &out))
+        {
+            arr->setArrayElement(i, out);
+            ++i;
+        }
+    }
     return true;
 }
 
