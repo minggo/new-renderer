@@ -89,10 +89,11 @@ ValueMap* Effect::extractDefines(ValueMap& out) const
     return &out;
 }
 
-Effect::Property Effect::getProperty(const std::string& name) const
+const Effect::Property& Effect::getProperty(const std::string& name) const
 {
+    static Property EMPTY_PROPERTY;
     if (_properties.end() == _properties.find(name))
-        return Property();
+        return EMPTY_PROPERTY;
     else
         return _properties.at(name);
 }
