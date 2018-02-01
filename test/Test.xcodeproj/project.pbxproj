@@ -93,6 +93,8 @@
 		1A1797002021603C0050E573 /* jsb_conversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1796A92021603C0050E573 /* jsb_conversions.cpp */; };
 		1A1797012021603C0050E573 /* jsb_gfx_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1796AB2021603C0050E573 /* jsb_gfx_manual.cpp */; };
 		1A1797022021603C0050E573 /* jsb_gfx_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1796AB2021603C0050E573 /* jsb_gfx_manual.cpp */; };
+		1A179705202163F40050E573 /* jsb_renderer_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A179703202163F30050E573 /* jsb_renderer_manual.cpp */; };
+		1A179706202163F40050E573 /* jsb_renderer_manual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A179703202163F30050E573 /* jsb_renderer_manual.cpp */; };
 		1A1A4E181FFB45E20061A6E1 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		1A1A4E1B1FFB57EB0061A6E1 /* Stencil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */; };
 		1A1A4E1C1FFB57EB0061A6E1 /* Stencil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */; };
@@ -587,6 +589,8 @@
 		1A1796AA2021603C0050E573 /* jsb_classtype.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_classtype.hpp; sourceTree = "<group>"; };
 		1A1796AB2021603C0050E573 /* jsb_gfx_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_gfx_manual.cpp; sourceTree = "<group>"; };
 		1A1796AC2021603C0050E573 /* jsb_conversions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_conversions.hpp; sourceTree = "<group>"; };
+		1A179703202163F30050E573 /* jsb_renderer_manual.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_renderer_manual.cpp; sourceTree = "<group>"; };
+		1A179704202163F40050E573 /* jsb_renderer_manual.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_renderer_manual.hpp; sourceTree = "<group>"; };
 		1A1A4E191FFB57EB0061A6E1 /* Stencil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Stencil.cpp; sourceTree = "<group>"; };
 		1A1A4E1A1FFB57EB0061A6E1 /* Stencil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stencil.h; sourceTree = "<group>"; };
 		1A1A4E2B1FFB6BE40061A6E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1079,6 +1083,8 @@
 		1A1796A42021603C0050E573 /* manual */ = {
 			isa = PBXGroup;
 			children = (
+				1A179703202163F30050E573 /* jsb_renderer_manual.cpp */,
+				1A179704202163F40050E573 /* jsb_renderer_manual.hpp */,
 				1A1796A52021603C0050E573 /* jsb_global.h */,
 				1A1796A62021603C0050E573 /* jsb_global.cpp */,
 				1A1796A72021603C0050E573 /* jsb_classtype.cpp */,
@@ -1936,6 +1942,7 @@
 				1A255ECD20034F1000069420 /* CCAffineTransform.cpp in Sources */,
 				1A1796DF2021603C0050E573 /* Class.cpp in Sources */,
 				1ACD54F82019B2E10012EB0F /* ProgramLib.cpp in Sources */,
+				1A179705202163F40050E573 /* jsb_renderer_manual.cpp in Sources */,
 				1A1796CF2021603C0050E573 /* Object.cpp in Sources */,
 				1A1796B12021603C0050E573 /* node.cc in Sources */,
 				1A255ECF20034F1000069420 /* CCFileUtils-apple.mm in Sources */,
@@ -2041,6 +2048,7 @@
 				465399C420185D9700EAE1FC /* View.cpp in Sources */,
 				1A255FA720048F8400069420 /* AppDelegate.mm in Sources */,
 				1A255F4A20034F6D00069420 /* CCES2Renderer-ios.m in Sources */,
+				1A179706202163F40050E573 /* jsb_renderer_manual.cpp in Sources */,
 				1A255F4D20034F6D00069420 /* CCImage.cpp in Sources */,
 				1A1796F22021603C0050E573 /* Class.cpp in Sources */,
 				1A1796BC2021603C0050E573 /* SHA1.cpp in Sources */,

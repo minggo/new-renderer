@@ -51,7 +51,7 @@ public:
     void setDefineValue(const std::string& name, const Value& value);
     ValueMap* extractDefines(ValueMap& out) const;
     
-    Property getProperty(const std::string& name) const;
+    const Property& getProperty(const std::string& name) const;
     void setProperty(const std::string& name, const Property& property);
     
 private:
