@@ -138,6 +138,48 @@ static bool js_renderer_Camera_worldToScreen(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_Camera_worldToScreen)
 
+static void fillObjectWithValueMap(const cocos2d::ValueMap& v, se::Object* obj)
+{
+    bool ok = true;
+    for (const auto& e : v)
+    {
+        const std::string& key = e.first;
+        const cocos2d::Value& value = e.second;
+
+        if (key.empty())
+            continue;
+
+        se::Value tmp;
+        if (!ccvalue_to_seval(value, &tmp))
+        {
+            ok = false;
+            break;
+        }
+
+        obj->setProperty(key.c_str(), tmp);
+    }
+}
+
+static bool js_renderer_Effect_extractDefines(se::State& s)
+{
+    cocos2d::gfx::Effect* cobj = (cocos2d::gfx::Effect*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Effect_extractDefines : Invalid Native Object");
+    auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        se::Object* out = args[0].toObject();
+        cocos2d::ValueMap valueMap;
+        cobj->extractDefines(valueMap);
+        fillObjectWithValueMap(valueMap, out);
+        s.rval().setObject(out);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Effect_extractDefines)
+
 bool jsb_register_renderer_manual(se::Object* global)
 {
     // Camera
@@ -148,7 +190,7 @@ bool jsb_register_renderer_manual(se::Object* global)
     __jsb_cocos2d_gfx_Camera_proto->defineFunction("worldToScreen", _SE(js_renderer_Camera_worldToScreen));
 
     // Effect
-//    __jsb_coco2d_gfx_Effect_proto-
+    __jsb_cocos2d_gfx_Effect_proto->defineFunction("extractDefines", _SE(js_renderer_Effect_extractDefines));
 
     return true;
 }
