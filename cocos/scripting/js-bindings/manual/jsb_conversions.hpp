@@ -5,6 +5,7 @@
 
 #include "cocos2d.h"
 #include "gfx/CCGFX.h"
+#include "renderer/Renderer.h"
 //#include "cocos/ui/CocosGUI.h"
 //#include "extensions/cocos-ext.h"
 //#include "cocos/editor-support/spine/spine.h"
@@ -67,9 +68,11 @@ bool seval_to_Vec3(const se::Value& v, cocos2d::Vec3* pt);
 bool seval_to_Vec4(const se::Value& v, cocos2d::Vec4* pt);
 bool seval_to_Mat4(const se::Value& v, cocos2d::Mat4* mat);
 bool seval_to_Size(const se::Value& v, cocos2d::Size* size);
-bool seval_to_Rect(const se::Value& v, cocos2d::Rect* rect);
+//bool seval_to_Rect(const se::Value& v, cocos2d::Rect* rect);
+bool seval_to_Rect(const se::Value& v, cocos2d::gfx::Rect* rect);
 bool seval_to_Color3B(const se::Value& v, cocos2d::Color3B* color);
 bool seval_to_Color4B(const se::Value& v, cocos2d::Color4B* color);
+bool seval_to_Color3F(const se::Value& v, cocos2d::Color3F* color);
 bool seval_to_Color4F(const se::Value& v, cocos2d::Color4F* color);
 bool seval_to_ccvalue(const se::Value& v, cocos2d::Value* ret);
 bool seval_to_ccvaluemap(const se::Value& v, cocos2d::ValueMap* ret);
@@ -101,6 +104,11 @@ bool seval_to_std_vector_RenderTarget(const se::Value& v, std::vector<cocos2d::g
 bool seval_to_TextureOptions(const se::Value& v, cocos2d::gfx::Texture::Options* ret);
 bool seval_to_TextureSubImageOption(const se::Value& v, cocos2d::gfx::Texture::SubImageOption* ret);
 bool seval_to_TextureImageOption(const se::Value& v, cocos2d::gfx::Texture::ImageOption* ret);
+bool seval_to_EffectProperty(const se::Value& v, std::unordered_map<std::string, cocos2d::gfx::Effect::Property>* ret);
+bool seval_to_EffectDefineTemplate(const se::Value& v, std::vector<cocos2d::ValueMap>* ret);
+bool seval_to_TechniqueParameter(const se::Value& v, cocos2d::gfx::Technique::Parameter* ret);
+bool seval_to_std_vector_TechniqueParameter(const se::Value& v, std::vector<cocos2d::gfx::Technique::Parameter>* ret);
+bool seval_to_std_vector_ProgramLib_Template(const se::Value& v, std::vector<cocos2d::gfx::ProgramLib::Template>* ret);
 
 template<typename T>
 bool seval_to_native_ptr(const se::Value& v, T* ret)
@@ -134,40 +142,40 @@ bool seval_to_native_ptr(const se::Value& v, T* ret)
     return false;
 }
 
-//template<typename T>
-//bool seval_to_Vector(const se::Value& v, cocos2d::Vector<T>* ret)
-//{
-//    assert(ret != nullptr);
-//    assert(v.isObject());
-//    se::Object* obj = v.toObject();
-//    assert(obj->isArray());
-//
-//    bool ok = true;
-//    uint32_t len = 0;
-//    ok = obj->getArrayLength(&len);
-//    if (!ok)
-//    {
-//        ret->clear();
-//        return false;
-//    }
-//
-//    se::Value tmp;
-//    for (uint32_t i = 0; i < len; ++i)
-//    {
-//        ok = obj->getArrayElement(i, &tmp);
-//        if (!ok || !tmp.isObject())
-//        {
-//            ret->clear();
-//            return false;
-//        }
-//
-//        T nativeObj = (T)tmp.toObject()->getPrivateData();
-//
-//        ret->pushBack(nativeObj);
-//    }
-//
-//    return true;
-//}
+template<typename T>
+bool seval_to_Vector(const se::Value& v, cocos2d::Vector<T>* ret)
+{
+    assert(ret != nullptr);
+    assert(v.isObject());
+    se::Object* obj = v.toObject();
+    assert(obj->isArray());
+
+    bool ok = true;
+    uint32_t len = 0;
+    ok = obj->getArrayLength(&len);
+    if (!ok)
+    {
+        ret->clear();
+        return false;
+    }
+
+    se::Value tmp;
+    for (uint32_t i = 0; i < len; ++i)
+    {
+        ok = obj->getArrayElement(i, &tmp);
+        if (!ok || !tmp.isObject())
+        {
+            ret->clear();
+            return false;
+        }
+
+        T nativeObj = (T)tmp.toObject()->getPrivateData();
+
+        ret->pushBack(nativeObj);
+    }
+
+    return true;
+}
 //
 //template<typename T>
 //bool seval_to_Map_string_key(const se::Value& v, cocos2d::Map<std::string, T>* ret)
@@ -223,9 +231,11 @@ bool Vec3_to_seval(const cocos2d::Vec3& v, se::Value* ret);
 bool Vec4_to_seval(const cocos2d::Vec4& v, se::Value* ret);
 bool Mat4_to_seval(const cocos2d::Mat4& v, se::Value* ret);
 bool Size_to_seval(const cocos2d::Size& v, se::Value* ret);
-bool Rect_to_seval(const cocos2d::Rect& v, se::Value* ret);
+//bool Rect_to_seval(const cocos2d::Rect& v, se::Value* ret);
+bool Rect_to_seval(const cocos2d::gfx::Rect& v, se::Value* ret);
 bool Color3B_to_seval(const cocos2d::Color3B& v, se::Value* ret);
 bool Color4B_to_seval(const cocos2d::Color4B& v, se::Value* ret);
+bool Color3F_to_seval(const cocos2d::Color3F& v, se::Value* ret);
 bool Color4F_to_seval(const cocos2d::Color4F& v, se::Value* ret);
 bool ccvalue_to_seval(const cocos2d::Value& v, se::Value* ret);
 bool ccvaluemap_to_seval(const cocos2d::ValueMap& v, se::Value* ret);
@@ -248,6 +258,8 @@ bool Data_to_seval(const cocos2d::Data& v, se::Value* ret);
 //bool DownloadTask_to_seval(const cocos2d::network::DownloadTask& v, se::Value* ret);
 
 bool VertexFormat_to_seval(const cocos2d::gfx::VertexFormat& v, se::Value* ret);
+bool TechniqueParameter_to_seval(const cocos2d::gfx::Technique::Parameter& v, se::Value* ret);
+bool std_vector_TechniqueParameter_to_seval(const std::vector<cocos2d::gfx::Technique::Parameter>& v, se::Value* ret);
 
 template<typename T>
 bool recreate_seval_by_native_ptr(typename std::enable_if<!std::is_base_of<cocos2d::Ref,T>::value,T>::type* v, se::Class* cls, se::Value* ret)
@@ -510,26 +522,26 @@ bool native_ptr_to_seval(typename std::enable_if<std::is_base_of<cocos2d::Ref,T>
     return true;
 }
 
-//template<typename T>
-//bool Vector_to_seval(const cocos2d::Vector<T*>& v, se::Value* ret)
-//{
-//    assert(ret != nullptr);
-//    bool ok = true;
-//    se::HandleObject obj(se::Object::createArrayObject(v.size()));
-//
-//    uint32_t i = 0;
-//    se::Value tmp;
-//    for (const auto& e : v)
-//    {
-//        native_ptr_to_seval<T>(e, &tmp);
-//        obj->setArrayElement(i, tmp);
-//        ++i;
-//    }
-//
-//    ret->setObject(obj, true);
-//
-//    return ok;
-//}
+template<typename T>
+bool Vector_to_seval(const cocos2d::Vector<T*>& v, se::Value* ret)
+{
+    assert(ret != nullptr);
+    bool ok = true;
+    se::HandleObject obj(se::Object::createArrayObject(v.size()));
+
+    uint32_t i = 0;
+    se::Value tmp;
+    for (const auto& e : v)
+    {
+        native_ptr_to_seval<T>(e, &tmp);
+        obj->setArrayElement(i, tmp);
+        ++i;
+    }
+
+    ret->setObject(obj, true);
+
+    return ok;
+}
 //
 //template<typename T>
 //bool Map_string_key_to_seval(const cocos2d::Map<std::string, T*>& v, se::Value* ret)

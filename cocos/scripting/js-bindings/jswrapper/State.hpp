@@ -46,6 +46,7 @@ namespace se {
          *  @return The arguments of native binding functions or accesstors.
          */
         const ValueArray& args() const;
+        ValueArray& args();
 
         /**
          *  @brief Gets the JavaScript `this` object wrapped in se::Object.

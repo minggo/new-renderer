@@ -36,5 +36,5 @@
 #include "Renderer.h"
 #include "Scene.h"
 #include "Technique.h"
-#include "Utils.h"
+#include "RendererUtils.h"
 #include "View.h"

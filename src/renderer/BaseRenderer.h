@@ -56,10 +56,10 @@ public:
         Technique* technique = nullptr;
         int sortKey = -1;
     };
-    typedef std::function<void(const View&, const std::vector<StageItem>&)> StageCallback;
+    typedef std::function<void(const View*, const std::vector<StageItem>&)> StageCallback;
     
-    BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates);
-    BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture);
+    BaseRenderer(DeviceGraphics* device, std::vector<ProgramLib::Template>& programTemplates);
+    BaseRenderer(DeviceGraphics* device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture);
     virtual ~BaseRenderer();
     
     void registerStage(const std::string& name, const StageCallback& callback);

@@ -188,6 +188,8 @@ struct CC_DLL Color3F
     GLfloat r;
     GLfloat g;
     GLfloat b;
+
+    static const Color3F BLACK;
 };
 
 /** A vertex composed of 2 floats: x, y
