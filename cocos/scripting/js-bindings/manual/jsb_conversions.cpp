@@ -352,7 +352,32 @@ bool seval_to_Size(const se::Value& v, cocos2d::Size* size)
     return true;
 }
 
-bool seval_to_Rect(const se::Value& v, cocos2d::Rect* rect)
+//bool seval_to_Rect(const se::Value& v, cocos2d::Rect* rect)
+//{
+//    assert(v.isObject() && rect != nullptr);
+//    se::Object* obj = v.toObject();
+//    se::Value x;
+//    se::Value y;
+//    se::Value width;
+//    se::Value height;
+//
+//    bool ok = obj->getProperty("x", &x);
+//    SE_PRECONDITION3(ok && x.isNumber(), false, *rect = cocos2d::Rect::ZERO);
+//    ok = obj->getProperty("y", &y);
+//    SE_PRECONDITION3(ok && y.isNumber(), false, *rect = cocos2d::Rect::ZERO);
+//    ok = obj->getProperty("width", &width);
+//    SE_PRECONDITION3(ok && width.isNumber(), false, *rect = cocos2d::Rect::ZERO);
+//    ok = obj->getProperty("height", &height);
+//    SE_PRECONDITION3(ok && height.isNumber(), false, *rect = cocos2d::Rect::ZERO);
+//    rect->origin.x = x.toFloat();
+//    rect->origin.y = y.toFloat();
+//    rect->size.width = width.toFloat();
+//    rect->size.height = height.toFloat();
+//
+//    return true;
+//}
+
+bool seval_to_Rect(const se::Value& v, cocos2d::gfx::Rect* rect)
 {
     assert(v.isObject() && rect != nullptr);
     se::Object* obj = v.toObject();
@@ -362,17 +387,17 @@ bool seval_to_Rect(const se::Value& v, cocos2d::Rect* rect)
     se::Value height;
 
     bool ok = obj->getProperty("x", &x);
-    SE_PRECONDITION3(ok && x.isNumber(), false, *rect = cocos2d::Rect::ZERO);
+    SE_PRECONDITION3(ok && x.isNumber(), false, *rect = cocos2d::gfx::Rect::ZERO);
     ok = obj->getProperty("y", &y);
-    SE_PRECONDITION3(ok && y.isNumber(), false, *rect = cocos2d::Rect::ZERO);
-    ok = obj->getProperty("width", &width);
-    SE_PRECONDITION3(ok && width.isNumber(), false, *rect = cocos2d::Rect::ZERO);
-    ok = obj->getProperty("height", &height);
-    SE_PRECONDITION3(ok && height.isNumber(), false, *rect = cocos2d::Rect::ZERO);
-    rect->origin.x = x.toFloat();
-    rect->origin.y = y.toFloat();
-    rect->size.width = width.toFloat();
-    rect->size.height = height.toFloat();
+    SE_PRECONDITION3(ok && y.isNumber(), false, *rect = cocos2d::gfx::Rect::ZERO);
+    ok = obj->getProperty("w", &width);
+    SE_PRECONDITION3(ok && width.isNumber(), false, *rect = cocos2d::gfx::Rect::ZERO);
+    ok = obj->getProperty("h", &height);
+    SE_PRECONDITION3(ok && height.isNumber(), false, *rect = cocos2d::gfx::Rect::ZERO);
+    rect->x = x.toFloat();
+    rect->y = y.toFloat();
+    rect->w = width.toFloat();
+    rect->h = height.toFloat();
 
     return true;
 }
@@ -439,6 +464,25 @@ bool seval_to_Color4F(const se::Value& v, cocos2d::Color4F* color)
     color->g = g.toFloat() / 255.0f;
     color->b = b.toFloat() / 255.0f;
     color->a = a.toFloat() / 255.0f;
+    return true;
+}
+
+bool seval_to_Color3F(const se::Value& v, cocos2d::Color3F* color)
+{
+    assert(v.isObject() && color != nullptr);
+    se::Object* obj = v.toObject();
+    se::Value r;
+    se::Value g;
+    se::Value b;
+    bool ok = obj->getProperty("r", &r);
+    SE_PRECONDITION3(ok && r.isNumber(), false, *color = cocos2d::Color3F::BLACK);
+    ok = obj->getProperty("g", &g);
+    SE_PRECONDITION3(ok && g.isNumber(), false, *color = cocos2d::Color3F::BLACK);
+    ok = obj->getProperty("b", &b);
+    SE_PRECONDITION3(ok && b.isNumber(), false, *color = cocos2d::Color3F::BLACK);
+    color->r = r.toFloat();
+    color->g = g.toFloat();
+    color->b = b.toFloat();
     return true;
 }
 
@@ -1561,6 +1605,37 @@ bool seval_to_TextureImageOption(const se::Value& v, cocos2d::gfx::Texture::Imag
     return true;
 }
 
+bool seval_to_EffectProperty(const se::Value& v, std::unordered_map<std::string, cocos2d::gfx::Effect::Property>* ret)
+{
+    assert(false);
+    return false;
+}
+
+bool seval_to_EffectDefineTemplate(const se::Value& v, std::vector<cocos2d::ValueMap>* ret)
+{
+    assert(false);
+    return false;
+}
+
+bool seval_to_TechniqueParameter(const se::Value& v, cocos2d::gfx::Technique::Parameter* ret)
+{
+    assert(false);
+    return false;
+}
+
+bool seval_to_std_vector_TechniqueParameter(const se::Value& v, std::vector<cocos2d::gfx::Technique::Parameter>* ret)
+{
+    assert(false);
+    return false;
+}
+
+bool seval_to_ProgramLib_Template(const se::Value& v, std::vector<cocos2d::gfx::ProgramLib::Template>* ret)
+{
+    assert(false);
+    return false;
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////
 // native to seval
 
@@ -1708,14 +1783,27 @@ bool Size_to_seval(const cocos2d::Size& v, se::Value* ret)
     return true;
 }
 
-bool Rect_to_seval(const cocos2d::Rect& v, se::Value* ret)
+//bool Rect_to_seval(const cocos2d::Rect& v, se::Value* ret)
+//{
+//    assert(ret != nullptr);
+//    se::HandleObject obj(se::Object::createPlainObject());
+//    obj->setProperty("x", se::Value(v.origin.x));
+//    obj->setProperty("y", se::Value(v.origin.y));
+//    obj->setProperty("width", se::Value(v.size.width));
+//    obj->setProperty("height", se::Value(v.size.height));
+//    ret->setObject(obj);
+//
+//    return true;
+//}
+
+bool Rect_to_seval(const cocos2d::gfx::Rect& v, se::Value* ret)
 {
     assert(ret != nullptr);
     se::HandleObject obj(se::Object::createPlainObject());
-    obj->setProperty("x", se::Value(v.origin.x));
-    obj->setProperty("y", se::Value(v.origin.y));
-    obj->setProperty("width", se::Value(v.size.width));
-    obj->setProperty("height", se::Value(v.size.height));
+    obj->setProperty("x", se::Value(v.x));
+    obj->setProperty("y", se::Value(v.y));
+    obj->setProperty("w", se::Value(v.w));
+    obj->setProperty("h", se::Value(v.h));
     ret->setObject(obj);
 
     return true;
@@ -1757,6 +1845,17 @@ bool Color4F_to_seval(const cocos2d::Color4F& v, se::Value* ret)
     obj->setProperty("a", se::Value(v.a));
     ret->setObject(obj);
 
+    return true;
+}
+
+bool Color3F_to_seval(const cocos2d::Color3F& v, se::Value* ret)
+{
+    assert(ret != nullptr);
+    se::HandleObject obj(se::Object::createPlainObject());
+    obj->setProperty("r", se::Value(v.r));
+    obj->setProperty("g", se::Value(v.g));
+    obj->setProperty("b", se::Value(v.b));
+    ret->setObject(obj);
     return true;
 }
 
@@ -2525,6 +2624,18 @@ bool Data_to_seval(const cocos2d::Data& v, se::Value* ret)
 //}
 
 bool VertexFormat_to_seval(const cocos2d::gfx::VertexFormat& v, se::Value* ret)
+{
+    assert(false);
+    return true;
+}
+
+bool TechniqueParameter_to_seval(const cocos2d::gfx::Technique::Parameter& v, se::Value* ret)
+{
+    assert(false);
+    return true;
+}
+
+bool std_vector_TechniqueParameter_to_seval(const std::vector<cocos2d::gfx::Technique::Parameter>& v, se::Value* ret)
 {
     assert(false);
     return true;
