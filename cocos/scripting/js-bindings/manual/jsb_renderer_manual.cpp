@@ -204,6 +204,50 @@ static bool js_renderer_Light_extractView(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_Light_extractView)
 
+static bool js_renderer_View_getForward(se::State& s)
+{
+    cocos2d::gfx::View* cobj = (cocos2d::gfx::View*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_View_getForward : Invalid Native Object");
+    auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Vec3 out;
+        cobj->getForward(out);
+        se::Object* arg0Obj = args[0].toObject();
+        arg0Obj->setProperty("x", se::Value(out.x));
+        arg0Obj->setProperty("y", se::Value(out.y));
+        arg0Obj->setProperty("z", se::Value(out.z));
+        s.rval().setObject(arg0Obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_View_getForward)
+
+static bool js_renderer_View_getPosition(se::State& s)
+{
+    cocos2d::gfx::View* cobj = (cocos2d::gfx::View*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_View_getPosition : Invalid Native Object");
+    auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Vec3 out;
+        cobj->getPosition(out);
+        se::Object* arg0Obj = args[0].toObject();
+        arg0Obj->setProperty("x", se::Value(out.x));
+        arg0Obj->setProperty("y", se::Value(out.y));
+        arg0Obj->setProperty("z", se::Value(out.z));
+        s.rval().setObject(arg0Obj);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_View_getPosition)
+
 bool jsb_register_renderer_manual(se::Object* global)
 {
     // Camera
@@ -218,6 +262,10 @@ bool jsb_register_renderer_manual(se::Object* global)
 
     // Light
     __jsb_cocos2d_gfx_Light_proto->defineFunction("extractView", _SE(js_renderer_Light_extractView));
+
+    // View
+    __jsb_cocos2d_gfx_View_proto->defineFunction("getForward", _SE(js_renderer_View_getForward));
+    __jsb_cocos2d_gfx_View_proto->defineFunction("getPosition", _SE(js_renderer_View_getPosition));
 
     return true;
 }
