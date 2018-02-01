@@ -78,6 +78,15 @@ namespace se {
         return EmptyValueArray;
     }
 
+    ValueArray& State::args() 
+    {
+        if (_args != nullptr)
+        {
+            return *(const_cast<ValueArray*>(_args));
+        }
+        return EmptyValueArray;
+    }
+
     Object* State::thisObject()
     {
         if (nullptr == _thisObject && nullptr != _nativeThisObject)
