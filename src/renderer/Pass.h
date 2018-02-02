@@ -31,8 +31,9 @@
 
 GFX_BEGIN
 
-struct Pass : public Ref
+class Pass : public Ref
 {
+public:
     Pass(const std::string& programName);
     
     void setCullMode(CullMode cullMode);

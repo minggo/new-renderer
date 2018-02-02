@@ -36,7 +36,17 @@ extern se::Class* __jsb_cocos2d_gfx_BaseRenderer_class;
 
 bool js_register_cocos2d_gfx_BaseRenderer(se::Object* obj);
 bool register_all_renderer(se::Object* obj);
+SE_DECLARE_FUNC(js_renderer_BaseRenderer_init);
 SE_DECLARE_FUNC(js_renderer_BaseRenderer_BaseRenderer);
+
+extern se::Object* __jsb_cocos2d_gfx_ForwardRenderer_proto;
+extern se::Class* __jsb_cocos2d_gfx_ForwardRenderer_class;
+
+bool js_register_cocos2d_gfx_ForwardRenderer(se::Object* obj);
+bool register_all_renderer(se::Object* obj);
+SE_DECLARE_FUNC(js_renderer_ForwardRenderer_init);
+SE_DECLARE_FUNC(js_renderer_ForwardRenderer_render);
+SE_DECLARE_FUNC(js_renderer_ForwardRenderer_ForwardRenderer);
 
 extern se::Object* __jsb_cocos2d_gfx_View_proto;
 extern se::Class* __jsb_cocos2d_gfx_View_class;
@@ -102,12 +112,18 @@ extern se::Class* __jsb_cocos2d_gfx_InputAssembler_class;
 
 bool js_register_cocos2d_gfx_InputAssembler(se::Object* obj);
 bool register_all_renderer(se::Object* obj);
+SE_DECLARE_FUNC(js_renderer_InputAssembler_setVertexBuffer);
 SE_DECLARE_FUNC(js_renderer_InputAssembler_getStart);
+SE_DECLARE_FUNC(js_renderer_InputAssembler_setStart);
+SE_DECLARE_FUNC(js_renderer_InputAssembler_setPrimitiveType);
 SE_DECLARE_FUNC(js_renderer_InputAssembler_getPrimitiveCount);
-SE_DECLARE_FUNC(js_renderer_InputAssembler_getPrimitiveType);
+SE_DECLARE_FUNC(js_renderer_InputAssembler_setCount);
+SE_DECLARE_FUNC(js_renderer_InputAssembler_init);
 SE_DECLARE_FUNC(js_renderer_InputAssembler_getVertexBuffer);
 SE_DECLARE_FUNC(js_renderer_InputAssembler_getIndexBuffer);
 SE_DECLARE_FUNC(js_renderer_InputAssembler_getCount);
+SE_DECLARE_FUNC(js_renderer_InputAssembler_getPrimitiveType);
+SE_DECLARE_FUNC(js_renderer_InputAssembler_setIndexBuffer);
 SE_DECLARE_FUNC(js_renderer_InputAssembler_InputAssembler);
 
 extern se::Object* __jsb_cocos2d_gfx_Light_proto;
@@ -148,6 +164,18 @@ SE_DECLARE_FUNC(js_renderer_Light_getShadowType);
 SE_DECLARE_FUNC(js_renderer_Light_getShadowResolution);
 SE_DECLARE_FUNC(js_renderer_Light_setShadowBias);
 SE_DECLARE_FUNC(js_renderer_Light_Light);
+
+extern se::Object* __jsb_cocos2d_gfx_Pass_proto;
+extern se::Class* __jsb_cocos2d_gfx_Pass_class;
+
+bool js_register_cocos2d_gfx_Pass(se::Object* obj);
+bool register_all_renderer(se::Object* obj);
+SE_DECLARE_FUNC(js_renderer_Pass_setStencilBack);
+SE_DECLARE_FUNC(js_renderer_Pass_setCullMode);
+SE_DECLARE_FUNC(js_renderer_Pass_setBlend);
+SE_DECLARE_FUNC(js_renderer_Pass_setStencilFront);
+SE_DECLARE_FUNC(js_renderer_Pass_setDepth);
+SE_DECLARE_FUNC(js_renderer_Pass_Pass);
 
 extern se::Object* __jsb_cocos2d_gfx_Scene_proto;
 extern se::Class* __jsb_cocos2d_gfx_Scene_class;

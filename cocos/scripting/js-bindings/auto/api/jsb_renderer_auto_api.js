@@ -190,19 +190,73 @@ Model : function (
 /**
  * @class BaseRenderer
  */
-renderer.BaseRenderer = {
+renderer.Base = {
+
+/**
+ * @method init
+* @param {cc.gfx::DeviceGraphics|cc.gfx::DeviceGraphics} devicegraphics
+* @param {Array|Array} array
+* @param {cc.gfx::Texture2D} texture2d
+* @return {bool|bool}
+*/
+init : function(
+devicegraphics,
+array,
+texture2d 
+)
+{
+    return false;
+},
 
 /**
  * @method BaseRenderer
  * @constructor
-* @param {cc.gfx::DeviceGraphics|cc.gfx::DeviceGraphics} devicegraphics
-* @param {Array|Array} array
-* @param {cc.gfx::Texture2D} texture2d
-*/
-BaseRenderer : function(
-devicegraphics,
-array,
-texture2d 
+ */
+BaseRenderer : function (
+)
+{
+},
+
+};
+
+/**
+ * @class ForwardRenderer
+ */
+renderer.ForwardRenderer = {
+
+/**
+ * @method init
+ * @param {cc.gfx::DeviceGraphics} arg0
+ * @param {Array} arg1
+ * @param {int} arg2
+ * @param {int} arg3
+ * @return {bool}
+ */
+init : function (
+devicegraphics, 
+array, 
+int, 
+int 
+)
+{
+    return false;
+},
+
+/**
+ * @method render
+ * @param {cc.gfx::Scene} arg0
+ */
+render : function (
+scene 
+)
+{
+},
+
+/**
+ * @method ForwardRenderer
+ * @constructor
+ */
+ForwardRenderer : function (
 )
 {
 },
@@ -623,6 +677,16 @@ map
 renderer.InputAssembler = {
 
 /**
+ * @method setVertexBuffer
+ * @param {cc.gfx::VertexBuffer} arg0
+ */
+setVertexBuffer : function (
+vertexbuffer 
+)
+{
+},
+
+/**
  * @method getStart
  * @return {int}
  */
@@ -630,6 +694,26 @@ getStart : function (
 )
 {
     return 0;
+},
+
+/**
+ * @method setStart
+ * @param {int} arg0
+ */
+setStart : function (
+int 
+)
+{
+},
+
+/**
+ * @method setPrimitiveType
+ * @param {cc.gfx::PrimitiveType} arg0
+ */
+setPrimitiveType : function (
+primitivetype 
+)
+{
 },
 
 /**
@@ -643,13 +727,29 @@ getPrimitiveCount : function (
 },
 
 /**
- * @method getPrimitiveType
- * @return {cc.gfx::PrimitiveType}
+ * @method setCount
+ * @param {int} arg0
  */
-getPrimitiveType : function (
+setCount : function (
+int 
 )
 {
-    return 0;
+},
+
+/**
+ * @method init
+ * @param {cc.gfx::VertexBuffer} arg0
+ * @param {cc.gfx::IndexBuffer} arg1
+ * @param {cc.gfx::PrimitiveType} arg2
+ * @return {bool}
+ */
+init : function (
+vertexbuffer, 
+indexbuffer, 
+primitivetype 
+)
+{
+    return false;
 },
 
 /**
@@ -683,16 +783,30 @@ getCount : function (
 },
 
 /**
+ * @method getPrimitiveType
+ * @return {cc.gfx::PrimitiveType}
+ */
+getPrimitiveType : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method setIndexBuffer
+ * @param {cc.gfx::IndexBuffer} arg0
+ */
+setIndexBuffer : function (
+indexbuffer 
+)
+{
+},
+
+/**
  * @method InputAssembler
  * @constructor
- * @param {cc.gfx::VertexBuffer} arg0
- * @param {cc.gfx::IndexBuffer} arg1
- * @param {cc.gfx::PrimitiveType} arg2
  */
 InputAssembler : function (
-vertexbuffer, 
-indexbuffer, 
-primitivetype 
 )
 {
 },
@@ -1033,6 +1147,66 @@ float
  * @constructor
  */
 Light : function (
+)
+{
+},
+
+};
+
+/**
+ * @class Pass
+ */
+renderer.Pass = {
+
+/**
+ * @method setStencilBack
+ */
+setStencilBack : function (
+)
+{
+},
+
+/**
+ * @method setCullMode
+ * @param {cc.gfx::CullMode} arg0
+ */
+setCullMode : function (
+cullmode 
+)
+{
+},
+
+/**
+ * @method setBlend
+ */
+setBlend : function (
+)
+{
+},
+
+/**
+ * @method setStencilFront
+ */
+setStencilFront : function (
+)
+{
+},
+
+/**
+ * @method setDepth
+ */
+setDepth : function (
+)
+{
+},
+
+/**
+ * @method Pass
+ * @constructor
+ * @param {String} arg0
+ */
+Pass : function (
+str 
 )
 {
 },

@@ -101,7 +101,6 @@ int main(int argc, char** argv)
     char commandBuf[200] = {0};
     sprintf(commandBuf, "window.canvas = { width: %d, height: %d };", utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     se->evalString(commandBuf);
-    se->runScript("src/gfx.js");
     se->runScript("src/renderer-test/main-jsb.js");
     se::Value tickVal;
     se->runScript("src/renderer-test/src/basic.js", &tickVal);
