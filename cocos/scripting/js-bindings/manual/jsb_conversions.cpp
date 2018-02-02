@@ -1698,58 +1698,99 @@ bool seval_to_TechniqueParameter(const se::Value& v, cocos2d::gfx::Technique::Pa
     se::Value tmp;
     std::string name;
     uint8_t size = 0;
+    double number = 0.0;
+    void* value = nullptr;
     cocos2d::gfx::Technique::Parameter::Type type = cocos2d::gfx::Technique::Parameter::Type::UNKNOWN;
+    std::vector<cocos2d::gfx::Texture*> textures;
+    cocos2d::gfx::Texture* texture = nullptr;
+
+    std::vector<std::string> keys;
+    obj->getAllKeys(&keys);
+    for (auto& key: keys)
+    {
+        SE_LOGD("key: %s\n", key.c_str());
+    }
 
     bool ok = false;
-    if (obj->getProperty("name", &tmp))
-    {
-        ok = seval_to_std_string(tmp, &name);
-        SE_PRECONDITION2(ok, false, "Convert Parameter name failed!");
-    }
 
-    if (obj->getProperty("type", &tmp))
+    if (obj->getProperty("updateSubImage", &tmp))
     {
-        uint8_t v = 0;
-        ok = seval_to_uint8(tmp, &v);
-        SE_PRECONDITION2(ok, false, "Convert Parameter type failed!");
-        type = (cocos2d::gfx::Technique::Parameter::Type)v;
+        //FIXME: perhaps it could be cube.
+        type = cocos2d::gfx::Technique::Parameter::Type::TEXTURE_2D;
+        size = 1;
+        seval_to_native_ptr(v, &texture);
     }
-
-    if (obj->getProperty("size", &tmp))
+    else
     {
-        ok = seval_to_uint8(tmp, &size);
-        SE_PRECONDITION2(ok, false, "Convert Parameter size failed!");
-    }
-
-    if (obj->getProperty("val", &tmp))
-    {
-        if (tmp.isNumber())
+        if (obj->getProperty("name", &tmp))
         {
-
+            ok = seval_to_std_string(tmp, &name);
+            SE_PRECONDITION2(ok, false, "Convert Parameter name failed!");
         }
-        else if (tmp.isObject())
+
+        if (obj->getProperty("type", &tmp))
         {
-            se::Object* valObj = tmp.toObject();
-            if (valObj->isArray())
-            {
+            uint8_t v = 0;
+            ok = seval_to_uint8(tmp, &v);
+            SE_PRECONDITION2(ok, false, "Convert Parameter type failed!");
+            type = (cocos2d::gfx::Technique::Parameter::Type)v;
+        }
 
+        if (obj->getProperty("size", &tmp))
+        {
+            ok = seval_to_uint8(tmp, &size);
+            SE_PRECONDITION2(ok, false, "Convert Parameter size failed!");
+        }
+
+        if (obj->getProperty("val", &tmp))
+        {
+            if (tmp.isNumber())
+            {
+                number = tmp.toNumber();
             }
-            else if (valObj->isTypedArray())
+            else if (tmp.isObject())
             {
-                uint8_t* data = nullptr;
-                size_t len = 0;
-                if (valObj->getTypedArrayData(&data, &len))
+                se::Object* valObj = tmp.toObject();
+                if (valObj->isArray())
                 {
+                    assert(type == cocos2d::gfx::Technique::Parameter::Type::TEXTURE_2D ||
+                           type == cocos2d::gfx::Technique::Parameter::Type::TEXTURE_CUBE);
 
+                    uint32_t arrLen = 0;
+                    valObj->getArrayLength(&arrLen);
+                    for (uint32_t i = 0; i < arrLen; ++i)
+                    {
+                        se::Value texVal;
+                        valObj->getArrayElement(i, &texVal);
+                        cocos2d::gfx::Texture* tmpTex = nullptr;
+                        seval_to_native_ptr(texVal, &tmpTex);
+                        textures.push_back(tmpTex);
+                    }
                 }
-            }
-            else if (valObj->isArrayBuffer())
-            {
-                uint8_t* data = nullptr;
-                size_t len = 0;
-                if (valObj->getArrayBufferData(&data, &len))
+                else if (valObj->isTypedArray())
                 {
+                    uint8_t* data = nullptr;
+                    size_t len = 0;
+                    if (valObj->getTypedArrayData(&data, &len))
+                    {
+                        value = data;
+                    }
+                }
+                else if (valObj->isArrayBuffer())
+                {
+                    uint8_t* data = nullptr;
+                    size_t len = 0;
+                    if (valObj->getArrayBufferData(&data, &len))
+                    {
+                        value = data;
+                    }
+                }
+                else
+                {
+                    assert(type == cocos2d::gfx::Technique::Parameter::Type::TEXTURE_2D ||
+                           type == cocos2d::gfx::Technique::Parameter::Type::TEXTURE_CUBE);
 
+                    seval_to_native_ptr(tmp, &texture);
                 }
             }
             else
@@ -1757,10 +1798,69 @@ bool seval_to_TechniqueParameter(const se::Value& v, cocos2d::gfx::Technique::Pa
                 assert(false);
             }
         }
-        else
+    }
+
+    switch (type) {
+        case cocos2d::gfx::Technique::Parameter::Type::INT:
+        case cocos2d::gfx::Technique::Parameter::Type::INT2:
+        case cocos2d::gfx::Technique::Parameter::Type::INT3:
+        case cocos2d::gfx::Technique::Parameter::Type::INT4:
         {
-            assert(false);
+            if (size == 1)
+            {
+                int intVal = (int)number;
+                cocos2d::gfx::Technique::Parameter param(name, type, &intVal, 1);
+                *ret = std::move(param);
+            }
+            else
+            {
+                cocos2d::gfx::Technique::Parameter param(name, type, (int*)value, size);
+                *ret = std::move(param);
+            }
+            break;
         }
+        case cocos2d::gfx::Technique::Parameter::Type::FLOAT:
+        case cocos2d::gfx::Technique::Parameter::Type::FLOAT2:
+        case cocos2d::gfx::Technique::Parameter::Type::FLOAT3:
+        case cocos2d::gfx::Technique::Parameter::Type::FLOAT4:
+        case cocos2d::gfx::Technique::Parameter::Type::COLOR3:
+        case cocos2d::gfx::Technique::Parameter::Type::COLOR4:
+        case cocos2d::gfx::Technique::Parameter::Type::MAT2:
+        case cocos2d::gfx::Technique::Parameter::Type::MAT3:
+        case cocos2d::gfx::Technique::Parameter::Type::MAT4:
+        {
+            if (size == 1)
+            {
+                float floatVal = (float)number;
+                cocos2d::gfx::Technique::Parameter param(name, type, &floatVal, 1);
+                *ret = std::move(param);
+            }
+            else
+            {
+                cocos2d::gfx::Technique::Parameter param(name, type, (float*)value, size);
+                *ret = std::move(param);
+            }
+            break;
+        }
+
+        case cocos2d::gfx::Technique::Parameter::Type::TEXTURE_2D:
+        case cocos2d::gfx::Technique::Parameter::Type::TEXTURE_CUBE:
+        {
+            if (size == 1)
+            {
+                cocos2d::gfx::Technique::Parameter param(name, type, texture);
+                *ret = std::move(param);
+            }
+            else
+            {
+                cocos2d::gfx::Technique::Parameter param(name, type, textures);
+                *ret = std::move(param);
+            }
+            break;
+        }
+        default:
+            assert(false);
+            break;
     }
 
     return true;
@@ -2861,10 +2961,10 @@ bool TechniqueParameter_to_seval(const cocos2d::gfx::Technique::Parameter& v, se
     auto type = v.getType();
     if (type == cocos2d::gfx::Technique::Parameter::Type::TEXTURE_2D || type == cocos2d::gfx::Technique::Parameter::Type::TEXTURE_CUBE)
     {
-        auto texArray = v.getTextureArray();
         auto count = v.getCount();
         if (count > 1)
         {
+            auto texArray = v.getTextureArray();
             se::HandleObject arr(se::Object::createArrayObject(count));
             for (uint8_t i = 0; i < count; ++i)
             {
@@ -2876,9 +2976,8 @@ bool TechniqueParameter_to_seval(const cocos2d::gfx::Technique::Parameter& v, se
         }
         else
         {
-            assert(texArray.size() == 1);
             se::Value val;
-            native_ptr_to_seval<cocos2d::gfx::Texture>(texArray[0], &val);
+            native_ptr_to_seval<cocos2d::gfx::Texture>(v.getTexture(), &val);
             obj->setProperty("val", val);
         }
     }
