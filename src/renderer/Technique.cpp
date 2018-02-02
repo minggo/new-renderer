@@ -275,8 +275,10 @@ Texture* Technique::Parameter::getTexture() const
 
 void Technique::Parameter::setTexture(cocos2d::gfx::Texture *texture)
 {
-    freeValue();
+    if (_value == texture)
+        return;
     
+    freeValue();
     _value = malloc(sizeof(void*));
     _value = texture;
     GFX_SAFE_RETAIN(texture);
@@ -304,9 +306,11 @@ void Technique::Parameter::copyValue(const Parameter& rh)
         {
             if (_count > 0)
                 _value = malloc(_count * sizeof(void*));
+            
+            Texture** texture = (Texture**)_value;
             for (uint8_t i = 0; i < _count; ++i)
             {
-                GFX_SAFE_RETAIN((Texture*)_value);
+                GFX_SAFE_RETAIN(texture[i]);
             }
         }
     }
