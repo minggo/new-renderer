@@ -35,9 +35,11 @@ GFX_BEGIN
 class Effect;
 class InputAssembler;
 class Model;
+class INode;
 
 struct DrawItem
 {
+    INode* node = nullptr;
     Model* model = nullptr;
     InputAssembler* ia = nullptr;
     Effect* effect = nullptr;
@@ -47,7 +49,8 @@ struct DrawItem
 class Model : public Ref
 {
 public:
-    Model() {}
+    Model();
+    ~Model();
     
     inline uint32_t getInputAssemblerCount() const { return (uint32_t)_inputAssemblers.size(); }
     
@@ -67,8 +70,12 @@ public:
     void clearEffects();
     void extractDrawItem(DrawItem& out, uint32_t index) const;
 
+    inline INode* getNode() const { return _node; }
+    inline void setNode(INode* node) { _node = node; }
+
 private:
     // Record world matrix instead of Node.
+    INode* _node = nullptr;
     Mat4 _worldMatrix;
     Vector<Effect*> _effects;
     Vector<InputAssembler*> _inputAssemblers;

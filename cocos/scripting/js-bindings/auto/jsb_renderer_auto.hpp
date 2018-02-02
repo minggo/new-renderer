@@ -79,6 +79,7 @@ SE_DECLARE_FUNC(js_renderer_Camera_setDepth);
 SE_DECLARE_FUNC(js_renderer_Camera_getStages);
 SE_DECLARE_FUNC(js_renderer_Camera_getFov);
 SE_DECLARE_FUNC(js_renderer_Camera_setColor);
+SE_DECLARE_FUNC(js_renderer_Camera_setWorldMatrix);
 SE_DECLARE_FUNC(js_renderer_Camera_getNear);
 SE_DECLARE_FUNC(js_renderer_Camera_getClearFlags);
 SE_DECLARE_FUNC(js_renderer_Camera_Camera);

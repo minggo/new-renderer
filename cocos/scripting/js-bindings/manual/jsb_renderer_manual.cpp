@@ -2,6 +2,7 @@
 #include "cocos/scripting/js-bindings/auto/jsb_renderer_auto.hpp"
 #include "cocos/scripting/js-bindings/manual/jsb_conversions.hpp"
 #include "Renderer.h"
+#include "renderer/INode.h"
 
 using namespace cocos2d;
 using namespace cocos2d::gfx;
@@ -260,10 +261,108 @@ static bool js_renderer_addStage(se::State& s)
         Config::addStage(stageName);
         return true;
     }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
 SE_BIND_FUNC(js_renderer_addStage)
+
+class JSNode : public INode
+{
+public:
+    JSNode(const se::Value& jsNode)
+    : _jsNode(jsNode)
+    {
+    }
+
+    virtual Mat4 getWorldMatrix() const override
+    {
+        Mat4 worldMatrix;
+        se::Value func;
+        if (_jsNode.toObject()->getProperty("getWorldMatrix", &func))
+        {
+            se::Value ret;
+            se::ValueArray args;
+            se::HandleObject obj(se::Object::createPlainObject());
+            args.push_back(se::Value(obj));
+            func.toObject()->call(args, _jsNode.toObject(), &ret);
+            seval_to_Mat4(ret, &worldMatrix);
+        }
+        return worldMatrix;
+    }
+
+    virtual Mat4 getWorldRT() const override
+    {
+        Mat4 worldRT;
+        se::Value func;
+        if (_jsNode.toObject()->getProperty("getWorldRT", &func))
+        {
+            se::Value ret;
+            se::ValueArray args;
+            se::HandleObject obj(se::Object::createPlainObject());
+            args.push_back(se::Value(obj));
+            func.toObject()->call(args, _jsNode.toObject(), &ret);
+            seval_to_Mat4(ret, &worldRT);
+        }
+        return worldRT;
+    }
+
+    virtual Vec3 getWorldPos() const override
+    {
+        Vec3 pos;
+        se::Value func;
+        if (_jsNode.toObject()->getProperty("getWorldPos", &func))
+        {
+            se::Value ret;
+            se::ValueArray args;
+            se::HandleObject obj(se::Object::createPlainObject());
+            args.push_back(se::Value(obj));
+            func.toObject()->call(args, _jsNode.toObject(), &ret);
+            seval_to_Vec3(ret, &pos);
+        }
+        return pos;
+    }
+
+private:
+    se::Value _jsNode;
+};
+
+static bool js_renderer_Camera_setNode(se::State& s)
+{
+    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setNode : Invalid Native Object");
+    auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        INode* node = cobj->getNode();
+        delete node;
+        node = new JSNode(args[0]);
+        cobj->setNode(node);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Camera_setNode)
+
+static bool js_renderer_Model_setNode(se::State& s)
+{
+    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Model_setNode : Invalid Native Object");
+    auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        INode* node = cobj->getNode();
+        delete node;
+        node = new JSNode(args[0]);
+        cobj->setNode(node);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Model_setNode)
 
 bool jsb_register_renderer_manual(se::Object* global)
 {
@@ -288,6 +387,12 @@ bool jsb_register_renderer_manual(se::Object* global)
     se::Value rendererVal;
     global->getProperty("renderer", &rendererVal);
     rendererVal.toObject()->defineFunction("addStage", _SE(js_renderer_addStage));
+
+    // Camera
+    __jsb_cocos2d_gfx_Camera_proto->defineFunction("setNode", _SE(js_renderer_Camera_setNode));
+
+    // Model
+    __jsb_cocos2d_gfx_Model_proto->defineFunction("setNode", _SE(js_renderer_Model_setNode));
 
     return true;
 }

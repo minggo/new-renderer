@@ -971,6 +971,25 @@ static bool js_renderer_Camera_setColor(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_Camera_setColor)
 
+static bool js_renderer_Camera_setWorldMatrix(se::State& s)
+{
+    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setWorldMatrix : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Mat4 arg0;
+        ok &= seval_to_Mat4(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_renderer_Camera_setWorldMatrix : Error processing arguments");
+        cobj->setWorldMatrix(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Camera_setWorldMatrix)
+
 static bool js_renderer_Camera_getNear(se::State& s)
 {
     cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
@@ -1055,6 +1074,7 @@ bool js_register_renderer_Camera(se::Object* obj)
     cls->defineFunction("getStages", _SE(js_renderer_Camera_getStages));
     cls->defineFunction("getFov", _SE(js_renderer_Camera_getFov));
     cls->defineFunction("setColor", _SE(js_renderer_Camera_setColor));
+    cls->defineFunction("setWorldMatrix", _SE(js_renderer_Camera_setWorldMatrix));
     cls->defineFunction("getNear", _SE(js_renderer_Camera_getNear));
     cls->defineFunction("getClearFlags", _SE(js_renderer_Camera_getClearFlags));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Camera_finalize));

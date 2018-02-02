@@ -33,6 +33,7 @@
 #include "InputAssembler.h"
 #include "Pass.h"
 #include "Camera.h"
+#include "INode.h"
 #include "Model.h"
 
 GFX_BEGIN
@@ -134,6 +135,7 @@ void BaseRenderer::render(const View* view, const Scene* scene)
             if (tech)
             {
                 stageItem.model = item.model;
+                stageItem.node = item.node;
                 stageItem.ia = item.ia;
                 stageItem.effect = item.effect;
                 stageItem.defines = item.defines;
@@ -162,7 +164,11 @@ void BaseRenderer::render(const View* view, const Scene* scene)
 
 void BaseRenderer::draw(const StageItem& item)
 {
-    Mat4 worldMatrix = item.model->getWorldMatrix();
+    //TODO: get world matrix of node
+//    const Mat4& worldMatrix =
+
+    Mat4 worldMatrix = item.node->getWorldMatrix();
+    //TODO: Mat4 worldMatrix = item.model->getWorldMatrix();
     _device->setUniformMat4("model", worldMatrix.m);
     
     //TODO: add Mat3
@@ -175,9 +181,9 @@ void BaseRenderer::draw(const StageItem& item)
     Technique::Parameter::Type propType = Technique::Parameter::Type::UNKNOWN;
     for (const auto& param : item.technique->getParameters())
     {
-        Effect::Property* prop = const_cast<Effect::Property*>(item.effect->getProperty(param.getName()));
+        Effect::Property* prop = const_cast<Effect::Property*>(&item.effect->getProperty(param.getName()));
         
-        if (nullptr == prop)
+        if (Effect::Property::Type::UNKNOWN == prop->getType())
             *prop = param;
         
         propType = prop->getType();

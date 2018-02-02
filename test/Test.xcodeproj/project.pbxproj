@@ -493,6 +493,7 @@
 /* Begin PBXFileReference section */
 		1A1722632023F34F0092989C /* ForwardRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ForwardRenderer.cpp; sourceTree = "<group>"; };
 		1A1722642023F34F0092989C /* ForwardRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForwardRenderer.h; sourceTree = "<group>"; };
+		1A17226920240B7B0092989C /* INode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = INode.h; sourceTree = "<group>"; };
 		1A17962F201F1BAC0050E573 /* RendererUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RendererUtils.h; sourceTree = "<group>"; };
 		1A179630201F1BAD0050E573 /* RendererUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RendererUtils.cpp; sourceTree = "<group>"; };
 		1A179635201F2DD60050E573 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
@@ -1531,6 +1532,7 @@
 				465399B120185D9700EAE1FC /* Technique.h */,
 				465399B320185D9700EAE1FC /* View.cpp */,
 				465399B220185D9700EAE1FC /* View.h */,
+				1A17226920240B7B0092989C /* INode.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";

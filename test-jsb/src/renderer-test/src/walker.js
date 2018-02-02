@@ -169,7 +169,7 @@
             let index = vertexOffset * _vfmt._bytes / 4;
             let renderData = node.renderData;
             let data = renderData._data;
-            
+
             node.getWorldMatrix(_matrix);
             let a = _matrix.m00,
                 b = _matrix.m01,
