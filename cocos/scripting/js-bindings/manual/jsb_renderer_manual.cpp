@@ -248,6 +248,23 @@ static bool js_renderer_View_getPosition(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_View_getPosition)
 
+static bool js_renderer_addStage(se::State& s)
+{
+    auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        std::string stageName;
+        ok = seval_to_std_string(args[0], &stageName);
+        SE_PRECONDITION2(ok, false, "Convert arg0 failed!");
+        Config::addStage(stageName);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_addStage)
+
 bool jsb_register_renderer_manual(se::Object* global)
 {
     // Camera
@@ -266,6 +283,11 @@ bool jsb_register_renderer_manual(se::Object* global)
     // View
     __jsb_cocos2d_gfx_View_proto->defineFunction("getForward", _SE(js_renderer_View_getForward));
     __jsb_cocos2d_gfx_View_proto->defineFunction("getPosition", _SE(js_renderer_View_getPosition));
+
+    // Config
+    se::Value rendererVal;
+    global->getProperty("renderer", &rendererVal);
+    rendererVal.toObject()->defineFunction("addStage", _SE(js_renderer_addStage));
 
     return true;
 }

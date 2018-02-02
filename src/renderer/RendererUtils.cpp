@@ -82,7 +82,9 @@ InputAssembler* createIA(DeviceGraphics* device, const IAData& data)
         ib->init(device, IndexFormat::UINT16, Usage::STATIC, data.indices.data(), data.indices.size() * sizeof(uint16_t), (uint32_t)data.indices.size());
     }
 
-    return new InputAssembler(vb, ib);
+    auto ia = new InputAssembler();
+    ia->init(vb, ib);
+    return ia;
 }
 
 GFX_END

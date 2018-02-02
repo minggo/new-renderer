@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "BaseRenderer.h"
+#include "ForwardRenderer.h"
 #include "Camera.h"
 #include "Config.h"
 #include "Effect.h"

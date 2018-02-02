@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1722652023F34F0092989C /* ForwardRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1722632023F34F0092989C /* ForwardRenderer.cpp */; };
+		1A1722662023F34F0092989C /* ForwardRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1722632023F34F0092989C /* ForwardRenderer.cpp */; };
+		1A1722672023F34F0092989C /* ForwardRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1722632023F34F0092989C /* ForwardRenderer.cpp */; };
+		1A1722682023F34F0092989C /* ForwardRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A1722632023F34F0092989C /* ForwardRenderer.cpp */; };
 		1A179631201F1BAD0050E573 /* RendererUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A179630201F1BAD0050E573 /* RendererUtils.cpp */; };
 		1A179632201F1BAD0050E573 /* RendererUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A179630201F1BAD0050E573 /* RendererUtils.cpp */; };
 		1A179633201F1BAD0050E573 /* RendererUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A179630201F1BAD0050E573 /* RendererUtils.cpp */; };
@@ -487,6 +491,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A1722632023F34F0092989C /* ForwardRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ForwardRenderer.cpp; sourceTree = "<group>"; };
+		1A1722642023F34F0092989C /* ForwardRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForwardRenderer.h; sourceTree = "<group>"; };
 		1A17962F201F1BAC0050E573 /* RendererUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RendererUtils.h; sourceTree = "<group>"; };
 		1A179630201F1BAD0050E573 /* RendererUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RendererUtils.cpp; sourceTree = "<group>"; };
 		1A179635201F2DD60050E573 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
@@ -1504,6 +1510,8 @@
 				465399B020185D9700EAE1FC /* Config.h */,
 				465399B420185D9700EAE1FC /* Effect.cpp */,
 				465399BA20185D9700EAE1FC /* Effect.h */,
+				1A1722632023F34F0092989C /* ForwardRenderer.cpp */,
+				1A1722642023F34F0092989C /* ForwardRenderer.h */,
 				465399BC20185D9700EAE1FC /* InputAssembler.cpp */,
 				465399BB20185D9700EAE1FC /* InputAssembler.h */,
 				465399DF201982B800EAE1FC /* Light.cpp */,
@@ -1514,15 +1522,15 @@
 				465399B620185D9700EAE1FC /* Pass.h */,
 				1ACD54F42019B2E10012EB0F /* ProgramLib.cpp */,
 				1ACD54F52019B2E10012EB0F /* ProgramLib.h */,
+				1A179635201F2DD60050E573 /* Renderer.h */,
+				1A179630201F1BAD0050E573 /* RendererUtils.cpp */,
+				1A17962F201F1BAC0050E573 /* RendererUtils.h */,
 				465399E52019C29500EAE1FC /* Scene.cpp */,
 				465399E62019C29500EAE1FC /* Scene.h */,
 				465399B720185D9700EAE1FC /* Technique.cpp */,
 				465399B120185D9700EAE1FC /* Technique.h */,
-				1A179630201F1BAD0050E573 /* RendererUtils.cpp */,
-				1A17962F201F1BAC0050E573 /* RendererUtils.h */,
 				465399B320185D9700EAE1FC /* View.cpp */,
 				465399B220185D9700EAE1FC /* View.h */,
-				1A179635201F2DD60050E573 /* Renderer.h */,
 			);
 			path = renderer;
 			sourceTree = "<group>";
@@ -1933,6 +1941,7 @@
 				1A255EC620034F1000069420 /* ZipUtils.cpp in Sources */,
 				465399C720185D9700EAE1FC /* Effect.cpp in Sources */,
 				1A255EC820034F1000069420 /* CCData.cpp in Sources */,
+				1A1722672023F34F0092989C /* ForwardRenderer.cpp in Sources */,
 				1A1796F12021603C0050E573 /* Class.cpp in Sources */,
 				1A255EC920034F1000069420 /* CCDevice-mac.mm in Sources */,
 				1A255ECA20034F1000069420 /* CCVertexFormat.cpp in Sources */,
@@ -2019,6 +2028,7 @@
 				1A255F3C20034F6D00069420 /* Mat4.cpp in Sources */,
 				1A1796AE2021603C0050E573 /* ObjectWrap.cpp in Sources */,
 				1A1796CC2021603C0050E573 /* env.cc in Sources */,
+				1A1722682023F34F0092989C /* ForwardRenderer.cpp in Sources */,
 				1A1796EE2021603C0050E573 /* ScriptEngine.cpp in Sources */,
 				1A50267C2005F84E003E668E /* Utils.cpp in Sources */,
 				1A1796DE2021603C0050E573 /* ScriptEngine.cpp in Sources */,
@@ -2169,6 +2179,7 @@
 				1A255E5020034B0D00069420 /* TransformUtils.cpp in Sources */,
 				1ACB61A11FF5F33D0007F081 /* CCIndexBuffer.cpp in Sources */,
 				1A255E5A20034B0D00069420 /* Vec2.cpp in Sources */,
+				1A1722662023F34F0092989C /* ForwardRenderer.cpp in Sources */,
 				1ACB61AA1FF5F3450007F081 /* types.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2253,6 +2264,7 @@
 				1A255E6920034B0D00069420 /* ccTypes.cpp in Sources */,
 				46ABB09C1FFC765700287AA5 /* PostProcess.cpp in Sources */,
 				1A1A4FED1FFE2B0D0061A6E1 /* Texture2D.cpp in Sources */,
+				1A1722652023F34F0092989C /* ForwardRenderer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -382,11 +382,11 @@ bool js_register_renderer_Model(se::Object* obj)
 se::Object* __jsb_cocos2d_gfx_BaseRenderer_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_BaseRenderer_class = nullptr;
 
-SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_BaseRenderer_finalize)
-
-static bool js_renderer_BaseRenderer_constructor(se::State& s)
+static bool js_renderer_BaseRenderer_init(se::State& s)
 {
     CC_UNUSED bool ok = true;
+    cocos2d::gfx::BaseRenderer* cobj = (cocos2d::gfx::BaseRenderer*)s.nativeThisObject();
+    SE_PRECONDITION2( cobj, false, "js_renderer_BaseRenderer_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     do {
@@ -400,11 +400,13 @@ static bool js_renderer_BaseRenderer_constructor(se::State& s)
             cocos2d::gfx::Texture2D* arg2 = nullptr;
             ok &= seval_to_native_ptr(args[2], &arg2);
             if (!ok) { ok = true; break; }
-            cocos2d::gfx::BaseRenderer* cobj = new (std::nothrow) cocos2d::gfx::BaseRenderer(arg0, arg1, arg2);
-            s.thisObject()->setPrivateData(cobj);
+            bool result = cobj->init(arg0, arg1, arg2);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_renderer_BaseRenderer_init : Error processing arguments");
             return true;
         }
     } while(false);
+
     do {
         if (argc == 2) {
             cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
@@ -413,13 +415,25 @@ static bool js_renderer_BaseRenderer_constructor(se::State& s)
             std::vector<cocos2d::gfx::ProgramLib::Template> arg1;
             ok &= seval_to_std_vector_ProgramLib_Template(args[1], &arg1);
             if (!ok) { ok = true; break; }
-            cocos2d::gfx::BaseRenderer* cobj = new (std::nothrow) cocos2d::gfx::BaseRenderer(arg0, arg1);
-            s.thisObject()->setPrivateData(cobj);
+            bool result = cobj->init(arg0, arg1);
+            ok &= boolean_to_seval(result, &s.rval());
+            SE_PRECONDITION2(ok, false, "js_renderer_BaseRenderer_init : Error processing arguments");
             return true;
         }
     } while(false);
+
     SE_REPORT_ERROR("wrong number of arguments: %d", (int)argc);
     return false;
+}
+SE_BIND_FUNC(js_renderer_BaseRenderer_init)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_BaseRenderer_finalize)
+
+static bool js_renderer_BaseRenderer_constructor(se::State& s)
+{
+    cocos2d::gfx::BaseRenderer* cobj = new (std::nothrow) cocos2d::gfx::BaseRenderer();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
 }
 SE_BIND_CTOR(js_renderer_BaseRenderer_constructor, __jsb_cocos2d_gfx_BaseRenderer_class, js_cocos2d_gfx_BaseRenderer_finalize)
 
@@ -440,14 +454,107 @@ SE_BIND_FINALIZE_FUNC(js_cocos2d_gfx_BaseRenderer_finalize)
 
 bool js_register_renderer_BaseRenderer(se::Object* obj)
 {
-    auto cls = se::Class::create("BaseRenderer", obj, nullptr, _SE(js_renderer_BaseRenderer_constructor));
+    auto cls = se::Class::create("Base", obj, nullptr, _SE(js_renderer_BaseRenderer_constructor));
 
+    cls->defineFunction("init", _SE(js_renderer_BaseRenderer_init));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_BaseRenderer_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::BaseRenderer>(cls);
 
     __jsb_cocos2d_gfx_BaseRenderer_proto = cls->getProto();
     __jsb_cocos2d_gfx_BaseRenderer_class = cls;
+
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
+se::Object* __jsb_cocos2d_gfx_ForwardRenderer_proto = nullptr;
+se::Class* __jsb_cocos2d_gfx_ForwardRenderer_class = nullptr;
+
+static bool js_renderer_ForwardRenderer_init(se::State& s)
+{
+    cocos2d::gfx::ForwardRenderer* cobj = (cocos2d::gfx::ForwardRenderer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_ForwardRenderer_init : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 4) {
+        cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
+        std::vector<cocos2d::gfx::ProgramLib::Template> arg1;
+        int arg2 = 0;
+        int arg3 = 0;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        ok &= seval_to_std_vector_ProgramLib_Template(args[1], &arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (int)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (int)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_ForwardRenderer_init : Error processing arguments");
+        bool result = cobj->init(arg0, arg1, arg2, arg3);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_renderer_ForwardRenderer_init : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_ForwardRenderer_init)
+
+static bool js_renderer_ForwardRenderer_render(se::State& s)
+{
+    cocos2d::gfx::ForwardRenderer* cobj = (cocos2d::gfx::ForwardRenderer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_ForwardRenderer_render : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::gfx::Scene* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_renderer_ForwardRenderer_render : Error processing arguments");
+        cobj->render(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_ForwardRenderer_render)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_ForwardRenderer_finalize)
+
+static bool js_renderer_ForwardRenderer_constructor(se::State& s)
+{
+    cocos2d::gfx::ForwardRenderer* cobj = new (std::nothrow) cocos2d::gfx::ForwardRenderer();
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_renderer_ForwardRenderer_constructor, __jsb_cocos2d_gfx_ForwardRenderer_class, js_cocos2d_gfx_ForwardRenderer_finalize)
+
+
+
+extern se::Object* __jsb_cocos2d_gfx_BaseRenderer_proto;
+
+static bool js_cocos2d_gfx_ForwardRenderer_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::ForwardRenderer)", s.nativeThisObject());
+    cocos2d::gfx::ForwardRenderer* cobj = (cocos2d::gfx::ForwardRenderer*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_gfx_ForwardRenderer_finalize)
+
+bool js_register_renderer_ForwardRenderer(se::Object* obj)
+{
+    auto cls = se::Class::create("ForwardRenderer", obj, __jsb_cocos2d_gfx_BaseRenderer_proto, _SE(js_renderer_ForwardRenderer_constructor));
+
+    cls->defineFunction("init", _SE(js_renderer_ForwardRenderer_init));
+    cls->defineFunction("render", _SE(js_renderer_ForwardRenderer_render));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_ForwardRenderer_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::gfx::ForwardRenderer>(cls);
+
+    __jsb_cocos2d_gfx_ForwardRenderer_proto = cls->getProto();
+    __jsb_cocos2d_gfx_ForwardRenderer_class = cls;
 
     se::ScriptEngine::getInstance()->clearException();
     return true;
@@ -1271,6 +1378,25 @@ bool js_register_renderer_Effect(se::Object* obj)
 se::Object* __jsb_cocos2d_gfx_InputAssembler_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_InputAssembler_class = nullptr;
 
+static bool js_renderer_InputAssembler_setVertexBuffer(se::State& s)
+{
+    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setVertexBuffer : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::gfx::VertexBuffer* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_setVertexBuffer : Error processing arguments");
+        cobj->setVertexBuffer(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_InputAssembler_setVertexBuffer)
+
 static bool js_renderer_InputAssembler_getStart(se::State& s)
 {
     cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
@@ -1288,6 +1414,44 @@ static bool js_renderer_InputAssembler_getStart(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_renderer_InputAssembler_getStart)
+
+static bool js_renderer_InputAssembler_setStart(se::State& s)
+{
+    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setStart : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        int arg0 = 0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (int)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_setStart : Error processing arguments");
+        cobj->setStart(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_InputAssembler_setStart)
+
+static bool js_renderer_InputAssembler_setPrimitiveType(se::State& s)
+{
+    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setPrimitiveType : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::gfx::PrimitiveType arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::PrimitiveType)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_setPrimitiveType : Error processing arguments");
+        cobj->setPrimitiveType(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_InputAssembler_setPrimitiveType)
 
 static bool js_renderer_InputAssembler_getPrimitiveCount(se::State& s)
 {
@@ -1307,23 +1471,60 @@ static bool js_renderer_InputAssembler_getPrimitiveCount(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_InputAssembler_getPrimitiveCount)
 
-static bool js_renderer_InputAssembler_getPrimitiveType(se::State& s)
+static bool js_renderer_InputAssembler_setCount(se::State& s)
 {
     cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_getPrimitiveType : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setCount : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
-    if (argc == 0) {
-        int result = (int)cobj->getPrimitiveType();
-        ok &= int32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_getPrimitiveType : Error processing arguments");
+    if (argc == 1) {
+        int arg0 = 0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (int)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_setCount : Error processing arguments");
+        cobj->setCount(arg0);
         return true;
     }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_FUNC(js_renderer_InputAssembler_getPrimitiveType)
+SE_BIND_FUNC(js_renderer_InputAssembler_setCount)
+
+static bool js_renderer_InputAssembler_init(se::State& s)
+{
+    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_init : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 2) {
+        cocos2d::gfx::VertexBuffer* arg0 = nullptr;
+        cocos2d::gfx::IndexBuffer* arg1 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_init : Error processing arguments");
+        bool result = cobj->init(arg0, arg1);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_init : Error processing arguments");
+        return true;
+    }
+    if (argc == 3) {
+        cocos2d::gfx::VertexBuffer* arg0 = nullptr;
+        cocos2d::gfx::IndexBuffer* arg1 = nullptr;
+        cocos2d::gfx::PrimitiveType arg2;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        ok &= seval_to_native_ptr(args[1], &arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::PrimitiveType)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_init : Error processing arguments");
+        bool result = cobj->init(arg0, arg1, arg2);
+        ok &= boolean_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_init : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_InputAssembler_init)
 
 static bool js_renderer_InputAssembler_getVertexBuffer(se::State& s)
 {
@@ -1333,7 +1534,7 @@ static bool js_renderer_InputAssembler_getVertexBuffer(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        const cocos2d::gfx::VertexBuffer* result = cobj->getVertexBuffer();
+        cocos2d::gfx::VertexBuffer* result = cobj->getVertexBuffer();
         ok &= native_ptr_to_seval<cocos2d::gfx::VertexBuffer>((cocos2d::gfx::VertexBuffer*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_getVertexBuffer : Error processing arguments");
         return true;
@@ -1351,7 +1552,7 @@ static bool js_renderer_InputAssembler_getIndexBuffer(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        const cocos2d::gfx::IndexBuffer* result = cobj->getIndexBuffer();
+        cocos2d::gfx::IndexBuffer* result = cobj->getIndexBuffer();
         ok &= native_ptr_to_seval<cocos2d::gfx::IndexBuffer>((cocos2d::gfx::IndexBuffer*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_getIndexBuffer : Error processing arguments");
         return true;
@@ -1379,18 +1580,48 @@ static bool js_renderer_InputAssembler_getCount(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_InputAssembler_getCount)
 
+static bool js_renderer_InputAssembler_getPrimitiveType(se::State& s)
+{
+    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_getPrimitiveType : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        int result = (int)cobj->getPrimitiveType();
+        ok &= int32_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_getPrimitiveType : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_InputAssembler_getPrimitiveType)
+
+static bool js_renderer_InputAssembler_setIndexBuffer(se::State& s)
+{
+    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setIndexBuffer : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::gfx::IndexBuffer* arg0 = nullptr;
+        ok &= seval_to_native_ptr(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_setIndexBuffer : Error processing arguments");
+        cobj->setIndexBuffer(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_InputAssembler_setIndexBuffer)
+
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_InputAssembler_finalize)
 
 static bool js_renderer_InputAssembler_constructor(se::State& s)
 {
-    CC_UNUSED bool ok = true;
-    const auto& args = s.args();
-    cocos2d::gfx::VertexBuffer* arg0 = nullptr;
-    cocos2d::gfx::IndexBuffer* arg1 = nullptr;
-    ok &= seval_to_native_ptr(args[0], &arg0);
-    ok &= seval_to_native_ptr(args[1], &arg1);
-    SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_constructor : Error processing arguments");
-    cocos2d::gfx::InputAssembler* cobj = new (std::nothrow) cocos2d::gfx::InputAssembler(arg0, arg1);
+    cocos2d::gfx::InputAssembler* cobj = new (std::nothrow) cocos2d::gfx::InputAssembler();
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -1415,12 +1646,18 @@ bool js_register_renderer_InputAssembler(se::Object* obj)
 {
     auto cls = se::Class::create("InputAssembler", obj, nullptr, _SE(js_renderer_InputAssembler_constructor));
 
+    cls->defineFunction("setVertexBuffer", _SE(js_renderer_InputAssembler_setVertexBuffer));
     cls->defineFunction("getStart", _SE(js_renderer_InputAssembler_getStart));
+    cls->defineFunction("setStart", _SE(js_renderer_InputAssembler_setStart));
+    cls->defineFunction("setPrimitiveType", _SE(js_renderer_InputAssembler_setPrimitiveType));
     cls->defineFunction("getPrimitiveCount", _SE(js_renderer_InputAssembler_getPrimitiveCount));
-    cls->defineFunction("getPrimitiveType", _SE(js_renderer_InputAssembler_getPrimitiveType));
+    cls->defineFunction("setCount", _SE(js_renderer_InputAssembler_setCount));
+    cls->defineFunction("init", _SE(js_renderer_InputAssembler_init));
     cls->defineFunction("getVertexBuffer", _SE(js_renderer_InputAssembler_getVertexBuffer));
     cls->defineFunction("getIndexBuffer", _SE(js_renderer_InputAssembler_getIndexBuffer));
     cls->defineFunction("getCount", _SE(js_renderer_InputAssembler_getCount));
+    cls->defineFunction("getPrimitiveType", _SE(js_renderer_InputAssembler_getPrimitiveType));
+    cls->defineFunction("setIndexBuffer", _SE(js_renderer_InputAssembler_setIndexBuffer));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_InputAssembler_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::InputAssembler>(cls);
@@ -2102,6 +2339,442 @@ bool js_register_renderer_Light(se::Object* obj)
     return true;
 }
 
+se::Object* __jsb_cocos2d_gfx_Pass_proto = nullptr;
+se::Class* __jsb_cocos2d_gfx_Pass_class = nullptr;
+
+static bool js_renderer_Pass_setStencilBack(se::State& s)
+{
+    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setStencilBack : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cobj->setStencilBack();
+        return true;
+    }
+    if (argc == 1) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
+        cobj->setStencilBack(arg0);
+        return true;
+    }
+    if (argc == 2) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
+        cobj->setStencilBack(arg0, arg1);
+        return true;
+    }
+    if (argc == 3) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
+        cobj->setStencilBack(arg0, arg1, arg2);
+        return true;
+    }
+    if (argc == 4) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        cocos2d::gfx::StencilOp arg3;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
+        cobj->setStencilBack(arg0, arg1, arg2, arg3);
+        return true;
+    }
+    if (argc == 5) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        cocos2d::gfx::StencilOp arg3;
+        cocos2d::gfx::StencilOp arg4;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
+        cobj->setStencilBack(arg0, arg1, arg2, arg3, arg4);
+        return true;
+    }
+    if (argc == 6) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        cocos2d::gfx::StencilOp arg3;
+        cocos2d::gfx::StencilOp arg4;
+        cocos2d::gfx::StencilOp arg5;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
+        cobj->setStencilBack(arg0, arg1, arg2, arg3, arg4, arg5);
+        return true;
+    }
+    if (argc == 7) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        cocos2d::gfx::StencilOp arg3;
+        cocos2d::gfx::StencilOp arg4;
+        cocos2d::gfx::StencilOp arg5;
+        uint8_t arg6;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        ok &= seval_to_uint8(args[6], (uint8_t*)&arg6);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
+        cobj->setStencilBack(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 7);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Pass_setStencilBack)
+
+static bool js_renderer_Pass_setCullMode(se::State& s)
+{
+    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setCullMode : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::gfx::CullMode arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::CullMode)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setCullMode : Error processing arguments");
+        cobj->setCullMode(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Pass_setCullMode)
+
+static bool js_renderer_Pass_setBlend(se::State& s)
+{
+    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setBlend : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cobj->setBlend();
+        return true;
+    }
+    if (argc == 1) {
+        cocos2d::gfx::BlendOp arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
+        cobj->setBlend(arg0);
+        return true;
+    }
+    if (argc == 2) {
+        cocos2d::gfx::BlendOp arg0;
+        cocos2d::gfx::BlendFactor arg1;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
+        cobj->setBlend(arg0, arg1);
+        return true;
+    }
+    if (argc == 3) {
+        cocos2d::gfx::BlendOp arg0;
+        cocos2d::gfx::BlendFactor arg1;
+        cocos2d::gfx::BlendFactor arg2;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
+        cobj->setBlend(arg0, arg1, arg2);
+        return true;
+    }
+    if (argc == 4) {
+        cocos2d::gfx::BlendOp arg0;
+        cocos2d::gfx::BlendFactor arg1;
+        cocos2d::gfx::BlendFactor arg2;
+        cocos2d::gfx::BlendOp arg3;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
+        cobj->setBlend(arg0, arg1, arg2, arg3);
+        return true;
+    }
+    if (argc == 5) {
+        cocos2d::gfx::BlendOp arg0;
+        cocos2d::gfx::BlendFactor arg1;
+        cocos2d::gfx::BlendFactor arg2;
+        cocos2d::gfx::BlendOp arg3;
+        cocos2d::gfx::BlendFactor arg4;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
+        cobj->setBlend(arg0, arg1, arg2, arg3, arg4);
+        return true;
+    }
+    if (argc == 6) {
+        cocos2d::gfx::BlendOp arg0;
+        cocos2d::gfx::BlendFactor arg1;
+        cocos2d::gfx::BlendFactor arg2;
+        cocos2d::gfx::BlendOp arg3;
+        cocos2d::gfx::BlendFactor arg4;
+        cocos2d::gfx::BlendFactor arg5;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
+        cobj->setBlend(arg0, arg1, arg2, arg3, arg4, arg5);
+        return true;
+    }
+    if (argc == 7) {
+        cocos2d::gfx::BlendOp arg0;
+        cocos2d::gfx::BlendFactor arg1;
+        cocos2d::gfx::BlendFactor arg2;
+        cocos2d::gfx::BlendOp arg3;
+        cocos2d::gfx::BlendFactor arg4;
+        cocos2d::gfx::BlendFactor arg5;
+        unsigned int arg6 = 0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        ok &= seval_to_uint32(args[6], (uint32_t*)&arg6);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
+        cobj->setBlend(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 7);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Pass_setBlend)
+
+static bool js_renderer_Pass_setStencilFront(se::State& s)
+{
+    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setStencilFront : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cobj->setStencilFront();
+        return true;
+    }
+    if (argc == 1) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
+        cobj->setStencilFront(arg0);
+        return true;
+    }
+    if (argc == 2) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
+        cobj->setStencilFront(arg0, arg1);
+        return true;
+    }
+    if (argc == 3) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
+        cobj->setStencilFront(arg0, arg1, arg2);
+        return true;
+    }
+    if (argc == 4) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        cocos2d::gfx::StencilOp arg3;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
+        cobj->setStencilFront(arg0, arg1, arg2, arg3);
+        return true;
+    }
+    if (argc == 5) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        cocos2d::gfx::StencilOp arg3;
+        cocos2d::gfx::StencilOp arg4;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
+        cobj->setStencilFront(arg0, arg1, arg2, arg3, arg4);
+        return true;
+    }
+    if (argc == 6) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        cocos2d::gfx::StencilOp arg3;
+        cocos2d::gfx::StencilOp arg4;
+        cocos2d::gfx::StencilOp arg5;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
+        cobj->setStencilFront(arg0, arg1, arg2, arg3, arg4, arg5);
+        return true;
+    }
+    if (argc == 7) {
+        cocos2d::gfx::ComparisonFunc arg0;
+        unsigned int arg1 = 0;
+        uint8_t arg2;
+        cocos2d::gfx::StencilOp arg3;
+        cocos2d::gfx::StencilOp arg4;
+        cocos2d::gfx::StencilOp arg5;
+        uint8_t arg6;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
+        ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        ok &= seval_to_uint8(args[6], (uint8_t*)&arg6);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
+        cobj->setStencilFront(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 7);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Pass_setStencilFront)
+
+static bool js_renderer_Pass_setDepth(se::State& s)
+{
+    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setDepth : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        cobj->setDepth();
+        return true;
+    }
+    if (argc == 1) {
+        bool arg0;
+        ok &= seval_to_boolean(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setDepth : Error processing arguments");
+        cobj->setDepth(arg0);
+        return true;
+    }
+    if (argc == 2) {
+        bool arg0;
+        bool arg1;
+        ok &= seval_to_boolean(args[0], &arg0);
+        ok &= seval_to_boolean(args[1], &arg1);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setDepth : Error processing arguments");
+        cobj->setDepth(arg0, arg1);
+        return true;
+    }
+    if (argc == 3) {
+        bool arg0;
+        bool arg1;
+        cocos2d::gfx::ComparisonFunc arg2;
+        ok &= seval_to_boolean(args[0], &arg0);
+        ok &= seval_to_boolean(args[1], &arg1);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Pass_setDepth : Error processing arguments");
+        cobj->setDepth(arg0, arg1, arg2);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 3);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Pass_setDepth)
+
+SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_Pass_finalize)
+
+static bool js_renderer_Pass_constructor(se::State& s)
+{
+    CC_UNUSED bool ok = true;
+    const auto& args = s.args();
+    std::string arg0;
+    ok &= seval_to_std_string(args[0], &arg0);
+    SE_PRECONDITION2(ok, false, "js_renderer_Pass_constructor : Error processing arguments");
+    cocos2d::gfx::Pass* cobj = new (std::nothrow) cocos2d::gfx::Pass(arg0);
+    s.thisObject()->setPrivateData(cobj);
+    return true;
+}
+SE_BIND_CTOR(js_renderer_Pass_constructor, __jsb_cocos2d_gfx_Pass_class, js_cocos2d_gfx_Pass_finalize)
+
+
+
+
+static bool js_cocos2d_gfx_Pass_finalize(se::State& s)
+{
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Pass)", s.nativeThisObject());
+    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    if (cobj->getReferenceCount() == 1)
+        cobj->autorelease();
+    else
+        cobj->release();
+    return true;
+}
+SE_BIND_FINALIZE_FUNC(js_cocos2d_gfx_Pass_finalize)
+
+bool js_register_renderer_Pass(se::Object* obj)
+{
+    auto cls = se::Class::create("Pass", obj, nullptr, _SE(js_renderer_Pass_constructor));
+
+    cls->defineFunction("setStencilBack", _SE(js_renderer_Pass_setStencilBack));
+    cls->defineFunction("setCullMode", _SE(js_renderer_Pass_setCullMode));
+    cls->defineFunction("setBlend", _SE(js_renderer_Pass_setBlend));
+    cls->defineFunction("setStencilFront", _SE(js_renderer_Pass_setStencilFront));
+    cls->defineFunction("setDepth", _SE(js_renderer_Pass_setDepth));
+    cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Pass_finalize));
+    cls->install();
+    JSBClassType::registerClass<cocos2d::gfx::Pass>(cls);
+
+    __jsb_cocos2d_gfx_Pass_proto = cls->getProto();
+    __jsb_cocos2d_gfx_Pass_class = cls;
+
+    se::ScriptEngine::getInstance()->clearException();
+    return true;
+}
+
 se::Object* __jsb_cocos2d_gfx_Scene_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_Scene_class = nullptr;
 
@@ -2524,8 +3197,10 @@ bool register_all_renderer(se::Object* obj)
     js_register_renderer_Scene(ns);
     js_register_renderer_Camera(ns);
     js_register_renderer_BaseRenderer(ns);
+    js_register_renderer_Pass(ns);
     js_register_renderer_InputAssembler(ns);
     js_register_renderer_Model(ns);
+    js_register_renderer_ForwardRenderer(ns);
     js_register_renderer_View(ns);
     return true;
 }
