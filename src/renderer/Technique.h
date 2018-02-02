@@ -34,13 +34,16 @@
 GFX_BEGIN
 
 class Pass;
+class Texture2D;
+class Texture;
 
 class Technique : public Ref
 {
 public:
     
-    struct Parameter
+    class Parameter final
     {
+    public:
         enum class Type : uint8_t
         {
             INT = 0,
@@ -61,12 +64,47 @@ public:
             UNKNOWN
         };
         
-        std::string name = "";
+        static Parameter createDefault(Type type);
+        // How many elements of each type, for example:
+        // INT -> 1
+        // INT2 -> 2
+        // MAT4 -> 16
+        static uint8_t getElements(Type type);
+        
+        Parameter();
+        Parameter(const std::string& name, Type type, int* value, uint8_t count = 1);
+        Parameter(const std::string& name, Type type, float* value, uint8_t count = 1);
+        Parameter(const std::string& name, Texture2D* texture);
+        Parameter(const std::string& name, const std::vector<Texture2D*>& textures);
+        Parameter(const Parameter& rh);
+        Parameter(Parameter&& rh);
+        ~Parameter();
+        
+        Parameter& operator=(const Parameter& rh);
+        
+        inline Type getType() const { return _type; }
+        inline const std::string& getName() const { return _name; }
+        inline uint8_t getCount() const { return _count; }
+        inline void* getValue() const { return _value; }
+        inline uint16_t getBytes() const { return _bytes; };
+        
+        std::vector<Texture*> getTextureArray() const;
+        void setTexture2D(Texture2D* texture);
+        
+    private:
+        static uint8_t elementsOfType[(int)Type::UNKNOWN + 1];
+        
+        void freeValue();
+        void copyValue(const Parameter& rh);
+        
+        std::string _name = "";
         // how many elements, for example, how many INT2 or how many MAT2
-        uint8_t size = 0;
-        Type type = Type::UNKNOWN;
-        // should use byte array except TEXTURE_2D and TEXTURE_CUBE
-        void* value = nullptr;
+        uint8_t _count = 0;
+        Type _type = Type::UNKNOWN;
+        void* _value = nullptr;
+        
+        // It is meaningful if type is not Texture2D or TEXTURE_CUBE.
+        uint16_t _bytes = 0;
     };
     
     Technique(const std::vector<std::string>& stages,

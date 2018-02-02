@@ -27,6 +27,8 @@
 #include <vector>
 #include <string>
 #include "base/ccTypes.h"
+#include "math/Vec3.h"
+#include "math/Mat4.h"
 #include "../macro.h"
 #include "../types.h"
 #include "View.h"
@@ -76,6 +78,8 @@ public:
     inline FrameBuffer* getFrameBuffer() const { return _framebuffer; }
     void setFrameBuffer(FrameBuffer* framebuffer);
     
+    void setWorldMatrix(const Mat4& worldMatrix);
+    
     void extractView(View& out, int width, int height) const;
     
     Vec3& screenToWorld(Vec3& out, const Vec3& screenPos, int width, int height) const;
@@ -102,6 +106,9 @@ private:
     
     // ortho properties
     float _orthoHeight = 10.f;
+    
+    Mat4 _worldRTInv;
+    Vec3 _worldPos;
 };
 
 GFX_END
