@@ -34,6 +34,7 @@
 #include "Pass.h"
 #include "Camera.h"
 #include "INode.h"
+#include "Model.h"
 
 GFX_BEGIN
 
@@ -161,55 +162,13 @@ void BaseRenderer::render(const View* view, const Scene* scene)
     }
 }
 
-namespace
-{
-    uint8_t sizeOfType(Technique::Parameter::Type type)
-    {
-        uint8_t ret = 0;
-        
-        switch (type) {
-            case Technique::Parameter::Type::INT:
-                ret = 1;
-                break;
-            case Technique::Parameter::Type::INT2:
-                ret = 2;
-                break;
-            case Technique::Parameter::Type::INT4:
-                ret = 4;
-                break;
-            case Technique::Parameter::Type::FLOAT:
-                ret = 1;
-                break;
-            case Technique::Parameter::Type::FLOAT2:
-                ret = 2;
-                break;
-            case Technique::Parameter::Type::FLOAT4:
-                ret = 4;
-                break;
-            case Technique::Parameter::Type::COLOR4:
-                ret = 4;
-                break;
-            case Technique::Parameter::Type::MAT2:
-                ret = 4;
-                break;
-            case Technique::Parameter::Type::MAT4:
-                ret = 16;
-                break;
-                
-            default:
-                break;
-        }
-        
-        return ret;
-    }
-}
-
 void BaseRenderer::draw(const StageItem& item)
 {
     //TODO: get world matrix of node
 //    const Mat4& worldMatrix =
 
     Mat4 worldMatrix = item.node->getWorldMatrix();
+    //TODO: Mat4 worldMatrix = item.model->getWorldMatrix();
     _device->setUniformMat4("model", worldMatrix.m);
     
     //TODO: add Mat3
@@ -279,7 +238,7 @@ void BaseRenderer::draw(const StageItem& item)
                     continue;
                 }
                 
-                uint8_t size = sizeOfType(propType);
+                uint8_t size = Technique::Parameter::getElements(propType);
                 if (size * prop->getCount() > 64)
                 {
                     GFX_LOGW("Uniform array is too long!");

@@ -105,6 +105,9 @@ public:
     inline void setFrustumEdgeFalloff(uint32_t val) { _frustumEdgeFalloff = val; }
     inline uint32_t getFrustumEdgeFalloff() const { return _frustumEdgeFalloff; }
     
+    inline void setWorldMatrix(const Mat4& worldMatrix);
+    inline const Mat4& getWorldMatrix() const { return _worldMatrix; }
+    
     void extractView(View& out, const std::vector<std::string>& stages);
     
     void update(DeviceGraphics* device);
@@ -148,6 +151,9 @@ private:
     Mat4 _viewProjMatrix;
     float _spotAngleScale = 1; // used for spot light.
     uint32_t _shadowFustumSize = 80; // used for directional light.
+    
+    Mat4 _worldMatrix;
+    Mat4 _worldRT;
 };
 
 GFX_END

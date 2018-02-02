@@ -59,6 +59,7 @@ public:
     
     inline uint32_t getDrawItemCount() const { return _dynamicIA ? 1 :  (uint32_t)_inputAssemblers.size(); }
     inline void setWorldMatix(const Mat4& matrix) { _worldMatrix = matrix; }
+    inline const Mat4& getWorldMatrix() const { return _worldMatrix; }
     
     inline void setViewId(int val) { _viewID = val; }
     inline int getViewId() const { return _viewID; }

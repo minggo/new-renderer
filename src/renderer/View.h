@@ -44,8 +44,6 @@ public:
     void getForward(Vec3& out) const;
     void getPosition(Vec3& out) const;
     
-    // TODO: set/get member variable
-    
     uint32_t id;
     
     // viewport
