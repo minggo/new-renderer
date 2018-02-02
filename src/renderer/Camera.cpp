@@ -27,15 +27,6 @@
 
 GFX_BEGIN
 
-namespace
-{
-    Mat4 g_tempMatProj;
-    Mat4 g_tempMatView;
-    Mat4 g_tempMatViewProj;
-    Mat4 g_tempMatInvViewProj;
-    Vec3 g_tempVec3;
-}
-
 Camera::Camera()
 {}
 
@@ -48,6 +39,16 @@ void Camera::setFrameBuffer(FrameBuffer* framebuffer)
 {
     _framebuffer = framebuffer;
     GFX_SAFE_RETAIN(_framebuffer);
+}
+
+void Camera::setWorldMatrix(const Mat4& worldMatrix)
+{
+    Quaternion rotation;
+    worldMatrix.decompose(nullptr, &rotation, &_worldPos);
+
+    Mat4::createTranslation(_worldPos, &_worldRTInv);
+    _worldRTInv.rotate(rotation);
+    _worldRTInv.inverse();
 }
 
 void Camera::extractView(View& out, int width, int height) const
@@ -68,7 +69,8 @@ void Camera::extractView(View& out, int width, int height) const
     out.stages = _stages;
     out.frameBuffer = _framebuffer;
     
-    // TODO: view matrix
+    // view matrix
+    out.matView = _worldRTInv;
     
     // projecton matrix
     float aspect = (float)width / height;
@@ -94,23 +96,23 @@ Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int hei
     float cw = _rect.w * width;
     float ch = _rect.h * height;
     
-    // TODO: view matrix
-    
     // projection matrix
+    Mat4 matProj;
     if (ProjectionType::PERSPECTIVE == _projection)
-        Mat4::createPerspective(_fov, aspect, _near, _far, &g_tempMatProj);
+        Mat4::createPerspective(_fov, aspect, _near, _far, &matProj);
     else
     {
         float x = _orthoHeight * aspect;
         float y = _orthoHeight;
-        Mat4::createOrthographic(-x, x, -y, y, &g_tempMatProj);
+        Mat4::createOrthographic(-x, x, -y, y, &matProj);
     }
     
     // view projection
-    Mat4::multiply(g_tempMatProj, g_tempMatView, &g_tempMatViewProj);
+    Mat4 matViewProj;
+    Mat4::multiply(matProj, _worldRTInv, &matViewProj);
     
     // invert view projection
-    g_tempMatInvViewProj = g_tempMatViewProj.getInversed();
+    Mat4 matInvViewProj = matViewProj.getInversed();
     
     if (ProjectionType::PERSPECTIVE == _projection)
     {
@@ -120,11 +122,11 @@ Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int hei
                 1.0f);
         
         // Transform to world position.
-        g_tempMatInvViewProj.transformPoint(&out);
+        matInvViewProj.transformPoint(&out);
         
-        // TODO: get world position of the camera
-        g_tempVec3.lerp(out, screenPos.z / _far);
-        out = g_tempVec3;
+        Vec3 tmpVec3 = _worldPos;
+        tmpVec3.lerp(out, screenPos.z / _far);
+        out = tmpVec3;
     }
     else
     {
@@ -134,7 +136,7 @@ Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int hei
                 (_far - screenPos.z) / range * 2.0f - 1.0f);
         
         // Transform to world position.
-        g_tempMatInvViewProj.transformPoint(&out);
+        matInvViewProj.transformPoint(&out);
     }
     
     return out;
@@ -149,27 +151,27 @@ Vec3& Camera::worldToScreen(Vec3& out, const Vec3& worldPos, int width, int heig
     float ch = _rect.h * height;
     
     // projection matrix
+    Mat4 matProj;
     if (ProjectionType::PERSPECTIVE == _projection)
-        Mat4::createPerspective(_fov, aspect, _near, _far, &g_tempMatProj);
+        Mat4::createPerspective(_fov, aspect, _near, _far, &matProj);
     else
     {
         float x = _orthoHeight * aspect;
         float y = _orthoHeight;
-        Mat4::createOrthographic(-x, x, -y, y, &g_tempMatProj);
+        Mat4::createOrthographic(-x, x, -y, y, &matProj);
     }
     
-    // TODO: view matrix
-    
     // view projection
-    Mat4::multiply(g_tempMatProj, g_tempMatView, &g_tempMatViewProj);
+    Mat4 matViewProj;
+    Mat4::multiply(matProj, _worldRTInv, &matViewProj);
     
     // caculate w
-    float w = worldPos.x * g_tempMatViewProj.m[3] +
-              worldPos.y * g_tempMatViewProj.m[7] +
-              worldPos.z * g_tempMatViewProj.m[11] +
-              g_tempMatViewProj.m[15];
+    float w = worldPos.x * matViewProj.m[3] +
+              worldPos.y * matViewProj.m[7] +
+              worldPos.z * matViewProj.m[11] +
+              matViewProj.m[15];
     
-    g_tempMatViewProj.transformPoint(worldPos, &out);
+    matViewProj.transformPoint(worldPos, &out);
     out.x = cx + (out.x / w + 1) * 0.5f * cw;
     out.y = cy + (out.y / w + 1) * 0.5f * ch;
     
