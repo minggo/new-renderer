@@ -28,6 +28,16 @@
 
 GFX_BEGIN
 
+Model::Model()
+{
+    GFX_LOGD("Model construction %p", this);
+}
+
+Model::~Model()
+{
+    GFX_LOGD("Model destruction %p", this);
+}
+
 void Model::addInputAssembler(InputAssembler* ia)
 {
     if (_inputAssemblers.contains(ia))

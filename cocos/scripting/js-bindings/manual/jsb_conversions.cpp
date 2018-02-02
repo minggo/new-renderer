@@ -296,41 +296,77 @@ bool seval_to_Vec4(const se::Value& v, cocos2d::Vec4* pt)
 bool seval_to_Mat4(const se::Value& v, cocos2d::Mat4* mat)
 {
     assert(v.isObject() && mat != nullptr);
-
-    SE_PRECONDITION3(v.toObject()->isArray(), false, *mat = cocos2d::Mat4::IDENTITY;);
-
     se::Object* obj = v.toObject();
 
-    bool ok = false;
-    uint32_t len = 0;
-    ok = obj->getArrayLength(&len);
-    SE_PRECONDITION3(ok, false, *mat = cocos2d::Mat4::IDENTITY);
-
-    if (len != 16)
+    if (obj->isArray())
     {
-        SE_REPORT_ERROR("Array length error: %d, was expecting 16", len);
-        *mat = cocos2d::Mat4::IDENTITY;
-        return false;
-    }
-
-    se::Value tmp;
-    for (uint32_t i = 0; i < len; ++i)
-    {
-        ok = obj->getArrayElement(i, &tmp);
+        bool ok = false;
+        uint32_t len = 0;
+        ok = obj->getArrayLength(&len);
         SE_PRECONDITION3(ok, false, *mat = cocos2d::Mat4::IDENTITY);
 
-        if (tmp.isNumber())
+        if (len != 16)
         {
-            mat->m[i] = tmp.toFloat();
-        }
-        else
-        {
-            SE_REPORT_ERROR("%u, not supported type in matrix", i);
+            SE_REPORT_ERROR("Array length error: %d, was expecting 16", len);
             *mat = cocos2d::Mat4::IDENTITY;
             return false;
         }
 
-        tmp.setUndefined();
+        se::Value tmp;
+        for (uint32_t i = 0; i < len; ++i)
+        {
+            ok = obj->getArrayElement(i, &tmp);
+            SE_PRECONDITION3(ok, false, *mat = cocos2d::Mat4::IDENTITY);
+
+            if (tmp.isNumber())
+            {
+                mat->m[i] = tmp.toFloat();
+            }
+            else
+            {
+                SE_REPORT_ERROR("%u, not supported type in matrix", i);
+                *mat = cocos2d::Mat4::IDENTITY;
+                return false;
+            }
+
+            tmp.setUndefined();
+        }
+    }
+    else
+    {
+        se::Value tmp;
+        obj->getProperty("m00", &tmp);
+        mat->m[0] = tmp.toFloat();
+        obj->getProperty("m01", &tmp);
+        mat->m[1] = tmp.toFloat();
+        obj->getProperty("m02", &tmp);
+        mat->m[2] = tmp.toFloat();
+        obj->getProperty("m03", &tmp);
+        mat->m[3] = tmp.toFloat();
+        obj->getProperty("m04", &tmp);
+        mat->m[4] = tmp.toFloat();
+        obj->getProperty("m05", &tmp);
+        mat->m[5] = tmp.toFloat();
+        obj->getProperty("m06", &tmp);
+        mat->m[6] = tmp.toFloat();
+        obj->getProperty("m07", &tmp);
+        mat->m[7] = tmp.toFloat();
+        obj->getProperty("m08", &tmp);
+        mat->m[8] = tmp.toFloat();
+        obj->getProperty("m09", &tmp);
+        mat->m[9] = tmp.toFloat();
+        obj->getProperty("m10", &tmp);
+        mat->m[10] = tmp.toFloat();
+        obj->getProperty("m11", &tmp);
+        mat->m[11] = tmp.toFloat();
+        obj->getProperty("m12", &tmp);
+        mat->m[12] = tmp.toFloat();
+        obj->getProperty("m13", &tmp);
+        mat->m[13] = tmp.toFloat();
+        obj->getProperty("m14", &tmp);
+        mat->m[14] = tmp.toFloat();
+        obj->getProperty("m15", &tmp);
+        mat->m[15] = tmp.toFloat();
     }
 
     return true;

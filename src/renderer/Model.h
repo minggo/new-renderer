@@ -49,7 +49,8 @@ struct DrawItem
 class Model : public Ref
 {
 public:
-    Model() {}
+    Model();
+    ~Model();
     
     inline uint32_t getInputAssemblerCount() const { return (uint32_t)_inputAssemblers.size(); }
     
@@ -67,7 +68,9 @@ public:
     void addEffect(Effect* effect);
     void clearEffects();
     void extractDrawItem(DrawItem& out, uint32_t index) const;
-    void setNode(INode* node) { _node = node; }
+
+    inline INode* getNode() const { return _node; }
+    inline void setNode(INode* node) { _node = node; }
 
 private:
     // Record world matrix instead of Node.

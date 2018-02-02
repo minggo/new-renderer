@@ -86,7 +86,8 @@ public:
     Vec3& screenToWorld(Vec3& out, const Vec3& screenPos, int width, int height) const;
     Vec3& worldToScreen(Vec3& out, const Vec3& worldPos, int width, int height) const;
 
-    void setNode(INode* node) { _node = node; }
+    inline void setNode(INode* node) { _node = node; }
+    inline INode* getNode() const { return _node; }
     
 private:
     INode* _node = nullptr;

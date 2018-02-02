@@ -33,6 +33,7 @@ GFX_BEGIN
 class INode
 {
 public:
+    virtual ~INode() {}
     virtual Mat4 getWorldMatrix() const = 0;
     virtual Mat4 getWorldRT() const = 0;
     virtual Vec3 getWorldPos() const = 0;
