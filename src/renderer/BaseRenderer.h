@@ -50,6 +50,7 @@ public:
     struct StageItem
     {
         Model* model = nullptr;
+        INode* node = nullptr;
         InputAssembler *ia = nullptr;
         Effect* effect = nullptr;
         ValueMap* defines = nullptr;

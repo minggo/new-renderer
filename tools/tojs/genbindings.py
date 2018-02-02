@@ -145,7 +145,7 @@ def main():
         output_dir = '%s/cocos/scripting/js-bindings/auto' % project_root
 
         cmd_args = {
-                    'gfx.ini': ('gfx', 'jsb_gfx_auto'),
+                    # 'gfx.ini': ('gfx', 'jsb_gfx_auto'),
                     'renderer.ini': ('renderer', 'jsb_renderer_auto'),
                     }
         target = 'spidermonkey'

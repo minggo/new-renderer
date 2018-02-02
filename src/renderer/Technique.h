@@ -111,6 +111,8 @@ public:
               const std::vector<Parameter>& parameters,
               const Vector<Pass*>& passes,
               int layer = 0);
+
+    virtual ~Technique();
     
     void setStages(const std::vector<std::string>& stages);
     

@@ -487,6 +487,16 @@ float
 },
 
 /**
+ * @method setWorldMatrix
+ * @param {mat4_object} arg0
+ */
+setWorldMatrix : function (
+mat4 
+)
+{
+},
+
+/**
  * @method getNear
  * @return {float}
  */

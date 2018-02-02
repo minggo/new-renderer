@@ -24,6 +24,7 @@
 
 #include "Camera.h"
 #include "gfx/CCFrameBuffer.h"
+#include "INode.h"
 
 GFX_BEGIN
 
@@ -71,6 +72,8 @@ void Camera::extractView(View& out, int width, int height) const
     out.frameBuffer = _framebuffer;
     
     // view matrix
+    //TODO: 
+    const_cast<Camera*>(this)->_worldRTInv.set(_node->getWorldRT());
     out.matView = _worldRTInv;
     
     // projecton matrix
@@ -108,6 +111,9 @@ Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int hei
         Mat4::createOrthographic(-x, x, -y, y, &matProj);
     }
     
+    const_cast<Camera*>(this)->_worldRTInv = _node->getWorldRT();
+    const_cast<Camera*>(this)->_worldRTInv.inverse();
+    
     // view projection
     Mat4 matViewProj;
     Mat4::multiply(matProj, _worldRTInv, &matViewProj);
@@ -124,10 +130,9 @@ Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int hei
         
         // Transform to world position.
         matInvViewProj.transformPoint(&out);
-        
+        const_cast<Camera*>(this)->_worldPos.set(_node->getWorldPos());
         Vec3 tmpVec3 = _worldPos;
-        tmpVec3.lerp(out, screenPos.z / _far);
-        out = tmpVec3;
+        out = tmpVec3.lerp(out, screenPos.z / _far);
     }
     else
     {
@@ -162,6 +167,8 @@ Vec3& Camera::worldToScreen(Vec3& out, const Vec3& worldPos, int width, int heig
         Mat4::createOrthographic(-x, x, -y, y, &matProj);
     }
     
+    const_cast<Camera*>(this)->_worldRTInv = _node->getWorldRT();
+    const_cast<Camera*>(this)->_worldRTInv.inverse();
     // view projection
     Mat4 matViewProj;
     Mat4::multiply(matProj, _worldRTInv, &matViewProj);

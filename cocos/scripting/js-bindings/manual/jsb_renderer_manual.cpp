@@ -260,10 +260,42 @@ static bool js_renderer_addStage(se::State& s)
         Config::addStage(stageName);
         return true;
     }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
 SE_BIND_FUNC(js_renderer_addStage)
+
+static bool js_renderer_Camera_setNode(se::State& s)
+{
+    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setNode : Invalid Native Object");
+    auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Camera_setNode)
+
+static bool js_renderer_Model_setNode(se::State& s)
+{
+    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Model_setNode : Invalid Native Object");
+    auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Model_setNode)
 
 bool jsb_register_renderer_manual(se::Object* global)
 {
@@ -288,6 +320,12 @@ bool jsb_register_renderer_manual(se::Object* global)
     se::Value rendererVal;
     global->getProperty("renderer", &rendererVal);
     rendererVal.toObject()->defineFunction("addStage", _SE(js_renderer_addStage));
+
+    // Camera
+    __jsb_cocos2d_gfx_Camera_proto->defineFunction("setNode", _SE(js_renderer_Camera_setNode));
+
+    // Model
+    __jsb_cocos2d_gfx_Model_proto->defineFunction("setNode", _SE(js_renderer_Model_setNode));
 
     return true;
 }

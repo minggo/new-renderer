@@ -35,9 +35,11 @@ GFX_BEGIN
 class Effect;
 class InputAssembler;
 class Model;
+class INode;
 
 struct DrawItem
 {
+    INode* node = nullptr;
     Model* model = nullptr;
     InputAssembler* ia = nullptr;
     Effect* effect = nullptr;
@@ -65,9 +67,11 @@ public:
     void addEffect(Effect* effect);
     void clearEffects();
     void extractDrawItem(DrawItem& out, uint32_t index) const;
+    void setNode(INode* node) { _node = node; }
 
 private:
     // Record world matrix instead of Node.
+    INode* _node = nullptr;
     Mat4 _worldMatrix;
     Vector<Effect*> _effects;
     Vector<InputAssembler*> _inputAssemblers;

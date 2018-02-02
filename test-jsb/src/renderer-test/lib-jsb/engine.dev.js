@@ -10287,7 +10287,7 @@ let renderEngine = {
 
   // render scene
   Scene,
-  Camera: render.Camera,
+  Camera: renderer.Camera,
   Model,
   RenderData,
   InputAssembler,

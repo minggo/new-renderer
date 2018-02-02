@@ -336,6 +336,12 @@ Technique::Technique(const std::vector<std::string>& stages,
 , _passes(passes)
 , _layer(layer)
 {
+    GFX_LOGD("Technique construction: %p", this);
+}
+
+Technique::~Technique()
+{
+    GFX_LOGD("Technique destruction: %p", this);
 }
 
 void Technique::setStages(const std::vector<std::string>& stages)

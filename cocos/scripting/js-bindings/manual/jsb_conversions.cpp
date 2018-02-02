@@ -2818,11 +2818,50 @@ bool TechniqueParameter_to_seval(const cocos2d::gfx::Technique::Parameter& v, se
 {
     assert(ret != nullptr);
     se::HandleObject obj(se::Object::createPlainObject());
-    obj->setProperty("name", se::Value(v.name));
-    obj->setProperty("type", se::Value((uint8_t)v.type));
-    obj->setProperty("size", se::Value(v.size));
-    //    obj->setProperty("val", const se::Value &value);
+    obj->setProperty("name", se::Value(v.getName()));
+    obj->setProperty("type", se::Value((uint8_t)v.getType()));
+    obj->setProperty("size", se::Value(v.getCount()));
 
+    auto type = v.getType();
+    if (type == cocos2d::gfx::Technique::Parameter::Type::TEXTURE_2D || type == cocos2d::gfx::Technique::Parameter::Type::TEXTURE_CUBE)
+    {
+        auto texArray = v.getTextureArray();
+        auto count = v.getCount();
+        if (count > 1)
+        {
+            se::HandleObject arr(se::Object::createArrayObject(count));
+            for (uint8_t i = 0; i < count; ++i)
+            {
+                se::Value val;
+                native_ptr_to_seval<cocos2d::gfx::Texture>(texArray[0], &val);
+                arr->setArrayElement(i, val);
+            }
+            obj->setProperty("val", se::Value(arr));
+        }
+        else
+        {
+            assert(texArray.size() == 1);
+            se::Value val;
+            native_ptr_to_seval<cocos2d::gfx::Texture>(texArray[0], &val);
+            obj->setProperty("val", val);
+        }
+    }
+    else
+    {
+        void* data = v.getValue();
+        auto bytes = v.getBytes();
+
+        if (type == cocos2d::gfx::Technique::Parameter::Type::INT
+            || type == cocos2d::gfx::Technique::Parameter::Type::INT2
+            || type == cocos2d::gfx::Technique::Parameter::Type::INT3
+            || type == cocos2d::gfx::Technique::Parameter::Type::INT4)
+        {
+            se::HandleObject typedArr(se::Object::createTypedArray(se::Object::TypedArrayType::INT32, data, bytes));
+            obj->setProperty("val", se::Value(typedArr));
+        }
+    }
+
+    ret->setObject(obj);
     return true;
 }
 

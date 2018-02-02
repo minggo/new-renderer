@@ -36,6 +36,7 @@
 GFX_BEGIN
 
 class FrameBuffer;
+class INode;
 
 class Camera : public Ref
 {
@@ -84,8 +85,11 @@ public:
     
     Vec3& screenToWorld(Vec3& out, const Vec3& screenPos, int width, int height) const;
     Vec3& worldToScreen(Vec3& out, const Vec3& worldPos, int width, int height) const;
+
+    void setNode(INode* node) { _node = node; }
     
 private:
+    INode* _node = nullptr;
     ProjectionType _projection = ProjectionType::PERSPECTIVE;
     
     // clear options

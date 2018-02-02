@@ -34,6 +34,12 @@ Effect::Effect(const Vector<Technique*>& techniques,
 , _properties(properties)
 , _defineTemplates(defineTemplates)
 {
+    GFX_LOGD("Effect construction: %p", this);
+}
+
+Effect::~Effect()
+{
+    GFX_LOGD("Effect destruction: %p", this);
 }
 
 void Effect::clear()
@@ -89,12 +95,13 @@ ValueMap* Effect::extractDefines(ValueMap& out) const
     return &out;
 }
 
-const Effect::Property* Effect::getProperty(const std::string& name) const
+const Effect::Property& Effect::getProperty(const std::string& name) const
 {
+    static Property EMPTY_PROPERTY;
     if (_properties.end() == _properties.find(name))
-        return nullptr;
+        return EMPTY_PROPERTY;
     else
-        return &(_properties.at(name));
+        return _properties.at(name);
 }
 
 void Effect::setProperty(const std::string& name, const Property& property)

@@ -35,6 +35,7 @@ class Pass : public Ref
 {
 public:
     Pass(const std::string& programName);
+    virtual ~Pass();
     
     void setCullMode(CullMode cullMode);
     void setBlend(BlendOp blendEq = BlendOp::ADD,

@@ -29,6 +29,12 @@ GFX_BEGIN
 Pass::Pass(const std::string& programName)
 : _programName(programName)
 {
+    GFX_LOGD("Pass constructor: %p", this);
+}
+
+Pass::~Pass()
+{
+    GFX_LOGD("Pass destructor: %p", this);
 }
 
 void Pass::setCullMode(CullMode cullMode)

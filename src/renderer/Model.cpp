@@ -64,6 +64,7 @@ void Model::extractDrawItem(DrawItem& out, uint32_t index) const
     if (_dynamicIA)
     {
         out.model = const_cast<Model*>(this);
+        out.node = _node;
         out.ia = nullptr;
         out.effect = _effects.at(0);
         out.defines = out.effect->extractDefines(const_cast<ValueMap&>(_defines[0]));
@@ -74,6 +75,7 @@ void Model::extractDrawItem(DrawItem& out, uint32_t index) const
     if (index >= _inputAssemblers.size())
     {
         out.model = nullptr;
+        out.node = nullptr;
         out.ia = nullptr;
         out.effect = nullptr;
         out.defines = nullptr;
@@ -82,6 +84,7 @@ void Model::extractDrawItem(DrawItem& out, uint32_t index) const
     }
     
     out.model = const_cast<Model*>(this);
+    out.node = _node;
     out.ia = _inputAssemblers.at(index);
     
     auto effectsSize = _effects.size();
@@ -89,7 +92,7 @@ void Model::extractDrawItem(DrawItem& out, uint32_t index) const
         index = (uint32_t)(effectsSize - 1);
     
     out.effect = const_cast<Effect*>(_effects.at(index));
-    out.defines = const_cast<ValueMap*>(&_defines[index]);
+    out.defines = out.effect->extractDefines(const_cast<ValueMap&>(_defines[index]));
 }
 
 GFX_END
