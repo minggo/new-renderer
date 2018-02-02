@@ -313,9 +313,10 @@ void Technique::Parameter::copyValue(const Parameter& rh)
     else
     {
         if (_count > 0)
+        {
             _value = malloc(_bytes);
-
-        memcpy(_value, rh._value, _bytes);
+            memcpy(_value, rh._value, _bytes);
+        }
     }
 }
 
