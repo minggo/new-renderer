@@ -504,12 +504,12 @@ GFX_BEGIN
 
 Texture2D::Texture2D()
 {
-
+    GFX_LOGD("Construct Texture2D: %p", this);
 }
 
 Texture2D::~Texture2D()
 {
-
+    GFX_LOGD("Destruct Texture2D: %p", this);
 }
 
 bool Texture2D::init(DeviceGraphics* device, const Options& options)

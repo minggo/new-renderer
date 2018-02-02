@@ -191,7 +191,7 @@ void BaseRenderer::draw(const StageItem& item)
             *prop = Effect::Property(param.getName(), param.getType());
             
             if (Effect::Property::Type::TEXTURE_2D == param.getType())
-                prop->setTexture2D(_defaultTexture);
+                prop->setTexture(_defaultTexture);
         }
         
         if (nullptr == prop->getValue())

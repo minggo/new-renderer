@@ -26,7 +26,7 @@
 #include "Config.h"
 #include "Pass.h"
 #include "gfx/CCTexture.h"
-#include "gfx/CCTexture2D.h"
+#include "gfx/CCTexture.h"
 
 GFX_BEGIN
 
@@ -178,37 +178,38 @@ Technique::Parameter::Parameter(const std::string& name, Type type, float* value
     }
 }
 
-Technique::Parameter::Parameter(const std::string& name, Texture2D* value)
+Technique::Parameter::Parameter(const std::string& name, Type type, Texture* value)
 : _name(name)
 , _count(1)
-, _type(Type::TEXTURE_2D)
+, _type(type)
 {
+    assert(_type == Type::TEXTURE_2D || _type == Type::TEXTURE_CUBE);
     if (value)
     {
-        auto tempVec = new Vector<Texture*>();
-        tempVec->pushBack(value);
-        _value = tempVec;
+        _value = value;
+        value->retain();
     }
 }
 
-Technique::Parameter::Parameter(const std::string& name, const std::vector<Texture2D*>& textures)
+Technique::Parameter::Parameter(const std::string& name, Type type, const std::vector<Texture*>& textures)
 : _name(name)
 , _count(textures.size())
-, _type(Type::TEXTURE_2D)
+, _type(type)
 {
+    assert(_type == Type::TEXTURE_2D || _type == Type::TEXTURE_CUBE);
     if (textures.empty())
         return;
     
     size_t size = textures.size();
     _value = malloc(sizeof(void*) * size);
-    Texture2D* texture = (Texture2D*)_value;
+    void** valArr = (void**)_value;
     for (size_t i = 0; i < size; ++i)
     {
-        texture = textures[i];
-        texture++;
+        Texture* tex = textures[i];
+        valArr[i] = tex;
+        if (tex)
+            tex->retain();
     }
-    
-    _bytes *= size;
 }
 
 Technique::Parameter::Parameter(Parameter&& rh)
@@ -240,6 +241,9 @@ Technique::Parameter::~Parameter()
 
 Technique::Parameter& Technique::Parameter::operator=(const Parameter& rh)
 {
+    if (this == &rh)
+        return *this;
+
     freeValue();
     copyValue(rh);
     
@@ -253,17 +257,23 @@ std::vector<Texture*> Technique::Parameter::getTextureArray() const
         Type::TEXTURE_CUBE != _type)
         return ret;
     
-    Texture* texture = (Texture*)_value;
+    Texture** texture = (Texture**)_value;
     for (int i = 0; i < _count; ++i)
     {
-        ret.push_back(texture);
-        ++texture;
+        ret.push_back(texture[i]);
     }
     
     return ret;
 }
 
-void Technique::Parameter::setTexture2D(cocos2d::gfx::Texture2D *texture)
+Texture* Technique::Parameter::getTexture() const
+{
+    assert(_type == Technique::Parameter::Type::TEXTURE_2D || _type == Technique::Parameter::Type::TEXTURE_CUBE);
+    assert(_count == 1);
+    return static_cast<Texture*>(_value);
+}
+
+void Technique::Parameter::setTexture(cocos2d::gfx::Texture *texture)
 {
     freeValue();
     
@@ -281,20 +291,31 @@ void Technique::Parameter::copyValue(const Parameter& rh)
     _type = rh._type;
     _count = rh._count;
     _bytes = rh._bytes;
-    
-    if (!_value && !rh._value)
-        memcpy(_value, rh._value, _bytes);
-    
-    _value = malloc(_bytes);
+
     if (Type::TEXTURE_2D == _type ||
         Type::TEXTURE_CUBE == _type)
     {
-        Texture* texture = static_cast<Texture*>(_value);
-        for (uint8_t i = 0; i < _count; ++i)
+        if (_count == 1)
         {
-            GFX_SAFE_RETAIN(texture);
-            ++texture;
+            _value = rh._value;
+            GFX_SAFE_RETAIN((Texture*)_value);
         }
+        else
+        {
+            if (_count > 0)
+                _value = malloc(_count * sizeof(void*));
+            for (uint8_t i = 0; i < _count; ++i)
+            {
+                GFX_SAFE_RETAIN((Texture*)_value);
+            }
+        }
+    }
+    else
+    {
+        if (_count > 0)
+            _value = malloc(_bytes);
+
+        memcpy(_value, rh._value, _bytes);
     }
 }
 
@@ -305,11 +326,20 @@ void Technique::Parameter::freeValue()
         if (Type::TEXTURE_2D == _type ||
             Type::TEXTURE_CUBE == _type)
         {
-            Texture* texture = static_cast<Texture*>(_value);
-            for (int i = 0; i < _count; ++i)
+            if (_count == 1)
             {
-                GFX_SAFE_RELEASE(texture);
-                ++texture;
+                CC_SAFE_RELEASE((Texture*)_value);
+                _value = nullptr;
+                return;
+            }
+            else
+            {
+                Texture** textures = static_cast<Texture**>(_value);
+                for (int i = 0; i < _count; ++i)
+                {
+                    Texture* texture = textures[i];
+                    GFX_SAFE_RELEASE(texture);
+                }
             }
         }
         

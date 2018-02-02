@@ -34,7 +34,6 @@
 GFX_BEGIN
 
 class Pass;
-class Texture2D;
 class Texture;
 
 class Technique : public Ref
@@ -73,8 +72,8 @@ public:
         Parameter();
         Parameter(const std::string& name, Type type, int* value, uint8_t count = 1);
         Parameter(const std::string& name, Type type, float* value, uint8_t count = 1);
-        Parameter(const std::string& name, Texture2D* texture);
-        Parameter(const std::string& name, const std::vector<Texture2D*>& textures);
+        Parameter(const std::string& name, Type type, Texture* texture);
+        Parameter(const std::string& name, Type type, const std::vector<Texture*>& textures);
         Parameter(const std::string& name, Type type);
         Parameter(const Parameter& rh);
         Parameter(Parameter&& rh);
@@ -89,7 +88,8 @@ public:
         inline uint16_t getBytes() const { return _bytes; };
         
         std::vector<Texture*> getTextureArray() const;
-        void setTexture2D(Texture2D* texture);
+        void setTexture(Texture* texture);
+        Texture* getTexture() const;
         
     private:
         static uint8_t elementsOfType[(int)Type::UNKNOWN + 1];
