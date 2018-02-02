@@ -46,6 +46,7 @@ Camera::~Camera()
 
 void Camera::setFrameBuffer(FrameBuffer* framebuffer)
 {
+    GFX_SAFE_RELEASE(_framebuffer);
     _framebuffer = framebuffer;
     GFX_SAFE_RETAIN(_framebuffer);
 }
