@@ -187,6 +187,7 @@ typedef std::vector<Define> DefineVector;
 
 struct Rect
 {
+    Rect();
     Rect(float x, float y, float w, float h);
     
     void set(float x, float y, float w, float h);
@@ -195,6 +196,8 @@ struct Rect
     float y = 0;
     float w = 0;
     float h = 0;
+
+    static Rect ZERO;
 };
 
 GFX_END

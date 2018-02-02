@@ -73,49 +73,49 @@ AffineTransform AffineTransformMakeIdentity()
 extern const AffineTransform AffineTransformIdentity = AffineTransformMakeIdentity();
 const AffineTransform AffineTransform::IDENTITY = AffineTransformMakeIdentity();
 
-Rect RectApplyAffineTransform(const Rect& rect, const AffineTransform& anAffineTransform)
-{
-    float top    = rect.getMinY();
-    float left   = rect.getMinX();
-    float right  = rect.getMaxX();
-    float bottom = rect.getMaxY();
-    
-    Vec2 topLeft = PointApplyAffineTransform(Vec2(left, top), anAffineTransform);
-    Vec2 topRight = PointApplyAffineTransform(Vec2(right, top), anAffineTransform);
-    Vec2 bottomLeft = PointApplyAffineTransform(Vec2(left, bottom), anAffineTransform);
-    Vec2 bottomRight = PointApplyAffineTransform(Vec2(right, bottom), anAffineTransform);
-
-    float minX = min(min(topLeft.x, topRight.x), min(bottomLeft.x, bottomRight.x));
-    float maxX = max(max(topLeft.x, topRight.x), max(bottomLeft.x, bottomRight.x));
-    float minY = min(min(topLeft.y, topRight.y), min(bottomLeft.y, bottomRight.y));
-    float maxY = max(max(topLeft.y, topRight.y), max(bottomLeft.y, bottomRight.y));
-        
-    return Rect(minX, minY, (maxX - minX), (maxY - minY));
-}
-
-Rect RectApplyTransform(const Rect& rect, const Mat4& transform)
-{
-    float top    = rect.getMinY();
-    float left   = rect.getMinX();
-    float right  = rect.getMaxX();
-    float bottom = rect.getMaxY();
-    
-    Vec3 topLeft(left, top, 0);
-    Vec3 topRight(right, top, 0);
-    Vec3 bottomLeft(left, bottom, 0);
-    Vec3 bottomRight(right, bottom, 0);
-    transform.transformPoint(&topLeft);
-    transform.transformPoint(&topRight);
-    transform.transformPoint(&bottomLeft);
-    transform.transformPoint(&bottomRight);
-
-    float minX = min(min(topLeft.x, topRight.x), min(bottomLeft.x, bottomRight.x));
-    float maxX = max(max(topLeft.x, topRight.x), max(bottomLeft.x, bottomRight.x));
-    float minY = min(min(topLeft.y, topRight.y), min(bottomLeft.y, bottomRight.y));
-    float maxY = max(max(topLeft.y, topRight.y), max(bottomLeft.y, bottomRight.y));
-
-    return Rect(minX, minY, (maxX - minX), (maxY - minY));
-}
+//Rect RectApplyAffineTransform(const Rect& rect, const AffineTransform& anAffineTransform)
+//{
+//    float top    = rect.getMinY();
+//    float left   = rect.getMinX();
+//    float right  = rect.getMaxX();
+//    float bottom = rect.getMaxY();
+//    
+//    Vec2 topLeft = PointApplyAffineTransform(Vec2(left, top), anAffineTransform);
+//    Vec2 topRight = PointApplyAffineTransform(Vec2(right, top), anAffineTransform);
+//    Vec2 bottomLeft = PointApplyAffineTransform(Vec2(left, bottom), anAffineTransform);
+//    Vec2 bottomRight = PointApplyAffineTransform(Vec2(right, bottom), anAffineTransform);
+//
+//    float minX = min(min(topLeft.x, topRight.x), min(bottomLeft.x, bottomRight.x));
+//    float maxX = max(max(topLeft.x, topRight.x), max(bottomLeft.x, bottomRight.x));
+//    float minY = min(min(topLeft.y, topRight.y), min(bottomLeft.y, bottomRight.y));
+//    float maxY = max(max(topLeft.y, topRight.y), max(bottomLeft.y, bottomRight.y));
+//        
+//    return Rect(minX, minY, (maxX - minX), (maxY - minY));
+//}
+//
+//Rect RectApplyTransform(const Rect& rect, const Mat4& transform)
+//{
+//    float top    = rect.getMinY();
+//    float left   = rect.getMinX();
+//    float right  = rect.getMaxX();
+//    float bottom = rect.getMaxY();
+//    
+//    Vec3 topLeft(left, top, 0);
+//    Vec3 topRight(right, top, 0);
+//    Vec3 bottomLeft(left, bottom, 0);
+//    Vec3 bottomRight(right, bottom, 0);
+//    transform.transformPoint(&topLeft);
+//    transform.transformPoint(&topRight);
+//    transform.transformPoint(&bottomLeft);
+//    transform.transformPoint(&bottomRight);
+//
+//    float minX = min(min(topLeft.x, topRight.x), min(bottomLeft.x, bottomRight.x));
+//    float maxX = max(max(topLeft.x, topRight.x), max(bottomLeft.x, bottomRight.x));
+//    float minY = min(min(topLeft.y, topRight.y), min(bottomLeft.y, bottomRight.y));
+//    float maxY = max(max(topLeft.y, topRight.y), max(bottomLeft.y, bottomRight.y));
+//
+//    return Rect(minX, minY, (maxX - minX), (maxY - minY));
+//}
 
 
 AffineTransform AffineTransformTranslate(const AffineTransform& t, float tx, float ty)

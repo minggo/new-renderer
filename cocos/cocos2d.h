@@ -42,6 +42,7 @@ THE SOFTWARE.
 #include "base/CCData.h"
 #include "base/CCRef.h"
 #include "base/CCValue.h"
+#include "base/CCVector.h"
 #include "base/ZipUtils.h"
 // #include "base/base64.h"
 #include "base/ccConfig.h"

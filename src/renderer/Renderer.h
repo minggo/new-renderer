@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "BaseRenderer.h"
+#include "ForwardRenderer.h"
 #include "Camera.h"
 #include "Config.h"
 #include "Effect.h"
@@ -36,5 +36,5 @@
 #include "Renderer.h"
 #include "Scene.h"
 #include "Technique.h"
-#include "Utils.h"
+#include "RendererUtils.h"
 #include "View.h"

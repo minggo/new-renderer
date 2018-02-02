@@ -35,19 +35,27 @@ class IndexBuffer;
 class InputAssembler : public Ref
 {
 public:
-    InputAssembler(VertexBuffer* vb,
-                   IndexBuffer* ib,
-                   PrimitiveType pt = PrimitiveType::TRIANGLES);
+    InputAssembler();
     ~InputAssembler();
+
+    bool init(VertexBuffer* vb,
+              IndexBuffer* ib,
+              PrimitiveType pt = PrimitiveType::TRIANGLES);
     
     uint32_t getPrimitiveCount() const;
-    
-    inline const VertexBuffer* getVertexBuffer() const { return _vertexBuffer; }
-    inline const IndexBuffer* getIndexBuffer() const { return _indexBuffer; }
+
+    void setVertexBuffer(VertexBuffer* vb);
+    inline VertexBuffer* getVertexBuffer() const { return _vertexBuffer; }
+    void setIndexBuffer(IndexBuffer* ib);
+    inline IndexBuffer* getIndexBuffer() const { return _indexBuffer; }
+
+    inline void setStart(int start) { _start = start; }
     inline int getStart() const { return _start; }
+    inline void setCount(int count) { _count = count; }
     inline int getCount() const { return _count; }
     inline PrimitiveType getPrimitiveType() const { return _primitiveType; }
-    
+    inline void setPrimitiveType(PrimitiveType type) { _primitiveType = type; }
+
 private:
     friend class BaseRenderer;
     

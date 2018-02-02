@@ -56,10 +56,12 @@ public:
         Technique* technique = nullptr;
         int sortKey = -1;
     };
-    typedef std::function<void(const View&, const std::vector<StageItem>&)> StageCallback;
+    typedef std::function<void(const View*, const std::vector<StageItem>&)> StageCallback;
+
+    BaseRenderer();
     
-    BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates);
-    BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture);
+    bool init(DeviceGraphics* device, std::vector<ProgramLib::Template>& programTemplates);
+    bool init(DeviceGraphics* device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture);
     virtual ~BaseRenderer();
     
     void registerStage(const std::string& name, const StageCallback& callback);
@@ -68,15 +70,11 @@ protected:
     void render(const View*, const Scene* scene);
     void draw(const StageItem& item);
     
-private:
-    
     struct StageInfo
     {
         std::vector<StageItem> items;
         std::string stage = "";
     };
-    
-    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(BaseRenderer);
     
     void resetTextureUint();
     int allocTextureUnit();
@@ -90,6 +88,8 @@ private:
     std::unordered_map<std::string, StageCallback> _stage2fn;
     std::vector<DrawItem> _drawItems;
     std::vector<StageInfo> _stageInfos;
+
+    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(BaseRenderer);
 };
 
 GFX_END

@@ -36,21 +36,8 @@
 
 GFX_BEGIN
 
-BaseRenderer::BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates)
-: _device(&device)
-{
-    _device->retain();
-    _programLib = new (std::nothrow) ProgramLib(programTemplates);
-}
-
-BaseRenderer::BaseRenderer(DeviceGraphics& device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture)
-: _device(&device)
-, _defaultTexture(defaultTexture)
-{
-    _device->retain();
-    GFX_SAFE_RETAIN(_defaultTexture);
-    _programLib = new (std::nothrow) ProgramLib(programTemplates);
-}
+BaseRenderer::BaseRenderer()
+{}
 
 BaseRenderer::~BaseRenderer()
 {
@@ -62,6 +49,24 @@ BaseRenderer::~BaseRenderer()
     
     GFX_SAFE_RELEASE(_defaultTexture);
     _defaultTexture = nullptr;
+}
+
+bool BaseRenderer::init(DeviceGraphics* device, std::vector<ProgramLib::Template>& programTemplates)
+{
+    _device = device;
+    _device->retain();
+    _programLib = new (std::nothrow) ProgramLib(programTemplates);
+    return true;
+}
+
+bool BaseRenderer::init(DeviceGraphics* device, std::vector<ProgramLib::Template>& programTemplates, Texture2D* defaultTexture)
+{
+    _device = device;
+    _device->retain();
+    _defaultTexture = defaultTexture;
+    GFX_SAFE_RETAIN(_defaultTexture);
+    _programLib = new (std::nothrow) ProgramLib(programTemplates);
+    return true;
 }
 
 void BaseRenderer::registerStage(const std::string& name, const StageCallback& callback)
@@ -149,7 +154,7 @@ void BaseRenderer::render(const View* view, const Scene* scene)
         if (_stage2fn.end() != _stage2fn.find(stageInfo.stage))
         {
             auto& fn = _stage2fn.at(stageInfo.stage);
-            fn(*view, stageInfo.items);
+            fn(view, stageInfo.items);
         }
     }
 }

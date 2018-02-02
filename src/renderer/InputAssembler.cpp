@@ -28,19 +28,38 @@
 
 GFX_BEGIN
 
-InputAssembler::InputAssembler(VertexBuffer* vb, IndexBuffer* ib, PrimitiveType pt)
-: _vertexBuffer(vb)
-, _indexBuffer(ib)
-, _primitiveType(pt)
+InputAssembler::InputAssembler()
 {
-    GFX_SAFE_RETAIN(_vertexBuffer);
-    GFX_SAFE_RETAIN(_indexBuffer);
 }
 
 InputAssembler::~InputAssembler()
 {
     GFX_SAFE_RELEASE(_vertexBuffer);
     GFX_SAFE_RELEASE(_indexBuffer);
+}
+
+bool InputAssembler::init(VertexBuffer* vb,
+                          IndexBuffer* ib,
+                          PrimitiveType pt/* = PrimitiveType::TRIANGLES*/)
+{
+    setVertexBuffer(vb);
+    setIndexBuffer(ib);
+    _primitiveType = pt;
+    return true;
+}
+
+void InputAssembler::setVertexBuffer(VertexBuffer* vb)
+{
+    GFX_SAFE_RELEASE(_vertexBuffer);
+    _vertexBuffer = vb;
+    GFX_SAFE_RETAIN(_vertexBuffer);
+}
+
+void InputAssembler::setIndexBuffer(IndexBuffer* ib)
+{
+    GFX_SAFE_RELEASE(_indexBuffer);
+    _indexBuffer = ib;
+    GFX_SAFE_RETAIN(_indexBuffer);
 }
 
 uint32_t InputAssembler::getPrimitiveCount() const
