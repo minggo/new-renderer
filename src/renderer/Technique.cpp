@@ -56,16 +56,18 @@ uint8_t Technique::Parameter::getElements(Type type)
     return Parameter::elementsOfType[(int)type];
 }
 
+Technique::Parameter::Parameter()
+{}
 
-Technique::Parameter Technique::Parameter::createDefault(Type type)
+Technique::Parameter::Parameter(const std::string& name, Type type)
+: _name(name)
+, _type(type)
+, _count(1)
 {
-    Parameter ret;
-    ret._type = type;
-    
-    if (Type::TEXTURE_2D == ret._type ||
-        Type::TEXTURE_CUBE == ret._type ||
-        Type::UNKNOWN == ret._type)
-        return ret;
+    if (Type::TEXTURE_2D == _type ||
+        Type::TEXTURE_CUBE == _type ||
+        Type::UNKNOWN == _type)
+        return;
     
     uint8_t elements = Parameter::getElements(type);
     switch (type)
@@ -74,7 +76,7 @@ Technique::Parameter Technique::Parameter::createDefault(Type type)
         case Type::INT2:
         case Type::INT3:
         case Type::INT4:
-            ret._bytes = sizeof(int) * elements;
+            _bytes = sizeof(int) * elements;
             break;
         case Type::FLOAT:
         case Type::FLOAT2:
@@ -85,23 +87,17 @@ Technique::Parameter Technique::Parameter::createDefault(Type type)
         case Type::MAT2:
         case Type::MAT3:
         case Type::MAT4:
-            ret._bytes = sizeof(float) * elements;
+            _bytes = sizeof(float) * elements;
             break;
         default:
             break;
     }
     
-    ret._count = 1;
-    ret._value = malloc(ret._bytes);
-    memset(ret._value, 0, ret._bytes);
-    if (Type::COLOR4 == type)
-        *((float*)(ret._value) + 3) = 1.0f;
-    
-    return ret;
+    _value = malloc(_bytes);
+    memset(_value, 0, _bytes);
+    if (Type::COLOR4 == _type)
+        *((float*)(_value) + 3) = 1.0f;
 }
-
-Technique::Parameter::Parameter()
-{}
 
 Technique::Parameter::Parameter(const std::string& name, Type type, int* value, uint8_t count)
 : _name(name)

@@ -64,7 +64,6 @@ public:
             UNKNOWN
         };
         
-        static Parameter createDefault(Type type);
         // How many elements of each type, for example:
         // INT -> 1
         // INT2 -> 2
@@ -76,6 +75,7 @@ public:
         Parameter(const std::string& name, Type type, float* value, uint8_t count = 1);
         Parameter(const std::string& name, Texture2D* texture);
         Parameter(const std::string& name, const std::vector<Texture2D*>& textures);
+        Parameter(const std::string& name, Type type);
         Parameter(const Parameter& rh);
         Parameter(Parameter&& rh);
         ~Parameter();

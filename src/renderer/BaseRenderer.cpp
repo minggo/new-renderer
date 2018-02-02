@@ -186,10 +186,9 @@ void BaseRenderer::draw(const StageItem& item)
         if (Effect::Property::Type::UNKNOWN == prop->getType())
             *prop = param;
         
-        propType = prop->getType();
-        if (Effect::Property::Type::UNKNOWN == propType)
+        if (nullptr == prop->getValue())
         {
-            *prop = Effect::Property::createDefault(param.getType());
+            *prop = Effect::Property(param.getName(), param.getType());
             
             if (Effect::Property::Type::TEXTURE_2D == param.getType())
                 prop->setTexture2D(_defaultTexture);
@@ -201,6 +200,7 @@ void BaseRenderer::draw(const StageItem& item)
             continue;
         }
         
+        propType = prop->getType();
         if (Effect::Property::Type::TEXTURE_2D == propType ||
             Effect::Property::Type::TEXTURE_CUBE == propType)
         {
