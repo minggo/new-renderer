@@ -33,6 +33,7 @@
 #include "InputAssembler.h"
 #include "Pass.h"
 #include "Camera.h"
+#include "Model.h"
 
 GFX_BEGIN
 
@@ -161,9 +162,7 @@ void BaseRenderer::render(const View* view, const Scene* scene)
 
 void BaseRenderer::draw(const StageItem& item)
 {
-    //TODO: get world matrix of node
-//    const Mat4& worldMatrix =
-    Mat4 worldMatrix;
+    Mat4 worldMatrix = item.model->getWorldMatrix();
     _device->setUniformMat4("model", worldMatrix.m);
     
     //TODO: add Mat3

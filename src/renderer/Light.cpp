@@ -97,6 +97,16 @@ float Light::getShadowMaxDepth() const
         return _shadowMaxDepth;
 }
 
+void Light::setWorldMatrix(const Mat4& worldMatrix)
+{
+    _worldMatrix = worldMatrix;
+    Quaternion rotation;
+    Vec3 translation;
+    _worldMatrix.decompose(nullptr, &rotation, &translation);
+    Mat4::createRotation(rotation, &_worldRT);
+    _worldRT.translate(translation);
+}
+
 void Light::extractView(View& out, const std::vector<std::string>& stages)
 {
     out.shadowLight = const_cast<Light*>(this);
@@ -152,17 +162,10 @@ void Light::update(DeviceGraphics* device)
 
 // private functions
 
-namespace
-{
-    Mat4 g_tempMat4;
-    const Vec3 g_forward(0, 0, -1.f);
-}
-
 void Light::updateLightPositionAndDirection()
 {
-    //TODO: get node world position
-    g_tempMat4.transformVector(g_forward, &_directionUniform);
-    _positionUniform.set(g_tempMat4.m[12], g_tempMat4.m[13], g_tempMat4.m[14]);
+    _worldMatrix.transformVector(Vec3(0, 0, -1.f), &_directionUniform);
+    _positionUniform.set(_worldMatrix.m[12], _worldMatrix.m[13], _worldMatrix.m[14]);
 }
 
 void Light::generateShadowMap(DeviceGraphics* device)
@@ -223,9 +226,10 @@ void Light::destroyShadowMap()
 
 void Light::computeSpotLightViewProjMatrix(Mat4& matView, Mat4& matProj) const
 {
-    //TODO: get world rotation and translation matrix
-    matView.inverse();
+    // view matrix
+    matView = _worldRT.getInversed();
     
+    // proj matrix
     Mat4::createPerspective(_spotAngle * _spotAngleScale,
                             1,
                             _shadowMinDepth,
@@ -235,9 +239,10 @@ void Light::computeSpotLightViewProjMatrix(Mat4& matView, Mat4& matProj) const
 
 void Light::computeDirectionalLightViewProjMatrix(Mat4& matView, Mat4& matProj) const
 {
-    //TODO: get world rotation and translation matrix
-    matView.inverse();
+    // view matrix
+    matView = _worldRT.getInversed();
     
+    // proj matrix
     uint32_t halfSize = _shadowFustumSize / 2;
     Mat4::createOrthographic(-halfSize, halfSize, -halfSize, halfSize, &matProj);
 }
