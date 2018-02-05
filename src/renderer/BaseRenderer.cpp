@@ -314,12 +314,12 @@ void BaseRenderer::draw(const StageItem& item)
                                           pass->_stencilZFailOpBack,
                                           pass->_stencilZPassOpBack,
                                           pass->_stencilWriteMaskBack);
-                
-                // draw pass
-                _device->draw(ia->_start, ia->getPrimitiveCount());
-                
-                resetTextureUint();
             }
+            
+            // draw pass
+            _device->draw(ia->_start, ia->getPrimitiveCount());
+            
+            resetTextureUint();
         }
     }
 }
