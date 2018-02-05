@@ -257,6 +257,8 @@ void BaseRenderer::draw(const StageItem& item)
         // for each pass
         for (const auto& pass : item.technique->getPasses())
         {
+            _device->setVertexBuffer(0, ia->getVertexBuffer());
+            
             // set vertex buffer
             if (ia->_indexBuffer)
                 _device->setIndexBuffer(ia->_indexBuffer);
