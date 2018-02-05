@@ -16,7 +16,14 @@ extern se::Class* __jsb_cocos2d_gfx_IndexBuffer_class;
 
 bool js_register_cocos2d_gfx_IndexBuffer(se::Object* obj);
 bool register_all_gfx(se::Object* obj);
+SE_DECLARE_FUNC(js_gfx_IndexBuffer_setBytes);
+SE_DECLARE_FUNC(js_gfx_IndexBuffer_getUsage);
+SE_DECLARE_FUNC(js_gfx_IndexBuffer_setFormat);
+SE_DECLARE_FUNC(js_gfx_IndexBuffer_setCount);
+SE_DECLARE_FUNC(js_gfx_IndexBuffer_setUsage);
 SE_DECLARE_FUNC(js_gfx_IndexBuffer_getCount);
+SE_DECLARE_FUNC(js_gfx_IndexBuffer_setBytesPerIndex);
+SE_DECLARE_FUNC(js_gfx_IndexBuffer_getBytes);
 SE_DECLARE_FUNC(js_gfx_IndexBuffer_IndexBuffer);
 
 extern se::Object* __jsb_cocos2d_gfx_VertexBuffer_proto;
@@ -24,7 +31,12 @@ extern se::Class* __jsb_cocos2d_gfx_VertexBuffer_class;
 
 bool js_register_cocos2d_gfx_VertexBuffer(se::Object* obj);
 bool register_all_gfx(se::Object* obj);
+SE_DECLARE_FUNC(js_gfx_VertexBuffer_setBytes);
+SE_DECLARE_FUNC(js_gfx_VertexBuffer_getUsage);
+SE_DECLARE_FUNC(js_gfx_VertexBuffer_setCount);
+SE_DECLARE_FUNC(js_gfx_VertexBuffer_setUsage);
 SE_DECLARE_FUNC(js_gfx_VertexBuffer_getCount);
+SE_DECLARE_FUNC(js_gfx_VertexBuffer_getBytes);
 SE_DECLARE_FUNC(js_gfx_VertexBuffer_VertexBuffer);
 
 extern se::Object* __jsb_cocos2d_gfx_DeviceGraphics_proto;
@@ -46,6 +58,7 @@ SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setScissor);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setVertexBuffer);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_enableDepthWrite);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setTextureArray);
+SE_DECLARE_FUNC(js_gfx_DeviceGraphics_getCapacity);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setStencilOpBack);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_setViewport);
 SE_DECLARE_FUNC(js_gfx_DeviceGraphics_draw);

@@ -68,6 +68,100 @@ bool js_register_gfx_GraphicsHandle(se::Object* obj)
 se::Object* __jsb_cocos2d_gfx_IndexBuffer_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_IndexBuffer_class = nullptr;
 
+static bool js_gfx_IndexBuffer_setBytes(se::State& s)
+{
+    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setBytes : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        unsigned int arg0 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
+        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_setBytes : Error processing arguments");
+        cobj->setBytes(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_IndexBuffer_setBytes)
+
+static bool js_gfx_IndexBuffer_getUsage(se::State& s)
+{
+    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_getUsage : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        int result = (int)cobj->getUsage();
+        ok &= int32_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_getUsage : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_IndexBuffer_getUsage)
+
+static bool js_gfx_IndexBuffer_setFormat(se::State& s)
+{
+    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setFormat : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::gfx::IndexFormat arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::IndexFormat)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_setFormat : Error processing arguments");
+        cobj->setFormat(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_IndexBuffer_setFormat)
+
+static bool js_gfx_IndexBuffer_setCount(se::State& s)
+{
+    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setCount : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        unsigned int arg0 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
+        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_setCount : Error processing arguments");
+        cobj->setCount(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_IndexBuffer_setCount)
+
+static bool js_gfx_IndexBuffer_setUsage(se::State& s)
+{
+    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setUsage : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::gfx::Usage arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::Usage)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_setUsage : Error processing arguments");
+        cobj->setUsage(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_IndexBuffer_setUsage)
+
 static bool js_gfx_IndexBuffer_getCount(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
@@ -85,6 +179,43 @@ static bool js_gfx_IndexBuffer_getCount(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_gfx_IndexBuffer_getCount)
+
+static bool js_gfx_IndexBuffer_setBytesPerIndex(se::State& s)
+{
+    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setBytesPerIndex : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        unsigned int arg0 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
+        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_setBytesPerIndex : Error processing arguments");
+        cobj->setBytesPerIndex(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_IndexBuffer_setBytesPerIndex)
+
+static bool js_gfx_IndexBuffer_getBytes(se::State& s)
+{
+    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_getBytes : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        unsigned int result = cobj->getBytes();
+        ok &= uint32_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_gfx_IndexBuffer_getBytes : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_IndexBuffer_getBytes)
 
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_IndexBuffer_finalize)
 
@@ -116,7 +247,14 @@ bool js_register_gfx_IndexBuffer(se::Object* obj)
 {
     auto cls = se::Class::create("IndexBuffer", obj, __jsb_cocos2d_gfx_GraphicsHandle_proto, _SE(js_gfx_IndexBuffer_constructor));
 
+    cls->defineFunction("setBytes", _SE(js_gfx_IndexBuffer_setBytes));
+    cls->defineFunction("getUsage", _SE(js_gfx_IndexBuffer_getUsage));
+    cls->defineFunction("setFormat", _SE(js_gfx_IndexBuffer_setFormat));
+    cls->defineFunction("setCount", _SE(js_gfx_IndexBuffer_setCount));
+    cls->defineFunction("setUsage", _SE(js_gfx_IndexBuffer_setUsage));
     cls->defineFunction("getCount", _SE(js_gfx_IndexBuffer_getCount));
+    cls->defineFunction("setBytesPerIndex", _SE(js_gfx_IndexBuffer_setBytesPerIndex));
+    cls->defineFunction("getBytes", _SE(js_gfx_IndexBuffer_getBytes));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_IndexBuffer_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::IndexBuffer>(cls);
@@ -130,6 +268,81 @@ bool js_register_gfx_IndexBuffer(se::Object* obj)
 
 se::Object* __jsb_cocos2d_gfx_VertexBuffer_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_VertexBuffer_class = nullptr;
+
+static bool js_gfx_VertexBuffer_setBytes(se::State& s)
+{
+    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_setBytes : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        unsigned int arg0 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
+        SE_PRECONDITION2(ok, false, "js_gfx_VertexBuffer_setBytes : Error processing arguments");
+        cobj->setBytes(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_VertexBuffer_setBytes)
+
+static bool js_gfx_VertexBuffer_getUsage(se::State& s)
+{
+    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_getUsage : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        int result = (int)cobj->getUsage();
+        ok &= int32_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_gfx_VertexBuffer_getUsage : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_VertexBuffer_getUsage)
+
+static bool js_gfx_VertexBuffer_setCount(se::State& s)
+{
+    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_setCount : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        unsigned int arg0 = 0;
+        ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
+        SE_PRECONDITION2(ok, false, "js_gfx_VertexBuffer_setCount : Error processing arguments");
+        cobj->setCount(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_VertexBuffer_setCount)
+
+static bool js_gfx_VertexBuffer_setUsage(se::State& s)
+{
+    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_setUsage : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::gfx::Usage arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::Usage)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_gfx_VertexBuffer_setUsage : Error processing arguments");
+        cobj->setUsage(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_VertexBuffer_setUsage)
 
 static bool js_gfx_VertexBuffer_getCount(se::State& s)
 {
@@ -148,6 +361,24 @@ static bool js_gfx_VertexBuffer_getCount(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_gfx_VertexBuffer_getCount)
+
+static bool js_gfx_VertexBuffer_getBytes(se::State& s)
+{
+    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_getBytes : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        unsigned int result = cobj->getBytes();
+        ok &= uint32_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_gfx_VertexBuffer_getBytes : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_VertexBuffer_getBytes)
 
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_VertexBuffer_finalize)
 
@@ -179,7 +410,12 @@ bool js_register_gfx_VertexBuffer(se::Object* obj)
 {
     auto cls = se::Class::create("VertexBuffer", obj, __jsb_cocos2d_gfx_GraphicsHandle_proto, _SE(js_gfx_VertexBuffer_constructor));
 
+    cls->defineFunction("setBytes", _SE(js_gfx_VertexBuffer_setBytes));
+    cls->defineFunction("getUsage", _SE(js_gfx_VertexBuffer_getUsage));
+    cls->defineFunction("setCount", _SE(js_gfx_VertexBuffer_setCount));
+    cls->defineFunction("setUsage", _SE(js_gfx_VertexBuffer_setUsage));
     cls->defineFunction("getCount", _SE(js_gfx_VertexBuffer_getCount));
+    cls->defineFunction("getBytes", _SE(js_gfx_VertexBuffer_getBytes));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_VertexBuffer_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::VertexBuffer>(cls);
@@ -513,6 +749,24 @@ static bool js_gfx_DeviceGraphics_setTextureArray(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_DeviceGraphics_setTextureArray)
 
+static bool js_gfx_DeviceGraphics_getCapacity(se::State& s)
+{
+    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_getCapacity : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const cocos2d::gfx::DeviceGraphics::Capacity& result = cobj->getCapacity();
+        #pragma warning NO CONVERSION FROM NATIVE FOR Capacity;
+        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_getCapacity : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_gfx_DeviceGraphics_getCapacity)
+
 static bool js_gfx_DeviceGraphics_setStencilOpBack(se::State& s)
 {
     cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
@@ -815,9 +1069,11 @@ static bool js_gfx_DeviceGraphics_getInstance(se::State& s)
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        cocos2d::gfx::DeviceGraphics* result = cocos2d::gfx::DeviceGraphics::getInstance();
-        ok &= native_ptr_to_seval<cocos2d::gfx::DeviceGraphics>((cocos2d::gfx::DeviceGraphics*)result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_gfx_DeviceGraphics_getInstance : Error processing arguments");
+        auto result = cocos2d::gfx::DeviceGraphics::getInstance();
+        se::Value instanceVal;
+        native_ptr_to_seval<cocos2d::gfx::DeviceGraphics>(result, __jsb_cocos2d_gfx_DeviceGraphics_class, &instanceVal);
+        instanceVal.toObject()->root();
+        s.rval() = instanceVal;
         return true;
     }
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
@@ -846,6 +1102,7 @@ bool js_register_gfx_DeviceGraphics(se::Object* obj)
     cls->defineFunction("setVertexBuffer", _SE(js_gfx_DeviceGraphics_setVertexBuffer));
     cls->defineFunction("enableDepthWrite", _SE(js_gfx_DeviceGraphics_enableDepthWrite));
     cls->defineFunction("setTextureArray", _SE(js_gfx_DeviceGraphics_setTextureArray));
+    cls->defineFunction("getCapacity", _SE(js_gfx_DeviceGraphics_getCapacity));
     cls->defineFunction("setStencilOpBack", _SE(js_gfx_DeviceGraphics_setStencilOpBack));
     cls->defineFunction("setViewport", _SE(js_gfx_DeviceGraphics_setViewport));
     cls->defineFunction("draw", _SE(js_gfx_DeviceGraphics_draw));

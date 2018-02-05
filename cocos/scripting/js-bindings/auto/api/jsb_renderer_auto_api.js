@@ -91,13 +91,13 @@ getDrawItemCount : function (
 },
 
 /**
- * @method setViewId
- * @param {int} arg0
+ * @method getWorldMatrix
+ * @return {mat4_object}
  */
-setViewId : function (
-int 
+getWorldMatrix : function (
 )
 {
+    return cc.Mat4;
 },
 
 /**
@@ -172,6 +172,16 @@ clearInputAssemblers : function (
  */
 addInputAssembler : function (
 inputassembler 
+)
+{
+},
+
+/**
+ * @method setViewId
+ * @param {int} arg0
+ */
+setViewId : function (
+int 
 )
 {
 },
@@ -989,6 +999,16 @@ getShadowMaxDepth : function (
 },
 
 /**
+ * @method getWorldMatrix
+ * @return {mat4_object}
+ */
+getWorldMatrix : function (
+)
+{
+    return cc.Mat4;
+},
+
+/**
  * @method getShadowMap
  * @return {cc.gfx::Texture2D}
  */
@@ -1054,6 +1074,16 @@ devicegraphics
  */
 setShadowDarkness : function (
 int 
+)
+{
+},
+
+/**
+ * @method setWorldMatrix
+ * @param {mat4_object} arg0
+ */
+setWorldMatrix : function (
+mat4 
 )
 {
 },

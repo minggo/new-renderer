@@ -266,10 +266,10 @@ static bool js_gfx_VertexBuffer_update(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_VertexBuffer_update)
 
-static bool js_gfx_VertexBuffer_setFormat(se::State& s)
+static bool js_gfx_VertexBuffer_prop_setFormat(se::State& s)
 {
     cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_setFormat : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_setFormat : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -282,12 +282,12 @@ static bool js_gfx_VertexBuffer_setFormat(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_PROP_SET(js_gfx_VertexBuffer_setFormat)
+SE_BIND_PROP_SET(js_gfx_VertexBuffer_prop_setFormat)
 
-static bool js_gfx_VertexBuffer_getFormat(se::State& s)
+static bool js_gfx_VertexBuffer_prop_getFormat(se::State& s)
 {
     cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_getFormat : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_getFormat : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -299,12 +299,12 @@ static bool js_gfx_VertexBuffer_getFormat(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_PROP_GET(js_gfx_VertexBuffer_getFormat)
+SE_BIND_PROP_GET(js_gfx_VertexBuffer_prop_getFormat)
 
-static bool js_gfx_VertexBuffer_setUsage(se::State& s)
+static bool js_gfx_VertexBuffer_prop_setUsage(se::State& s)
 {
     cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_setUsage : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_setUsage : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -319,12 +319,12 @@ static bool js_gfx_VertexBuffer_setUsage(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_PROP_SET(js_gfx_VertexBuffer_setUsage)
+SE_BIND_PROP_SET(js_gfx_VertexBuffer_prop_setUsage)
 
-static bool js_gfx_VertexBuffer_getUsage(se::State& s)
+static bool js_gfx_VertexBuffer_prop_getUsage(se::State& s)
 {
     cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_getUsage : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_getUsage : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -337,12 +337,12 @@ static bool js_gfx_VertexBuffer_getUsage(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_PROP_GET(js_gfx_VertexBuffer_getUsage)
+SE_BIND_PROP_GET(js_gfx_VertexBuffer_prop_getUsage)
 
-static bool js_gfx_VertexBuffer_setNumVertices(se::State& s)
+static bool js_gfx_VertexBuffer_prop_setNumVertices(se::State& s)
 {
     cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_setNumVertices : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_setNumVertices : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -357,12 +357,12 @@ static bool js_gfx_VertexBuffer_setNumVertices(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_PROP_SET(js_gfx_VertexBuffer_setNumVertices)
+SE_BIND_PROP_SET(js_gfx_VertexBuffer_prop_setNumVertices)
 
-static bool js_gfx_VertexBuffer_getNumVertices(se::State& s)
+static bool js_gfx_VertexBuffer_prop_getNumVertices(se::State& s)
 {
     cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_getNumVertices : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_getNumVertices : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -375,12 +375,12 @@ static bool js_gfx_VertexBuffer_getNumVertices(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_PROP_GET(js_gfx_VertexBuffer_getNumVertices)
+SE_BIND_PROP_GET(js_gfx_VertexBuffer_prop_getNumVertices)
 
-static bool js_gfx_VertexBuffer_setBytes(se::State& s)
+static bool js_gfx_VertexBuffer_prop_setBytes(se::State& s)
 {
     cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_setBytes : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_setBytes : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -395,12 +395,12 @@ static bool js_gfx_VertexBuffer_setBytes(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_PROP_SET(js_gfx_VertexBuffer_setBytes)
+SE_BIND_PROP_SET(js_gfx_VertexBuffer_prop_setBytes)
 
-static bool js_gfx_VertexBuffer_getBytes(se::State& s)
+static bool js_gfx_VertexBuffer_prop_getBytes(se::State& s)
 {
     cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_getBytes : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_getBytes : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -413,7 +413,7 @@ static bool js_gfx_VertexBuffer_getBytes(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_PROP_GET(js_gfx_VertexBuffer_getBytes)
+SE_BIND_PROP_GET(js_gfx_VertexBuffer_prop_getBytes)
 
 static bool js_gfx_IndexBuffer_init(se::State& s)
 {
@@ -499,10 +499,10 @@ static bool js_gfx_IndexBuffer_update(se::State& s)
 }
 SE_BIND_FUNC(js_gfx_IndexBuffer_update)
 
-static bool js_gfx_IndexBuffer_setFormat(se::State& s)
+static bool js_gfx_IndexBuffer_prop_setFormat(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setFormat : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setFormat : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -517,12 +517,12 @@ static bool js_gfx_IndexBuffer_setFormat(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_PROP_SET(js_gfx_IndexBuffer_setFormat)
+SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setFormat)
 
-static bool js_gfx_IndexBuffer_getFormat(se::State& s)
+static bool js_gfx_IndexBuffer_prop_getFormat(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_getFormat : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getFormat : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -535,12 +535,12 @@ static bool js_gfx_IndexBuffer_getFormat(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_PROP_GET(js_gfx_IndexBuffer_getFormat)
+SE_BIND_PROP_GET(js_gfx_IndexBuffer_prop_getFormat)
 
-static bool js_gfx_IndexBuffer_setUsage(se::State& s)
+static bool js_gfx_IndexBuffer_prop_setUsage(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setUsage : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setUsage : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -555,12 +555,12 @@ static bool js_gfx_IndexBuffer_setUsage(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_PROP_SET(js_gfx_IndexBuffer_setUsage)
+SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setUsage)
 
-static bool js_gfx_IndexBuffer_getUsage(se::State& s)
+static bool js_gfx_IndexBuffer_prop_getUsage(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_getUsage : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getUsage : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -573,12 +573,12 @@ static bool js_gfx_IndexBuffer_getUsage(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_PROP_GET(js_gfx_IndexBuffer_getUsage)
+SE_BIND_PROP_GET(js_gfx_IndexBuffer_prop_getUsage)
 
-static bool js_gfx_IndexBuffer_setNumIndices(se::State& s)
+static bool js_gfx_IndexBuffer_prop_setNumIndices(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setNumIndices : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setNumIndices : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -593,12 +593,12 @@ static bool js_gfx_IndexBuffer_setNumIndices(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_PROP_SET(js_gfx_IndexBuffer_setNumIndices)
+SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setNumIndices)
 
-static bool js_gfx_IndexBuffer_getNumIndices(se::State& s)
+static bool js_gfx_IndexBuffer_prop_getNumIndices(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_getNumIndices : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getNumIndices : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -611,12 +611,12 @@ static bool js_gfx_IndexBuffer_getNumIndices(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_PROP_GET(js_gfx_IndexBuffer_getNumIndices)
+SE_BIND_PROP_GET(js_gfx_IndexBuffer_prop_getNumIndices)
 
-static bool js_gfx_IndexBuffer_setBytesPerIndex(se::State& s)
+static bool js_gfx_IndexBuffer_prop_setBytesPerIndex(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setBytesPerIndex : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setBytesPerIndex : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -631,12 +631,12 @@ static bool js_gfx_IndexBuffer_setBytesPerIndex(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_PROP_SET(js_gfx_IndexBuffer_setBytesPerIndex)
+SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setBytesPerIndex)
 
-static bool js_gfx_IndexBuffer_getBytesPerIndex(se::State& s)
+static bool js_gfx_IndexBuffer_prop_getBytesPerIndex(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_getBytesPerIndex : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getBytesPerIndex : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -649,12 +649,12 @@ static bool js_gfx_IndexBuffer_getBytesPerIndex(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_PROP_GET(js_gfx_IndexBuffer_getBytesPerIndex)
+SE_BIND_PROP_GET(js_gfx_IndexBuffer_prop_getBytesPerIndex)
 
-static bool js_gfx_IndexBuffer_setBytes(se::State& s)
+static bool js_gfx_IndexBuffer_prop_setBytes(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_setBytes : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setBytes : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -669,12 +669,12 @@ static bool js_gfx_IndexBuffer_setBytes(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
     return false;
 }
-SE_BIND_PROP_SET(js_gfx_IndexBuffer_setBytes)
+SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setBytes)
 
-static bool js_gfx_IndexBuffer_getBytes(se::State& s)
+static bool js_gfx_IndexBuffer_prop_getBytes(se::State& s)
 {
     cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_getBytes : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getBytes : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
@@ -687,7 +687,7 @@ static bool js_gfx_IndexBuffer_getBytes(se::State& s)
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_PROP_GET(js_gfx_IndexBuffer_getBytes)
+SE_BIND_PROP_GET(js_gfx_IndexBuffer_prop_getBytes)
 
 static bool js_cocos2dx_FileUtils_getStringFromFile(se::State& s)
 {
@@ -894,18 +894,18 @@ bool jsb_register_gfx_manual(se::Object* global)
 
     __jsb_cocos2d_gfx_VertexBuffer_proto->defineFunction("init", _SE(js_gfx_VertexBuffer_init));
     __jsb_cocos2d_gfx_VertexBuffer_proto->defineFunction("update", _SE(js_gfx_VertexBuffer_update));
-    __jsb_cocos2d_gfx_VertexBuffer_proto->defineProperty("_format", _SE(js_gfx_VertexBuffer_getFormat), _SE(js_gfx_VertexBuffer_setFormat));
-    __jsb_cocos2d_gfx_VertexBuffer_proto->defineProperty("_usage", _SE(js_gfx_VertexBuffer_getUsage), _SE(js_gfx_VertexBuffer_setUsage));
-    __jsb_cocos2d_gfx_VertexBuffer_proto->defineProperty("_bytes", _SE(js_gfx_VertexBuffer_getBytes), _SE(js_gfx_VertexBuffer_setBytes));
-    __jsb_cocos2d_gfx_VertexBuffer_proto->defineProperty("_numVertices", _SE(js_gfx_VertexBuffer_getNumVertices), _SE(js_gfx_VertexBuffer_setNumVertices));
+    __jsb_cocos2d_gfx_VertexBuffer_proto->defineProperty("_format", _SE(js_gfx_VertexBuffer_prop_getFormat), _SE(js_gfx_VertexBuffer_prop_setFormat));
+    __jsb_cocos2d_gfx_VertexBuffer_proto->defineProperty("_usage", _SE(js_gfx_VertexBuffer_prop_getUsage), _SE(js_gfx_VertexBuffer_prop_setUsage));
+    __jsb_cocos2d_gfx_VertexBuffer_proto->defineProperty("_bytes", _SE(js_gfx_VertexBuffer_prop_getBytes), _SE(js_gfx_VertexBuffer_prop_setBytes));
+    __jsb_cocos2d_gfx_VertexBuffer_proto->defineProperty("_numVertices", _SE(js_gfx_VertexBuffer_prop_getNumVertices), _SE(js_gfx_VertexBuffer_prop_setNumVertices));
 
     __jsb_cocos2d_gfx_IndexBuffer_proto->defineFunction("init", _SE(js_gfx_IndexBuffer_init));
     __jsb_cocos2d_gfx_IndexBuffer_proto->defineFunction("update", _SE(js_gfx_IndexBuffer_update));
-    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_format", _SE(js_gfx_IndexBuffer_getFormat), _SE(js_gfx_IndexBuffer_setFormat));
-    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_usage", _SE(js_gfx_IndexBuffer_getUsage), _SE(js_gfx_IndexBuffer_setUsage));
-    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_bytesPerIndex", _SE(js_gfx_IndexBuffer_getBytesPerIndex), _SE(js_gfx_IndexBuffer_setBytesPerIndex));
-    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_bytes", _SE(js_gfx_IndexBuffer_getBytes), _SE(js_gfx_IndexBuffer_setBytes));
-    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_numIndices", _SE(js_gfx_IndexBuffer_getNumIndices), _SE(js_gfx_IndexBuffer_setNumIndices));
+    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_format", _SE(js_gfx_IndexBuffer_prop_getFormat), _SE(js_gfx_IndexBuffer_prop_setFormat));
+    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_usage", _SE(js_gfx_IndexBuffer_prop_getUsage), _SE(js_gfx_IndexBuffer_prop_setUsage));
+    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_bytesPerIndex", _SE(js_gfx_IndexBuffer_prop_getBytesPerIndex), _SE(js_gfx_IndexBuffer_prop_setBytesPerIndex));
+    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_bytes", _SE(js_gfx_IndexBuffer_prop_getBytes), _SE(js_gfx_IndexBuffer_prop_setBytes));
+    __jsb_cocos2d_gfx_IndexBuffer_proto->defineProperty("_numIndices", _SE(js_gfx_IndexBuffer_prop_getNumIndices), _SE(js_gfx_IndexBuffer_prop_setNumIndices));
 
     __jsb_cocos2d_gfx_Texture2D_proto->defineFunction("init", _SE(js_gfx_Texture2D_init));
     __jsb_cocos2d_gfx_FrameBuffer_proto->defineFunction("init", _SE(js_gfx_FrameBuffer_init));

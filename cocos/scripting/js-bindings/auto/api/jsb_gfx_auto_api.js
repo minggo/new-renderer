@@ -35,10 +35,80 @@ GraphicsHandle : function (
 gfx.IndexBuffer = {
 
 /**
+ * @method setBytes
+ * @param {unsigned int} arg0
+ */
+setBytes : function (
+int 
+)
+{
+},
+
+/**
+ * @method getUsage
+ * @return {cc.gfx::Usage}
+ */
+getUsage : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method setFormat
+ * @param {cc.gfx::IndexFormat} arg0
+ */
+setFormat : function (
+indexformat 
+)
+{
+},
+
+/**
+ * @method setCount
+ * @param {unsigned int} arg0
+ */
+setCount : function (
+int 
+)
+{
+},
+
+/**
+ * @method setUsage
+ * @param {cc.gfx::Usage} arg0
+ */
+setUsage : function (
+usage 
+)
+{
+},
+
+/**
  * @method getCount
  * @return {unsigned int}
  */
 getCount : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method setBytesPerIndex
+ * @param {unsigned int} arg0
+ */
+setBytesPerIndex : function (
+int 
+)
+{
+},
+
+/**
+ * @method getBytes
+ * @return {unsigned int}
+ */
+getBytes : function (
 )
 {
     return 0;
@@ -61,10 +131,60 @@ IndexBuffer : function (
 gfx.VertexBuffer = {
 
 /**
+ * @method setBytes
+ * @param {unsigned int} arg0
+ */
+setBytes : function (
+int 
+)
+{
+},
+
+/**
+ * @method getUsage
+ * @return {cc.gfx::Usage}
+ */
+getUsage : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method setCount
+ * @param {unsigned int} arg0
+ */
+setCount : function (
+int 
+)
+{
+},
+
+/**
+ * @method setUsage
+ * @param {cc.gfx::Usage} arg0
+ */
+setUsage : function (
+usage 
+)
+{
+},
+
+/**
  * @method getCount
  * @return {unsigned int}
  */
 getCount : function (
+)
+{
+    return 0;
+},
+
+/**
+ * @method getBytes
+ * @return {unsigned int}
+ */
+getBytes : function (
 )
 {
     return 0;
@@ -256,6 +376,16 @@ array,
 array 
 )
 {
+},
+
+/**
+ * @method getCapacity
+ * @return {cc.gfx::DeviceGraphics::Capacity}
+ */
+getCapacity : function (
+)
+{
+    return cc.gfx::DeviceGraphics::Capacity;
 },
 
 /**
