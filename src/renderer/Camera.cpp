@@ -74,12 +74,12 @@ void Camera::extractView(View& out, int width, int height) const
     // view matrix
     //TODO: 
     const_cast<Camera*>(this)->_worldRTInv.set(_node->getWorldRT());
-    out.matView = _worldRTInv;
+    out.matView = _worldRTInv.getInversed();
     
     // projecton matrix
     float aspect = (float)width / height;
     if (ProjectionType::PERSPECTIVE == _projection)
-        Mat4::createPerspective(_fov, aspect, _near, _far, &out.matProj);
+        Mat4::createPerspective(_fov / 3.1415926 * 180, aspect, _near, _far, &out.matProj);
     else
     {
         float x = _orthoHeight * aspect;
@@ -103,7 +103,7 @@ Vec3& Camera::screenToWorld(Vec3& out, const Vec3& screenPos, int width, int hei
     // projection matrix
     Mat4 matProj;
     if (ProjectionType::PERSPECTIVE == _projection)
-        Mat4::createPerspective(_fov, aspect, _near, _far, &matProj);
+        Mat4::createPerspective(_fov / 3.1415926 * 180, aspect, _near, _far, &matProj);
     else
     {
         float x = _orthoHeight * aspect;
