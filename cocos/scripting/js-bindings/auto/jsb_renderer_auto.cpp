@@ -167,24 +167,23 @@ static bool js_renderer_Model_getDrawItemCount(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_Model_getDrawItemCount)
 
-static bool js_renderer_Model_setViewId(se::State& s)
+static bool js_renderer_Model_getWorldMatrix(se::State& s)
 {
     cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_renderer_Model_setViewId : Invalid Native Object");
+    SE_PRECONDITION2(cobj, false, "js_renderer_Model_getWorldMatrix : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
-    if (argc == 1) {
-        int arg0 = 0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (int)tmp; } while(false);
-        SE_PRECONDITION2(ok, false, "js_renderer_Model_setViewId : Error processing arguments");
-        cobj->setViewId(arg0);
+    if (argc == 0) {
+        const cocos2d::Mat4& result = cobj->getWorldMatrix();
+        ok &= Mat4_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_renderer_Model_getWorldMatrix : Error processing arguments");
         return true;
     }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
     return false;
 }
-SE_BIND_FUNC(js_renderer_Model_setViewId)
+SE_BIND_FUNC(js_renderer_Model_getWorldMatrix)
 
 static bool js_renderer_Model_isDynamicIA(se::State& s)
 {
@@ -328,6 +327,25 @@ static bool js_renderer_Model_addInputAssembler(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_Model_addInputAssembler)
 
+static bool js_renderer_Model_setViewId(se::State& s)
+{
+    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Model_setViewId : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        int arg0 = 0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (int)tmp; } while(false);
+        SE_PRECONDITION2(ok, false, "js_renderer_Model_setViewId : Error processing arguments");
+        cobj->setViewId(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Model_setViewId)
+
 SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_Model_finalize)
 
 static bool js_renderer_Model_constructor(se::State& s)
@@ -359,7 +377,7 @@ bool js_register_renderer_Model(se::Object* obj)
 
     cls->defineFunction("getInputAssemblerCount", _SE(js_renderer_Model_getInputAssemblerCount));
     cls->defineFunction("getDrawItemCount", _SE(js_renderer_Model_getDrawItemCount));
-    cls->defineFunction("setViewId", _SE(js_renderer_Model_setViewId));
+    cls->defineFunction("getWorldMatrix", _SE(js_renderer_Model_getWorldMatrix));
     cls->defineFunction("isDynamicIA", _SE(js_renderer_Model_isDynamicIA));
     cls->defineFunction("addEffect", _SE(js_renderer_Model_addEffect));
     cls->defineFunction("setWorldMatix", _SE(js_renderer_Model_setWorldMatix));
@@ -368,6 +386,7 @@ bool js_register_renderer_Model(se::Object* obj)
     cls->defineFunction("getViewId", _SE(js_renderer_Model_getViewId));
     cls->defineFunction("clearInputAssemblers", _SE(js_renderer_Model_clearInputAssemblers));
     cls->defineFunction("addInputAssembler", _SE(js_renderer_Model_addInputAssembler));
+    cls->defineFunction("setViewId", _SE(js_renderer_Model_setViewId));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Model_finalize));
     cls->install();
     JSBClassType::registerClass<cocos2d::gfx::Model>(cls);
@@ -1984,6 +2003,24 @@ static bool js_renderer_Light_getShadowMaxDepth(se::State& s)
 }
 SE_BIND_FUNC(js_renderer_Light_getShadowMaxDepth)
 
+static bool js_renderer_Light_getWorldMatrix(se::State& s)
+{
+    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Light_getWorldMatrix : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 0) {
+        const cocos2d::Mat4& result = cobj->getWorldMatrix();
+        ok &= Mat4_to_seval(result, &s.rval());
+        SE_PRECONDITION2(ok, false, "js_renderer_Light_getWorldMatrix : Error processing arguments");
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 0);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Light_getWorldMatrix)
+
 static bool js_renderer_Light_getShadowMap(se::State& s)
 {
     cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
@@ -2113,6 +2150,25 @@ static bool js_renderer_Light_setShadowDarkness(se::State& s)
     return false;
 }
 SE_BIND_FUNC(js_renderer_Light_setShadowDarkness)
+
+static bool js_renderer_Light_setWorldMatrix(se::State& s)
+{
+    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    SE_PRECONDITION2(cobj, false, "js_renderer_Light_setWorldMatrix : Invalid Native Object");
+    const auto& args = s.args();
+    size_t argc = args.size();
+    CC_UNUSED bool ok = true;
+    if (argc == 1) {
+        cocos2d::Mat4 arg0;
+        ok &= seval_to_Mat4(args[0], &arg0);
+        SE_PRECONDITION2(ok, false, "js_renderer_Light_setWorldMatrix : Error processing arguments");
+        cobj->setWorldMatrix(arg0);
+        return true;
+    }
+    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 1);
+    return false;
+}
+SE_BIND_FUNC(js_renderer_Light_setWorldMatrix)
 
 static bool js_renderer_Light_setSpotAngle(se::State& s)
 {
@@ -2332,6 +2388,7 @@ bool js_register_renderer_Light(se::Object* obj)
     cls->defineFunction("getType", _SE(js_renderer_Light_getType));
     cls->defineFunction("getIntensity", _SE(js_renderer_Light_getIntensity));
     cls->defineFunction("getShadowMaxDepth", _SE(js_renderer_Light_getShadowMaxDepth));
+    cls->defineFunction("getWorldMatrix", _SE(js_renderer_Light_getWorldMatrix));
     cls->defineFunction("getShadowMap", _SE(js_renderer_Light_getShadowMap));
     cls->defineFunction("getColor", _SE(js_renderer_Light_getColor));
     cls->defineFunction("setIntensity", _SE(js_renderer_Light_setIntensity));
@@ -2339,6 +2396,7 @@ bool js_register_renderer_Light(se::Object* obj)
     cls->defineFunction("setShadowMinDepth", _SE(js_renderer_Light_setShadowMinDepth));
     cls->defineFunction("update", _SE(js_renderer_Light_update));
     cls->defineFunction("setShadowDarkness", _SE(js_renderer_Light_setShadowDarkness));
+    cls->defineFunction("setWorldMatrix", _SE(js_renderer_Light_setWorldMatrix));
     cls->defineFunction("setSpotAngle", _SE(js_renderer_Light_setSpotAngle));
     cls->defineFunction("setRange", _SE(js_renderer_Light_setRange));
     cls->defineFunction("setShadowScale", _SE(js_renderer_Light_setShadowScale));
