@@ -62,6 +62,7 @@ void ForwardRenderer::render(Scene* scene)
         View* view = new View();
         camera->extractView(*view, _width, _height);
         BaseRenderer::render(view, scene);
+        view->release();
     }
 }
 
@@ -72,15 +73,28 @@ void ForwardRenderer::transparentStage(const View* view, const std::vector<Stage
     _device->setUniformMat4("proj", view->matProj);
     _device->setUniformMat4("viewProj", view->matViewProj);
 
+    GFX_LOGD("StageItem count: %d", (int)items.size());
     // draw it
     for (const auto& item : items)
     {
         // Update vertex buffer and index buffer
         InputAssembler* ia = item.ia;
         VertexBuffer* vb = ia->getVertexBuffer();
+        size_t vertexDataBytes = 0;
+        uint8_t* vertexData = vb->invokeFetchDataCallback(&vertexDataBytes);
+        assert(vertexData != nullptr);
+        assert(vertexDataBytes > 0);
+        GFX_LOGD("vertexBuffer size: %d", (int)vertexDataBytes);
+
         IndexBuffer* ib = ia->getIndexBuffer();
-//        vb->update(0, , size_t dataByteLength);
-//        ib->update(0, const void *data, size_t dataByteLength);
+        size_t indexDataBytes = 0;
+        uint8_t* indexData = ib->invokeFetchDataCallback(&indexDataBytes);
+        assert(indexData != nullptr);
+        assert(indexDataBytes > 0);
+        GFX_LOGD("indexBuffer size: %d", (int)indexDataBytes);
+
+        vb->update(0, vertexData, vertexDataBytes);
+        ib->update(0, indexData, indexDataBytes);
         draw(item);
     }
 }

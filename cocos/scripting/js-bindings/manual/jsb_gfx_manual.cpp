@@ -213,6 +213,21 @@ static bool js_gfx_VertexBuffer_init(se::State& s)
         assert(ok);
 
         cobj->init(device, format, usage, data, dataByteLength, numVertices);
+
+        se::Object* thisObj = s.thisObject();
+        cobj->setFetchDataCallback([thisObj](size_t* bytes) ->uint8_t* {
+
+            uint8_t* ret = nullptr;
+            se::Value dataVal;
+            if (thisObj->getProperty("_data", &dataVal) && dataVal.isObject())
+            {
+                assert(dataVal.toObject()->isTypedArray());
+                dataVal.toObject()->getTypedArrayData(&ret, bytes);
+            }
+
+            return ret;
+        });
+
         return true;
     }
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 5);
@@ -446,6 +461,21 @@ static bool js_gfx_IndexBuffer_init(se::State& s)
         assert(ok);
 
         cobj->init(device, format, usage, data, dataByteLength, numIndices);
+
+        se::Object* thisObj = s.thisObject();
+        cobj->setFetchDataCallback([thisObj](size_t* bytes) ->uint8_t* {
+
+            uint8_t* ret = nullptr;
+            se::Value dataVal;
+            if (thisObj->getProperty("_data", &dataVal) && dataVal.isObject())
+            {
+                assert(dataVal.toObject()->isTypedArray());
+                dataVal.toObject()->getTypedArrayData(&ret, bytes);
+            }
+
+            return ret;
+        });
+
         return true;
     }
     SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 5);
