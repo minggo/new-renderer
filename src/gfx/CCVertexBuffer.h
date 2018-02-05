@@ -56,12 +56,26 @@ public:
 
     inline uint32_t getBytes() const { return _bytes; }
     inline void setBytes(uint32_t bytes) { _bytes = bytes; }
+
+    using FetchDataCallback = std::function<uint8_t*(size_t*)>;
+    void setFetchDataCallback(const FetchDataCallback& cb) { _fetchDataCallback = cb; }
+    uint8_t* invokeFetchDataCallback(size_t* bytes) {
+        if (_fetchDataCallback == nullptr)
+        {
+            *bytes = 0;
+            return nullptr;
+        }
+        return _fetchDataCallback(bytes);
+    }
+
 private:
     DeviceGraphics* _device;
     VertexFormat _format;
     Usage _usage;
     uint32_t _numVertices;
     uint32_t _bytes;
+
+    FetchDataCallback _fetchDataCallback;
 
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
 };
