@@ -215,12 +215,12 @@ void BaseRenderer::draw(const StageItem& item)
                 std::vector<int> slots;
                 for (int i = 0; i < param.getCount(); ++i)
                     slots.push_back(allocTextureUnit());
-                _device->setTextureArray(prop->getName(),
+                _device->setTextureArray(param.getName(),
                                          std::move(prop->getTextureArray()),
                                          slots);
             }
             else
-                _device->setTexture(prop->getName(),
+                _device->setTexture(param.getName(),
                                     (cocos2d::gfx::Texture *)(prop->getValue()),
                                     allocTextureUnit());
         }
@@ -257,9 +257,10 @@ void BaseRenderer::draw(const StageItem& item)
         // for each pass
         for (const auto& pass : item.technique->getPasses())
         {
+            // set vertex buffer
             _device->setVertexBuffer(0, ia->getVertexBuffer());
             
-            // set vertex buffer
+            // set index buffer
             if (ia->_indexBuffer)
                 _device->setIndexBuffer(ia->_indexBuffer);
             
