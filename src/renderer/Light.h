@@ -105,7 +105,7 @@ public:
     inline void setFrustumEdgeFalloff(uint32_t val) { _frustumEdgeFalloff = val; }
     inline uint32_t getFrustumEdgeFalloff() const { return _frustumEdgeFalloff; }
     
-    inline void setWorldMatrix(const Mat4& worldMatrix);
+    void setWorldMatrix(const Mat4& worldMatrix);
     inline const Mat4& getWorldMatrix() const { return _worldMatrix; }
     
     void extractView(View& out, const std::vector<std::string>& stages);
