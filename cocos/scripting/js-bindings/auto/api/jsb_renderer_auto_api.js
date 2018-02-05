@@ -4,68 +4,6 @@
 var renderer = renderer || {};
 
 /**
- * @class ProgramLib
- */
-renderer.ProgramLib = {
-
-/**
- * @method getProgram
- * @param {String} arg0
- * @param {map_object} arg1
- * @return {cc.gfx::Program}
- */
-getProgram : function (
-str, 
-map 
-)
-{
-    return cc.gfx::Program;
-},
-
-/**
- * @method define
- * @param {String} arg0
- * @param {String} arg1
- * @param {String} arg2
- * @param {Array} arg3
- */
-define : function (
-str, 
-str, 
-str, 
-array 
-)
-{
-},
-
-/**
- * @method getKey
- * @param {String} arg0
- * @param {map_object} arg1
- * @return {unsigned int}
- */
-getKey : function (
-str, 
-map 
-)
-{
-    return 0;
-},
-
-/**
- * @method ProgramLib
- * @constructor
- * @param {Array} arg0
- */
-ProgramLib : function (
-array 
-)
-{
-},
-
-};
-
-/**
  * @class Model
  */
 renderer.Model = {

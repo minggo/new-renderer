@@ -57,7 +57,7 @@ bool BaseRenderer::init(DeviceGraphics* device, std::vector<ProgramLib::Template
 {
     _device = device;
     _device->retain();
-    _programLib = new (std::nothrow) ProgramLib(programTemplates);
+    _programLib = new (std::nothrow) ProgramLib(_device, programTemplates);
     return true;
 }
 
@@ -67,7 +67,7 @@ bool BaseRenderer::init(DeviceGraphics* device, std::vector<ProgramLib::Template
     _device->retain();
     _defaultTexture = defaultTexture;
     GFX_SAFE_RETAIN(_defaultTexture);
-    _programLib = new (std::nothrow) ProgramLib(programTemplates);
+    _programLib = new (std::nothrow) ProgramLib(_device, programTemplates);
     return true;
 }
 
@@ -204,17 +204,16 @@ void BaseRenderer::draw(const StageItem& item)
         if (Effect::Property::Type::TEXTURE_2D == propType ||
             Effect::Property::Type::TEXTURE_CUBE == propType)
         {
-            uint8_t count = prop->getCount();
-            if (0 != count)
+            if (0 != param.getCount())
             {
-                if (count != param.getCount())
+                if (param.getCount() != prop->getCount())
                 {
-                    GFX_LOGW("The length of texture array %d is not correct(expect %d)", count, param.getCount());
+                    GFX_LOGW("The length of texture array %d is not correct(expect %d)", prop->getCount(), param.getCount());
                     continue;
                 }
                 
                 std::vector<int> slots;
-                for (int i = 0; i < count; ++i)
+                for (int i = 0; i < param.getCount(); ++i)
                     slots.push_back(allocTextureUnit());
                 _device->setTextureArray(prop->getName(),
                                          std::move(prop->getTextureArray()),

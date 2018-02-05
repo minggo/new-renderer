@@ -3,131 +3,6 @@
 #include "scripting/js-bindings/manual/jsb_global.h"
 #include "Renderer.h"
 
-se::Object* __jsb_cocos2d_gfx_ProgramLib_proto = nullptr;
-se::Class* __jsb_cocos2d_gfx_ProgramLib_class = nullptr;
-
-static bool js_renderer_ProgramLib_getProgram(se::State& s)
-{
-    cocos2d::gfx::ProgramLib* cobj = (cocos2d::gfx::ProgramLib*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_renderer_ProgramLib_getProgram : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        std::string arg0;
-        cocos2d::ValueMap arg1;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_ccvaluemap(args[1], &arg1);
-        SE_PRECONDITION2(ok, false, "js_renderer_ProgramLib_getProgram : Error processing arguments");
-        cocos2d::gfx::Program* result = cobj->getProgram(arg0, arg1);
-        ok &= native_ptr_to_seval<cocos2d::gfx::Program>((cocos2d::gfx::Program*)result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_renderer_ProgramLib_getProgram : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_renderer_ProgramLib_getProgram)
-
-static bool js_renderer_ProgramLib_define(se::State& s)
-{
-    cocos2d::gfx::ProgramLib* cobj = (cocos2d::gfx::ProgramLib*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_renderer_ProgramLib_define : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 4) {
-        std::string arg0;
-        std::string arg1;
-        std::string arg2;
-        cocos2d::ValueVector arg3;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_std_string(args[1], &arg1);
-        ok &= seval_to_std_string(args[2], &arg2);
-        ok &= seval_to_ccvaluevector(args[3], &arg3);
-        SE_PRECONDITION2(ok, false, "js_renderer_ProgramLib_define : Error processing arguments");
-        cobj->define(arg0, arg1, arg2, arg3);
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 4);
-    return false;
-}
-SE_BIND_FUNC(js_renderer_ProgramLib_define)
-
-static bool js_renderer_ProgramLib_getKey(se::State& s)
-{
-    cocos2d::gfx::ProgramLib* cobj = (cocos2d::gfx::ProgramLib*)s.nativeThisObject();
-    SE_PRECONDITION2(cobj, false, "js_renderer_ProgramLib_getKey : Invalid Native Object");
-    const auto& args = s.args();
-    size_t argc = args.size();
-    CC_UNUSED bool ok = true;
-    if (argc == 2) {
-        std::string arg0;
-        cocos2d::ValueMap arg1;
-        ok &= seval_to_std_string(args[0], &arg0);
-        ok &= seval_to_ccvaluemap(args[1], &arg1);
-        SE_PRECONDITION2(ok, false, "js_renderer_ProgramLib_getKey : Error processing arguments");
-        unsigned int result = cobj->getKey(arg0, arg1);
-        ok &= uint32_to_seval(result, &s.rval());
-        SE_PRECONDITION2(ok, false, "js_renderer_ProgramLib_getKey : Error processing arguments");
-        return true;
-    }
-    SE_REPORT_ERROR("wrong number of arguments: %d, was expecting %d", (int)argc, 2);
-    return false;
-}
-SE_BIND_FUNC(js_renderer_ProgramLib_getKey)
-
-SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_ProgramLib_finalize)
-
-static bool js_renderer_ProgramLib_constructor(se::State& s)
-{
-    CC_UNUSED bool ok = true;
-    const auto& args = s.args();
-    std::vector<cocos2d::gfx::ProgramLib::Template> arg0;
-    ok &= seval_to_std_vector_ProgramLib_Template(args[0], &arg0);
-    SE_PRECONDITION2(ok, false, "js_renderer_ProgramLib_constructor : Error processing arguments");
-    cocos2d::gfx::ProgramLib* cobj = new (std::nothrow) cocos2d::gfx::ProgramLib(arg0);
-    s.thisObject()->setPrivateData(cobj);
-    se::NonRefNativePtrCreatedByCtorMap::emplace(cobj);
-    return true;
-}
-SE_BIND_CTOR(js_renderer_ProgramLib_constructor, __jsb_cocos2d_gfx_ProgramLib_class, js_cocos2d_gfx_ProgramLib_finalize)
-
-
-
-
-static bool js_cocos2d_gfx_ProgramLib_finalize(se::State& s)
-{
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::ProgramLib)", s.nativeThisObject());
-    auto iter = se::NonRefNativePtrCreatedByCtorMap::find(s.nativeThisObject());
-    if (iter != se::NonRefNativePtrCreatedByCtorMap::end())
-    {
-        se::NonRefNativePtrCreatedByCtorMap::erase(iter);
-        cocos2d::gfx::ProgramLib* cobj = (cocos2d::gfx::ProgramLib*)s.nativeThisObject();
-        delete cobj;
-    }
-    return true;
-}
-SE_BIND_FINALIZE_FUNC(js_cocos2d_gfx_ProgramLib_finalize)
-
-bool js_register_renderer_ProgramLib(se::Object* obj)
-{
-    auto cls = se::Class::create("ProgramLib", obj, nullptr, _SE(js_renderer_ProgramLib_constructor));
-
-    cls->defineFunction("getProgram", _SE(js_renderer_ProgramLib_getProgram));
-    cls->defineFunction("define", _SE(js_renderer_ProgramLib_define));
-    cls->defineFunction("getKey", _SE(js_renderer_ProgramLib_getKey));
-    cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_ProgramLib_finalize));
-    cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::ProgramLib>(cls);
-
-    __jsb_cocos2d_gfx_ProgramLib_proto = cls->getProto();
-    __jsb_cocos2d_gfx_ProgramLib_class = cls;
-
-    se::ScriptEngine::getInstance()->clearException();
-    return true;
-}
-
 se::Object* __jsb_cocos2d_gfx_Model_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_Model_class = nullptr;
 
@@ -3268,7 +3143,6 @@ bool register_all_renderer(se::Object* obj)
     }
     se::Object* ns = nsVal.toObject();
 
-    js_register_renderer_ProgramLib(ns);
     js_register_renderer_Light(ns);
     js_register_renderer_Technique(ns);
     js_register_renderer_Effect(ns);

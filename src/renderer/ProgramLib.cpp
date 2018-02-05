@@ -24,6 +24,7 @@
 
 #include "ProgramLib.h"
 #include "../gfx/CCProgram.h"
+#include "gfx/CCDeviceGraphics.h"
 
 #include <regex>
 #include <string>
@@ -126,10 +127,19 @@ std::string test_unrollLoops(const std::string& text)
 
 GFX_BEGIN
 
-ProgramLib::ProgramLib(std::vector<Template>& templates)
+ProgramLib::ProgramLib(DeviceGraphics* device, std::vector<Template>& templates)
+: _device(device)
 {
+    GFX_SAFE_RETAIN(_device);
+    
     for (auto& templ : templates)
         define(templ.name, templ.vert, templ.frag, templ.defines);
+}
+
+ProgramLib::~ProgramLib()
+{
+    GFX_SAFE_RELEASE(_device);
+    _device = nullptr;
 }
 
 void ProgramLib::define(const std::string& name, const std::string& vert, const std::string& frag, ValueVector& defines)

@@ -48,7 +48,8 @@ public:
         ValueVector defines;
     };
 
-    ProgramLib(std::vector<Template>& templates);
+    ProgramLib(DeviceGraphics* device, std::vector<Template>& templates);
+    ~ProgramLib();
 
     void define(const std::string& name, const std::string& vert, const std::string& frag, ValueVector& defines);
     uint32_t getKey(const std::string& name, const ValueMap& defines);
