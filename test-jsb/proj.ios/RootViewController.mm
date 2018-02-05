@@ -16,9 +16,11 @@
 
 #include "cocos/scripting/js-bindings/jswrapper/SeApi.h"
 #include "cocos/scripting/js-bindings/auto/jsb_gfx_auto.hpp"
+#include "cocos/scripting/js-bindings/auto/jsb_renderer_auto.hpp"
 #include "cocos/scripting/js-bindings/manual/jsb_global.h"
 #include "cocos/scripting/js-bindings/manual/jsb_classtype.hpp"
 #include "cocos/scripting/js-bindings/manual/jsb_gfx_manual.hpp"
+#include "cocos/scripting/js-bindings/manual/jsb_renderer_manual.hpp"
 
 #include "Utils.h"
 
@@ -126,6 +128,8 @@ SE_BIND_FUNC(setBunnyCount)
     se->addRegisterCallback(jsb_register_global_variables);
     se->addRegisterCallback(register_all_gfx);
     se->addRegisterCallback(jsb_register_gfx_manual);
+    se->addRegisterCallback(register_all_renderer);
+    se->addRegisterCallback(jsb_register_renderer_manual);
 
     se->enableDebugger("0.0.0.0", 5678);
 
@@ -144,7 +148,6 @@ SE_BIND_FUNC(setBunnyCount)
     char commandBuf[200] = {0};
     sprintf(commandBuf, "window.canvas = { width: %d, height: %d };", utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     se->evalString(commandBuf);
-    se->runScript("src/gfx.js");
     se->runScript("src/renderer-test/main-jsb.js");
     se->runScript("src/renderer-test/src/basic.js", &tickVal);
 
