@@ -101,7 +101,7 @@ private:
     
     // stage & framebuffer
     std::vector<std::string> _stages;
-    FrameBuffer* _framebuffer;
+    FrameBuffer* _framebuffer = nullptr;
     
     // projection properties
     float _near = 0.01f;
