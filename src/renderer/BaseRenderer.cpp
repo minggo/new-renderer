@@ -110,7 +110,7 @@ void BaseRenderer::render(const View* view, const Scene* scene)
         }
         else
         {
-            if (-1 == modelViewId)
+            if (-1 != modelViewId)
                 continue;
         }
         
