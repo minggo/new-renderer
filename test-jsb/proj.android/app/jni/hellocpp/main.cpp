@@ -4,6 +4,9 @@
 #include "jsb_gfx_auto.hpp"
 #include "jsb_gfx_manual.hpp"
 #include "jsb_conversions.hpp"
+#include "cocos/scripting/js-bindings/manual/jsb_renderer_manual.hpp"
+#include "cocos/scripting/js-bindings/auto/jsb_renderer_auto.hpp"
+
 
 #include <memory>
 #include <chrono>
@@ -56,6 +59,8 @@ extern "C" {
         se->addRegisterCallback(jsb_register_global_variables);
         se->addRegisterCallback(register_all_gfx);
         se->addRegisterCallback(jsb_register_gfx_manual);
+        se->addRegisterCallback(register_all_renderer);
+        se->addRegisterCallback(jsb_register_renderer_manual);
 
     //    se->enableDebugger("0.0.0.0", 5678);
 
@@ -72,7 +77,7 @@ extern "C" {
         char commandBuf[200] = {0};
         sprintf(commandBuf, "window.canvas = { width: %d, height: %d };", utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
         se->evalString(commandBuf);
-        se->runScript("src/gfx.js");
+        // se->runScript("src/gfx.js");
         se->runScript("src/renderer-test/main-jsb.js");
         se->runScript("src/renderer-test/src/basic.js", &tickVal);
 

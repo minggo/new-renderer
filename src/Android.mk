@@ -34,8 +34,8 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/types.cpp \
                    $(LOCAL_PATH)/renderer/ProgramLib.cpp \
                    $(LOCAL_PATH)/renderer//Scene.cpp \
                    $(LOCAL_PATH)/renderer/Technique.cpp \
-                   $(LOCAL_PATH)/renderer/Utils.cpp \
-                   $(LOCAL_PATH)/renderer/View.cpp
+                   $(LOCAL_PATH)/renderer/View.cpp \
+                   $(LOCAL_PATH)/renderer/ForwardRenderer.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)

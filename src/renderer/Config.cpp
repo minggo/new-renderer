@@ -27,7 +27,7 @@
 GFX_BEGIN
 
 unsigned int Config::_stageOffset = 0;
-std::unordered_map<std::string, unsigned int> Config::_name2stageID = {};
+std::unordered_map<std::string, unsigned int> Config::_name2stageID;
 
 void Config::addStage(const std::string& name)
 {

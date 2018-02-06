@@ -108,9 +108,11 @@ namespace {
             }
 
             std::string unroll;
+            char tmp[256] = {0};
             for (int32_t i = parsedBegin; i < parsedEnd; ++i)
             {
-                std::string replaceFormat = std::to_string(i);
+                snprintf(tmp, 256, "%d", i);
+                std::string replaceFormat(tmp);
                 unroll += std::regex_replace(snippet, replacePattern, replaceFormat);
             }
             return unroll;

@@ -15,6 +15,8 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/hellocpp/main.cpp \
                    $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/manual/jsb_conversions.cpp \
                    $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/manual/jsb_gfx_manual.cpp \
                    $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/manual/jsb_global.cpp \
+                   $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/manual/jsb_renderer_manual.cpp \
+                   $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/auto/jsb_renderer_auto.cpp \
                    $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/jswrapper/config.cpp \
                    $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/jswrapper/HandleObject.cpp \
                    $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/jswrapper/MappingUtils.cpp \
@@ -42,7 +44,10 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../.. \
                     $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/jswrapper \
                     $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/auto \
                     $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/manual \
-                    $(LOCAL_PATH)/../../../../test/tests
+                    $(LOCAL_PATH)/../../../../test/tests \
+                    $(LOCAL_PATH)/../../../../src/gfx \
+                    $(LOCAL_PATH)/../../../../src/renderer \
+                    $(LOCAL_PATH)/../../../../src
 
 
 LOCAL_STATIC_LIBRARIES := newrenderer v8_static uv_static
