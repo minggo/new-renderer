@@ -24,8 +24,8 @@
 
 #pragma once
 
-#include "../types.h"
-#include "../macro.h"
+#include "../Types.h"
+#include "../Macro.h"
 
 GFX_BEGIN
 

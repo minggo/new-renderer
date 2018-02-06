@@ -22,24 +22,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#pragma once
-
-#include "../macro.h"
-#include "../types.h"
-
-#include "base/CCRef.h"
+#include "GraphicsHandle.h"
 
 GFX_BEGIN
 
-class GraphicsHandle : public Ref
+GraphicsHandle::GraphicsHandle()
+: _glID(0)
 {
-public:
-    GraphicsHandle();
-    virtual ~GraphicsHandle();
-    inline GLuint getHandle() const { return _glID; }
 
-protected:
-    GLuint _glID;
-};
+}
+
+GraphicsHandle::~GraphicsHandle()
+{
+
+}
 
 GFX_END

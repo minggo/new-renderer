@@ -26,7 +26,7 @@
 
 #include <stdint.h>
 #include "base/CCVector.h"
-#include "../macro.h"
+#include "../Macro.h"
 
 GFX_BEGIN
 

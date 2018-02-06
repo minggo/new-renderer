@@ -2,17 +2,17 @@
  Copyright (c) 2018 Xiamen Yaji Software Co., Ltd.
 
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,49 +22,62 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-
 #pragma once
 
+#include "../Macro.h"
+#include "../Types.h"
 
+#include "GraphicsHandle.h"
+
+#include <string>
 #include <vector>
-#include "../macro.h"
-#include "../types.h"
-#include "CCGraphicsHandle.h"
 
 GFX_BEGIN
 
 class DeviceGraphics;
-class RenderTarget;
 
-class FrameBuffer final : public GraphicsHandle
+class Program final: public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_3(FrameBuffer, init,  DeviceGraphics*, uint16_t, uint16_t)
+    struct Attribute
+    {
+        std::string name;
+        GLsizei size;
+        GLuint location;
+        GLenum type;
+    };
 
-    FrameBuffer();
-    bool init(DeviceGraphics* device, uint16_t width, uint16_t height);
+    struct Uniform
+    {
+        std::string name;
+        GLsizei size;
+        GLint location;
+        GLenum type;
+        void setUniform(const void* value, UniformElementType elementType) const;
+        using SetUniformCallback = void (*)(GLint, GLsizei, const void*, UniformElementType); // location, count, value, elementType
+    private:
+        SetUniformCallback _callback;
+        friend class Program;
+    };
 
-    void setColorBuffers(const std::vector<RenderTarget*>& renderTargets);
-    void setColorBuffer(RenderTarget* rt, int index);
-    void setDepthBuffer(RenderTarget* rt);
-    void setStencilBuffer(RenderTarget* rt);
-    void setDepthStencilBuffer(RenderTarget* rt);
-    
-    const std::vector<RenderTarget*>& getColorBuffers() const;
-    const RenderTarget* getDepthBuffer() const;
-    const RenderTarget* getStencilBuffer() const;
-    const RenderTarget* getDepthStencilBuffer() const;
+    GFX_DEFINE_CREATE_METHOD_3(Program, init, DeviceGraphics*, const char*, const char*)
+    Program();
+    virtual ~Program();
 
+    bool init(DeviceGraphics* device, const char* vertSource, const char* fragSource);
+    inline uint32_t getID() const { return _id; }
+    inline const std::vector<Attribute>& getAttributes() const { return _attributes; }
+    inline const std::vector<Uniform>& getUniforms() const { return _uniforms; }
+    inline bool isLinked() const { return _linked; }
+    void link();
 private:
-    virtual ~FrameBuffer();
-
     DeviceGraphics* _device;
-    std::vector<RenderTarget*> _colorBuffers;
-    RenderTarget* _depthBuffer;
-    RenderTarget* _stencilBuffer;
-    RenderTarget* _depthStencilBuffer;
-    uint16_t _width;
-    uint16_t _height;
+    std::vector<Attribute> _attributes;
+    std::vector<Uniform> _uniforms;
+    std::string _vertSource;
+    std::string _fragSource;
+    uint32_t _id;
+    bool _linked;
 };
 
 GFX_END

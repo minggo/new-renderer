@@ -22,8 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCProgram.h"
-#include "CCGFXUtils.h"
+#include "Program.h"
+#include "GFXUtils.h"
 
 #include <unordered_map>
 #include <stdlib.h>

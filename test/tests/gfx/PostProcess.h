@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "gfx/CCGFX.h"
+#include "gfx/GFX.h"
 #include "math/Mat4.h"
 #include "../TestBase.h"
 

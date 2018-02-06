@@ -24,9 +24,9 @@
 
 #include "RendererUtils.h"
 
-#include "gfx/CCVertexFormat.h"
-#include "gfx/CCVertexBuffer.h"
-#include "gfx/CCIndexBuffer.h"
+#include "gfx/VertexFormat.h"
+#include "gfx/VertexBuffer.h"
+#include "gfx/IndexBuffer.h"
 
 #include "InputAssembler.h"
 

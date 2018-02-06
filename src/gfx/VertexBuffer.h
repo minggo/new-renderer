@@ -21,35 +21,35 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
-#include "CCGraphicsHandle.h"
+#include "../Macro.h"
+#include "../Types.h"
+#include "VertexFormat.h"
+#include "GraphicsHandle.h"
 
 GFX_BEGIN
 
 class DeviceGraphics;
 
-class IndexBuffer final : public GraphicsHandle
+class VertexBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(IndexBuffer, init, DeviceGraphics*, IndexFormat, Usage, const void*, size_t, uint32_t)
+    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, init,  DeviceGraphics*, const VertexFormat&, Usage, const void*, size_t, uint32_t)
 
-    IndexBuffer();
-    virtual ~IndexBuffer();
+    VertexBuffer();
+    virtual ~VertexBuffer();
 
-    bool init(DeviceGraphics* device, IndexFormat format, Usage usage, const void* data, size_t dataByteLength, uint32_t numIndices);
+    bool init(DeviceGraphics* device, const VertexFormat& format, Usage usage, const void* data, size_t dataByteLength, uint32_t numVertices);
     void update(uint32_t offset, const void* data, size_t dataByteLength);
 
-    inline uint32_t getCount() const { return _numIndices; }
-    inline void setCount(uint32_t numIndices) { _numIndices = numIndices; }
+    inline uint32_t getCount() const { return _numVertices; }
+    inline void setCount(uint32_t numVertices) { _numVertices = numVertices; }
 
-    inline IndexFormat getFormat() const { return _format; }
-    inline void setFormat(IndexFormat format) { _format = format; }
-
-    inline uint32_t getBytesPerIndex() const { return _bytesPerIndex; }
-    inline void setBytesPerIndex(uint32_t bytesPerIndex) {_bytesPerIndex = bytesPerIndex; }
+    inline const VertexFormat& getFormat() const { return _format; };
+    inline void setFormat(VertexFormat&& format) { _format = std::move(format); }
+    inline void setFormat(const VertexFormat& format) { _format = format; }
 
     inline Usage getUsage() const { return _usage; }
     inline void setUsage(Usage usage) { _usage = usage; }
@@ -67,18 +67,17 @@ public:
         }
         return _fetchDataCallback(bytes);
     }
-    
+
 private:
     DeviceGraphics* _device;
-    IndexFormat _format;
+    VertexFormat _format;
     Usage _usage;
-    uint32_t _numIndices;
-    uint32_t _bytesPerIndex;
+    uint32_t _numVertices;
     uint32_t _bytes;
 
     FetchDataCallback _fetchDataCallback;
 
-    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(IndexBuffer)
+    CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
 };
 
 GFX_END

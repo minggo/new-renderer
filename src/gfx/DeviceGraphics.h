@@ -34,9 +34,9 @@
 #include "math/Vec3.h"
 #include "math/Vec4.h"
 #include "math/Mat4.h"
-#include "../macro.h"
-#include "../types.h"
-#include "CCState.h"
+#include "../Macro.h"
+#include "../Types.h"
+#include "State.h"
 
 
 GFX_BEGIN

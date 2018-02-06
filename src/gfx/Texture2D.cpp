@@ -22,9 +22,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCTexture2D.h"
-#include "CCDeviceGraphics.h"
-#include "CCGFXUtils.h"
+#include "Texture2D.h"
+#include "DeviceGraphics.h"
+#include "GFXUtils.h"
 #include "firefox/WebGLFormats.h"
 #include "firefox/GLConsts.h"
 #include "firefox/WebGLTexelConversions.h"

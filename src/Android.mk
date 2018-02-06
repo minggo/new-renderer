@@ -8,21 +8,21 @@ LOCAL_MODULE := newrenderer
 
 LOCAL_MODULE_FILENAME := libnewrenderer
 
-LOCAL_SRC_FILES := $(LOCAL_PATH)/types.cpp \
-                   $(LOCAL_PATH)/gfx/CCDeviceGraphics.cpp \
-                   $(LOCAL_PATH)/gfx/CCFrameBuffer.cpp \
-                   $(LOCAL_PATH)/gfx/CCGFX.cpp \
-                   $(LOCAL_PATH)/gfx/CCGFXUtils.cpp \
-                   $(LOCAL_PATH)/gfx/CCGraphicsHandle.cpp \
-                   $(LOCAL_PATH)/gfx/CCIndexBuffer.cpp \
-                   $(LOCAL_PATH)/gfx/CCProgram.cpp \
-                   $(LOCAL_PATH)/gfx/CCRenderBuffer.cpp \
-                   $(LOCAL_PATH)/gfx/CCRenderTarget.cpp \
-                   $(LOCAL_PATH)/gfx/CCState.cpp \
-                   $(LOCAL_PATH)/gfx/CCTexture.cpp \
-                   $(LOCAL_PATH)/gfx/CCTexture2D.cpp \
-                   $(LOCAL_PATH)/gfx/CCVertexBuffer.cpp \
-                   $(LOCAL_PATH)/gfx/CCVertexFormat.cpp \
+LOCAL_SRC_FILES := $(LOCAL_PATH)/Types.cpp \
+                   $(LOCAL_PATH)/gfx/DeviceGraphics.cpp \
+                   $(LOCAL_PATH)/gfx/FrameBuffer.cpp \
+                   $(LOCAL_PATH)/gfx/GFX.cpp \
+                   $(LOCAL_PATH)/gfx/GFXUtils.cpp \
+                   $(LOCAL_PATH)/gfx/GraphicsHandle.cpp \
+                   $(LOCAL_PATH)/gfx/IndexBuffer.cpp \
+                   $(LOCAL_PATH)/gfx/Program.cpp \
+                   $(LOCAL_PATH)/gfx/RenderBuffer.cpp \
+                   $(LOCAL_PATH)/gfx/RenderTarget.cpp \
+                   $(LOCAL_PATH)/gfx/State.cpp \
+                   $(LOCAL_PATH)/gfx/Texture.cpp \
+                   $(LOCAL_PATH)/gfx/Texture2D.cpp \
+                   $(LOCAL_PATH)/gfx/VertexBuffer.cpp \
+                   $(LOCAL_PATH)/gfx/VertexFormat.cpp \
                    $(LOCAL_PATH)/renderer/BaseRenderer.cpp \
                    $(LOCAL_PATH)/renderer/Camera.cpp \
                    $(LOCAL_PATH)/renderer/Config.cpp \

@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCTexture.h"
+#include "Texture.h"
 #include "platform/CCPlatformConfig.h"
 
 namespace {

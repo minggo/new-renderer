@@ -22,8 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCVertexBuffer.h"
-#include "CCDeviceGraphics.h"
+#include "VertexBuffer.h"
+#include "DeviceGraphics.h"
 
 GFX_BEGIN
 

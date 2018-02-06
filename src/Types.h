@@ -31,7 +31,7 @@
 #include <string>
 #include "base/CCValue.h"
 
-#include "macro.h"
+#include "Macro.h"
 #include "platform/CCGL.h"
 
 GFX_BEGIN

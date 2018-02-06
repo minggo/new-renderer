@@ -24,10 +24,10 @@
 
 #include "Light.h"
 #include <new>
-#include "gfx/CCDeviceGraphics.h"
-#include "gfx/CCTexture2D.h"
-#include "gfx/CCRenderBuffer.h"
-#include "gfx/CCFrameBuffer.h"
+#include "gfx/DeviceGraphics.h"
+#include "gfx/Texture2D.h"
+#include "gfx/RenderBuffer.h"
+#include "gfx/FrameBuffer.h"
 
 GFX_BEGIN
 

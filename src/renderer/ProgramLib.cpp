@@ -23,8 +23,8 @@
  ****************************************************************************/
 
 #include "ProgramLib.h"
-#include "../gfx/CCProgram.h"
-#include "gfx/CCDeviceGraphics.h"
+#include "../gfx/Program.h"
+#include "gfx/DeviceGraphics.h"
 
 #include <regex>
 #include <string>

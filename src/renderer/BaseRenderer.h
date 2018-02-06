@@ -28,7 +28,7 @@
 #include <unordered_map>
 #include <string>
 #include <functional>
-#include "../macro.h"
+#include "../Macro.h"
 #include "ProgramLib.h"
 #include "Model.h"
 

@@ -22,12 +22,12 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCState.h"
+#include "State.h"
 
-#include "CCVertexBuffer.h"
-#include "CCIndexBuffer.h"
-#include "CCTexture2D.h"
-#include "CCProgram.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "Texture2D.h"
+#include "Program.h"
 
 GFX_BEGIN
 

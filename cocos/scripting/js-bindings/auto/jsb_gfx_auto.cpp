@@ -1,7 +1,7 @@
 #include "scripting/js-bindings/auto/jsb_gfx_auto.hpp"
 #include "scripting/js-bindings/manual/jsb_conversions.hpp"
 #include "scripting/js-bindings/manual/jsb_global.h"
-#include "CCGFX.h"
+#include "GFX.h"
 
 se::Object* __jsb_cocos2d_gfx_GraphicsHandle_proto = nullptr;
 se::Class* __jsb_cocos2d_gfx_GraphicsHandle_class = nullptr;

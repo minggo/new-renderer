@@ -23,8 +23,8 @@
  ****************************************************************************/
 
 #include "InputAssembler.h"
-#include "gfx/CCVertexBuffer.h"
-#include "gfx/CCIndexBuffer.h"
+#include "gfx/VertexBuffer.h"
+#include "gfx/IndexBuffer.h"
 
 GFX_BEGIN
 

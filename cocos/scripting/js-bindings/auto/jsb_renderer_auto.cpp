@@ -1148,6 +1148,7 @@ static bool js_renderer_Effect_getProperty(se::State& s)
         SE_PRECONDITION2(ok, false, "js_renderer_Effect_getProperty : Error processing arguments");
         const cocos2d::gfx::Technique::Parameter& result = cobj->getProperty(arg0);
         ok &= TechniqueParameter_to_seval(result, &s.rval());
+        s.thisObject()->attachObject(s.rval().toObject());
         SE_PRECONDITION2(ok, false, "js_renderer_Effect_getProperty : Error processing arguments");
         return true;
     }

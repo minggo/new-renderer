@@ -28,7 +28,7 @@
 #include "base/CCVector.h"
 #include "base/CCValue.h"
 #include "math/Mat4.h"
-#include "../macro.h"
+#include "../Macro.h"
 
 GFX_BEGIN
 

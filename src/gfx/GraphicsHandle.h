@@ -24,32 +24,22 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
+#include "../Macro.h"
+#include "../Types.h"
 
-#include "CCTexture.h"
+#include "base/CCRef.h"
 
 GFX_BEGIN
 
-class Texture2D : public Texture
+class GraphicsHandle : public Ref
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_2(Texture2D, init, DeviceGraphics*, const Options&)
+    GraphicsHandle();
+    virtual ~GraphicsHandle();
+    inline GLuint getHandle() const { return _glID; }
 
-    Texture2D();
-    virtual ~Texture2D();
-
-    bool init(DeviceGraphics* device, const Options& options);
-    void update(const Options& options);
-    void updateSubImage(const SubImageOption& option);
-    void updateImage(const ImageOption& option);
-
-private:
-    void setSubImage(const GLTextureFmt& glFmt, const SubImageOption& options);
-    void setImage(const GLTextureFmt& glFmt, const ImageOption& options);
-    void setMipmap(const std::vector<cocos2d::Data>& images, bool isFlipY, bool isPremultiplyAlpha);
-    void setTexInfo();
-
+protected:
+    GLuint _glID;
 };
 
 GFX_END

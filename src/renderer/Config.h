@@ -27,7 +27,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include "../macro.h"
+#include "../Macro.h"
 
 GFX_BEGIN
 

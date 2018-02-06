@@ -26,8 +26,8 @@
 
 #include <stdint.h>
 #include <vector>
-#include "../macro.h"
-#include "../types.h"
+#include "../Macro.h"
+#include "../Types.h"
 
 GFX_BEGIN
 

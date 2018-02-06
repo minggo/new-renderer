@@ -28,8 +28,8 @@
 #include <string>
 #include "base/ccTypes.h"
 #include "math/Mat4.h"
-#include "../macro.h"
-#include "../types.h"
+#include "../Macro.h"
+#include "../Types.h"
 #include "View.h"
 
 GFX_BEGIN

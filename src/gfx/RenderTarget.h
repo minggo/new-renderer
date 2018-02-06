@@ -22,19 +22,21 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCGraphicsHandle.h"
+#pragma once
+
+#include "../Macro.h"
+#include "../Types.h"
+
+#include "base/CCRef.h"
+
+#include "GraphicsHandle.h"
 
 GFX_BEGIN
 
-GraphicsHandle::GraphicsHandle()
-: _glID(0)
+class RenderTarget : public GraphicsHandle
 {
-
-}
-
-GraphicsHandle::~GraphicsHandle()
-{
-
-}
+public:
+    virtual ~RenderTarget() {}
+};
 
 GFX_END

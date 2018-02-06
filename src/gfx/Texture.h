@@ -24,11 +24,11 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "../types.h"
+#include "../Macro.h"
+#include "../Types.h"
 
-#include "CCGraphicsHandle.h"
-#include "CCRenderTarget.h"
+#include "GraphicsHandle.h"
+#include "RenderTarget.h"
 #include "base/CCData.h"
 
 #include <vector>

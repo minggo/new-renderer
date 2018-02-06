@@ -25,8 +25,8 @@
 #include "Technique.h"
 #include "Config.h"
 #include "Pass.h"
-#include "gfx/CCTexture.h"
-#include "gfx/CCTexture.h"
+#include "gfx/Texture.h"
+#include "gfx/Texture.h"
 
 GFX_BEGIN
 

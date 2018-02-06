@@ -29,8 +29,8 @@
 #include "base/ccTypes.h"
 #include "math/Vec3.h"
 #include "math/Mat4.h"
-#include "../macro.h"
-#include "../types.h"
+#include "../Macro.h"
+#include "../Types.h"
 #include "View.h"
 
 GFX_BEGIN

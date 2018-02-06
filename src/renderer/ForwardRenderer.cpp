@@ -24,10 +24,10 @@
 
 #include "ForwardRenderer.h"
 
-#include "gfx/CCDeviceGraphics.h"
-#include "gfx/CCTexture2D.h"
-#include "gfx/CCVertexBuffer.h"
-#include "gfx/CCIndexBuffer.h"
+#include "gfx/DeviceGraphics.h"
+#include "gfx/Texture2D.h"
+#include "gfx/VertexBuffer.h"
+#include "gfx/IndexBuffer.h"
 #include "ProgramLib.h"
 #include "View.h"
 #include "Scene.h"

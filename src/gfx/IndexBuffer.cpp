@@ -22,8 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCIndexBuffer.h"
-#include "CCDeviceGraphics.h"
+#include "IndexBuffer.h"
+#include "DeviceGraphics.h"
 
 GFX_BEGIN
 

@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCVertexFormat.h"
+#include "VertexFormat.h"
 
 GFX_BEGIN
 

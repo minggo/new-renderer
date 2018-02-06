@@ -24,10 +24,10 @@
 
 #pragma once
 
-#include "../macro.h"
-#include "types.h"
+#include "../Macro.h"
+#include "Types.h"
 
-#include "CCRenderTarget.h"
+#include "RenderTarget.h"
 
 GFX_BEGIN
 

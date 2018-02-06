@@ -22,8 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCRenderBuffer.h"
-#include "CCGFXUtils.h"
+#include "RenderBuffer.h"
+#include "GFXUtils.h"
 
 GFX_BEGIN
 

@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "../macro.h"
+#include "../Macro.h"
 #include "math/Mat4.h"
 #include "math/Vec3.h"
 

@@ -9,7 +9,7 @@
 #include "jsb_gfx_manual.hpp"
 #include "cocos/scripting/js-bindings/auto/jsb_gfx_auto.hpp"
 #include "cocos/scripting/js-bindings/manual/jsb_conversions.hpp"
-#include "gfx/CCGFX.h"
+#include "gfx/GFX.h"
 
 using namespace cocos2d;
 using namespace cocos2d::gfx;

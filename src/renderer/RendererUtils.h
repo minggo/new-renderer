@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "../macro.h"
+#include "../Macro.h"
 
 #include <string>
 #include <vector>

@@ -25,7 +25,7 @@
 #pragma once
 
 #include "TestBase.h"
-#include "gfx/CCGFX.h"
+#include "gfx/GFX.h"
 
 class Basic : public TestBaseI
 {

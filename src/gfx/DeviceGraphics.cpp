@@ -22,15 +22,15 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCDeviceGraphics.h"
-#include "CCVertexBuffer.h"
-#include "CCIndexBuffer.h"
-#include "CCFrameBuffer.h"
-#include "CCGraphicsHandle.h"
-#include "CCTexture2D.h"
-#include "CCRenderTarget.h"
-#include "CCProgram.h"
-#include "CCGFXUtils.h"
+#include "DeviceGraphics.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "FrameBuffer.h"
+#include "GraphicsHandle.h"
+#include "Texture2D.h"
+#include "RenderTarget.h"
+#include "Program.h"
+#include "GFXUtils.h"
 
 #include "platform/CCPlatformConfig.h"
 

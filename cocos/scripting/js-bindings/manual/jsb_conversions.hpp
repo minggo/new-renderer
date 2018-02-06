@@ -4,7 +4,7 @@
 #include "scripting/js-bindings/manual/jsb_classtype.hpp"
 
 #include "cocos2d.h"
-#include "gfx/CCGFX.h"
+#include "gfx/GFX.h"
 #include "renderer/Renderer.h"
 //#include "cocos/ui/CocosGUI.h"
 //#include "extensions/cocos-ext.h"

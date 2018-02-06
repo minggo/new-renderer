@@ -29,7 +29,7 @@
 #include "platform/CCGL.h"
 #include "base/CCVector.h"
 #include "base/CCRef.h"
-#include "../macro.h"
+#include "../Macro.h"
 
 GFX_BEGIN
 

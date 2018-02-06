@@ -28,8 +28,8 @@
 #include "math/Vec3.h"
 #include "math/Mat4.h"
 #include "base/ccTypes.h"
-#include "../macro.h"
-#include "../types.h"
+#include "../Macro.h"
+#include "../Types.h"
 
 GFX_BEGIN
 

@@ -26,8 +26,8 @@
 
 #include <string>
 #include <base/CCRef.h>
-#include "../macro.h"
-#include "../types.h"
+#include "../Macro.h"
+#include "../Types.h"
 
 GFX_BEGIN
 

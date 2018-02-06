@@ -22,8 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "CCFrameBuffer.h"
-#include "CCRenderTarget.h"
+#include "FrameBuffer.h"
+#include "RenderTarget.h"
 
 GFX_BEGIN
 
