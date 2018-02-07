@@ -30,7 +30,7 @@
 #include "InputAssembler.h"
 #include "Effect.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 Scene::Scene()
 {
@@ -47,8 +47,8 @@ void Scene::setDebugCamera(Camera* debugCamera)
     if (_debugCamera == debugCamera)
         return;
     
-    GFX_SAFE_RELEASE(_debugCamera);
-    GFX_SAFE_RETAIN(debugCamera);
+    RENDERER_SAFE_RELEASE(_debugCamera);
+    RENDERER_SAFE_RETAIN(debugCamera);
     _debugCamera = debugCamera;
 }
 
@@ -107,4 +107,4 @@ void Scene::removeView(View* view)
     _views.eraseObject(view);
 }
 
-GFX_END
+RENDERER_END

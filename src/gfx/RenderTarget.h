@@ -31,7 +31,7 @@
 
 #include "GraphicsHandle.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class RenderTarget : public GraphicsHandle
 {
@@ -39,4 +39,4 @@ public:
     virtual ~RenderTarget() {}
 };
 
-GFX_END
+RENDERER_END

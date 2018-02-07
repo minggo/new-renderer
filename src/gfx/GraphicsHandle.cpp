@@ -24,7 +24,7 @@
 
 #include "GraphicsHandle.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 GraphicsHandle::GraphicsHandle()
 : _glID(0)
@@ -37,4 +37,4 @@ GraphicsHandle::~GraphicsHandle()
 
 }
 
-GFX_END
+RENDERER_END

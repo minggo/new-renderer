@@ -30,7 +30,7 @@
 #include "math/Mat4.h"
 #include "../Macro.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class Effect;
 class InputAssembler;
@@ -84,4 +84,4 @@ private:
     int _viewID = -1;
 };
 
-GFX_END
+RENDERER_END

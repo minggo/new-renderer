@@ -30,7 +30,7 @@
 #include <vector>
 #include <unordered_map>
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class VertexFormat
 {
@@ -99,4 +99,4 @@ private:
     friend class VertexBuffer;
 };
 
-GFX_END
+RENDERER_END

@@ -36,7 +36,7 @@
 #include "INode.h"
 #include "Model.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 BaseRenderer::BaseRenderer()
 {}
@@ -49,7 +49,7 @@ BaseRenderer::~BaseRenderer()
     delete _programLib;
     _programLib = nullptr;
     
-    GFX_SAFE_RELEASE(_defaultTexture);
+    RENDERER_SAFE_RELEASE(_defaultTexture);
     _defaultTexture = nullptr;
 }
 
@@ -66,7 +66,7 @@ bool BaseRenderer::init(DeviceGraphics* device, std::vector<ProgramLib::Template
     _device = device;
     _device->retain();
     _defaultTexture = defaultTexture;
-    GFX_SAFE_RETAIN(_defaultTexture);
+    RENDERER_SAFE_RETAIN(_defaultTexture);
     _programLib = new (std::nothrow) ProgramLib(_device, programTemplates);
     return true;
 }
@@ -196,7 +196,7 @@ void BaseRenderer::draw(const StageItem& item)
         
         if (nullptr == prop->getValue())
         {
-            GFX_LOGW("Failed to set technique property %s, value not found", param.getName().c_str());
+            RENDERER_LOGW("Failed to set technique property %s, value not found", param.getName().c_str());
             continue;
         }
         
@@ -208,7 +208,7 @@ void BaseRenderer::draw(const StageItem& item)
             {
                 if (param.getCount() != prop->getCount())
                 {
-                    GFX_LOGW("The length of texture array %d is not correct(expect %d)", prop->getCount(), param.getCount());
+                    RENDERER_LOGW("The length of texture array %d is not correct(expect %d)", prop->getCount(), param.getCount());
                     continue;
                 }
                 
@@ -221,7 +221,7 @@ void BaseRenderer::draw(const StageItem& item)
             }
             else
                 _device->setTexture(param.getName(),
-                                    (cocos2d::gfx::Texture *)(prop->getValue()),
+                                    (renderer::Texture *)(prop->getValue()),
                                     allocTextureUnit());
         }
         else
@@ -233,14 +233,14 @@ void BaseRenderer::draw(const StageItem& item)
                     Technique::Parameter::Type::FLOAT3 == propType ||
                     Technique::Parameter::Type::MAT3 == propType)
                 {
-                    GFX_LOGW("Uinform array of color3/int3/float3/mat3 can not be supported!");
+                    RENDERER_LOGW("Uinform array of color3/int3/float3/mat3 can not be supported!");
                     continue;
                 }
                 
                 uint8_t size = Technique::Parameter::getElements(propType);
                 if (size * prop->getCount() > 64)
                 {
-                    GFX_LOGW("Uniform array is too long!");
+                    RENDERER_LOGW("Uniform array is too long!");
                     continue;
                 }
             }
@@ -338,7 +338,7 @@ int BaseRenderer::allocTextureUnit()
 {
     int maxTexureUnits = _device->getCapacity().maxTextureUnits;
     if (_usedTextureUnits >= maxTexureUnits)
-        GFX_LOGW("Trying to use %d texture uints while this GPU only supports %d", _usedTextureUnits, maxTexureUnits);
+        RENDERER_LOGW("Trying to use %d texture uints while this GPU only supports %d", _usedTextureUnits, maxTexureUnits);
     
     return ++_usedTextureUnits;
 }
@@ -353,4 +353,4 @@ View* BaseRenderer::requestView()
     return new (std::nothrow) View();
 }
 
-GFX_END
+RENDERER_END

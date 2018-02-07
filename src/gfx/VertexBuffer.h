@@ -29,14 +29,14 @@
 #include "VertexFormat.h"
 #include "GraphicsHandle.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class DeviceGraphics;
 
 class VertexBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(VertexBuffer, init,  DeviceGraphics*, const VertexFormat&, Usage, const void*, size_t, uint32_t)
+    RENDERER_DEFINE_CREATE_METHOD_6(VertexBuffer, init,  DeviceGraphics*, const VertexFormat&, Usage, const void*, size_t, uint32_t)
 
     VertexBuffer();
     virtual ~VertexBuffer();
@@ -80,4 +80,4 @@ private:
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(VertexBuffer)
 };
 
-GFX_END
+RENDERER_END

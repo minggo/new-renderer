@@ -29,7 +29,7 @@
 #include "../Macro.h"
 #include "../Types.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class Pass : public Ref
 {
@@ -107,4 +107,4 @@ private:
     std::string _programName = "";
 };
 
-GFX_END
+RENDERER_END

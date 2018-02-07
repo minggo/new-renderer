@@ -25,7 +25,7 @@
 #include "VertexBuffer.h"
 #include "DeviceGraphics.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 VertexBuffer::VertexBuffer()
 : _device(nullptr)
@@ -40,7 +40,7 @@ VertexBuffer::~VertexBuffer()
 {
     if (_glID == 0)
     {
-        GFX_LOGE("The vertex buffer is invalid!");
+        RENDERER_LOGE("The vertex buffer is invalid!");
         return;
     }
 
@@ -72,12 +72,12 @@ void VertexBuffer::update(uint32_t offset, const void* data, size_t dataByteLeng
 {
     if (_glID == 0)
     {
-        GFX_LOGE("The buffer is destroyed");
+        RENDERER_LOGE("The buffer is destroyed");
         return;
     }
 
     if (data && dataByteLength + offset > _bytes) {
-        GFX_LOGE("Failed to update vertex buffer data, bytes exceed.");
+        RENDERER_LOGE("Failed to update vertex buffer data, bytes exceed.");
         return;
     }
 
@@ -120,4 +120,4 @@ static void testVertexBuffer()
 }
 #endif
 
-GFX_END
+RENDERER_END

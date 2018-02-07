@@ -34,7 +34,7 @@
 #include "Macro.h"
 #include "platform/CCGL.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 enum ClearFlag : uint8_t
 {
@@ -200,4 +200,4 @@ struct Rect
     static Rect ZERO;
 };
 
-GFX_END
+RENDERER_END

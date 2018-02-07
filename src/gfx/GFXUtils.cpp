@@ -51,7 +51,7 @@ const char* glEnumName(GLenum _enum)
 
 #undef GLENUM
 
-    GFX_LOGW("Unknown enum? %x", _enum);
+    RENDERER_LOGW("Unknown enum? %x", _enum);
     return "<GLenum?>";
 }
 

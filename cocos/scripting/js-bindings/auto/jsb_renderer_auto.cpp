@@ -8,7 +8,7 @@ se::Class* __jsb_cocos2d_gfx_Model_class = nullptr;
 
 static bool js_renderer_Model_getInputAssemblerCount(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_getInputAssemblerCount : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -26,7 +26,7 @@ SE_BIND_FUNC(js_renderer_Model_getInputAssemblerCount)
 
 static bool js_renderer_Model_getDrawItemCount(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_getDrawItemCount : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -44,7 +44,7 @@ SE_BIND_FUNC(js_renderer_Model_getDrawItemCount)
 
 static bool js_renderer_Model_getWorldMatrix(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_getWorldMatrix : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -62,7 +62,7 @@ SE_BIND_FUNC(js_renderer_Model_getWorldMatrix)
 
 static bool js_renderer_Model_isDynamicIA(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_isDynamicIA : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -80,13 +80,13 @@ SE_BIND_FUNC(js_renderer_Model_isDynamicIA)
 
 static bool js_renderer_Model_addEffect(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_addEffect : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Effect* arg0 = nullptr;
+        cocos2d::renderer::Effect* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Model_addEffect : Error processing arguments");
         cobj->addEffect(arg0);
@@ -99,7 +99,7 @@ SE_BIND_FUNC(js_renderer_Model_addEffect)
 
 static bool js_renderer_Model_setWorldMatix(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_setWorldMatix : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -118,7 +118,7 @@ SE_BIND_FUNC(js_renderer_Model_setWorldMatix)
 
 static bool js_renderer_Model_clearEffects(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_clearEffects : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -133,7 +133,7 @@ SE_BIND_FUNC(js_renderer_Model_clearEffects)
 
 static bool js_renderer_Model_setDynamicIA(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_setDynamicIA : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -152,7 +152,7 @@ SE_BIND_FUNC(js_renderer_Model_setDynamicIA)
 
 static bool js_renderer_Model_getViewId(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_getViewId : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -170,7 +170,7 @@ SE_BIND_FUNC(js_renderer_Model_getViewId)
 
 static bool js_renderer_Model_clearInputAssemblers(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_clearInputAssemblers : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -185,13 +185,13 @@ SE_BIND_FUNC(js_renderer_Model_clearInputAssemblers)
 
 static bool js_renderer_Model_addInputAssembler(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_addInputAssembler : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::InputAssembler* arg0 = nullptr;
+        cocos2d::renderer::InputAssembler* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Model_addInputAssembler : Error processing arguments");
         cobj->addInputAssembler(arg0);
@@ -204,7 +204,7 @@ SE_BIND_FUNC(js_renderer_Model_addInputAssembler)
 
 static bool js_renderer_Model_setViewId(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_setViewId : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -225,7 +225,7 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_Model_finalize)
 
 static bool js_renderer_Model_constructor(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = new (std::nothrow) cocos2d::gfx::Model();
+    cocos2d::renderer::Model* cobj = new (std::nothrow) cocos2d::renderer::Model();
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -236,8 +236,8 @@ SE_BIND_CTOR(js_renderer_Model_constructor, __jsb_cocos2d_gfx_Model_class, js_co
 
 static bool js_cocos2d_gfx_Model_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Model)", s.nativeThisObject());
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::Model)", s.nativeThisObject());
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -264,7 +264,7 @@ bool js_register_renderer_Model(se::Object* obj)
     cls->defineFunction("setViewId", _SE(js_renderer_Model_setViewId));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Model_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::Model>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::Model>(cls);
 
     __jsb_cocos2d_gfx_Model_proto = cls->getProto();
     __jsb_cocos2d_gfx_Model_class = cls;
@@ -279,19 +279,19 @@ se::Class* __jsb_cocos2d_gfx_BaseRenderer_class = nullptr;
 static bool js_renderer_BaseRenderer_init(se::State& s)
 {
     CC_UNUSED bool ok = true;
-    cocos2d::gfx::BaseRenderer* cobj = (cocos2d::gfx::BaseRenderer*)s.nativeThisObject();
+    cocos2d::renderer::BaseRenderer* cobj = (cocos2d::renderer::BaseRenderer*)s.nativeThisObject();
     SE_PRECONDITION2( cobj, false, "js_renderer_BaseRenderer_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     do {
         if (argc == 3) {
-            cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
+            cocos2d::renderer::DeviceGraphics* arg0 = nullptr;
             ok &= seval_to_native_ptr(args[0], &arg0);
             if (!ok) { ok = true; break; }
-            std::vector<cocos2d::gfx::ProgramLib::Template> arg1;
+            std::vector<cocos2d::renderer::ProgramLib::Template> arg1;
             ok &= seval_to_std_vector_ProgramLib_Template(args[1], &arg1);
             if (!ok) { ok = true; break; }
-            cocos2d::gfx::Texture2D* arg2 = nullptr;
+            cocos2d::renderer::Texture2D* arg2 = nullptr;
             ok &= seval_to_native_ptr(args[2], &arg2);
             if (!ok) { ok = true; break; }
             bool result = cobj->init(arg0, arg1, arg2);
@@ -303,10 +303,10 @@ static bool js_renderer_BaseRenderer_init(se::State& s)
 
     do {
         if (argc == 2) {
-            cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
+            cocos2d::renderer::DeviceGraphics* arg0 = nullptr;
             ok &= seval_to_native_ptr(args[0], &arg0);
             if (!ok) { ok = true; break; }
-            std::vector<cocos2d::gfx::ProgramLib::Template> arg1;
+            std::vector<cocos2d::renderer::ProgramLib::Template> arg1;
             ok &= seval_to_std_vector_ProgramLib_Template(args[1], &arg1);
             if (!ok) { ok = true; break; }
             bool result = cobj->init(arg0, arg1);
@@ -325,7 +325,7 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_BaseRenderer_finalize)
 
 static bool js_renderer_BaseRenderer_constructor(se::State& s)
 {
-    cocos2d::gfx::BaseRenderer* cobj = new (std::nothrow) cocos2d::gfx::BaseRenderer();
+    cocos2d::renderer::BaseRenderer* cobj = new (std::nothrow) cocos2d::renderer::BaseRenderer();
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -336,8 +336,8 @@ SE_BIND_CTOR(js_renderer_BaseRenderer_constructor, __jsb_cocos2d_gfx_BaseRendere
 
 static bool js_cocos2d_gfx_BaseRenderer_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::BaseRenderer)", s.nativeThisObject());
-    cocos2d::gfx::BaseRenderer* cobj = (cocos2d::gfx::BaseRenderer*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::BaseRenderer)", s.nativeThisObject());
+    cocos2d::renderer::BaseRenderer* cobj = (cocos2d::renderer::BaseRenderer*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -353,7 +353,7 @@ bool js_register_renderer_BaseRenderer(se::Object* obj)
     cls->defineFunction("init", _SE(js_renderer_BaseRenderer_init));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_BaseRenderer_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::BaseRenderer>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::BaseRenderer>(cls);
 
     __jsb_cocos2d_gfx_BaseRenderer_proto = cls->getProto();
     __jsb_cocos2d_gfx_BaseRenderer_class = cls;
@@ -367,14 +367,14 @@ se::Class* __jsb_cocos2d_gfx_ForwardRenderer_class = nullptr;
 
 static bool js_renderer_ForwardRenderer_init(se::State& s)
 {
-    cocos2d::gfx::ForwardRenderer* cobj = (cocos2d::gfx::ForwardRenderer*)s.nativeThisObject();
+    cocos2d::renderer::ForwardRenderer* cobj = (cocos2d::renderer::ForwardRenderer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_ForwardRenderer_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 4) {
-        cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
-        std::vector<cocos2d::gfx::ProgramLib::Template> arg1;
+        cocos2d::renderer::DeviceGraphics* arg0 = nullptr;
+        std::vector<cocos2d::renderer::ProgramLib::Template> arg1;
         int arg2 = 0;
         int arg3 = 0;
         ok &= seval_to_native_ptr(args[0], &arg0);
@@ -394,13 +394,13 @@ SE_BIND_FUNC(js_renderer_ForwardRenderer_init)
 
 static bool js_renderer_ForwardRenderer_render(se::State& s)
 {
-    cocos2d::gfx::ForwardRenderer* cobj = (cocos2d::gfx::ForwardRenderer*)s.nativeThisObject();
+    cocos2d::renderer::ForwardRenderer* cobj = (cocos2d::renderer::ForwardRenderer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_ForwardRenderer_render : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Scene* arg0 = nullptr;
+        cocos2d::renderer::Scene* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_ForwardRenderer_render : Error processing arguments");
         cobj->render(arg0);
@@ -415,7 +415,7 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_ForwardRenderer_finalize)
 
 static bool js_renderer_ForwardRenderer_constructor(se::State& s)
 {
-    cocos2d::gfx::ForwardRenderer* cobj = new (std::nothrow) cocos2d::gfx::ForwardRenderer();
+    cocos2d::renderer::ForwardRenderer* cobj = new (std::nothrow) cocos2d::renderer::ForwardRenderer();
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -427,8 +427,8 @@ extern se::Object* __jsb_cocos2d_gfx_BaseRenderer_proto;
 
 static bool js_cocos2d_gfx_ForwardRenderer_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::ForwardRenderer)", s.nativeThisObject());
-    cocos2d::gfx::ForwardRenderer* cobj = (cocos2d::gfx::ForwardRenderer*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::ForwardRenderer)", s.nativeThisObject());
+    cocos2d::renderer::ForwardRenderer* cobj = (cocos2d::renderer::ForwardRenderer*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -445,7 +445,7 @@ bool js_register_renderer_ForwardRenderer(se::Object* obj)
     cls->defineFunction("render", _SE(js_renderer_ForwardRenderer_render));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_ForwardRenderer_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::ForwardRenderer>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::ForwardRenderer>(cls);
 
     __jsb_cocos2d_gfx_ForwardRenderer_proto = cls->getProto();
     __jsb_cocos2d_gfx_ForwardRenderer_class = cls;
@@ -461,7 +461,7 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_View_finalize)
 
 static bool js_renderer_View_constructor(se::State& s)
 {
-    cocos2d::gfx::View* cobj = new (std::nothrow) cocos2d::gfx::View();
+    cocos2d::renderer::View* cobj = new (std::nothrow) cocos2d::renderer::View();
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -472,8 +472,8 @@ SE_BIND_CTOR(js_renderer_View_constructor, __jsb_cocos2d_gfx_View_class, js_coco
 
 static bool js_cocos2d_gfx_View_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::View)", s.nativeThisObject());
-    cocos2d::gfx::View* cobj = (cocos2d::gfx::View*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::View)", s.nativeThisObject());
+    cocos2d::renderer::View* cobj = (cocos2d::renderer::View*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -488,7 +488,7 @@ bool js_register_renderer_View(se::Object* obj)
 
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_View_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::View>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::View>(cls);
 
     __jsb_cocos2d_gfx_View_proto = cls->getProto();
     __jsb_cocos2d_gfx_View_class = cls;
@@ -502,7 +502,7 @@ se::Class* __jsb_cocos2d_gfx_Camera_class = nullptr;
 
 static bool js_renderer_Camera_getDepth(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getDepth : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -520,7 +520,7 @@ SE_BIND_FUNC(js_renderer_Camera_getDepth)
 
 static bool js_renderer_Camera_setFov(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setFov : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -539,14 +539,14 @@ SE_BIND_FUNC(js_renderer_Camera_setFov)
 
 static bool js_renderer_Camera_getFrameBuffer(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getFrameBuffer : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        cocos2d::gfx::FrameBuffer* result = cobj->getFrameBuffer();
-        ok &= native_ptr_to_seval<cocos2d::gfx::FrameBuffer>((cocos2d::gfx::FrameBuffer*)result, &s.rval());
+        cocos2d::renderer::FrameBuffer* result = cobj->getFrameBuffer();
+        ok &= native_ptr_to_seval<cocos2d::renderer::FrameBuffer>((cocos2d::renderer::FrameBuffer*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Camera_getFrameBuffer : Error processing arguments");
         return true;
     }
@@ -557,7 +557,7 @@ SE_BIND_FUNC(js_renderer_Camera_getFrameBuffer)
 
 static bool js_renderer_Camera_setStencil(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setStencil : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -576,7 +576,7 @@ SE_BIND_FUNC(js_renderer_Camera_setStencil)
 
 static bool js_renderer_Camera_getOrthoHeight(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getOrthoHeight : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -594,7 +594,7 @@ SE_BIND_FUNC(js_renderer_Camera_getOrthoHeight)
 
 static bool js_renderer_Camera_getStencil(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getStencil : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -612,13 +612,13 @@ SE_BIND_FUNC(js_renderer_Camera_getStencil)
 
 static bool js_renderer_Camera_setFrameBuffer(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setFrameBuffer : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::FrameBuffer* arg0 = nullptr;
+        cocos2d::renderer::FrameBuffer* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Camera_setFrameBuffer : Error processing arguments");
         cobj->setFrameBuffer(arg0);
@@ -631,7 +631,7 @@ SE_BIND_FUNC(js_renderer_Camera_setFrameBuffer)
 
 static bool js_renderer_Camera_setFar(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setFar : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -650,7 +650,7 @@ SE_BIND_FUNC(js_renderer_Camera_setFar)
 
 static bool js_renderer_Camera_setRect(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setRect : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -675,7 +675,7 @@ SE_BIND_FUNC(js_renderer_Camera_setRect)
 
 static bool js_renderer_Camera_setClearFlags(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setClearFlags : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -694,7 +694,7 @@ SE_BIND_FUNC(js_renderer_Camera_setClearFlags)
 
 static bool js_renderer_Camera_getFar(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getFar : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -712,7 +712,7 @@ SE_BIND_FUNC(js_renderer_Camera_getFar)
 
 static bool js_renderer_Camera_getType(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getType : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -730,7 +730,7 @@ SE_BIND_FUNC(js_renderer_Camera_getType)
 
 static bool js_renderer_Camera_setNear(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setNear : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -749,7 +749,7 @@ SE_BIND_FUNC(js_renderer_Camera_setNear)
 
 static bool js_renderer_Camera_setStages(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setStages : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -768,7 +768,7 @@ SE_BIND_FUNC(js_renderer_Camera_setStages)
 
 static bool js_renderer_Camera_setOrthoHeight(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setOrthoHeight : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -787,7 +787,7 @@ SE_BIND_FUNC(js_renderer_Camera_setOrthoHeight)
 
 static bool js_renderer_Camera_setDepth(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setDepth : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -806,7 +806,7 @@ SE_BIND_FUNC(js_renderer_Camera_setDepth)
 
 static bool js_renderer_Camera_getStages(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getStages : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -824,7 +824,7 @@ SE_BIND_FUNC(js_renderer_Camera_getStages)
 
 static bool js_renderer_Camera_getFov(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getFov : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -842,7 +842,7 @@ SE_BIND_FUNC(js_renderer_Camera_getFov)
 
 static bool js_renderer_Camera_setColor(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setColor : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -867,7 +867,7 @@ SE_BIND_FUNC(js_renderer_Camera_setColor)
 
 static bool js_renderer_Camera_setWorldMatrix(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setWorldMatrix : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -886,7 +886,7 @@ SE_BIND_FUNC(js_renderer_Camera_setWorldMatrix)
 
 static bool js_renderer_Camera_getNear(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getNear : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -904,7 +904,7 @@ SE_BIND_FUNC(js_renderer_Camera_getNear)
 
 static bool js_renderer_Camera_getClearFlags(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getClearFlags : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -924,7 +924,7 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_Camera_finalize)
 
 static bool js_renderer_Camera_constructor(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = new (std::nothrow) cocos2d::gfx::Camera();
+    cocos2d::renderer::Camera* cobj = new (std::nothrow) cocos2d::renderer::Camera();
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -935,8 +935,8 @@ SE_BIND_CTOR(js_renderer_Camera_constructor, __jsb_cocos2d_gfx_Camera_class, js_
 
 static bool js_cocos2d_gfx_Camera_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Camera)", s.nativeThisObject());
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::Camera)", s.nativeThisObject());
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -973,7 +973,7 @@ bool js_register_renderer_Camera(se::Object* obj)
     cls->defineFunction("getClearFlags", _SE(js_renderer_Camera_getClearFlags));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Camera_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::Camera>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::Camera>(cls);
 
     __jsb_cocos2d_gfx_Camera_proto = cls->getProto();
     __jsb_cocos2d_gfx_Camera_class = cls;
@@ -987,13 +987,13 @@ se::Class* __jsb_cocos2d_gfx_Technique_class = nullptr;
 
 static bool js_renderer_Technique_getPasses(se::State& s)
 {
-    cocos2d::gfx::Technique* cobj = (cocos2d::gfx::Technique*)s.nativeThisObject();
+    cocos2d::renderer::Technique* cobj = (cocos2d::renderer::Technique*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Technique_getPasses : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        const cocos2d::Vector<cocos2d::gfx::Pass *>& result = cobj->getPasses();
+        const cocos2d::Vector<cocos2d::renderer::Pass *>& result = cobj->getPasses();
         ok &= Vector_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Technique_getPasses : Error processing arguments");
         return true;
@@ -1005,7 +1005,7 @@ SE_BIND_FUNC(js_renderer_Technique_getPasses)
 
 static bool js_renderer_Technique_getStageIDs(se::State& s)
 {
-    cocos2d::gfx::Technique* cobj = (cocos2d::gfx::Technique*)s.nativeThisObject();
+    cocos2d::renderer::Technique* cobj = (cocos2d::renderer::Technique*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Technique_getStageIDs : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1023,7 +1023,7 @@ SE_BIND_FUNC(js_renderer_Technique_getStageIDs)
 
 static bool js_renderer_Technique_setStages(se::State& s)
 {
-    cocos2d::gfx::Technique* cobj = (cocos2d::gfx::Technique*)s.nativeThisObject();
+    cocos2d::renderer::Technique* cobj = (cocos2d::renderer::Technique*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Technique_setStages : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1042,13 +1042,13 @@ SE_BIND_FUNC(js_renderer_Technique_setStages)
 
 static bool js_renderer_Technique_getParameters(se::State& s)
 {
-    cocos2d::gfx::Technique* cobj = (cocos2d::gfx::Technique*)s.nativeThisObject();
+    cocos2d::renderer::Technique* cobj = (cocos2d::renderer::Technique*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Technique_getParameters : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        const std::vector<cocos2d::gfx::Technique::Parameter>& result = cobj->getParameters();
+        const std::vector<cocos2d::renderer::Technique::Parameter>& result = cobj->getParameters();
         ok &= std_vector_TechniqueParameter_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Technique_getParameters : Error processing arguments");
         return true;
@@ -1065,13 +1065,13 @@ static bool js_renderer_Technique_constructor(se::State& s)
     CC_UNUSED bool ok = true;
     const auto& args = s.args();
     std::vector<std::string> arg0;
-    std::vector<cocos2d::gfx::Technique::Parameter> arg1;
-    cocos2d::Vector<cocos2d::gfx::Pass *> arg2;
+    std::vector<cocos2d::renderer::Technique::Parameter> arg1;
+    cocos2d::Vector<cocos2d::renderer::Pass *> arg2;
     ok &= seval_to_std_vector_string(args[0], &arg0);
     ok &= seval_to_std_vector_TechniqueParameter(args[1], &arg1);
     ok &= seval_to_Vector(args[2], &arg2);
     SE_PRECONDITION2(ok, false, "js_renderer_Technique_constructor : Error processing arguments");
-    cocos2d::gfx::Technique* cobj = new (std::nothrow) cocos2d::gfx::Technique(arg0, arg1, arg2);
+    cocos2d::renderer::Technique* cobj = new (std::nothrow) cocos2d::renderer::Technique(arg0, arg1, arg2);
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -1082,8 +1082,8 @@ SE_BIND_CTOR(js_renderer_Technique_constructor, __jsb_cocos2d_gfx_Technique_clas
 
 static bool js_cocos2d_gfx_Technique_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Technique)", s.nativeThisObject());
-    cocos2d::gfx::Technique* cobj = (cocos2d::gfx::Technique*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::Technique)", s.nativeThisObject());
+    cocos2d::renderer::Technique* cobj = (cocos2d::renderer::Technique*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -1102,7 +1102,7 @@ bool js_register_renderer_Technique(se::Object* obj)
     cls->defineFunction("getParameters", _SE(js_renderer_Technique_getParameters));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Technique_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::Technique>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::Technique>(cls);
 
     __jsb_cocos2d_gfx_Technique_proto = cls->getProto();
     __jsb_cocos2d_gfx_Technique_class = cls;
@@ -1116,7 +1116,7 @@ se::Class* __jsb_cocos2d_gfx_Effect_class = nullptr;
 
 static bool js_renderer_Effect_getDefineValue(se::State& s)
 {
-    cocos2d::gfx::Effect* cobj = (cocos2d::gfx::Effect*)s.nativeThisObject();
+    cocos2d::renderer::Effect* cobj = (cocos2d::renderer::Effect*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Effect_getDefineValue : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1137,7 +1137,7 @@ SE_BIND_FUNC(js_renderer_Effect_getDefineValue)
 
 static bool js_renderer_Effect_getProperty(se::State& s)
 {
-    cocos2d::gfx::Effect* cobj = (cocos2d::gfx::Effect*)s.nativeThisObject();
+    cocos2d::renderer::Effect* cobj = (cocos2d::renderer::Effect*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Effect_getProperty : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1146,7 +1146,7 @@ static bool js_renderer_Effect_getProperty(se::State& s)
         std::string arg0;
         ok &= seval_to_std_string(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Effect_getProperty : Error processing arguments");
-        const cocos2d::gfx::Technique::Parameter& result = cobj->getProperty(arg0);
+        const cocos2d::renderer::Technique::Parameter& result = cobj->getProperty(arg0);
         ok &= TechniqueParameter_to_seval(result, &s.rval());
         s.thisObject()->attachObject(s.rval().toObject());
         SE_PRECONDITION2(ok, false, "js_renderer_Effect_getProperty : Error processing arguments");
@@ -1159,7 +1159,7 @@ SE_BIND_FUNC(js_renderer_Effect_getProperty)
 
 static bool js_renderer_Effect_clear(se::State& s)
 {
-    cocos2d::gfx::Effect* cobj = (cocos2d::gfx::Effect*)s.nativeThisObject();
+    cocos2d::renderer::Effect* cobj = (cocos2d::renderer::Effect*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Effect_clear : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1174,7 +1174,7 @@ SE_BIND_FUNC(js_renderer_Effect_clear)
 
 static bool js_renderer_Effect_setDefineValue(se::State& s)
 {
-    cocos2d::gfx::Effect* cobj = (cocos2d::gfx::Effect*)s.nativeThisObject();
+    cocos2d::renderer::Effect* cobj = (cocos2d::renderer::Effect*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Effect_setDefineValue : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1195,14 +1195,14 @@ SE_BIND_FUNC(js_renderer_Effect_setDefineValue)
 
 static bool js_renderer_Effect_setProperty(se::State& s)
 {
-    cocos2d::gfx::Effect* cobj = (cocos2d::gfx::Effect*)s.nativeThisObject();
+    cocos2d::renderer::Effect* cobj = (cocos2d::renderer::Effect*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Effect_setProperty : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 2) {
         std::string arg0;
-        cocos2d::gfx::Technique::Parameter arg1;
+        cocos2d::renderer::Technique::Parameter arg1;
         ok &= seval_to_std_string(args[0], &arg0);
         ok &= seval_to_TechniqueParameter(args[1], &arg1);
         SE_PRECONDITION2(ok, false, "js_renderer_Effect_setProperty : Error processing arguments");
@@ -1216,7 +1216,7 @@ SE_BIND_FUNC(js_renderer_Effect_setProperty)
 
 static bool js_renderer_Effect_getTechnique(se::State& s)
 {
-    cocos2d::gfx::Effect* cobj = (cocos2d::gfx::Effect*)s.nativeThisObject();
+    cocos2d::renderer::Effect* cobj = (cocos2d::renderer::Effect*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Effect_getTechnique : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1225,8 +1225,8 @@ static bool js_renderer_Effect_getTechnique(se::State& s)
         std::string arg0;
         ok &= seval_to_std_string(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Effect_getTechnique : Error processing arguments");
-        cocos2d::gfx::Technique* result = cobj->getTechnique(arg0);
-        ok &= native_ptr_to_seval<cocos2d::gfx::Technique>((cocos2d::gfx::Technique*)result, &s.rval());
+        cocos2d::renderer::Technique* result = cobj->getTechnique(arg0);
+        ok &= native_ptr_to_seval<cocos2d::renderer::Technique>((cocos2d::renderer::Technique*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Effect_getTechnique : Error processing arguments");
         return true;
     }
@@ -1241,14 +1241,14 @@ static bool js_renderer_Effect_constructor(se::State& s)
 {
     CC_UNUSED bool ok = true;
     const auto& args = s.args();
-    cocos2d::Vector<cocos2d::gfx::Technique *> arg0;
-    std::unordered_map<std::string, cocos2d::gfx::Technique::Parameter> arg1;
+    cocos2d::Vector<cocos2d::renderer::Technique *> arg0;
+    std::unordered_map<std::string, cocos2d::renderer::Technique::Parameter> arg1;
     std::vector<std::unordered_map<std::string, cocos2d::Value>> arg2;
     ok &= seval_to_Vector(args[0], &arg0);
     ok &= seval_to_EffectProperty(args[1], &arg1);
     ok &= seval_to_EffectDefineTemplate(args[2], &arg2);
     SE_PRECONDITION2(ok, false, "js_renderer_Effect_constructor : Error processing arguments");
-    cocos2d::gfx::Effect* cobj = new (std::nothrow) cocos2d::gfx::Effect(arg0, arg1, arg2);
+    cocos2d::renderer::Effect* cobj = new (std::nothrow) cocos2d::renderer::Effect(arg0, arg1, arg2);
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -1259,8 +1259,8 @@ SE_BIND_CTOR(js_renderer_Effect_constructor, __jsb_cocos2d_gfx_Effect_class, js_
 
 static bool js_cocos2d_gfx_Effect_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Effect)", s.nativeThisObject());
-    cocos2d::gfx::Effect* cobj = (cocos2d::gfx::Effect*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::Effect)", s.nativeThisObject());
+    cocos2d::renderer::Effect* cobj = (cocos2d::renderer::Effect*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -1281,7 +1281,7 @@ bool js_register_renderer_Effect(se::Object* obj)
     cls->defineFunction("getTechnique", _SE(js_renderer_Effect_getTechnique));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Effect_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::Effect>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::Effect>(cls);
 
     __jsb_cocos2d_gfx_Effect_proto = cls->getProto();
     __jsb_cocos2d_gfx_Effect_class = cls;
@@ -1295,13 +1295,13 @@ se::Class* __jsb_cocos2d_gfx_InputAssembler_class = nullptr;
 
 static bool js_renderer_InputAssembler_setVertexBuffer(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setVertexBuffer : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::VertexBuffer* arg0 = nullptr;
+        cocos2d::renderer::VertexBuffer* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_setVertexBuffer : Error processing arguments");
         cobj->setVertexBuffer(arg0);
@@ -1314,7 +1314,7 @@ SE_BIND_FUNC(js_renderer_InputAssembler_setVertexBuffer)
 
 static bool js_renderer_InputAssembler_getStart(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_getStart : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1332,7 +1332,7 @@ SE_BIND_FUNC(js_renderer_InputAssembler_getStart)
 
 static bool js_renderer_InputAssembler_setStart(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setStart : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1351,14 +1351,14 @@ SE_BIND_FUNC(js_renderer_InputAssembler_setStart)
 
 static bool js_renderer_InputAssembler_setPrimitiveType(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setPrimitiveType : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::PrimitiveType arg0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::PrimitiveType)tmp; } while(false);
+        cocos2d::renderer::PrimitiveType arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::PrimitiveType)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_setPrimitiveType : Error processing arguments");
         cobj->setPrimitiveType(arg0);
         return true;
@@ -1370,7 +1370,7 @@ SE_BIND_FUNC(js_renderer_InputAssembler_setPrimitiveType)
 
 static bool js_renderer_InputAssembler_getPrimitiveCount(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_getPrimitiveCount : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1388,7 +1388,7 @@ SE_BIND_FUNC(js_renderer_InputAssembler_getPrimitiveCount)
 
 static bool js_renderer_InputAssembler_setCount(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setCount : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1407,14 +1407,14 @@ SE_BIND_FUNC(js_renderer_InputAssembler_setCount)
 
 static bool js_renderer_InputAssembler_init(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 2) {
-        cocos2d::gfx::VertexBuffer* arg0 = nullptr;
-        cocos2d::gfx::IndexBuffer* arg1 = nullptr;
+        cocos2d::renderer::VertexBuffer* arg0 = nullptr;
+        cocos2d::renderer::IndexBuffer* arg1 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         ok &= seval_to_native_ptr(args[1], &arg1);
         SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_init : Error processing arguments");
@@ -1424,12 +1424,12 @@ static bool js_renderer_InputAssembler_init(se::State& s)
         return true;
     }
     if (argc == 3) {
-        cocos2d::gfx::VertexBuffer* arg0 = nullptr;
-        cocos2d::gfx::IndexBuffer* arg1 = nullptr;
-        cocos2d::gfx::PrimitiveType arg2;
+        cocos2d::renderer::VertexBuffer* arg0 = nullptr;
+        cocos2d::renderer::IndexBuffer* arg1 = nullptr;
+        cocos2d::renderer::PrimitiveType arg2;
         ok &= seval_to_native_ptr(args[0], &arg0);
         ok &= seval_to_native_ptr(args[1], &arg1);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::PrimitiveType)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::renderer::PrimitiveType)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_init : Error processing arguments");
         bool result = cobj->init(arg0, arg1, arg2);
         ok &= boolean_to_seval(result, &s.rval());
@@ -1443,14 +1443,14 @@ SE_BIND_FUNC(js_renderer_InputAssembler_init)
 
 static bool js_renderer_InputAssembler_getVertexBuffer(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_getVertexBuffer : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        cocos2d::gfx::VertexBuffer* result = cobj->getVertexBuffer();
-        ok &= native_ptr_to_seval<cocos2d::gfx::VertexBuffer>((cocos2d::gfx::VertexBuffer*)result, &s.rval());
+        cocos2d::renderer::VertexBuffer* result = cobj->getVertexBuffer();
+        ok &= native_ptr_to_seval<cocos2d::renderer::VertexBuffer>((cocos2d::renderer::VertexBuffer*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_getVertexBuffer : Error processing arguments");
         return true;
     }
@@ -1461,14 +1461,14 @@ SE_BIND_FUNC(js_renderer_InputAssembler_getVertexBuffer)
 
 static bool js_renderer_InputAssembler_getIndexBuffer(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_getIndexBuffer : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        cocos2d::gfx::IndexBuffer* result = cobj->getIndexBuffer();
-        ok &= native_ptr_to_seval<cocos2d::gfx::IndexBuffer>((cocos2d::gfx::IndexBuffer*)result, &s.rval());
+        cocos2d::renderer::IndexBuffer* result = cobj->getIndexBuffer();
+        ok &= native_ptr_to_seval<cocos2d::renderer::IndexBuffer>((cocos2d::renderer::IndexBuffer*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_getIndexBuffer : Error processing arguments");
         return true;
     }
@@ -1479,7 +1479,7 @@ SE_BIND_FUNC(js_renderer_InputAssembler_getIndexBuffer)
 
 static bool js_renderer_InputAssembler_getCount(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_getCount : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1497,7 +1497,7 @@ SE_BIND_FUNC(js_renderer_InputAssembler_getCount)
 
 static bool js_renderer_InputAssembler_getPrimitiveType(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_getPrimitiveType : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1515,13 +1515,13 @@ SE_BIND_FUNC(js_renderer_InputAssembler_getPrimitiveType)
 
 static bool js_renderer_InputAssembler_setIndexBuffer(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_InputAssembler_setIndexBuffer : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::IndexBuffer* arg0 = nullptr;
+        cocos2d::renderer::IndexBuffer* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_InputAssembler_setIndexBuffer : Error processing arguments");
         cobj->setIndexBuffer(arg0);
@@ -1536,7 +1536,7 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_InputAssembler_finalize)
 
 static bool js_renderer_InputAssembler_constructor(se::State& s)
 {
-    cocos2d::gfx::InputAssembler* cobj = new (std::nothrow) cocos2d::gfx::InputAssembler();
+    cocos2d::renderer::InputAssembler* cobj = new (std::nothrow) cocos2d::renderer::InputAssembler();
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -1547,8 +1547,8 @@ SE_BIND_CTOR(js_renderer_InputAssembler_constructor, __jsb_cocos2d_gfx_InputAsse
 
 static bool js_cocos2d_gfx_InputAssembler_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::InputAssembler)", s.nativeThisObject());
-    cocos2d::gfx::InputAssembler* cobj = (cocos2d::gfx::InputAssembler*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::InputAssembler)", s.nativeThisObject());
+    cocos2d::renderer::InputAssembler* cobj = (cocos2d::renderer::InputAssembler*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -1575,7 +1575,7 @@ bool js_register_renderer_InputAssembler(se::Object* obj)
     cls->defineFunction("setIndexBuffer", _SE(js_renderer_InputAssembler_setIndexBuffer));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_InputAssembler_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::InputAssembler>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::InputAssembler>(cls);
 
     __jsb_cocos2d_gfx_InputAssembler_proto = cls->getProto();
     __jsb_cocos2d_gfx_InputAssembler_class = cls;
@@ -1589,7 +1589,7 @@ se::Class* __jsb_cocos2d_gfx_Light_class = nullptr;
 
 static bool js_renderer_Light_getShadowScale(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getShadowScale : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1607,7 +1607,7 @@ SE_BIND_FUNC(js_renderer_Light_getShadowScale)
 
 static bool js_renderer_Light_getRange(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getRange : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1625,7 +1625,7 @@ SE_BIND_FUNC(js_renderer_Light_getRange)
 
 static bool js_renderer_Light_setShadowResolution(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setShadowResolution : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1644,7 +1644,7 @@ SE_BIND_FUNC(js_renderer_Light_setShadowResolution)
 
 static bool js_renderer_Light_getFrustumEdgeFalloff(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getFrustumEdgeFalloff : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1662,7 +1662,7 @@ SE_BIND_FUNC(js_renderer_Light_getFrustumEdgeFalloff)
 
 static bool js_renderer_Light_setSpotExp(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setSpotExp : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1681,14 +1681,14 @@ SE_BIND_FUNC(js_renderer_Light_setSpotExp)
 
 static bool js_renderer_Light_setShadowType(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setShadowType : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Light::ShadowType arg0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::Light::ShadowType)tmp; } while(false);
+        cocos2d::renderer::Light::ShadowType arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::Light::ShadowType)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Light_setShadowType : Error processing arguments");
         cobj->setShadowType(arg0);
         return true;
@@ -1700,14 +1700,14 @@ SE_BIND_FUNC(js_renderer_Light_setShadowType)
 
 static bool js_renderer_Light_setType(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setType : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Light::LightType arg0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::Light::LightType)tmp; } while(false);
+        cocos2d::renderer::Light::LightType arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::Light::LightType)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Light_setType : Error processing arguments");
         cobj->setType(arg0);
         return true;
@@ -1719,7 +1719,7 @@ SE_BIND_FUNC(js_renderer_Light_setType)
 
 static bool js_renderer_Light_getViewProjMatrix(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getViewProjMatrix : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1737,7 +1737,7 @@ SE_BIND_FUNC(js_renderer_Light_getViewProjMatrix)
 
 static bool js_renderer_Light_getShadowBias(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getShadowBias : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1755,7 +1755,7 @@ SE_BIND_FUNC(js_renderer_Light_getShadowBias)
 
 static bool js_renderer_Light_getShadowDarkness(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getShadowDarkness : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1773,7 +1773,7 @@ SE_BIND_FUNC(js_renderer_Light_getShadowDarkness)
 
 static bool js_renderer_Light_getSpotAngle(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getSpotAngle : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1791,7 +1791,7 @@ SE_BIND_FUNC(js_renderer_Light_getSpotAngle)
 
 static bool js_renderer_Light_getSpotExp(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getSpotExp : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1809,7 +1809,7 @@ SE_BIND_FUNC(js_renderer_Light_getSpotExp)
 
 static bool js_renderer_Light_getViewPorjMatrix(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getViewPorjMatrix : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1827,7 +1827,7 @@ SE_BIND_FUNC(js_renderer_Light_getViewPorjMatrix)
 
 static bool js_renderer_Light_getType(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getType : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1845,7 +1845,7 @@ SE_BIND_FUNC(js_renderer_Light_getType)
 
 static bool js_renderer_Light_getIntensity(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getIntensity : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1863,7 +1863,7 @@ SE_BIND_FUNC(js_renderer_Light_getIntensity)
 
 static bool js_renderer_Light_getShadowMaxDepth(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getShadowMaxDepth : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1881,7 +1881,7 @@ SE_BIND_FUNC(js_renderer_Light_getShadowMaxDepth)
 
 static bool js_renderer_Light_getWorldMatrix(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getWorldMatrix : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1899,14 +1899,14 @@ SE_BIND_FUNC(js_renderer_Light_getWorldMatrix)
 
 static bool js_renderer_Light_getShadowMap(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getShadowMap : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        cocos2d::gfx::Texture2D* result = cobj->getShadowMap();
-        ok &= native_ptr_to_seval<cocos2d::gfx::Texture2D>((cocos2d::gfx::Texture2D*)result, &s.rval());
+        cocos2d::renderer::Texture2D* result = cobj->getShadowMap();
+        ok &= native_ptr_to_seval<cocos2d::renderer::Texture2D>((cocos2d::renderer::Texture2D*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Light_getShadowMap : Error processing arguments");
         return true;
     }
@@ -1917,7 +1917,7 @@ SE_BIND_FUNC(js_renderer_Light_getShadowMap)
 
 static bool js_renderer_Light_getColor(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getColor : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1935,7 +1935,7 @@ SE_BIND_FUNC(js_renderer_Light_getColor)
 
 static bool js_renderer_Light_setIntensity(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setIntensity : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1954,7 +1954,7 @@ SE_BIND_FUNC(js_renderer_Light_setIntensity)
 
 static bool js_renderer_Light_getShadowMinDepth(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getShadowMinDepth : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1972,7 +1972,7 @@ SE_BIND_FUNC(js_renderer_Light_getShadowMinDepth)
 
 static bool js_renderer_Light_setShadowMinDepth(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setShadowMinDepth : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -1991,13 +1991,13 @@ SE_BIND_FUNC(js_renderer_Light_setShadowMinDepth)
 
 static bool js_renderer_Light_update(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_update : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::DeviceGraphics* arg0 = nullptr;
+        cocos2d::renderer::DeviceGraphics* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Light_update : Error processing arguments");
         cobj->update(arg0);
@@ -2010,7 +2010,7 @@ SE_BIND_FUNC(js_renderer_Light_update)
 
 static bool js_renderer_Light_setShadowDarkness(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setShadowDarkness : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2029,7 +2029,7 @@ SE_BIND_FUNC(js_renderer_Light_setShadowDarkness)
 
 static bool js_renderer_Light_setWorldMatrix(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setWorldMatrix : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2048,7 +2048,7 @@ SE_BIND_FUNC(js_renderer_Light_setWorldMatrix)
 
 static bool js_renderer_Light_setSpotAngle(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setSpotAngle : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2067,7 +2067,7 @@ SE_BIND_FUNC(js_renderer_Light_setSpotAngle)
 
 static bool js_renderer_Light_setRange(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setRange : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2086,7 +2086,7 @@ SE_BIND_FUNC(js_renderer_Light_setRange)
 
 static bool js_renderer_Light_setShadowScale(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setShadowScale : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2105,7 +2105,7 @@ SE_BIND_FUNC(js_renderer_Light_setShadowScale)
 
 static bool js_renderer_Light_setColor(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setColor : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2128,7 +2128,7 @@ SE_BIND_FUNC(js_renderer_Light_setColor)
 
 static bool js_renderer_Light_setShadowMaxDepth(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setShadowMaxDepth : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2147,7 +2147,7 @@ SE_BIND_FUNC(js_renderer_Light_setShadowMaxDepth)
 
 static bool js_renderer_Light_setFrustumEdgeFalloff(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setFrustumEdgeFalloff : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2166,7 +2166,7 @@ SE_BIND_FUNC(js_renderer_Light_setFrustumEdgeFalloff)
 
 static bool js_renderer_Light_getShadowType(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getShadowType : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2184,7 +2184,7 @@ SE_BIND_FUNC(js_renderer_Light_getShadowType)
 
 static bool js_renderer_Light_getShadowResolution(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_getShadowResolution : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2202,7 +2202,7 @@ SE_BIND_FUNC(js_renderer_Light_getShadowResolution)
 
 static bool js_renderer_Light_setShadowBias(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_setShadowBias : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2223,7 +2223,7 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_Light_finalize)
 
 static bool js_renderer_Light_constructor(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = new (std::nothrow) cocos2d::gfx::Light();
+    cocos2d::renderer::Light* cobj = new (std::nothrow) cocos2d::renderer::Light();
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -2234,8 +2234,8 @@ SE_BIND_CTOR(js_renderer_Light_constructor, __jsb_cocos2d_gfx_Light_class, js_co
 
 static bool js_cocos2d_gfx_Light_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Light)", s.nativeThisObject());
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::Light)", s.nativeThisObject());
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -2284,7 +2284,7 @@ bool js_register_renderer_Light(se::Object* obj)
     cls->defineFunction("setShadowBias", _SE(js_renderer_Light_setShadowBias));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Light_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::Light>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::Light>(cls);
 
     __jsb_cocos2d_gfx_Light_proto = cls->getProto();
     __jsb_cocos2d_gfx_Light_class = cls;
@@ -2298,7 +2298,7 @@ se::Class* __jsb_cocos2d_gfx_Pass_class = nullptr;
 
 static bool js_renderer_Pass_setStencilBack(se::State& s)
 {
-    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    cocos2d::renderer::Pass* cobj = (cocos2d::renderer::Pass*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setStencilBack : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2308,26 +2308,26 @@ static bool js_renderer_Pass_setStencilBack(se::State& s)
         return true;
     }
     if (argc == 1) {
-        cocos2d::gfx::ComparisonFunc arg0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        cocos2d::renderer::ComparisonFunc arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
         cobj->setStencilBack(arg0);
         return true;
     }
     if (argc == 2) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
         cobj->setStencilBack(arg0, arg1);
         return true;
     }
     if (argc == 3) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
@@ -2335,64 +2335,64 @@ static bool js_renderer_Pass_setStencilBack(se::State& s)
         return true;
     }
     if (argc == 4) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        cocos2d::gfx::StencilOp arg3;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        cocos2d::renderer::StencilOp arg3;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::StencilOp)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
         cobj->setStencilBack(arg0, arg1, arg2, arg3);
         return true;
     }
     if (argc == 5) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        cocos2d::gfx::StencilOp arg3;
-        cocos2d::gfx::StencilOp arg4;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        cocos2d::renderer::StencilOp arg3;
+        cocos2d::renderer::StencilOp arg4;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::renderer::StencilOp)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
         cobj->setStencilBack(arg0, arg1, arg2, arg3, arg4);
         return true;
     }
     if (argc == 6) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        cocos2d::gfx::StencilOp arg3;
-        cocos2d::gfx::StencilOp arg4;
-        cocos2d::gfx::StencilOp arg5;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        cocos2d::renderer::StencilOp arg3;
+        cocos2d::renderer::StencilOp arg4;
+        cocos2d::renderer::StencilOp arg5;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::renderer::StencilOp)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
         cobj->setStencilBack(arg0, arg1, arg2, arg3, arg4, arg5);
         return true;
     }
     if (argc == 7) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        cocos2d::gfx::StencilOp arg3;
-        cocos2d::gfx::StencilOp arg4;
-        cocos2d::gfx::StencilOp arg5;
+        cocos2d::renderer::StencilOp arg3;
+        cocos2d::renderer::StencilOp arg4;
+        cocos2d::renderer::StencilOp arg5;
         uint8_t arg6;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::renderer::StencilOp)tmp; } while(false);
         ok &= seval_to_uint8(args[6], (uint8_t*)&arg6);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilBack : Error processing arguments");
         cobj->setStencilBack(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
@@ -2405,14 +2405,14 @@ SE_BIND_FUNC(js_renderer_Pass_setStencilBack)
 
 static bool js_renderer_Pass_setCullMode(se::State& s)
 {
-    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    cocos2d::renderer::Pass* cobj = (cocos2d::renderer::Pass*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setCullMode : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::CullMode arg0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::CullMode)tmp; } while(false);
+        cocos2d::renderer::CullMode arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::CullMode)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setCullMode : Error processing arguments");
         cobj->setCullMode(arg0);
         return true;
@@ -2424,7 +2424,7 @@ SE_BIND_FUNC(js_renderer_Pass_setCullMode)
 
 static bool js_renderer_Pass_setBlend(se::State& s)
 {
-    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    cocos2d::renderer::Pass* cobj = (cocos2d::renderer::Pass*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setBlend : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2434,91 +2434,91 @@ static bool js_renderer_Pass_setBlend(se::State& s)
         return true;
     }
     if (argc == 1) {
-        cocos2d::gfx::BlendOp arg0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        cocos2d::renderer::BlendOp arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::BlendOp)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
         cobj->setBlend(arg0);
         return true;
     }
     if (argc == 2) {
-        cocos2d::gfx::BlendOp arg0;
-        cocos2d::gfx::BlendFactor arg1;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        cocos2d::renderer::BlendOp arg0;
+        cocos2d::renderer::BlendFactor arg1;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
         cobj->setBlend(arg0, arg1);
         return true;
     }
     if (argc == 3) {
-        cocos2d::gfx::BlendOp arg0;
-        cocos2d::gfx::BlendFactor arg1;
-        cocos2d::gfx::BlendFactor arg2;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        cocos2d::renderer::BlendOp arg0;
+        cocos2d::renderer::BlendFactor arg1;
+        cocos2d::renderer::BlendFactor arg2;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
         cobj->setBlend(arg0, arg1, arg2);
         return true;
     }
     if (argc == 4) {
-        cocos2d::gfx::BlendOp arg0;
-        cocos2d::gfx::BlendFactor arg1;
-        cocos2d::gfx::BlendFactor arg2;
-        cocos2d::gfx::BlendOp arg3;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::BlendOp)tmp; } while(false);
+        cocos2d::renderer::BlendOp arg0;
+        cocos2d::renderer::BlendFactor arg1;
+        cocos2d::renderer::BlendFactor arg2;
+        cocos2d::renderer::BlendOp arg3;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::BlendOp)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
         cobj->setBlend(arg0, arg1, arg2, arg3);
         return true;
     }
     if (argc == 5) {
-        cocos2d::gfx::BlendOp arg0;
-        cocos2d::gfx::BlendFactor arg1;
-        cocos2d::gfx::BlendFactor arg2;
-        cocos2d::gfx::BlendOp arg3;
-        cocos2d::gfx::BlendFactor arg4;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::BlendOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        cocos2d::renderer::BlendOp arg0;
+        cocos2d::renderer::BlendFactor arg1;
+        cocos2d::renderer::BlendFactor arg2;
+        cocos2d::renderer::BlendOp arg3;
+        cocos2d::renderer::BlendFactor arg4;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
         cobj->setBlend(arg0, arg1, arg2, arg3, arg4);
         return true;
     }
     if (argc == 6) {
-        cocos2d::gfx::BlendOp arg0;
-        cocos2d::gfx::BlendFactor arg1;
-        cocos2d::gfx::BlendFactor arg2;
-        cocos2d::gfx::BlendOp arg3;
-        cocos2d::gfx::BlendFactor arg4;
-        cocos2d::gfx::BlendFactor arg5;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::BlendOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        cocos2d::renderer::BlendOp arg0;
+        cocos2d::renderer::BlendFactor arg1;
+        cocos2d::renderer::BlendFactor arg2;
+        cocos2d::renderer::BlendOp arg3;
+        cocos2d::renderer::BlendFactor arg4;
+        cocos2d::renderer::BlendFactor arg5;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
         cobj->setBlend(arg0, arg1, arg2, arg3, arg4, arg5);
         return true;
     }
     if (argc == 7) {
-        cocos2d::gfx::BlendOp arg0;
-        cocos2d::gfx::BlendFactor arg1;
-        cocos2d::gfx::BlendFactor arg2;
-        cocos2d::gfx::BlendOp arg3;
-        cocos2d::gfx::BlendFactor arg4;
-        cocos2d::gfx::BlendFactor arg5;
+        cocos2d::renderer::BlendOp arg0;
+        cocos2d::renderer::BlendFactor arg1;
+        cocos2d::renderer::BlendFactor arg2;
+        cocos2d::renderer::BlendOp arg3;
+        cocos2d::renderer::BlendFactor arg4;
+        cocos2d::renderer::BlendFactor arg5;
         unsigned int arg6 = 0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::BlendOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::BlendOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[1], &tmp); arg1 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::BlendOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::renderer::BlendFactor)tmp; } while(false);
         ok &= seval_to_uint32(args[6], (uint32_t*)&arg6);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setBlend : Error processing arguments");
         cobj->setBlend(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
@@ -2531,7 +2531,7 @@ SE_BIND_FUNC(js_renderer_Pass_setBlend)
 
 static bool js_renderer_Pass_setStencilFront(se::State& s)
 {
-    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    cocos2d::renderer::Pass* cobj = (cocos2d::renderer::Pass*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setStencilFront : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2541,26 +2541,26 @@ static bool js_renderer_Pass_setStencilFront(se::State& s)
         return true;
     }
     if (argc == 1) {
-        cocos2d::gfx::ComparisonFunc arg0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        cocos2d::renderer::ComparisonFunc arg0;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
         cobj->setStencilFront(arg0);
         return true;
     }
     if (argc == 2) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
         cobj->setStencilFront(arg0, arg1);
         return true;
     }
     if (argc == 3) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
@@ -2568,64 +2568,64 @@ static bool js_renderer_Pass_setStencilFront(se::State& s)
         return true;
     }
     if (argc == 4) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        cocos2d::gfx::StencilOp arg3;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        cocos2d::renderer::StencilOp arg3;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::StencilOp)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
         cobj->setStencilFront(arg0, arg1, arg2, arg3);
         return true;
     }
     if (argc == 5) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        cocos2d::gfx::StencilOp arg3;
-        cocos2d::gfx::StencilOp arg4;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        cocos2d::renderer::StencilOp arg3;
+        cocos2d::renderer::StencilOp arg4;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::renderer::StencilOp)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
         cobj->setStencilFront(arg0, arg1, arg2, arg3, arg4);
         return true;
     }
     if (argc == 6) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        cocos2d::gfx::StencilOp arg3;
-        cocos2d::gfx::StencilOp arg4;
-        cocos2d::gfx::StencilOp arg5;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        cocos2d::renderer::StencilOp arg3;
+        cocos2d::renderer::StencilOp arg4;
+        cocos2d::renderer::StencilOp arg5;
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::renderer::StencilOp)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
         cobj->setStencilFront(arg0, arg1, arg2, arg3, arg4, arg5);
         return true;
     }
     if (argc == 7) {
-        cocos2d::gfx::ComparisonFunc arg0;
+        cocos2d::renderer::ComparisonFunc arg0;
         unsigned int arg1 = 0;
         uint8_t arg2;
-        cocos2d::gfx::StencilOp arg3;
-        cocos2d::gfx::StencilOp arg4;
-        cocos2d::gfx::StencilOp arg5;
+        cocos2d::renderer::StencilOp arg3;
+        cocos2d::renderer::StencilOp arg4;
+        cocos2d::renderer::StencilOp arg5;
         uint8_t arg6;
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[0], &tmp); arg0 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         ok &= seval_to_uint32(args[1], (uint32_t*)&arg1);
         ok &= seval_to_uint8(args[2], (uint8_t*)&arg2);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::gfx::StencilOp)tmp; } while(false);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::gfx::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[3], &tmp); arg3 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[4], &tmp); arg4 = (cocos2d::renderer::StencilOp)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[5], &tmp); arg5 = (cocos2d::renderer::StencilOp)tmp; } while(false);
         ok &= seval_to_uint8(args[6], (uint8_t*)&arg6);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setStencilFront : Error processing arguments");
         cobj->setStencilFront(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
@@ -2638,7 +2638,7 @@ SE_BIND_FUNC(js_renderer_Pass_setStencilFront)
 
 static bool js_renderer_Pass_setDepth(se::State& s)
 {
-    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    cocos2d::renderer::Pass* cobj = (cocos2d::renderer::Pass*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Pass_setDepth : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2666,10 +2666,10 @@ static bool js_renderer_Pass_setDepth(se::State& s)
     if (argc == 3) {
         bool arg0;
         bool arg1;
-        cocos2d::gfx::ComparisonFunc arg2;
+        cocos2d::renderer::ComparisonFunc arg2;
         ok &= seval_to_boolean(args[0], &arg0);
         ok &= seval_to_boolean(args[1], &arg1);
-        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::gfx::ComparisonFunc)tmp; } while(false);
+        do { int32_t tmp = 0; ok &= seval_to_int32(args[2], &tmp); arg2 = (cocos2d::renderer::ComparisonFunc)tmp; } while(false);
         SE_PRECONDITION2(ok, false, "js_renderer_Pass_setDepth : Error processing arguments");
         cobj->setDepth(arg0, arg1, arg2);
         return true;
@@ -2688,7 +2688,7 @@ static bool js_renderer_Pass_constructor(se::State& s)
     std::string arg0;
     ok &= seval_to_std_string(args[0], &arg0);
     SE_PRECONDITION2(ok, false, "js_renderer_Pass_constructor : Error processing arguments");
-    cocos2d::gfx::Pass* cobj = new (std::nothrow) cocos2d::gfx::Pass(arg0);
+    cocos2d::renderer::Pass* cobj = new (std::nothrow) cocos2d::renderer::Pass(arg0);
     s.thisObject()->setPrivateData(cobj);
     return true;
 }
@@ -2699,8 +2699,8 @@ SE_BIND_CTOR(js_renderer_Pass_constructor, __jsb_cocos2d_gfx_Pass_class, js_coco
 
 static bool js_cocos2d_gfx_Pass_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Pass)", s.nativeThisObject());
-    cocos2d::gfx::Pass* cobj = (cocos2d::gfx::Pass*)s.nativeThisObject();
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::Pass)", s.nativeThisObject());
+    cocos2d::renderer::Pass* cobj = (cocos2d::renderer::Pass*)s.nativeThisObject();
     if (cobj->getReferenceCount() == 1)
         cobj->autorelease();
     else
@@ -2720,7 +2720,7 @@ bool js_register_renderer_Pass(se::Object* obj)
     cls->defineFunction("setDepth", _SE(js_renderer_Pass_setDepth));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Pass_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::Pass>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::Pass>(cls);
 
     __jsb_cocos2d_gfx_Pass_proto = cls->getProto();
     __jsb_cocos2d_gfx_Pass_class = cls;
@@ -2734,7 +2734,7 @@ se::Class* __jsb_cocos2d_gfx_Scene_class = nullptr;
 
 static bool js_renderer_Scene_reset(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_reset : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2749,7 +2749,7 @@ SE_BIND_FUNC(js_renderer_Scene_reset)
 
 static bool js_renderer_Scene_getCameraCount(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_getCameraCount : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2767,13 +2767,13 @@ SE_BIND_FUNC(js_renderer_Scene_getCameraCount)
 
 static bool js_renderer_Scene_addCamera(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_addCamera : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Camera* arg0 = nullptr;
+        cocos2d::renderer::Camera* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_addCamera : Error processing arguments");
         cobj->addCamera(arg0);
@@ -2786,13 +2786,13 @@ SE_BIND_FUNC(js_renderer_Scene_addCamera)
 
 static bool js_renderer_Scene_removeCamera(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_removeCamera : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Camera* arg0 = nullptr;
+        cocos2d::renderer::Camera* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_removeCamera : Error processing arguments");
         cobj->removeCamera(arg0);
@@ -2805,7 +2805,7 @@ SE_BIND_FUNC(js_renderer_Scene_removeCamera)
 
 static bool js_renderer_Scene_getLightCount(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_getLightCount : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2823,7 +2823,7 @@ SE_BIND_FUNC(js_renderer_Scene_getLightCount)
 
 static bool js_renderer_Scene_getModel(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_getModel : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2832,8 +2832,8 @@ static bool js_renderer_Scene_getModel(se::State& s)
         unsigned int arg0 = 0;
         ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_getModel : Error processing arguments");
-        cocos2d::gfx::Model* result = cobj->getModel(arg0);
-        ok &= native_ptr_to_seval<cocos2d::gfx::Model>((cocos2d::gfx::Model*)result, &s.rval());
+        cocos2d::renderer::Model* result = cobj->getModel(arg0);
+        ok &= native_ptr_to_seval<cocos2d::renderer::Model>((cocos2d::renderer::Model*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_getModel : Error processing arguments");
         return true;
     }
@@ -2844,13 +2844,13 @@ SE_BIND_FUNC(js_renderer_Scene_getModel)
 
 static bool js_renderer_Scene_removeModel(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_removeModel : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Model* arg0 = nullptr;
+        cocos2d::renderer::Model* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_removeModel : Error processing arguments");
         cobj->removeModel(arg0);
@@ -2863,7 +2863,7 @@ SE_BIND_FUNC(js_renderer_Scene_removeModel)
 
 static bool js_renderer_Scene_getModelCount(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_getModelCount : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2881,7 +2881,7 @@ SE_BIND_FUNC(js_renderer_Scene_getModelCount)
 
 static bool js_renderer_Scene_getCamera(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_getCamera : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2890,8 +2890,8 @@ static bool js_renderer_Scene_getCamera(se::State& s)
         unsigned int arg0 = 0;
         ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_getCamera : Error processing arguments");
-        cocos2d::gfx::Camera* result = cobj->getCamera(arg0);
-        ok &= native_ptr_to_seval<cocos2d::gfx::Camera>((cocos2d::gfx::Camera*)result, &s.rval());
+        cocos2d::renderer::Camera* result = cobj->getCamera(arg0);
+        ok &= native_ptr_to_seval<cocos2d::renderer::Camera>((cocos2d::renderer::Camera*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_getCamera : Error processing arguments");
         return true;
     }
@@ -2902,7 +2902,7 @@ SE_BIND_FUNC(js_renderer_Scene_getCamera)
 
 static bool js_renderer_Scene_getLight(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_getLight : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -2911,8 +2911,8 @@ static bool js_renderer_Scene_getLight(se::State& s)
         unsigned int arg0 = 0;
         ok &= seval_to_uint32(args[0], (uint32_t*)&arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_getLight : Error processing arguments");
-        cocos2d::gfx::Light* result = cobj->getLight(arg0);
-        ok &= native_ptr_to_seval<cocos2d::gfx::Light>((cocos2d::gfx::Light*)result, &s.rval());
+        cocos2d::renderer::Light* result = cobj->getLight(arg0);
+        ok &= native_ptr_to_seval<cocos2d::renderer::Light>((cocos2d::renderer::Light*)result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_getLight : Error processing arguments");
         return true;
     }
@@ -2923,13 +2923,13 @@ SE_BIND_FUNC(js_renderer_Scene_getLight)
 
 static bool js_renderer_Scene_getCameras(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_getCameras : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        const cocos2d::Vector<cocos2d::gfx::Camera *>& result = cobj->getCameras();
+        const cocos2d::Vector<cocos2d::renderer::Camera *>& result = cobj->getCameras();
         ok &= Vector_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_getCameras : Error processing arguments");
         return true;
@@ -2941,13 +2941,13 @@ SE_BIND_FUNC(js_renderer_Scene_getCameras)
 
 static bool js_renderer_Scene_getModels(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_getModels : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        const cocos2d::Vector<cocos2d::gfx::Model *>& result = cobj->getModels();
+        const cocos2d::Vector<cocos2d::renderer::Model *>& result = cobj->getModels();
         ok &= Vector_to_seval(result, &s.rval());
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_getModels : Error processing arguments");
         return true;
@@ -2959,13 +2959,13 @@ SE_BIND_FUNC(js_renderer_Scene_getModels)
 
 static bool js_renderer_Scene_addView(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_addView : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::View* arg0 = nullptr;
+        cocos2d::renderer::View* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_addView : Error processing arguments");
         cobj->addView(arg0);
@@ -2978,13 +2978,13 @@ SE_BIND_FUNC(js_renderer_Scene_addView)
 
 static bool js_renderer_Scene_setDebugCamera(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_setDebugCamera : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Camera* arg0 = nullptr;
+        cocos2d::renderer::Camera* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_setDebugCamera : Error processing arguments");
         cobj->setDebugCamera(arg0);
@@ -2997,13 +2997,13 @@ SE_BIND_FUNC(js_renderer_Scene_setDebugCamera)
 
 static bool js_renderer_Scene_addModel(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_addModel : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Model* arg0 = nullptr;
+        cocos2d::renderer::Model* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_addModel : Error processing arguments");
         cobj->addModel(arg0);
@@ -3016,13 +3016,13 @@ SE_BIND_FUNC(js_renderer_Scene_addModel)
 
 static bool js_renderer_Scene_removeView(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_removeView : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::View* arg0 = nullptr;
+        cocos2d::renderer::View* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_removeView : Error processing arguments");
         cobj->removeView(arg0);
@@ -3035,13 +3035,13 @@ SE_BIND_FUNC(js_renderer_Scene_removeView)
 
 static bool js_renderer_Scene_addLight(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_addLight : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Light* arg0 = nullptr;
+        cocos2d::renderer::Light* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_addLight : Error processing arguments");
         cobj->addLight(arg0);
@@ -3054,13 +3054,13 @@ SE_BIND_FUNC(js_renderer_Scene_addLight)
 
 static bool js_renderer_Scene_removeLight(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+    cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Scene_removeLight : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Light* arg0 = nullptr;
+        cocos2d::renderer::Light* arg0 = nullptr;
         ok &= seval_to_native_ptr(args[0], &arg0);
         SE_PRECONDITION2(ok, false, "js_renderer_Scene_removeLight : Error processing arguments");
         cobj->removeLight(arg0);
@@ -3075,7 +3075,7 @@ SE_DECLARE_FINALIZE_FUNC(js_cocos2d_gfx_Scene_finalize)
 
 static bool js_renderer_Scene_constructor(se::State& s)
 {
-    cocos2d::gfx::Scene* cobj = new (std::nothrow) cocos2d::gfx::Scene();
+    cocos2d::renderer::Scene* cobj = new (std::nothrow) cocos2d::renderer::Scene();
     s.thisObject()->setPrivateData(cobj);
     se::NonRefNativePtrCreatedByCtorMap::emplace(cobj);
     return true;
@@ -3087,12 +3087,12 @@ SE_BIND_CTOR(js_renderer_Scene_constructor, __jsb_cocos2d_gfx_Scene_class, js_co
 
 static bool js_cocos2d_gfx_Scene_finalize(se::State& s)
 {
-    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::gfx::Scene)", s.nativeThisObject());
+    CCLOGINFO("jsbindings: finalizing JS object %p (cocos2d::renderer::Scene)", s.nativeThisObject());
     auto iter = se::NonRefNativePtrCreatedByCtorMap::find(s.nativeThisObject());
     if (iter != se::NonRefNativePtrCreatedByCtorMap::end())
     {
         se::NonRefNativePtrCreatedByCtorMap::erase(iter);
-        cocos2d::gfx::Scene* cobj = (cocos2d::gfx::Scene*)s.nativeThisObject();
+        cocos2d::renderer::Scene* cobj = (cocos2d::renderer::Scene*)s.nativeThisObject();
         delete cobj;
     }
     return true;
@@ -3123,7 +3123,7 @@ bool js_register_renderer_Scene(se::Object* obj)
     cls->defineFunction("removeLight", _SE(js_renderer_Scene_removeLight));
     cls->defineFinalizeFunction(_SE(js_cocos2d_gfx_Scene_finalize));
     cls->install();
-    JSBClassType::registerClass<cocos2d::gfx::Scene>(cls);
+    JSBClassType::registerClass<cocos2d::renderer::Scene>(cls);
 
     __jsb_cocos2d_gfx_Scene_proto = cls->getProto();
     __jsb_cocos2d_gfx_Scene_class = cls;

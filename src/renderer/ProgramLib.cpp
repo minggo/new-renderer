@@ -104,7 +104,7 @@ namespace {
             int32_t parsedEnd = atoi(results[3].str().c_str());
             if (parsedBegin < 0 || parsedEnd < 0)
             {
-                GFX_LOGE("Unroll For Loops Error: begin and end of range must be an int num.");
+                RENDERER_LOGE("Unroll For Loops Error: begin and end of range must be an int num.");
             }
 
             std::string unroll;
@@ -127,12 +127,12 @@ std::string test_unrollLoops(const std::string& text)
     return unrollLoops(text);
 }
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 ProgramLib::ProgramLib(DeviceGraphics* device, std::vector<Template>& templates)
 : _device(device)
 {
-    GFX_SAFE_RETAIN(_device);
+    RENDERER_SAFE_RETAIN(_device);
     
     for (auto& templ : templates)
         define(templ.name, templ.vert, templ.frag, templ.defines);
@@ -140,7 +140,7 @@ ProgramLib::ProgramLib(DeviceGraphics* device, std::vector<Template>& templates)
 
 ProgramLib::~ProgramLib()
 {
-    GFX_SAFE_RELEASE(_device);
+    RENDERER_SAFE_RELEASE(_device);
     _device = nullptr;
 }
 
@@ -149,7 +149,7 @@ void ProgramLib::define(const std::string& name, const std::string& vert, const 
     auto iter = _templates.find(name);
     if (iter != _templates.end())
     {
-        GFX_LOGW("Failed to define shader %s: already exists.", name.c_str());
+        RENDERER_LOGW("Failed to define shader %s: already exists.", name.c_str());
         return;
     }
 
@@ -243,4 +243,4 @@ Program* ProgramLib::getProgram(const std::string& name, const ValueMap& defines
     return program;
 }
 
-GFX_END
+RENDERER_END

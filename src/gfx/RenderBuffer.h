@@ -29,7 +29,7 @@
 
 #include "RenderTarget.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class DeviceGraphics;
 
@@ -46,7 +46,7 @@ public:
 //        D24S8 = GL_DEPTH_STENCIL
     };
 
-    GFX_DEFINE_CREATE_METHOD_4(RenderBuffer, init,  DeviceGraphics*, Format, uint16_t, uint16_t)
+    RENDERER_DEFINE_CREATE_METHOD_4(RenderBuffer, init,  DeviceGraphics*, Format, uint16_t, uint16_t)
 
     RenderBuffer();
     virtual ~RenderBuffer();
@@ -60,4 +60,4 @@ private:
     uint16_t _height;
 };
 
-GFX_END
+RENDERER_END

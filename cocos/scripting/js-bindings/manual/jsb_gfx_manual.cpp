@@ -12,11 +12,11 @@
 #include "gfx/GFX.h"
 
 using namespace cocos2d;
-using namespace cocos2d::gfx;
+using namespace cocos2d::renderer;
 
 static bool js_gfx_DeviceGraphics_clear(se::State& s)
 {
-    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
+    cocos2d::renderer::DeviceGraphics* cobj = (cocos2d::renderer::DeviceGraphics*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_clear : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -32,7 +32,7 @@ static bool js_gfx_DeviceGraphics_clear(se::State& s)
         se::Value colorVal, depthVal, stencilVal;
         if (arg1->getProperty("color", &colorVal))
         {
-            flags |= gfx::ClearFlag::COLOR;
+            flags |= ClearFlag::COLOR;
 
             if (colorVal.isObject() && colorVal.toObject()->isArray())
             {
@@ -67,7 +67,7 @@ static bool js_gfx_DeviceGraphics_clear(se::State& s)
 
         if (arg1->getProperty("depth", &depthVal))
         {
-            flags |= gfx::ClearFlag::DEPTH;
+            flags |= ClearFlag::DEPTH;
 
             if (depthVal.isNumber())
             {
@@ -77,7 +77,7 @@ static bool js_gfx_DeviceGraphics_clear(se::State& s)
 
         if (arg1->getProperty("stencil", &stencilVal))
         {
-            flags |= gfx::ClearFlag::STENCIL;
+            flags |= ClearFlag::STENCIL;
 
             if (stencilVal.isNumber())
             {
@@ -95,7 +95,7 @@ SE_BIND_FUNC(js_gfx_DeviceGraphics_clear)
 
 static bool js_gfx_DeviceGraphics_setUniform(se::State& s)
 {
-    cocos2d::gfx::DeviceGraphics* cobj = (cocos2d::gfx::DeviceGraphics*)s.nativeThisObject();
+    cocos2d::renderer::DeviceGraphics* cobj = (cocos2d::renderer::DeviceGraphics*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_DeviceGraphics_setUniform : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -184,13 +184,13 @@ static VertexFormat getVertexFormatFromValue(const se::Value& v)
 
 static bool js_gfx_VertexBuffer_init(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 5) {
-        cocos2d::gfx::DeviceGraphics* device;
+        cocos2d::renderer::DeviceGraphics* device;
         ok &= seval_to_native_ptr(args[0], &device);
 
         VertexFormat format = getVertexFormatFromValue(args[1]);
@@ -238,7 +238,7 @@ SE_BIND_FUNC(js_gfx_VertexBuffer_init)
 // uint32_t offset, const void* data, size_t dataByteLength
 static bool js_gfx_VertexBuffer_update(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_update : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -283,7 +283,7 @@ SE_BIND_FUNC(js_gfx_VertexBuffer_update)
 
 static bool js_gfx_VertexBuffer_prop_setFormat(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_setFormat : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -301,7 +301,7 @@ SE_BIND_PROP_SET(js_gfx_VertexBuffer_prop_setFormat)
 
 static bool js_gfx_VertexBuffer_prop_getFormat(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_getFormat : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -318,7 +318,7 @@ SE_BIND_PROP_GET(js_gfx_VertexBuffer_prop_getFormat)
 
 static bool js_gfx_VertexBuffer_prop_setUsage(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_setUsage : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -327,7 +327,7 @@ static bool js_gfx_VertexBuffer_prop_setUsage(se::State& s)
         uint16_t usage;
         ok = seval_to_uint16(args[0], &usage);
         SE_PRECONDITION2(ok, false, "Convert arg0 offset failed!");
-        cobj->setUsage((cocos2d::gfx::Usage)usage);
+        cobj->setUsage((cocos2d::renderer::Usage)usage);
         return true;
     }
 
@@ -338,13 +338,13 @@ SE_BIND_PROP_SET(js_gfx_VertexBuffer_prop_setUsage)
 
 static bool js_gfx_VertexBuffer_prop_getUsage(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_getUsage : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        cocos2d::gfx::Usage usage = cobj->getUsage();
+        cocos2d::renderer::Usage usage = cobj->getUsage();
         s.rval().setUint16((uint16_t)usage);
         return true;
     }
@@ -356,7 +356,7 @@ SE_BIND_PROP_GET(js_gfx_VertexBuffer_prop_getUsage)
 
 static bool js_gfx_VertexBuffer_prop_setNumVertices(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_setNumVertices : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -376,7 +376,7 @@ SE_BIND_PROP_SET(js_gfx_VertexBuffer_prop_setNumVertices)
 
 static bool js_gfx_VertexBuffer_prop_getNumVertices(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_getNumVertices : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -394,7 +394,7 @@ SE_BIND_PROP_GET(js_gfx_VertexBuffer_prop_getNumVertices)
 
 static bool js_gfx_VertexBuffer_prop_setBytes(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_setBytes : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -414,7 +414,7 @@ SE_BIND_PROP_SET(js_gfx_VertexBuffer_prop_setBytes)
 
 static bool js_gfx_VertexBuffer_prop_getBytes(se::State& s)
 {
-    cocos2d::gfx::VertexBuffer* cobj = (cocos2d::gfx::VertexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::VertexBuffer* cobj = (cocos2d::renderer::VertexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_prop_getBytes : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -432,13 +432,13 @@ SE_BIND_PROP_GET(js_gfx_VertexBuffer_prop_getBytes)
 
 static bool js_gfx_IndexBuffer_init(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 5) {
-        cocos2d::gfx::DeviceGraphics* device;
+        cocos2d::renderer::DeviceGraphics* device;
         ok &= seval_to_native_ptr(args[0], &device);
 
         IndexFormat format = (IndexFormat)args[1].toUint16();
@@ -486,7 +486,7 @@ SE_BIND_FUNC(js_gfx_IndexBuffer_init)
 // uint32_t offset, const void* data, size_t dataByteLength
 static bool js_gfx_IndexBuffer_update(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_VertexBuffer_update : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -531,7 +531,7 @@ SE_BIND_FUNC(js_gfx_IndexBuffer_update)
 
 static bool js_gfx_IndexBuffer_prop_setFormat(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setFormat : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -540,7 +540,7 @@ static bool js_gfx_IndexBuffer_prop_setFormat(se::State& s)
         uint16_t format;
         ok = seval_to_uint16(args[0], &format);
         SE_PRECONDITION2(ok, false, "Convert arg0 offset failed!");
-        cobj->setFormat((cocos2d::gfx::IndexFormat)format);
+        cobj->setFormat((cocos2d::renderer::IndexFormat)format);
         return true;
     }
 
@@ -551,13 +551,13 @@ SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setFormat)
 
 static bool js_gfx_IndexBuffer_prop_getFormat(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getFormat : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        cocos2d::gfx::IndexFormat format = cobj->getFormat();
+        cocos2d::renderer::IndexFormat format = cobj->getFormat();
         s.rval().setUint16((uint16_t)format);
         return true;
     }
@@ -569,7 +569,7 @@ SE_BIND_PROP_GET(js_gfx_IndexBuffer_prop_getFormat)
 
 static bool js_gfx_IndexBuffer_prop_setUsage(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setUsage : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -578,7 +578,7 @@ static bool js_gfx_IndexBuffer_prop_setUsage(se::State& s)
         uint16_t usage;
         ok = seval_to_uint16(args[0], &usage);
         SE_PRECONDITION2(ok, false, "Convert arg0 offset failed!");
-        cobj->setUsage((cocos2d::gfx::Usage)usage);
+        cobj->setUsage((cocos2d::renderer::Usage)usage);
         return true;
     }
 
@@ -589,13 +589,13 @@ SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setUsage)
 
 static bool js_gfx_IndexBuffer_prop_getUsage(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getUsage : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 0) {
-        cocos2d::gfx::Usage usage = cobj->getUsage();
+        cocos2d::renderer::Usage usage = cobj->getUsage();
         s.rval().setUint16((uint16_t)usage);
         return true;
     }
@@ -607,7 +607,7 @@ SE_BIND_PROP_GET(js_gfx_IndexBuffer_prop_getUsage)
 
 static bool js_gfx_IndexBuffer_prop_setNumIndices(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setNumIndices : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -627,7 +627,7 @@ SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setNumIndices)
 
 static bool js_gfx_IndexBuffer_prop_getNumIndices(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getNumIndices : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -645,7 +645,7 @@ SE_BIND_PROP_GET(js_gfx_IndexBuffer_prop_getNumIndices)
 
 static bool js_gfx_IndexBuffer_prop_setBytesPerIndex(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setBytesPerIndex : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -665,7 +665,7 @@ SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setBytesPerIndex)
 
 static bool js_gfx_IndexBuffer_prop_getBytesPerIndex(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getBytesPerIndex : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -683,7 +683,7 @@ SE_BIND_PROP_GET(js_gfx_IndexBuffer_prop_getBytesPerIndex)
 
 static bool js_gfx_IndexBuffer_prop_setBytes(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_setBytes : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -703,7 +703,7 @@ SE_BIND_PROP_SET(js_gfx_IndexBuffer_prop_setBytes)
 
 static bool js_gfx_IndexBuffer_prop_getBytes(se::State& s)
 {
-    cocos2d::gfx::IndexBuffer* cobj = (cocos2d::gfx::IndexBuffer*)s.nativeThisObject();
+    cocos2d::renderer::IndexBuffer* cobj = (cocos2d::renderer::IndexBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_IndexBuffer_prop_getBytes : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
@@ -845,13 +845,13 @@ SE_BIND_FUNC(js_gfx_getTextTextureInfo)
 
 static bool js_gfx_FrameBuffer_init(se::State& s)
 {
-    cocos2d::gfx::FrameBuffer* cobj = (cocos2d::gfx::FrameBuffer*)s.nativeThisObject();
+    cocos2d::renderer::FrameBuffer* cobj = (cocos2d::renderer::FrameBuffer*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_gfx_FrameBuffer_init : Invalid Native Object");
     const auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 4) {
-        cocos2d::gfx::DeviceGraphics* device = nullptr;
+        cocos2d::renderer::DeviceGraphics* device = nullptr;
         uint16_t width = 0;
         uint16_t height = 0;
         ok &= seval_to_native_ptr(args[0], &device);

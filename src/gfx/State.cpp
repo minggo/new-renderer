@@ -29,7 +29,7 @@
 #include "Texture2D.h"
 #include "Program.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 namespace {
     const State __defaultState;
@@ -94,17 +94,17 @@ State::~State()
 {
     for (auto vertexBuf : _vertexBuffers)
     {
-        GFX_SAFE_RELEASE(vertexBuf);
+        RENDERER_SAFE_RELEASE(vertexBuf);
     }
 
-    GFX_SAFE_RELEASE(_indexBuffer);
+    RENDERER_SAFE_RELEASE(_indexBuffer);
 
     for (auto texture : _textureUnits)
     {
-        GFX_SAFE_RELEASE(texture);
+        RENDERER_SAFE_RELEASE(texture);
     }
 
-    GFX_SAFE_RELEASE(_program);
+    RENDERER_SAFE_RELEASE(_program);
 }
 
 State& State::operator=(const State& o)
@@ -155,7 +155,7 @@ State& State::operator=(const State& o)
 
         for (auto vertexBuf : _vertexBuffers)
         {
-            GFX_SAFE_RELEASE(vertexBuf);
+            RENDERER_SAFE_RELEASE(vertexBuf);
         }
 
         if (o._vertexBuffers.empty())
@@ -169,20 +169,20 @@ State& State::operator=(const State& o)
             for (size_t i = 0, len = o._vertexBuffers.size(); i < len; ++i)
             {
                 _vertexBuffers[i] = o._vertexBuffers[i];
-                GFX_SAFE_RETAIN(_vertexBuffers[i]);
+                RENDERER_SAFE_RETAIN(_vertexBuffers[i]);
             }
         }
 
         if (_indexBuffer != o._indexBuffer)
         {
-            GFX_SAFE_RETAIN(o._indexBuffer);
-            GFX_SAFE_RELEASE(_indexBuffer);
+            RENDERER_SAFE_RETAIN(o._indexBuffer);
+            RENDERER_SAFE_RELEASE(_indexBuffer);
             _indexBuffer = o._indexBuffer;
         }
 
         for (auto texture : _textureUnits)
         {
-            GFX_SAFE_RELEASE(texture);
+            RENDERER_SAFE_RELEASE(texture);
         }
 
         if (o._textureUnits.empty())
@@ -195,14 +195,14 @@ State& State::operator=(const State& o)
             for (size_t i = 0, len = o._textureUnits.size(); i < len; ++i)
             {
                 _textureUnits[i] = o._textureUnits[i];
-                GFX_SAFE_RETAIN(_textureUnits[i]);
+                RENDERER_SAFE_RETAIN(_textureUnits[i]);
             }
         }
 
         if (_program != o._program)
         {
-            GFX_SAFE_RETAIN(o._program);
-            GFX_SAFE_RELEASE(_program);
+            RENDERER_SAFE_RETAIN(o._program);
+            RENDERER_SAFE_RELEASE(_program);
             _program = o._program;
         }
     }
@@ -258,21 +258,21 @@ State& State::operator=(State&& o)
 
         for (auto vertexBuf : _vertexBuffers)
         {
-            GFX_SAFE_RELEASE(vertexBuf);
+            RENDERER_SAFE_RELEASE(vertexBuf);
         }
         _vertexBuffers = std::move(o._vertexBuffers);
 
-        GFX_SAFE_RELEASE(_indexBuffer);
+        RENDERER_SAFE_RELEASE(_indexBuffer);
         _indexBuffer = o._indexBuffer;
         o._indexBuffer = nullptr;
 
         for (auto texture : _textureUnits)
         {
-            GFX_SAFE_RELEASE(texture);
+            RENDERER_SAFE_RELEASE(texture);
         }
         _textureUnits = std::move(o._textureUnits);
 
-        GFX_SAFE_RELEASE(_program);
+        RENDERER_SAFE_RELEASE(_program);
         _program = o._program;
         o._program = nullptr;
 
@@ -335,9 +335,9 @@ void State::setVertexBuffer(size_t index, VertexBuffer* vertBuf)
     VertexBuffer* oldBuf = _vertexBuffers[index];
     if (oldBuf != vertBuf)
     {
-        GFX_SAFE_RELEASE(oldBuf);
+        RENDERER_SAFE_RELEASE(oldBuf);
         _vertexBuffers[index] = vertBuf;
-        GFX_SAFE_RETAIN(vertBuf);
+        RENDERER_SAFE_RETAIN(vertBuf);
     }
 }
 
@@ -369,9 +369,9 @@ void State::setIndexBuffer(IndexBuffer* indexBuf)
 {
     if (_indexBuffer != indexBuf)
     {
-        GFX_SAFE_RELEASE(_indexBuffer);
+        RENDERER_SAFE_RELEASE(_indexBuffer);
         _indexBuffer = indexBuf;
-        GFX_SAFE_RETAIN(_indexBuffer);
+        RENDERER_SAFE_RETAIN(_indexBuffer);
     }
 }
 
@@ -390,9 +390,9 @@ void State::setTexture(size_t index, Texture* texture)
     Texture* oldTexture = _textureUnits[index];
     if (oldTexture != texture)
     {
-        GFX_SAFE_RELEASE(oldTexture);
+        RENDERER_SAFE_RELEASE(oldTexture);
         _textureUnits[index] = texture;
-        GFX_SAFE_RETAIN(texture);
+        RENDERER_SAFE_RETAIN(texture);
     }
 }
 
@@ -409,9 +409,9 @@ void State::setProgram(Program* program)
     assert(program != nullptr);
     if (_program != program)
     {
-        GFX_SAFE_RELEASE(_program);
+        RENDERER_SAFE_RELEASE(_program);
         _program = program;
-        GFX_SAFE_RETAIN(_program);
+        RENDERER_SAFE_RETAIN(_program);
     }
 }
 
@@ -420,4 +420,4 @@ Program* State::getProgram() const
     return _program;
 }
 
-GFX_END
+RENDERER_END

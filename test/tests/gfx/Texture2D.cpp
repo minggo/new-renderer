@@ -29,7 +29,7 @@
 #include <vector>
 
 using namespace cocos2d;
-using namespace cocos2d::gfx;
+using namespace cocos2d::renderer;
 
 
 Texture2DTest::Texture2DTest()

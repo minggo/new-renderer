@@ -31,7 +31,7 @@
 #include "../Macro.h"
 #include "Technique.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class Effect : public Ref
 {
@@ -62,4 +62,4 @@ private:
     std::unordered_map<std::string, Property> _properties;
 };
 
-GFX_END
+RENDERER_END

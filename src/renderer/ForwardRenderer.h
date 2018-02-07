@@ -26,7 +26,7 @@
 
 #include "BaseRenderer.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class ForwardRenderer final : public BaseRenderer
 {
@@ -43,4 +43,4 @@ private:
     int _height = 0;
 };
 
-GFX_END
+RENDERER_END

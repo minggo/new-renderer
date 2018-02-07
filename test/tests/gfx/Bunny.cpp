@@ -28,7 +28,7 @@
 #include "../Utils.h"
 
 using namespace cocos2d;
-using namespace cocos2d::gfx;
+using namespace cocos2d::renderer;
 
 Bunny::Bunny()
 : _time(0.0f)

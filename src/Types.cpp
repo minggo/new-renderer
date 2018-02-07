@@ -24,7 +24,7 @@
 
 #include "Types.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 const char* ATTRIB_NAME_POSITION = "a_position";
 const char* ATTRIB_NAME_NORMAL = "a_normal";
@@ -65,4 +65,4 @@ void Rect::set(float x, float y, float w, float h)
     this->h = h;
 }
 
-GFX_END
+RENDERER_END

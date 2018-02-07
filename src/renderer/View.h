@@ -31,7 +31,7 @@
 #include "../Macro.h"
 #include "../Types.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class Light;
 class FrameBuffer;
@@ -69,4 +69,4 @@ public:
     Light* shadowLight = nullptr;
 };
 
-GFX_END
+RENDERER_END

@@ -33,7 +33,7 @@
 #include "../Types.h"
 #include "View.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class FrameBuffer;
 class INode;
@@ -106,7 +106,7 @@ private:
     // projection properties
     float _near = 0.01f;
     float _far = 1000.0f;
-    float _fov = GFX_PI / 4.0f;
+    float _fov = RENDERER_PI / 4.0f;
     Rect _rect = {0, 0, 1, 1};
     
     // ortho properties
@@ -116,4 +116,4 @@ private:
     Vec3 _worldPos;
 };
 
-GFX_END
+RENDERER_END

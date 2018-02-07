@@ -37,7 +37,7 @@
 #include "Camera.h"
 
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 ForwardRenderer::ForwardRenderer()
 {
@@ -73,7 +73,7 @@ void ForwardRenderer::transparentStage(const View* view, const std::vector<Stage
     _device->setUniformMat4("proj", view->matProj);
     _device->setUniformMat4("viewProj", view->matViewProj);
 
-//    GFX_LOGD("StageItem count: %d", (int)items.size());
+//    RENDERER_LOGD("StageItem count: %d", (int)items.size());
     // draw it
     for (const auto& item : items)
     {
@@ -84,14 +84,14 @@ void ForwardRenderer::transparentStage(const View* view, const std::vector<Stage
         uint8_t* vertexData = vb->invokeFetchDataCallback(&vertexDataBytes);
         assert(vertexData != nullptr);
         assert(vertexDataBytes > 0);
-//        GFX_LOGD("vertexBuffer size: %d", (int)vertexDataBytes);
+//        RENDERER_LOGD("vertexBuffer size: %d", (int)vertexDataBytes);
 
         IndexBuffer* ib = ia->getIndexBuffer();
         size_t indexDataBytes = 0;
         uint8_t* indexData = ib->invokeFetchDataCallback(&indexDataBytes);
         assert(indexData != nullptr);
         assert(indexDataBytes > 0);
-//        GFX_LOGD("indexBuffer size: %d", (int)indexDataBytes);
+//        RENDERER_LOGD("indexBuffer size: %d", (int)indexDataBytes);
 
         vb->update(0, vertexData, vertexDataBytes);
         ib->update(0, indexData, indexDataBytes);
@@ -99,4 +99,4 @@ void ForwardRenderer::transparentStage(const View* view, const std::vector<Stage
     }
 }
 
-GFX_END
+RENDERER_END

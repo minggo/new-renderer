@@ -39,10 +39,10 @@ public:
 private:
     
     float _dt;
-    cocos2d::gfx::Texture2D* _backgroud;
-    cocos2d::gfx::Texture2D* _sprite0;
+    cocos2d::renderer::Texture2D* _backgroud;
+    cocos2d::renderer::Texture2D* _sprite0;
     cocos2d::Mat4 _projection;
     cocos2d::Mat4 _model;
-    cocos2d::gfx::DeviceGraphics *_device;
+    cocos2d::renderer::DeviceGraphics *_device;
     
 };

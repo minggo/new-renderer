@@ -29,7 +29,7 @@
 #include <unordered_map>
 #include "../Macro.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class Config
 {
@@ -43,4 +43,4 @@ private:
     static std::unordered_map<std::string, unsigned int> _name2stageID;
 };
 
-GFX_END
+RENDERER_END

@@ -37,9 +37,9 @@ public:
     virtual void tick(float dt) override;
     
 private:
-    cocos2d::gfx::DeviceGraphics* _device;
-    cocos2d::gfx::FrameBuffer* _frameBuffer;
-    cocos2d::gfx::Texture2D* _colorTexture;
+    cocos2d::renderer::DeviceGraphics* _device;
+    cocos2d::renderer::FrameBuffer* _frameBuffer;
+    cocos2d::renderer::Texture2D* _colorTexture;
     float _t;
     
     cocos2d::Mat4 _view;

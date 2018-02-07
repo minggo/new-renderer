@@ -25,7 +25,7 @@
 #include "Effect.h"
 #include "Config.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 Effect::Effect(const Vector<Technique*>& techniques,
                const std::unordered_map<std::string, Property>& properties,
@@ -34,12 +34,12 @@ Effect::Effect(const Vector<Technique*>& techniques,
 , _properties(properties)
 , _defineTemplates(defineTemplates)
 {
-    GFX_LOGD("Effect construction: %p", this);
+    RENDERER_LOGD("Effect construction: %p", this);
 }
 
 Effect::~Effect()
 {
-    GFX_LOGD("Effect destruction: %p", this);
+    RENDERER_LOGD("Effect destruction: %p", this);
 }
 
 void Effect::clear()
@@ -71,7 +71,7 @@ Value Effect::getDefineValue(const std::string& name) const
             return def.at("value");
     }
     
-    GFX_LOGW("Failed to set define %s, define not found.", name.c_str());
+    RENDERER_LOGW("Failed to set define %s, define not found.", name.c_str());
     return Value::Null;
 }
 
@@ -109,4 +109,4 @@ void Effect::setProperty(const std::string& name, const Property& property)
     _properties[name] = property;
 }
 
-GFX_END
+RENDERER_END

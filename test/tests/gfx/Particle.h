@@ -36,10 +36,10 @@ public:
     virtual void tick(float dt) override;
 
 private:
-    cocos2d::gfx::VertexBuffer *_vertexBuffer;
-    cocos2d::gfx::IndexBuffer *_indexBuffer;
-    cocos2d::gfx::Program *_program;
-    cocos2d::gfx::DeviceGraphics *_device;
+    cocos2d::renderer::VertexBuffer *_vertexBuffer;
+    cocos2d::renderer::IndexBuffer *_indexBuffer;
+    cocos2d::renderer::Program *_program;
+    cocos2d::renderer::DeviceGraphics *_device;
 
     cocos2d::Mat4 _model;
     cocos2d::Mat4 _view;
@@ -62,6 +62,6 @@ private:
 #define particleCount 100
     ParticleData _particles[particleCount];
 
-    cocos2d::gfx::Texture2D* _texture;
+    cocos2d::renderer::Texture2D* _texture;
 };
 

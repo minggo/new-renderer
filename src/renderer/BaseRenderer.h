@@ -32,7 +32,7 @@
 #include "ProgramLib.h"
 #include "Model.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class DeviceGraphics;
 class View;
@@ -93,4 +93,4 @@ protected:
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(BaseRenderer);
 };
 
-GFX_END
+RENDERER_END

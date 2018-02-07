@@ -28,7 +28,7 @@
 #include "math/Mat4.h"
 #include "math/Vec3.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class INode
 {
@@ -39,4 +39,4 @@ public:
     virtual Vec3 getWorldPos() const = 0;
 };
 
-GFX_END
+RENDERER_END

@@ -5,11 +5,11 @@
 #include "renderer/INode.h"
 
 using namespace cocos2d;
-using namespace cocos2d::gfx;
+using namespace cocos2d::renderer;
 
 static bool js_renderer_Camera_getColor(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getColor : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
@@ -31,13 +31,13 @@ SE_BIND_FUNC(js_renderer_Camera_getColor)
 
 static bool js_renderer_Camera_getRect(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_getRect : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 1) {
-        cocos2d::gfx::Rect rect;
+        cocos2d::renderer::Rect rect;
         cobj->getRect(rect);
         se::Object* arg0Obj = args[0].toObject();
         arg0Obj->setProperty("x", se::Value(rect.x));
@@ -54,13 +54,13 @@ SE_BIND_FUNC(js_renderer_Camera_getRect)
 
 static bool js_renderer_Camera_extractView(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_extractView : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 3) {
-        cocos2d::gfx::View* view = nullptr;
+        cocos2d::renderer::View* view = nullptr;
         ok = seval_to_native_ptr(args[0], &view);
         SE_PRECONDITION2(ok, false, "Convert arg0 failed!");
         int32_t width = 0;
@@ -79,7 +79,7 @@ SE_BIND_FUNC(js_renderer_Camera_extractView)
 
 static bool js_renderer_Camera_screenToWorld(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_screenToWorld : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
@@ -110,7 +110,7 @@ SE_BIND_FUNC(js_renderer_Camera_screenToWorld)
 
 static bool js_renderer_Camera_worldToScreen(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_worldToScreen : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
@@ -163,7 +163,7 @@ static void fillObjectWithValueMap(const cocos2d::ValueMap& v, se::Object* obj)
 
 static bool js_renderer_Effect_extractDefines(se::State& s)
 {
-    cocos2d::gfx::Effect* cobj = (cocos2d::gfx::Effect*)s.nativeThisObject();
+    cocos2d::renderer::Effect* cobj = (cocos2d::renderer::Effect*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Effect_extractDefines : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
@@ -183,13 +183,13 @@ SE_BIND_FUNC(js_renderer_Effect_extractDefines)
 
 static bool js_renderer_Light_extractView(se::State& s)
 {
-    cocos2d::gfx::Light* cobj = (cocos2d::gfx::Light*)s.nativeThisObject();
+    cocos2d::renderer::Light* cobj = (cocos2d::renderer::Light*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Light_extractView : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
     CC_UNUSED bool ok = true;
     if (argc == 2) {
-        cocos2d::gfx::View* view;
+        cocos2d::renderer::View* view;
         ok = seval_to_native_ptr(args[0], &view);
         SE_PRECONDITION2(ok, false, "Convert arg0 failed!");
 
@@ -207,7 +207,7 @@ SE_BIND_FUNC(js_renderer_Light_extractView)
 
 static bool js_renderer_View_getForward(se::State& s)
 {
-    cocos2d::gfx::View* cobj = (cocos2d::gfx::View*)s.nativeThisObject();
+    cocos2d::renderer::View* cobj = (cocos2d::renderer::View*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_View_getForward : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
@@ -229,7 +229,7 @@ SE_BIND_FUNC(js_renderer_View_getForward)
 
 static bool js_renderer_View_getPosition(se::State& s)
 {
-    cocos2d::gfx::View* cobj = (cocos2d::gfx::View*)s.nativeThisObject();
+    cocos2d::renderer::View* cobj = (cocos2d::renderer::View*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_View_getPosition : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
@@ -328,7 +328,7 @@ private:
 
 static bool js_renderer_Camera_setNode(se::State& s)
 {
-    cocos2d::gfx::Camera* cobj = (cocos2d::gfx::Camera*)s.nativeThisObject();
+    cocos2d::renderer::Camera* cobj = (cocos2d::renderer::Camera*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Camera_setNode : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();
@@ -347,7 +347,7 @@ SE_BIND_FUNC(js_renderer_Camera_setNode)
 
 static bool js_renderer_Model_setNode(se::State& s)
 {
-    cocos2d::gfx::Model* cobj = (cocos2d::gfx::Model*)s.nativeThisObject();
+    cocos2d::renderer::Model* cobj = (cocos2d::renderer::Model*)s.nativeThisObject();
     SE_PRECONDITION2(cobj, false, "js_renderer_Model_setNode : Invalid Native Object");
     auto& args = s.args();
     size_t argc = args.size();

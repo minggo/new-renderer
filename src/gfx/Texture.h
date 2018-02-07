@@ -33,7 +33,7 @@
 
 #include <vector>
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class DeviceGraphics;
 
@@ -250,4 +250,4 @@ protected:
     bool _compressed;
 };
 
-GFX_END
+RENDERER_END

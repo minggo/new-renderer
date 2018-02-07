@@ -38,10 +38,10 @@ public:
     virtual void tick(float dt) override;
     
 private:
-    cocos2d::gfx::Program* _program;
-    cocos2d::gfx::VertexBuffer* _vertexBuffer;
-    cocos2d::gfx::DeviceGraphics* _device;
-    cocos2d::gfx::Texture2D* _background;
-    cocos2d::gfx::Texture2D* _texture1;
+    cocos2d::renderer::Program* _program;
+    cocos2d::renderer::VertexBuffer* _vertexBuffer;
+    cocos2d::renderer::DeviceGraphics* _device;
+    cocos2d::renderer::Texture2D* _background;
+    cocos2d::renderer::Texture2D* _texture1;
     cocos2d::Mat4 _transform;
 };

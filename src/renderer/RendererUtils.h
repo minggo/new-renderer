@@ -29,7 +29,7 @@
 #include <string>
 #include <vector>
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class InputAssembler;
 class DeviceGraphics;
@@ -44,4 +44,4 @@ struct IAData
 
 InputAssembler* createIA(DeviceGraphics* device, const IAData& data);
 
-GFX_END
+RENDERER_END

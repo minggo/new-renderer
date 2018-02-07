@@ -32,7 +32,7 @@
 #include <string>
 #include <vector>
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class DeviceGraphics;
 
@@ -60,7 +60,7 @@ public:
         friend class Program;
     };
 
-    GFX_DEFINE_CREATE_METHOD_3(Program, init, DeviceGraphics*, const char*, const char*)
+    RENDERER_DEFINE_CREATE_METHOD_3(Program, init, DeviceGraphics*, const char*, const char*)
     Program();
     virtual ~Program();
 
@@ -80,4 +80,4 @@ private:
     bool _linked;
 };
 
-GFX_END
+RENDERER_END

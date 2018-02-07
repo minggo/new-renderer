@@ -24,7 +24,7 @@
 
 #include "VertexFormat.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 static uint32_t attrTypeBytes(AttribType attrType)
 {
@@ -44,7 +44,7 @@ static uint32_t attrTypeBytes(AttribType attrType)
         return 4;
     }
 
-    GFX_LOGW("Unknown ATTR_TYPE: %u", (uint32_t)attrType);
+    RENDERER_LOGW("Unknown ATTR_TYPE: %u", (uint32_t)attrType);
     return 0;
 }
 
@@ -140,4 +140,4 @@ const VertexFormat::Element& VertexFormat::getElement(const std::string& attrNam
     return INVALID_ELEMENT_VALUE;
 }
 
-GFX_END
+RENDERER_END

@@ -29,7 +29,7 @@
 #include "gfx/RenderBuffer.h"
 #include "gfx/FrameBuffer.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 Light::Light()
 {
@@ -135,7 +135,7 @@ void Light::extractView(View& out, const std::vector<std::string>& stages)
             computePointLightViewProjMatrix(out.matView, out.matProj);
             break;
         default:
-            GFX_LOGW("Shadow of this light type is not supported");
+            RENDERER_LOGW("Shadow of this light type is not supported");
             break;
     }
     
@@ -216,10 +216,10 @@ void Light::destroyShadowMap()
         _shadowMap->release();
         _shadowMap = nullptr;
         
-        GFX_SAFE_RELEASE(_shadowDepthBuffer);
+        RENDERER_SAFE_RELEASE(_shadowDepthBuffer);
         _shadowDepthBuffer = nullptr;
         
-        GFX_SAFE_RELEASE(_shadowFrameBuffer);
+        RENDERER_SAFE_RELEASE(_shadowFrameBuffer);
         _shadowFrameBuffer = nullptr;
     }
 }
@@ -252,4 +252,4 @@ void Light::computePointLightViewProjMatrix(Mat4& matView, Mat4& matProj) const
     //TODO
 }
 
-GFX_END
+RENDERER_END

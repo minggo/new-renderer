@@ -30,13 +30,13 @@
 
 #include "InputAssembler.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 InputAssembler* createIA(DeviceGraphics* device, const IAData& data)
 {
     if (data.positions.empty())
     {
-        GFX_LOGD("The data must have positions field!");
+        RENDERER_LOGD("The data must have positions field!");
         return nullptr;
     }
 
@@ -87,4 +87,4 @@ InputAssembler* createIA(DeviceGraphics* device, const IAData& data)
     return ia;
 }
 
-GFX_END
+RENDERER_END

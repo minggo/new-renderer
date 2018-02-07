@@ -26,7 +26,7 @@
 #include "gfx/VertexBuffer.h"
 #include "gfx/IndexBuffer.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 InputAssembler::InputAssembler()
 {
@@ -34,8 +34,8 @@ InputAssembler::InputAssembler()
 
 InputAssembler::~InputAssembler()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_indexBuffer);
+    RENDERER_SAFE_RELEASE(_vertexBuffer);
+    RENDERER_SAFE_RELEASE(_indexBuffer);
 }
 
 bool InputAssembler::init(VertexBuffer* vb,
@@ -50,16 +50,16 @@ bool InputAssembler::init(VertexBuffer* vb,
 
 void InputAssembler::setVertexBuffer(VertexBuffer* vb)
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
+    RENDERER_SAFE_RELEASE(_vertexBuffer);
     _vertexBuffer = vb;
-    GFX_SAFE_RETAIN(_vertexBuffer);
+    RENDERER_SAFE_RETAIN(_vertexBuffer);
 }
 
 void InputAssembler::setIndexBuffer(IndexBuffer* ib)
 {
-    GFX_SAFE_RELEASE(_indexBuffer);
+    RENDERER_SAFE_RELEASE(_indexBuffer);
     _indexBuffer = ib;
-    GFX_SAFE_RETAIN(_indexBuffer);
+    RENDERER_SAFE_RETAIN(_indexBuffer);
 }
 
 uint32_t InputAssembler::getPrimitiveCount() const
@@ -74,4 +74,4 @@ uint32_t InputAssembler::getPrimitiveCount() const
     return _vertexBuffer->getCount();
 }
 
-GFX_END
+RENDERER_END

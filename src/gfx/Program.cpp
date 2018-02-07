@@ -82,10 +82,10 @@ namespace {
             GLchar* src = (GLchar *)malloc(sizeof(GLchar) * length);
 
             GL_CHECK(glGetShaderSource(shader, length, nullptr, src));
-            GFX_LOGE("ERROR: Failed to compile shader:\n%s", src);
+            RENDERER_LOGE("ERROR: Failed to compile shader:\n%s", src);
 
             std::string shaderLog = logForOpenGLShader(shader);
-            GFX_LOGE("%s", shaderLog.c_str());
+            RENDERER_LOGE("%s", shaderLog.c_str());
 
             free(src);
 
@@ -100,10 +100,10 @@ namespace {
 #define DEF_TO_INT(pointer)  (*(int*)(pointer))
 #define DEF_TO_FLOAT(pointer)  (*(float*)(pointer))
 
-    void setUniform1i(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform1i(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         assert(count == 1);
-        if (elementType == cocos2d::gfx::UniformElementType::INT)
+        if (elementType == cocos2d::renderer::UniformElementType::INT)
         {
             glUniform1i(location, DEF_TO_INT(value));
         }
@@ -115,63 +115,63 @@ namespace {
         }
     }
 
-    void setUniform1iv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform1iv(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniform1iv(location, count, (const GLint*)value);
     }
 
-    void setUniform2iv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform2iv(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniform2iv(location, count, (const GLint*)value);
     }
 
-    void setUniform3iv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform3iv(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniform3iv(location, count, (const GLint*)value);
     }
 
-    void setUniform4iv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform4iv(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniform4iv(location, count, (const GLint*)value);
     }
 
-    void setUniform1f(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform1f(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         assert(count == 1);
         glUniform1f(location, DEF_TO_FLOAT(value));
     }
 
-    void setUniform1fv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform1fv(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniform1fv(location, count, (const GLfloat*)value);
     }
 
-    void setUniform2fv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform2fv(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniform2fv(location, count, (const GLfloat*)value);
     }
 
-    void setUniform3fv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform3fv(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniform3fv(location, count, (const GLfloat*)value);
     }
 
-    void setUniform4fv(GLint location, GLsizei count , const void* value, cocos2d::gfx::UniformElementType elementType)
+    void setUniform4fv(GLint location, GLsizei count , const void* value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniform4fv(location, count, (const GLfloat*)value);
     }
 
-    void setUniformMatrix2fv(GLint location, GLsizei count, const void *value, cocos2d::gfx::UniformElementType elementType)
+    void setUniformMatrix2fv(GLint location, GLsizei count, const void *value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniformMatrix2fv(location, count, GL_FALSE, (const GLfloat*)value);
     }
 
-    void setUniformMatrix3fv(GLint location, GLsizei count, const void *value, cocos2d::gfx::UniformElementType elementType)
+    void setUniformMatrix3fv(GLint location, GLsizei count, const void *value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniformMatrix3fv(location, count, GL_FALSE, (const GLfloat*)value);
     }
 
-    void setUniformMatrix4fv(GLint location, GLsizei count, const void *value, cocos2d::gfx::UniformElementType elementType)
+    void setUniformMatrix4fv(GLint location, GLsizei count, const void *value, cocos2d::renderer::UniformElementType elementType)
     {
         glUniformMatrix4fv(location, count, GL_FALSE, (const GLfloat*)value);
     }
@@ -179,7 +179,7 @@ namespace {
     /**
      * _type2uniformCommit
      */
-    std::unordered_map<GLenum, cocos2d::gfx::Program::Uniform::SetUniformCallback> _type2uniformCommit = {
+    std::unordered_map<GLenum, cocos2d::renderer::Program::Uniform::SetUniformCallback> _type2uniformCommit = {
         { GL_INT, setUniform1i },
         { GL_FLOAT, setUniform1f },
         { GL_FLOAT_VEC2, setUniform2fv },
@@ -202,7 +202,7 @@ namespace {
     /**
      * _type2uniformArrayCommit
      */
-    std::unordered_map<GLenum, cocos2d::gfx::Program::Uniform::SetUniformCallback> _type2uniformArrayCommit = {
+    std::unordered_map<GLenum, cocos2d::renderer::Program::Uniform::SetUniformCallback> _type2uniformArrayCommit = {
         { GL_INT, setUniform1iv },
         { GL_FLOAT, setUniform1fv },
         { GL_FLOAT_VEC2, setUniform2fv },
@@ -223,7 +223,7 @@ namespace {
     };
 } // namespace {
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 void Program::Uniform::setUniform(const void* value, UniformElementType elementType) const
 {
@@ -287,9 +287,9 @@ void Program::link()
 
     if (status == GL_FALSE)
     {
-        GFX_LOGE("ERROR: Failed to link program: %u", program);
+        RENDERER_LOGE("ERROR: Failed to link program: %u", program);
         std::string programLog = logForOpenGLProgram(program);
-        GFX_LOGE("%s", programLog.c_str());
+        RENDERER_LOGE("%s", programLog.c_str());
         glDeleteShader(vertShader);
         glDeleteShader(fragShader);
         glDeleteProgram(program);
@@ -363,7 +363,7 @@ void Program::link()
                 GLenum err = glGetError();
                 if (err != GL_NO_ERROR)
                 {
-                    GFX_LOGE("error: 0x%x  uniformName: %s", (int)err, uniformName);
+                    RENDERER_LOGE("error: 0x%x  uniformName: %s", (int)err, uniformName);
                 }
                 assert(err == GL_NO_ERROR);
 
@@ -390,4 +390,4 @@ void Program::link()
     _linked = true;
 }
 
-GFX_END
+RENDERER_END

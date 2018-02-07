@@ -27,14 +27,14 @@
 #include "../Types.h"
 #include "GraphicsHandle.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class DeviceGraphics;
 
 class IndexBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_6(IndexBuffer, init, DeviceGraphics*, IndexFormat, Usage, const void*, size_t, uint32_t)
+    RENDERER_DEFINE_CREATE_METHOD_6(IndexBuffer, init, DeviceGraphics*, IndexFormat, Usage, const void*, size_t, uint32_t)
 
     IndexBuffer();
     virtual ~IndexBuffer();
@@ -81,4 +81,4 @@ private:
     CC_DISALLOW_COPY_ASSIGN_AND_MOVE(IndexBuffer)
 };
 
-GFX_END
+RENDERER_END

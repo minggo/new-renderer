@@ -29,7 +29,7 @@
 
 #include "base/CCRef.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class GraphicsHandle : public Ref
 {
@@ -42,4 +42,4 @@ protected:
     GLuint _glID;
 };
 
-GFX_END
+RENDERER_END

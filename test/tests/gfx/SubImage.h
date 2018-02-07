@@ -36,13 +36,13 @@ public:
     virtual void tick(float dt) override;
 
 private:
-    cocos2d::gfx::VertexBuffer *_vertexBuffer;
-    cocos2d::gfx::Program *_program;
-    cocos2d::gfx::DeviceGraphics *_device;
+    cocos2d::renderer::VertexBuffer *_vertexBuffer;
+    cocos2d::renderer::Program *_program;
+    cocos2d::renderer::DeviceGraphics *_device;
 
     cocos2d::Mat4 _transform0;
 
-    cocos2d::gfx::Texture2D* _texture;
+    cocos2d::renderer::Texture2D* _texture;
     uint8_t* _data;
     size_t _dataSize;
     size_t _updatePixelIndex;

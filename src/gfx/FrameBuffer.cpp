@@ -25,7 +25,7 @@
 #include "FrameBuffer.h"
 #include "RenderTarget.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 FrameBuffer::FrameBuffer()
 : _device(nullptr)
@@ -39,15 +39,15 @@ FrameBuffer::FrameBuffer()
 FrameBuffer::~FrameBuffer()
 {
     for (auto colorBufffer : _colorBuffers)
-        GFX_SAFE_RELEASE(colorBufffer);
+        RENDERER_SAFE_RELEASE(colorBufffer);
 
-    GFX_SAFE_RELEASE(_depthBuffer);
-    GFX_SAFE_RELEASE(_stencilBuffer);
-    GFX_SAFE_RELEASE(_depthStencilBuffer);
+    RENDERER_SAFE_RELEASE(_depthBuffer);
+    RENDERER_SAFE_RELEASE(_stencilBuffer);
+    RENDERER_SAFE_RELEASE(_depthStencilBuffer);
 
     if (_glID == 0)
     {
-        GFX_LOGE("The frame-buffer is invalid!");
+        RENDERER_LOGE("The frame-buffer is invalid!");
         return;
     }
 
@@ -71,39 +71,39 @@ void FrameBuffer::setColorBuffer(RenderTarget* rt, int index)
     if (index >= _colorBuffers.size())
         _colorBuffers.resize(index + 1);
     
-    GFX_SAFE_RETAIN(rt);
-    GFX_SAFE_RELEASE(_colorBuffers[index]);
+    RENDERER_SAFE_RETAIN(rt);
+    RENDERER_SAFE_RELEASE(_colorBuffers[index]);
     _colorBuffers[index] = rt;
 }
 
 void FrameBuffer::setColorBuffers(const std::vector<RenderTarget*>& renderTargets)
 {
     for (auto& colorBufffer : _colorBuffers)
-        GFX_SAFE_RELEASE(colorBufffer);
+        RENDERER_SAFE_RELEASE(colorBufffer);
 
     _colorBuffers = renderTargets;
     for (auto& colorBufffer : _colorBuffers)
-        GFX_SAFE_RETAIN(colorBufffer);
+        RENDERER_SAFE_RETAIN(colorBufffer);
 }
 
 void FrameBuffer::setDepthBuffer(RenderTarget* rt)
 {
-    GFX_SAFE_RETAIN(rt);
-    GFX_SAFE_RELEASE(_depthBuffer);
+    RENDERER_SAFE_RETAIN(rt);
+    RENDERER_SAFE_RELEASE(_depthBuffer);
     _depthBuffer = rt;
 }
 
 void FrameBuffer::setStencilBuffer(RenderTarget* rt)
 {
-    GFX_SAFE_RETAIN(rt);
-    GFX_SAFE_RELEASE(_stencilBuffer);
+    RENDERER_SAFE_RETAIN(rt);
+    RENDERER_SAFE_RELEASE(_stencilBuffer);
     _stencilBuffer = rt;
 }
 
 void FrameBuffer::setDepthStencilBuffer(RenderTarget* rt)
 {
-    GFX_SAFE_RETAIN(rt);
-    GFX_SAFE_RELEASE(_depthStencilBuffer);
+    RENDERER_SAFE_RETAIN(rt);
+    RENDERER_SAFE_RELEASE(_depthStencilBuffer);
     _depthStencilBuffer = rt;
 }
 
@@ -127,6 +127,6 @@ const RenderTarget* FrameBuffer::getDepthStencilBuffer() const
     return _depthStencilBuffer;
 }
 
-GFX_END
+RENDERER_END
 
 

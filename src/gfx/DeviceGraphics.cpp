@@ -34,7 +34,7 @@
 
 #include "platform/CCPlatformConfig.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 static_assert(sizeof(int) == sizeof(GLint), "ERROR: GLint isn't equal to int!");
 static_assert(sizeof(float) == sizeof(GLfloat), "ERROR: GLfloat isn't equal to float!");
@@ -73,9 +73,9 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     if (fb == _frameBuffer)
         return;
     
-    GFX_SAFE_RELEASE(_frameBuffer);
+    RENDERER_SAFE_RELEASE(_frameBuffer);
     _frameBuffer = const_cast<FrameBuffer*>(fb);
-    GFX_SAFE_RETAIN(_frameBuffer);
+    RENDERER_SAFE_RETAIN(_frameBuffer);
     
     if (nullptr == fb)
     {
@@ -115,7 +115,7 @@ void DeviceGraphics::setFrameBuffer(const FrameBuffer* fb)
     
     auto result = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (GL_FRAMEBUFFER_COMPLETE != result)
-        GFX_LOGE("Framebuffer status error: 0x%x", result);
+        RENDERER_LOGE("Framebuffer status error: 0x%x", result);
 }
 
 void DeviceGraphics::setViewport(int x, int y, int w, int h)
@@ -339,7 +339,7 @@ void DeviceGraphics::setTexture(const std::string& name, Texture* texture, int s
 {
     if (slot >= _caps.maxTextureUnits)
     {
-        GFX_LOGW("Can not set texture %s at stage %d, max texture exceed: %d",
+        RENDERER_LOGW("Can not set texture %s at stage %d, max texture exceed: %d",
                  name.c_str(), slot, _caps.maxTextureUnits);
         return;
     }
@@ -353,7 +353,7 @@ void DeviceGraphics::setTextureArray(const std::string& name, const std::vector<
     auto len = textures.size();
     if (len >= _caps.maxTextureUnits)
     {
-        GFX_LOGW("Can not set %d textures for %s, max texture exceed: %d",
+        RENDERER_LOGW("Can not set %d textures for %s, max texture exceed: %d",
                  (int)len, name.c_str(), _caps.maxTextureUnits);
         return;
     }
@@ -394,7 +394,7 @@ void DeviceGraphics::draw(size_t base, GLsizei count)
             GL_CHECK(glUseProgram(_nextState.getProgram()->getHandle()));
         }
         else
-            GFX_LOGW("Failed to use program: has not linked yet.");
+            RENDERER_LOGW("Failed to use program: has not linked yet.");
             
         programDirty = true;
     }
@@ -573,7 +573,7 @@ DeviceGraphics::DeviceGraphics()
 DeviceGraphics::~DeviceGraphics()
 {
     delete _glExtensions;
-    GFX_SAFE_RELEASE(_frameBuffer);
+    RENDERER_SAFE_RELEASE(_frameBuffer);
 }
 
 void DeviceGraphics::initCaps()
@@ -602,7 +602,7 @@ void DeviceGraphics::initCaps()
     GL_CHECK(glGetIntegerv(GL_MAX_DRAW_BUFFERS, &_caps.maxDrawBuffers));
 #endif
 
-    GFX_LOGD("Device caps: maxVextexTextures: %d, maxFragUniforms: %d, maxTextureUints: %d, maxVertexAttributes: %d, maxDrawBuffers: %d, maxColorAttatchments: %d",
+    RENDERER_LOGD("Device caps: maxVextexTextures: %d, maxFragUniforms: %d, maxTextureUints: %d, maxVertexAttributes: %d, maxDrawBuffers: %d, maxColorAttatchments: %d",
              _caps.maxVextexTextures, _caps.maxFragUniforms, _caps.maxTextureUnits, _caps.maxVertexAttributes, _caps.maxDrawBuffers, _caps.maxColorAttatchments);
 }
 
@@ -989,7 +989,7 @@ void DeviceGraphics::commitVertexBuffer()
 {
     if (-1 == _nextState.maxStream)
     {
-        GFX_LOGW("VertexBuffer not assigned, please call setVertexBuffer before every draw.");
+        RENDERER_LOGW("VertexBuffer not assigned, please call setVertexBuffer before every draw.");
         return;
     }
     
@@ -1033,7 +1033,7 @@ void DeviceGraphics::commitVertexBuffer()
                 const auto& el = vb->getFormat().getElement(attr.name);
                 if (!el.isValid())
                 {
-                    GFX_LOGW("Can not find vertex attribute: %s", attr.name.c_str());
+                    RENDERER_LOGW("Can not find vertex attribute: %s", attr.name.c_str());
                     continue;
                 }
                 
@@ -1155,4 +1155,4 @@ void DeviceGraphics::Uniform::setValue(const void* v, size_t bytes)
     memcpy(value, v, bytes);
 }
 
-GFX_END
+RENDERER_END

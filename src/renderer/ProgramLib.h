@@ -31,7 +31,7 @@
 #include <vector>
 #include <functional>
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class DeviceGraphics;
 class Program;
@@ -64,4 +64,4 @@ private:
     std::unordered_map<uint32_t, Program*> _cache;
 };
 
-GFX_END
+RENDERER_END

@@ -26,16 +26,16 @@
 #include "Effect.h"
 #include "InputAssembler.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 Model::Model()
 {
-    GFX_LOGD("Model construction %p", this);
+    RENDERER_LOGD("Model construction %p", this);
 }
 
 Model::~Model()
 {
-    GFX_LOGD("Model destruction %p", this);
+    RENDERER_LOGD("Model destruction %p", this);
 }
 
 void Model::addInputAssembler(InputAssembler* ia)
@@ -105,4 +105,4 @@ void Model::extractDrawItem(DrawItem& out, uint32_t index) const
     out.defines = out.effect->extractDefines(const_cast<ValueMap&>(_defines[index]));
 }
 
-GFX_END
+RENDERER_END

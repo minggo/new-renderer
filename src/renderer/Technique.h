@@ -31,7 +31,7 @@
 #include "base/CCRef.h"
 #include "../Macro.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class Pass;
 class Texture;
@@ -133,4 +133,4 @@ private:
     Vector<Pass*> _passes;
 };
 
-GFX_END
+RENDERER_END

@@ -30,13 +30,13 @@
 #include <android/log.h>
 #endif
 
-#ifndef GFX_BEGIN
-#define GFX_BEGIN namespace cocos2d { namespace gfx {
-#endif // GFX_BEGIN
+#ifndef RENDERER_BEGIN
+#define RENDERER_BEGIN namespace cocos2d { namespace renderer {
+#endif // RENDERER_BEGIN
 
-#ifndef GFX_END
-#define GFX_END }}
-#endif // GFX_END
+#ifndef RENDERER_END
+#define RENDERER_END }}
+#endif // RENDERER_END
 
 //#ifndef DISALLOW_COPY_ASSIGN_AND_MOVE
     #define CC_DISALLOW_COPY_ASSIGN_AND_MOVE(type) \
@@ -46,39 +46,39 @@
         type& operator =(const type &&) = delete;
 //#endif // DISALLOW_COPY_ASSIGN_AND_MOVE
 
-#define GFX_LOG_TAG "gfx"
-#define GFX_QUOTEME_(x) #x
-#define GFX_QUOTEME(x) GFX_QUOTEME_(x)
+#define RENDERER_LOG_TAG "renderer"
+#define RENDERER_QUOTEME_(x) #x
+#define RENDERER_QUOTEME(x) RENDERER_QUOTEME_(x)
 
 #if defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#define GFX_LOGV(fmt, ...) __android_log_print(ANDROID_LOG_VERBOSE, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGV(fmt, ...) __android_log_print(ANDROID_LOG_VERBOSE, RENDERER_LOG_TAG, " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #else
-#define GFX_LOGV(fmt, ...) printf("V/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGV(fmt, ...) printf("V/" RENDERER_LOG_TAG " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #endif // (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #else
-#define GFX_LOGV(fmt, ...) do {} while(false)
+#define RENDERER_LOGV(fmt, ...) do {} while(false)
 #endif // defined(COCOS2D_DEBUG) && COCOS2D_DEBUG > 0
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#define GFX_LOGD(fmt, ...) __android_log_print(ANDROID_LOG_DEBUG, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGI(fmt, ...) __android_log_print(ANDROID_LOG_INFO, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGW(fmt, ...) __android_log_print(ANDROID_LOG_WARN, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGE(fmt, ...) __android_log_print(ANDROID_LOG_ERROR, GFX_LOG_TAG, " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGD(fmt, ...) __android_log_print(ANDROID_LOG_DEBUG, RENDERER_LOG_TAG, " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGI(fmt, ...) __android_log_print(ANDROID_LOG_INFO, RENDERER_LOG_TAG, " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGW(fmt, ...) __android_log_print(ANDROID_LOG_WARN, RENDERER_LOG_TAG, " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGE(fmt, ...) __android_log_print(ANDROID_LOG_ERROR, RENDERER_LOG_TAG, " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #else
-#define GFX_LOGD(fmt, ...) printf("D/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGI(fmt, ...) printf("I/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGW(fmt, ...) printf("W/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
-#define GFX_LOGE(fmt, ...) printf("E/" GFX_LOG_TAG " (" GFX_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGD(fmt, ...) printf("D/" RENDERER_LOG_TAG " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGI(fmt, ...) printf("I/" RENDERER_LOG_TAG " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGW(fmt, ...) printf("W/" RENDERER_LOG_TAG " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
+#define RENDERER_LOGE(fmt, ...) printf("E/" RENDERER_LOG_TAG " (" RENDERER_QUOTEME(__LINE__) "): " fmt "\n", ##__VA_ARGS__)
 #endif // (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 
 
-#define GFX_DEBUG 1 // TODO: remove this
+#define RENDERER_DEBUG 1 // TODO: remove this
 
-#define GFX_SAFE_RELEASE(p) do { if((p) != nullptr) (p)->release(); } while(false)
-#define GFX_SAFE_RETAIN(p) do { if((p) != nullptr) (p)->retain(); } while(false)
+#define RENDERER_SAFE_RELEASE(p) do { if((p) != nullptr) (p)->release(); } while(false)
+#define RENDERER_SAFE_RETAIN(p) do { if((p) != nullptr) (p)->retain(); } while(false)
 
-#define GFX_DEFINE_CREATE_METHOD_0(clsName, initMethod) \
+#define RENDERER_DEFINE_CREATE_METHOD_0(clsName, initMethod) \
 static clsName* create() \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -91,7 +91,7 @@ static clsName* create() \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_1(clsName, initMethod, arg0Type) \
+#define RENDERER_DEFINE_CREATE_METHOD_1(clsName, initMethod, arg0Type) \
 static clsName* create(arg0Type arg0) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -104,7 +104,7 @@ static clsName* create(arg0Type arg0) \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_2(clsName, initMethod, arg0Type, arg1Type) \
+#define RENDERER_DEFINE_CREATE_METHOD_2(clsName, initMethod, arg0Type, arg1Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -117,7 +117,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1) \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_3(clsName, initMethod, arg0Type, arg1Type, arg2Type) \
+#define RENDERER_DEFINE_CREATE_METHOD_3(clsName, initMethod, arg0Type, arg1Type, arg2Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -130,7 +130,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2) \
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_4(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type) \
+#define RENDERER_DEFINE_CREATE_METHOD_4(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -143,7 +143,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_5(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type) \
+#define RENDERER_DEFINE_CREATE_METHOD_5(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3, arg4Type arg4) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -156,7 +156,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
     return nullptr; \
 }
 
-#define GFX_DEFINE_CREATE_METHOD_6(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type, arg5Type) \
+#define RENDERER_DEFINE_CREATE_METHOD_6(clsName, initMethod, arg0Type, arg1Type, arg2Type, arg3Type, arg4Type, arg5Type) \
 static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg3, arg4Type arg4, arg5Type arg5) \
 { \
     clsName* ret = new (std::nothrow) clsName(); \
@@ -177,7 +177,7 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
                     _call; \
                     GLenum gl_err = glGetError(); \
                     if (0 != gl_err) \
-                        GFX_LOGE(#_call "; GL error 0x%x: %s", gl_err, glEnumName(gl_err)); \
+                        RENDERER_LOGE(#_call "; GL error 0x%x: %s", gl_err, glEnumName(gl_err)); \
                 } while(false)
 
 
@@ -185,8 +185,8 @@ static clsName* create(arg0Type arg0, arg1Type arg1, arg2Type arg2, arg3Type arg
 #   define GL_CHECK(_call)   _GL_CHECK(_call)
 #else
 #   define GL_CHECK(_call)   _call
-#endif // BGFX_CONFIG_DEBUG
+#endif // BRENDERER_CONFIG_DEBUG
 
-#ifndef GFX_PI
-#define GFX_PI 3.1415926535897932385f
-#endif // GFX_PI
+#ifndef RENDERER_PI
+#define RENDERER_PI 3.1415926535897932385f
+#endif // RENDERER_PI

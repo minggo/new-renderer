@@ -32,7 +32,7 @@
 #include "../Types.h"
 #include "View.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class FrameBuffer;
 class Texture2D;
@@ -127,7 +127,7 @@ private:
     // used for spot and point light
     float _range = 1.f;
     // used for spot light, default to 60 degrees
-    float _spotAngle = GFX_PI / 3;
+    float _spotAngle = RENDERER_PI / 3;
     float _spotExp = 1.f;
     // cached for uniform
     Vec3 _directionUniform;
@@ -156,4 +156,4 @@ private:
     Mat4 _worldRT;
 };
 
-GFX_END
+RENDERER_END

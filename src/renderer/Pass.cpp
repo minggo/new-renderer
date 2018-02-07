@@ -24,17 +24,17 @@
 
 #include "Pass.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 Pass::Pass(const std::string& programName)
 : _programName(programName)
 {
-    GFX_LOGD("Pass constructor: %p", this);
+    RENDERER_LOGD("Pass constructor: %p", this);
 }
 
 Pass::~Pass()
 {
-    GFX_LOGD("Pass destructor: %p", this);
+    RENDERER_LOGD("Pass destructor: %p", this);
 }
 
 void Pass::setCullMode(CullMode cullMode)
@@ -103,4 +103,4 @@ void Pass::setStencilBack(StencilFunc stencilFunc,
     _stencilWriteMaskBack = stencilWriteMask;
 }
 
-GFX_END
+RENDERER_END

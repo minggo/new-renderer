@@ -27,7 +27,7 @@
 #include "../Types.h"
 #include "../Macro.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class VertexBuffer;
 class IndexBuffer;
@@ -66,4 +66,4 @@ private:
     int _count = -1;
 };
 
-GFX_END
+RENDERER_END

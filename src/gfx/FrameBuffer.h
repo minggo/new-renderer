@@ -31,7 +31,7 @@
 #include "../Types.h"
 #include "GraphicsHandle.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class DeviceGraphics;
 class RenderTarget;
@@ -39,7 +39,7 @@ class RenderTarget;
 class FrameBuffer final : public GraphicsHandle
 {
 public:
-    GFX_DEFINE_CREATE_METHOD_3(FrameBuffer, init,  DeviceGraphics*, uint16_t, uint16_t)
+    RENDERER_DEFINE_CREATE_METHOD_3(FrameBuffer, init,  DeviceGraphics*, uint16_t, uint16_t)
 
     FrameBuffer();
     bool init(DeviceGraphics* device, uint16_t width, uint16_t height);
@@ -67,4 +67,4 @@ private:
     uint16_t _height;
 };
 
-GFX_END
+RENDERER_END

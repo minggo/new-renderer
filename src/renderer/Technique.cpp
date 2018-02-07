@@ -28,7 +28,7 @@
 #include "gfx/Texture.h"
 #include "gfx/Texture.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 // implementation of Parameter
 
@@ -120,7 +120,7 @@ Technique::Parameter::Parameter(const std::string& name, Type type, int* value, 
             bytes *= 4 * _count;
             break;
         default:
-            GFX_LOGW("This constructor only supports INT/INT2/INT3/INT4.");
+            RENDERER_LOGW("This constructor only supports INT/INT2/INT3/INT4.");
             return;
             break;
     }
@@ -164,7 +164,7 @@ Technique::Parameter::Parameter(const std::string& name, Type type, float* value
             break;
             
         default:
-            GFX_LOGW("This constructor only supports FLAOT/FLOAT2/FLOAT3/FLOAT4/MAT2/MAT3/MAT4.");
+            RENDERER_LOGW("This constructor only supports FLAOT/FLOAT2/FLOAT3/FLOAT4/MAT2/MAT3/MAT4.");
             return;
             break;
     }
@@ -273,7 +273,7 @@ Texture* Technique::Parameter::getTexture() const
     return static_cast<Texture*>(_value);
 }
 
-void Technique::Parameter::setTexture(cocos2d::gfx::Texture *texture)
+void Technique::Parameter::setTexture(renderer::Texture *texture)
 {
     if (_value == texture)
         return;
@@ -281,7 +281,7 @@ void Technique::Parameter::setTexture(cocos2d::gfx::Texture *texture)
     freeValue();
     _value = malloc(sizeof(void*));
     _value = texture;
-    GFX_SAFE_RETAIN(texture);
+    RENDERER_SAFE_RETAIN(texture);
     
     _type = Type::TEXTURE_2D;
     _count = 1;
@@ -300,7 +300,7 @@ void Technique::Parameter::copyValue(const Parameter& rh)
         if (_count == 1)
         {
             _value = rh._value;
-            GFX_SAFE_RETAIN((Texture*)_value);
+            RENDERER_SAFE_RETAIN((Texture*)_value);
         }
         else
         {
@@ -310,7 +310,7 @@ void Technique::Parameter::copyValue(const Parameter& rh)
             Texture** texture = (Texture**)_value;
             for (uint8_t i = 0; i < _count; ++i)
             {
-                GFX_SAFE_RETAIN(texture[i]);
+                RENDERER_SAFE_RETAIN(texture[i]);
             }
         }
     }
@@ -343,7 +343,7 @@ void Technique::Parameter::freeValue()
                 for (int i = 0; i < _count; ++i)
                 {
                     Texture* texture = textures[i];
-                    GFX_SAFE_RELEASE(texture);
+                    RENDERER_SAFE_RELEASE(texture);
                 }
             }
         }
@@ -367,12 +367,12 @@ Technique::Technique(const std::vector<std::string>& stages,
 , _passes(passes)
 , _layer(layer)
 {
-    GFX_LOGD("Technique construction: %p", this);
+    RENDERER_LOGD("Technique construction: %p", this);
 }
 
 Technique::~Technique()
 {
-    GFX_LOGD("Technique destruction: %p", this);
+    RENDERER_LOGD("Technique destruction: %p", this);
 }
 
 void Technique::setStages(const std::vector<std::string>& stages)
@@ -380,4 +380,4 @@ void Technique::setStages(const std::vector<std::string>& stages)
     _stageIDs = Config::getStageIDs(stages);
 }
 
-GFX_END
+RENDERER_END

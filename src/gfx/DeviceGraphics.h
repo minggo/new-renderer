@@ -39,7 +39,7 @@
 #include "State.h"
 
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class FrameBuffer;
 class VertexBuffer;
@@ -188,4 +188,4 @@ private:
     friend class Texture2D;
 };
 
-GFX_END
+RENDERER_END

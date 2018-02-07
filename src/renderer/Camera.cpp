@@ -26,21 +26,21 @@
 #include "gfx/FrameBuffer.h"
 #include "INode.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 Camera::Camera()
 {}
 
 Camera::~Camera()
 {
-    GFX_SAFE_RELEASE(_framebuffer);
+    RENDERER_SAFE_RELEASE(_framebuffer);
 }
 
 void Camera::setFrameBuffer(FrameBuffer* framebuffer)
 {
-    GFX_SAFE_RELEASE(_framebuffer);
+    RENDERER_SAFE_RELEASE(_framebuffer);
     _framebuffer = framebuffer;
-    GFX_SAFE_RETAIN(_framebuffer);
+    RENDERER_SAFE_RETAIN(_framebuffer);
 }
 
 void Camera::setWorldMatrix(const Mat4& worldMatrix)
@@ -186,4 +186,4 @@ Vec3& Camera::worldToScreen(Vec3& out, const Vec3& worldPos, int width, int heig
     return out;
 }
 
-GFX_END
+RENDERER_END

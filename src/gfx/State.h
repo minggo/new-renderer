@@ -29,7 +29,7 @@
 #include "../Macro.h"
 #include "../Types.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class VertexBuffer;
 class IndexBuffer;
@@ -115,4 +115,4 @@ private:
     Program *_program;
 };
 
-GFX_END
+RENDERER_END

@@ -29,7 +29,7 @@
 std::string test_unrollLoops(const std::string& text);
 
 using namespace cocos2d;
-using namespace cocos2d::gfx;
+using namespace cocos2d::renderer;
 
 Basic::Basic()
 : _time(0.f)

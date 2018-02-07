@@ -28,7 +28,7 @@
 #include "base/CCVector.h"
 #include "../Macro.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 class Camera;
 class Light;
@@ -76,4 +76,4 @@ private:
     Camera* _debugCamera = nullptr;
 };
 
-GFX_END
+RENDERER_END

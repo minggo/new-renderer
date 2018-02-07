@@ -24,7 +24,7 @@
 
 #include "Config.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 unsigned int Config::_stageOffset = 0;
 std::unordered_map<std::string, unsigned int> Config::_name2stageID;
@@ -65,4 +65,4 @@ unsigned int Config::getStageIDs(const std::vector<std::string>& nameList)
     return ret;
 }
 
-GFX_END
+RENDERER_END

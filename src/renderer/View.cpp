@@ -24,7 +24,7 @@
 
 #include "View.h"
 
-GFX_BEGIN
+RENDERER_BEGIN
 
 namespace
 {
@@ -46,4 +46,4 @@ void View::getPosition(Vec3& out) const
     matView.getInversed().getTranslation(&out);
 }
 
-GFX_END
+RENDERER_END
