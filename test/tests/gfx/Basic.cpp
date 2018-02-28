@@ -167,17 +167,17 @@ Basic::Basic()
 
 #endif)";
 
-    GFX_LOGD("%s", correctResult.c_str());
+    RENDERER_LOGD("%s", correctResult.c_str());
 
     std::string out = test_unrollLoops(testCode);
-    GFX_LOGD("===>\n%s, correct: %d, out: %d", out.c_str(), (int)correctResult.length(), (int)out.length());
+    RENDERER_LOGD("===>\n%s, correct: %d, out: %d", out.c_str(), (int)correctResult.length(), (int)out.length());
     assert(out == correctResult);
 }
 
 Basic::~Basic()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
+    RENDERER_SAFE_RELEASE(_vertexBuffer);
+    RENDERER_SAFE_RELEASE(_program);
 }
 
 void Basic::tick(float dt)

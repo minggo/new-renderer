@@ -14,7 +14,9 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/firefox/WebGLFormats.cpp \
                    $(LOCAL_PATH)/tinyxml2/tinyxml2.cpp \
                    $(LOCAL_PATH)/unzip/ioapi_mem.cpp \
                    $(LOCAL_PATH)/unzip/ioapi.cpp \
-                   $(LOCAL_PATH)/unzip/unzip.cpp
+                   $(LOCAL_PATH)/unzip/unzip.cpp \
+                   $(LOCAL_PATH)/ConvertUTF/ConvertUTF.c \
+                   $(LOCAL_PATH)/ConvertUTF/ConvertUTFWrapper.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/firefox \
                     $(LOCAL_PATH)/tinydir \

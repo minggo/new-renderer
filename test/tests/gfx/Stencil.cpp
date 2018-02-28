@@ -78,7 +78,7 @@ Stencil::Stencil()
         options.width = width;
         options.height = height;
         options.images.push_back(std::move(labelData));
-        _canvasTexture = new gfx::Texture2D();
+        _canvasTexture = new renderer::Texture2D();
         _canvasTexture->init(_device, options);
     }
 
@@ -134,10 +134,10 @@ Stencil::Stencil()
 
 Stencil::~Stencil()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
-    GFX_SAFE_RELEASE(_texture);
-    GFX_SAFE_RELEASE(_canvasTexture);
+    RENDERER_SAFE_RELEASE(_vertexBuffer);
+    RENDERER_SAFE_RELEASE(_program);
+    RENDERER_SAFE_RELEASE(_texture);
+    RENDERER_SAFE_RELEASE(_canvasTexture);
 }
 
 void Stencil::tick(float dt)
@@ -154,7 +154,7 @@ void Stencil::tick(float dt)
         _device->setTexture("texture", _canvasTexture, 0);
         _device->setUniformMat4("transform", _transform0);
         _device->setProgram(_program);
-        _device->setCullMode(gfx::CullMode::NONE);
+        _device->setCullMode(renderer::CullMode::NONE);
         _device->draw(0, _vertexBuffer->getCount());
     }
 
@@ -165,7 +165,7 @@ void Stencil::tick(float dt)
         _device->setTexture("texture", _texture, 0);
         _device->setUniformMat4("transform", _transform1);
         _device->setProgram(_program);
-        _device->setCullMode(gfx::CullMode::NONE);
+        _device->setCullMode(renderer::CullMode::NONE);
         _device->draw(0, _vertexBuffer->getCount());
     }
 
@@ -177,7 +177,7 @@ void Stencil::tick(float dt)
         _device->setTexture("texture", _canvasTexture, 0);
         _device->setUniformMat4("transform", _transform0);
         _device->setProgram(_program);
-        _device->setCullMode(gfx::CullMode::NONE);
+        _device->setCullMode(renderer::CullMode::NONE);
         _device->enableStencilTest();
         _device->setStencilFunc(StencilFunc::NEVER, 0x1, 0xFF);
         _device->setStencilOp(StencilOp::REPLACE, StencilOp::KEEP, StencilOp::KEEP, 0xFF);
@@ -189,7 +189,7 @@ void Stencil::tick(float dt)
         _device->setTexture("texture", _texture, 0);
         _device->setUniformMat4("transform", _transform1);
         _device->setProgram(_program);
-        _device->setCullMode(gfx::CullMode::NONE);
+        _device->setCullMode(renderer::CullMode::NONE);
         _device->enableStencilTest();
         _device->setStencilFunc(StencilFunc::EQUAL, 0x1, 0xFF);
         _device->setStencilOp(StencilOp::KEEP, StencilOp::KEEP, StencilOp::KEEP, 0xFF);
@@ -204,7 +204,7 @@ void Stencil::tick(float dt)
         _device->setTexture("texture", _canvasTexture, 0);
         _device->setUniformMat4("transform", _transform0);
         _device->setProgram(_program);
-        _device->setCullMode(gfx::CullMode::NONE);
+        _device->setCullMode(renderer::CullMode::NONE);
         _device->enableStencilTest();
         _device->setStencilFunc(StencilFunc::NEVER, 0x1, 0xFF);
         _device->setStencilOp(StencilOp::REPLACE, StencilOp::KEEP, StencilOp::KEEP, 0xFF);
@@ -216,7 +216,7 @@ void Stencil::tick(float dt)
         _device->setTexture("texture", _texture, 0);
         _device->setUniformMat4("transform", _transform1);
         _device->setProgram(_program);
-        _device->setCullMode(gfx::CullMode::NONE);
+        _device->setCullMode(renderer::CullMode::NONE);
         _device->enableStencilTest();
         _device->setStencilFuncBack(StencilFunc::EQUAL, 0x1, 0xFF);
         _device->setStencilFuncFront(StencilFunc::ALWAYS, 0x1, 0xFF);
@@ -232,7 +232,7 @@ void Stencil::tick(float dt)
         _device->setTexture("texture", _canvasTexture, 0);
         _device->setUniformMat4("transform", _transform0);
         _device->setProgram(_program);
-        _device->setCullMode(gfx::CullMode::NONE);
+        _device->setCullMode(renderer::CullMode::NONE);
         _device->enableStencilTest();
         _device->setStencilFunc(StencilFunc::NEVER, 0x1, 0xFF);
         _device->setStencilOp(StencilOp::REPLACE, StencilOp::KEEP, StencilOp::KEEP, 0xFF);
@@ -244,7 +244,7 @@ void Stencil::tick(float dt)
         _device->setTexture("texture", _texture, 0);
         _device->setUniformMat4("transform", _transform1);
         _device->setProgram(_program);
-        _device->setCullMode(gfx::CullMode::NONE);
+        _device->setCullMode(renderer::CullMode::NONE);
         _device->enableStencilTest();
         _device->setStencilFuncFront(StencilFunc::EQUAL, 0x1, 0xFF);
         _device->setStencilFuncBack(StencilFunc::ALWAYS, 0x1, 0xFF);

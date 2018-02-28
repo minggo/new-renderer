@@ -14,6 +14,7 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/base/CCConfiguration.cpp \
                    $(LOCAL_PATH)/base/ccTypes.cpp \
                    $(LOCAL_PATH)/base/CCValue.cpp \
                    $(LOCAL_PATH)/base/etc1.cpp \
+                   $(LOCAL_PATH)/base/ccUTF8.cpp \
                    $(LOCAL_PATH)/base/pvr.cpp \
                    $(LOCAL_PATH)/base/TGAlib.cpp \
                    $(LOCAL_PATH)/base/ZipUtils.cpp \

@@ -90,9 +90,9 @@ Bunny::Bunny()
 
 Bunny::~Bunny()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_indexBuffer);
-    GFX_SAFE_RELEASE(_program);
+    RENDERER_SAFE_RELEASE(_vertexBuffer);
+    RENDERER_SAFE_RELEASE(_indexBuffer);
+    RENDERER_SAFE_RELEASE(_program);
 }
 
 void Bunny::tick(float dt)

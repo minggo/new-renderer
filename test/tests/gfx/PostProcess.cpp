@@ -83,19 +83,19 @@ namespace
                 }
             )";
             
-            auto device = gfx::DeviceGraphics::getInstance();
-            program = new gfx::Program();
+            auto device = renderer::DeviceGraphics::getInstance();
+            program = new renderer::Program();
             program->init(device, vert, frag);
             program->link();
             
-            gfx::VertexFormat vertexFormat({
-                {gfx::ATTRIB_NAME_POSITION, gfx::AttribType::FLOAT32, 2}
+            renderer::VertexFormat vertexFormat({
+                {renderer::ATTRIB_NAME_POSITION, renderer::AttribType::FLOAT32, 2}
             });
             float vertices[] = {-1, 4, -1, -1, 4, -1};
-            vertexBuffer = new gfx::VertexBuffer();
+            vertexBuffer = new renderer::VertexBuffer();
             vertexBuffer->init(device,
                                vertexFormat,
-                               gfx::Usage::STATIC,
+                               renderer::Usage::STATIC,
                                vertices,
                                sizeof(vertices),
                                3);
@@ -103,12 +103,12 @@ namespace
         
         ~BigTriangle()
         {
-            GFX_SAFE_RELEASE(program);
-            GFX_SAFE_RELEASE(vertexBuffer);
+            RENDERER_SAFE_RELEASE(program);
+            RENDERER_SAFE_RELEASE(vertexBuffer);
         }
         
-        gfx::Program* program;
-        gfx::VertexBuffer* vertexBuffer;
+        renderer::Program* program;
+        renderer::VertexBuffer* vertexBuffer;
     };
     
     struct Bunny
@@ -147,27 +147,27 @@ namespace
                 }
             )";
             
-            auto device = gfx::DeviceGraphics::getInstance();
+            auto device = renderer::DeviceGraphics::getInstance();
             
-            program = new gfx::Program();
+            program = new renderer::Program();
             program->init(device, vert, frag);
             program->link();
             
-            gfx::VertexFormat vertexFormat({
-                {gfx::ATTRIB_NAME_POSITION, gfx::AttribType::FLOAT32, 3}
+            renderer::VertexFormat vertexFormat({
+                {renderer::ATTRIB_NAME_POSITION, renderer::AttribType::FLOAT32, 3}
             });
-            vertexBuffer = new gfx::VertexBuffer();
+            vertexBuffer = new renderer::VertexBuffer();
             vertexBuffer->init(device,
                                vertexFormat,
-                               gfx::Usage::STATIC,
+                               renderer::Usage::STATIC,
                                &bunny_positions[0][0],
                                sizeof(bunny_positions),
                                sizeof(bunny_positions) / sizeof(bunny_positions[0]));
             
-            indexBuffer = new gfx::IndexBuffer();
+            indexBuffer = new renderer::IndexBuffer();
             indexBuffer->init(device,
-                              gfx::IndexFormat::UINT16,
-                              gfx::Usage::STATIC,
+                              renderer::IndexFormat::UINT16,
+                              renderer::Usage::STATIC,
                               &bunny_cells[0],
                               sizeof(bunny_cells),
                               sizeof(bunny_cells) / bunny_cells[0]);
@@ -175,14 +175,14 @@ namespace
         
         ~Bunny()
         {
-            GFX_SAFE_RELEASE(program);
-            GFX_SAFE_RELEASE(vertexBuffer);
-            GFX_SAFE_RELEASE(indexBuffer);
+            RENDERER_SAFE_RELEASE(program);
+            RENDERER_SAFE_RELEASE(vertexBuffer);
+            RENDERER_SAFE_RELEASE(indexBuffer);
         }
         
-        gfx::Program* program;
-        gfx::VertexBuffer* vertexBuffer;
-        gfx::IndexBuffer* indexBuffer;
+        renderer::Program* program;
+        renderer::VertexBuffer* vertexBuffer;
+        renderer::IndexBuffer* indexBuffer;
     };
     
     Bunny* bunny = nullptr;
@@ -192,24 +192,24 @@ namespace
 PostProcess::PostProcess()
 : _t(0.0f)
 {
-    _device = gfx::DeviceGraphics::getInstance();
+    _device = renderer::DeviceGraphics::getInstance();
     
-    gfx::Texture2D::Options options;
+    renderer::Texture2D::Options options;
     options.width = utils::WINDOW_WIDTH;
     options.height = utils::WINDOW_HEIGHT;
-    options.format = gfx::Texture::Format::RGBA8;
-    options.wrapS = gfx::Texture::WrapMode::CLAMP;
-    options.wrapT = gfx::Texture::WrapMode::CLAMP;
-    _colorTexture = new gfx::Texture2D();
+    options.format = renderer::Texture::Format::RGBA8;
+    options.wrapS = renderer::Texture::WrapMode::CLAMP;
+    options.wrapT = renderer::Texture::WrapMode::CLAMP;
+    _colorTexture = new renderer::Texture2D();
     _colorTexture->init(_device, options);
     
-    _frameBuffer = new gfx::FrameBuffer();
+    _frameBuffer = new renderer::FrameBuffer();
     _frameBuffer->init(_device, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
 
     _frameBuffer->setColorBuffer(_colorTexture, 0);
     
-    auto depthBuffer = new gfx::RenderBuffer();
-    depthBuffer->init(_device, gfx::RenderBuffer::Format::D16, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
+    auto depthBuffer = new renderer::RenderBuffer();
+    depthBuffer->init(_device, renderer::RenderBuffer::Format::D16, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _frameBuffer->setDepthBuffer(depthBuffer);
     depthBuffer->release();
     
@@ -222,8 +222,8 @@ PostProcess::~PostProcess()
     delete bunny;
     delete bg;
 
-    GFX_SAFE_RELEASE(_frameBuffer);
-    GFX_SAFE_RELEASE(_colorTexture);
+    RENDERER_SAFE_RELEASE(_frameBuffer);
+    RENDERER_SAFE_RELEASE(_colorTexture);
 }
 
 void PostProcess::tick(float dt)
@@ -241,7 +241,7 @@ void PostProcess::tick(float dt)
     _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     Color4F clearColor(0.1f, 0.1f, 0.1f, 1.f);
-    _device->clear(gfx::ClearFlag::COLOR | gfx::ClearFlag::DEPTH, &clearColor, 1, 0);
+    _device->clear(renderer::ClearFlag::COLOR | renderer::ClearFlag::DEPTH, &clearColor, 1, 0);
     
     // Draw bunny one.
     _model = Mat4::IDENTITY;
@@ -274,7 +274,7 @@ void PostProcess::tick(float dt)
     // Draw bg.
     _device->setFrameBuffer(nullptr);
     _device->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
-    _device->clear(gfx::ClearFlag::COLOR | gfx::ClearFlag::DEPTH, &clearColor, 1, 0);
+    _device->clear(renderer::ClearFlag::COLOR | renderer::ClearFlag::DEPTH, &clearColor, 1, 0);
     _device->setTexture("texture", _colorTexture, 0);
     _device->setVertexBuffer(0, bg->vertexBuffer);
     _device->setProgram(bg->program);

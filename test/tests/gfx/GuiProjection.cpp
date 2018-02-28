@@ -128,9 +128,9 @@ GuiProjection::GuiProjection()
 
 GuiProjection::~GuiProjection()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
-    GFX_SAFE_RELEASE(_texture);
+    RENDERER_SAFE_RELEASE(_vertexBuffer);
+    RENDERER_SAFE_RELEASE(_program);
+    RENDERER_SAFE_RELEASE(_texture);
 }
 
 void GuiProjection::tick(float dt)

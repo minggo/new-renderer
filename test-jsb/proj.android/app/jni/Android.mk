@@ -37,6 +37,7 @@ LOCAL_SRC_FILES := $(LOCAL_PATH)/hellocpp/main.cpp \
                    $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/jswrapper/v8/node.cc \
                    $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/jswrapper/v8/node_debug_options.cc \
                    $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/jswrapper/v8/util.cc \
+                   $(LOCAL_PATH)/../../../../cocos/scripting/js-bindings/jswrapper/v8/http_parser.c \
                    $(LOCAL_PATH)/../../../../external/source/xxtea/xxtea.cpp
 
 

@@ -82,7 +82,7 @@ Texture2DTest::Texture2DTest()
         options.width = width;
         options.height = height;
         options.images.push_back(std::move(labelData));
-        _canvasTexture = new gfx::Texture2D();
+        _canvasTexture = new renderer::Texture2D();
         _canvasTexture->init(_device, options);
     }
 
@@ -136,10 +136,10 @@ Texture2DTest::Texture2DTest()
 
 Texture2DTest::~Texture2DTest()
 {
-    GFX_SAFE_RELEASE(_vertexBuffer);
-    GFX_SAFE_RELEASE(_program);
-    GFX_SAFE_RELEASE(_canvasTexture);
-    GFX_SAFE_RELEASE(_texture);
+    RENDERER_SAFE_RELEASE(_vertexBuffer);
+    RENDERER_SAFE_RELEASE(_program);
+    RENDERER_SAFE_RELEASE(_canvasTexture);
+    RENDERER_SAFE_RELEASE(_texture);
 }
 
 void Texture2DTest::tick(float dt)
