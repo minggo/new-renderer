@@ -1,0 +1,362 @@
+#include "CommandBufferGL.h"
+#include "BufferGL.h"
+#include "RenderPipelineGL.h"
+#include "RenderPassGL.h"
+#include "TextureGL.h"
+#include "SamplerGL.h"
+#include "DepthStencilStateGL.h"
+#include "../RenderPass.h"
+#include "../BindGroup.h"
+#include "Program.h"
+
+CC_BACKEND_BEGIN
+
+namespace
+{
+    GLenum toGLPrimitiveType(PrimitiveType primitiveType)
+    {
+        GLenum ret = GL_TRIANGLES;
+        switch (primitiveType)
+        {
+            case PrimitiveType::POINT:
+                ret = GL_POINTS;
+                break;
+            case PrimitiveType::LINE:
+                ret = GL_LINES;
+                break;
+            case PrimitiveType::LINE_STRIP:
+                ret = GL_LINE_STRIP;
+                break;
+            case PrimitiveType::TRIANGLE:
+                ret = GL_TRIANGLES;
+                break;
+            case PrimitiveType::TRIANGLE_STRIP:
+                ret = GL_TRIANGLE_STRIP;
+                break;
+            default:
+                break;
+        }
+        return ret;
+    }
+    
+    GLenum toGLIndexType(IndexFormat indexType)
+    {
+        GLenum ret = GL_BYTE;
+        switch (indexType)
+        {
+            case IndexFormat::U_INT:
+                ret = GL_UNSIGNED_INT;
+                break;
+            case IndexFormat::U_BYTE:
+                ret = GL_UNSIGNED_BYTE;
+                break;
+            case IndexFormat::U_SHORT:
+                ret = GL_UNSIGNED_SHORT;
+                break;
+            default:
+                break;
+        }
+        return ret;
+    }
+    
+    GLenum toGLTextureType(GLenum samplerType)
+    {
+        if (GL_SAMPLER_2D == samplerType)
+            return GL_TEXTURE_2D;
+        else
+            return GL_TEXTURE_CUBE_MAP;
+    }
+}
+
+CommandBufferGL::CommandBufferGL()
+{
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &_defaultFBO);
+}
+
+CommandBufferGL::~CommandBufferGL()
+{
+    CC_SAFE_RELEASE_NULL(_indexBuffer);
+    CC_SAFE_RELEASE_NULL(_renderPipeline);
+    CC_SAFE_RELEASE_NULL(_bindGroup);
+    
+    for (auto& vertexBuffer : _vertexBuffers)
+        CC_SAFE_RELEASE(vertexBuffer);
+    
+    _vertexBuffers.clear();
+}
+
+void CommandBufferGL::beginRenderPass(RenderPass *renderPass)
+{
+    // use default frame buffer
+    if (nullptr == renderPass)
+        glBindFramebuffer(GL_FRAMEBUFFER, _defaultFBO);
+    else
+        static_cast<RenderPassGL*>(renderPass)->apply(_defaultFBO);
+}
+
+void CommandBufferGL::setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+{
+    _viewport.x = x;
+    _viewport.y = y;
+    _viewport.w = w;
+    _viewport.h = h;
+}
+
+void CommandBufferGL::setStencilReferenceValue(uint32_t value)
+{
+    _stencilReferenceValueBack = _stencilReferenceValueFront = value;
+}
+
+void CommandBufferGL::setRenderPipeline(RenderPipeline* renderPipeline)
+{
+    assert(renderPipeline != nullptr);
+    if (renderPipeline == nullptr)
+        return;
+    
+    RenderPipelineGL* rp = static_cast<RenderPipelineGL*>(renderPipeline);
+    GLuint program = rp->getProgram()->getHandler();
+    assert(program != 0);
+    if (program == 0)
+        return;
+    
+    rp->retain();
+    CC_SAFE_RELEASE(_renderPipeline);
+    _renderPipeline = rp;
+}
+
+void CommandBufferGL::setIndexBuffer(uint32_t index, Buffer* buffer)
+{
+    assert(buffer != nullptr);
+    if (buffer == nullptr)
+        return;
+    
+    buffer->retain();
+    CC_SAFE_RELEASE(_indexBuffer);
+    _indexBuffer = static_cast<BufferGL*>(buffer);
+}
+
+void CommandBufferGL::setVertexBuffer(uint32_t index, Buffer* buffer)
+{
+    assert(buffer != nullptr);
+    if (buffer == nullptr)
+        return;
+    
+    buffer->retain();
+    
+    if (index >= _vertexBuffers.capacity())
+        _vertexBuffers.resize(index + 1);
+
+    CC_SAFE_RELEASE(_vertexBuffers[index]);
+    _vertexBuffers[index] = static_cast<BufferGL*>(buffer);
+}
+
+void CommandBufferGL::setBindGroup(BindGroup* bindGroup)
+{
+    CC_SAFE_RETAIN(bindGroup);
+    CC_SAFE_RELEASE(_bindGroup);
+    _bindGroup = bindGroup;
+}
+
+void CommandBufferGL::drawArrays(PrimitiveType primitiveType, uint32_t start,  uint32_t count)
+{
+    prepareDrawing();
+    glDrawArrays(toGLPrimitiveType(primitiveType), start, count);
+}
+
+void CommandBufferGL::drawElements(PrimitiveType primitiveType, IndexFormat indexType, uint32_t count)
+{
+    prepareDrawing();
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer->getHandler());
+    glDrawElements(toGLPrimitiveType(primitiveType), count, toGLIndexType(indexType), (GLvoid*)0);
+}
+
+void CommandBufferGL::endRenderPass()
+{
+    //TODO: reset GL states?
+}
+
+void CommandBufferGL::prepareDrawing() const
+{
+    glViewport(_viewport.x, _viewport.y, _viewport.w, _viewport.h);
+    
+    const auto& program = _renderPipeline->getProgram();
+    glUseProgram(program->getHandler());
+    
+    // bind buffers and set attributes
+    int i = 0;
+    const auto& attributeInfos = program->getAttributeInfos();
+    for (const auto& vertexBuffer : _vertexBuffers)
+    {
+        if (! vertexBuffer)
+            continue;
+        
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer->getHandler());
+        
+        const auto& attributeInfo = attributeInfos[i];
+        for (const auto& attribute : attributeInfo)
+        {
+            glEnableVertexAttribArray(attribute.location);
+            glVertexAttribPointer(attribute.location,
+                                  attribute.size,
+                                  attribute.type,
+                                  GL_FALSE,
+                                  attribute.stride,
+                                  (GLvoid*)attribute.offset);
+        }
+        
+        ++i;
+    }
+    
+    // set uniforms
+    if (_bindGroup)
+    {
+        const auto& texutreInfos = _bindGroup->getTextureInfos();
+        const auto& bindUniformInfos = _bindGroup->getUniformInfos();
+        const auto& activeUniformInfos = program->getUniformInfos();
+        int textureIndex = 0;
+        for (const auto& activeUinform : activeUniformInfos)
+        {
+            // uniforms
+            const auto& bindUniformInfo = bindUniformInfos.find(activeUinform.name);
+            if (bindUniformInfos.end() != bindUniformInfo)
+            {
+                setUniform(activeUinform.isArray,
+                           activeUinform.location,
+                           activeUinform.size,
+                           activeUinform.type,
+                           (*bindUniformInfo).second.data);
+            }
+            
+            // bind textures
+            const auto& bindUniformTextureInfo = texutreInfos.find(activeUinform.name);
+            if (texutreInfos.end() != bindUniformTextureInfo)
+            {
+                glActiveTexture(GL_TEXTURE0 + textureIndex);
+                const auto& texture = (*bindUniformTextureInfo).second.texture;
+                const auto& texutreGL = static_cast<TextureGL*>(texture);
+                glBindTexture(toGLTextureType(activeUinform.type), texutreGL->getHandler());
+                
+                const auto& sampler = _bindGroup->getBoundSampler(texture);
+                if (sampler)
+                {
+                    static_cast<SamplerGL*>(sampler)->apply();
+                }
+                else
+                {
+                    // use default values
+                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+                }
+                
+                setUniform(activeUinform.isArray,
+                           activeUinform.location,
+                           activeUinform.size,
+                           activeUinform.type,
+                           &textureIndex);
+                
+                ++textureIndex;
+            }
+        }
+    }
+    
+    if (_renderPipeline->getDepthStencilState())
+        _renderPipeline->getDepthStencilState()->apply(_stencilReferenceValueFront,
+                                                       _stencilReferenceValueBack);
+}
+
+#define DEF_TO_INT(pointer, index)     (*((GLint*)(pointer) + index))
+#define DEF_TO_FLOAT(pointer, index)   (*((GLfloat*)(pointer) + index))
+
+void CommandBufferGL::setUniform(bool isArray, GLuint location, uint32_t size, GLenum uniformType, void* data) const
+{
+    GLsizei count = size;
+    switch (uniformType)
+    {
+        case GL_INT:
+        case GL_BOOL:
+        case GL_SAMPLER_2D:
+        case GL_SAMPLER_CUBE:
+            if (isArray)
+                glUniform1iv(location, count, (GLint*)data);
+            else
+                glUniform1i(location, DEF_TO_INT(data, 0));
+            break;
+        case GL_INT_VEC2:
+        case GL_BOOL_VEC2:
+            if (isArray)
+                glUniform2iv(location, count, (GLint*)data);
+            else
+                glUniform2i(location, DEF_TO_INT(data, 0), DEF_TO_INT(data, 1));
+            break;
+        case GL_INT_VEC3:
+        case GL_BOOL_VEC3:
+            if (isArray)
+                glUniform3iv(location, count, (GLint*)data);
+            else
+                glUniform3i(location,
+                            DEF_TO_INT(data, 0),
+                            DEF_TO_INT(data, 1),
+                            DEF_TO_INT(data, 2));
+            break;
+        case GL_INT_VEC4:
+        case GL_BOOL_VEC4:
+            if (isArray)
+                glUniform4iv(location, count, (GLint*)data);
+            else
+                glUniform4i(location,
+                            DEF_TO_INT(data, 0),
+                            DEF_TO_INT(data, 1),
+                            DEF_TO_INT(data, 2),
+                            DEF_TO_INT(data, 4));
+            break;
+        case GL_FLOAT:
+            if (isArray)
+                glUniform1fv(location, count, (GLfloat*)data);
+            else
+                glUniform1f(location, DEF_TO_FLOAT(data, 0));
+            break;
+        case GL_FLOAT_VEC2:
+            if (isArray)
+                glUniform2fv(location, count, (GLfloat*)data);
+            else
+                glUniform2f(location, DEF_TO_FLOAT(data, 0), DEF_TO_FLOAT(data, 1));
+            break;
+        case GL_FLOAT_VEC3:
+            if (isArray)
+                glUniform3fv(location, count, (GLfloat*)data);
+            else
+                glUniform3f(location,
+                            DEF_TO_FLOAT(data, 0),
+                            DEF_TO_FLOAT(data, 1),
+                            DEF_TO_FLOAT(data, 2));
+            break;
+        case GL_FLOAT_VEC4:
+            if (isArray)
+                glUniform4fv(location, count, (GLfloat*)data);
+            else
+                glUniform4f(location,
+                            DEF_TO_FLOAT(data, 0),
+                            DEF_TO_FLOAT(data, 1),
+                            DEF_TO_FLOAT(data, 2),
+                            DEF_TO_FLOAT(data, 3));
+            break;
+        case GL_FLOAT_MAT2:
+            glUniformMatrix2fv(location, count, GL_FALSE, (GLfloat*)data);
+            break;
+        case GL_FLOAT_MAT3:
+            glUniformMatrix3fv(location, count, GL_FALSE, (GLfloat*)data);
+            break;
+        case GL_FLOAT_MAT4:
+            glUniformMatrix4fv(location, count, GL_FALSE, (GLfloat*)data);
+            break;
+        break;
+        
+        default:
+        break;
+    }
+}
+
+CC_BACKEND_END

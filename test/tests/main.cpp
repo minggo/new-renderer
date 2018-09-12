@@ -39,6 +39,10 @@
 #include "gfx/GuiProjection.h"
 #include "Utils.h"
 
+#include "backend/BasicBackend.h"
+#include "backend/Texture2DBackend.h"
+#include "backend/BunnyBackend.h"
+
 namespace
 {
     int nextIndex = 0;
@@ -63,17 +67,20 @@ namespace
     void initTests()
     {
         tests = {
-            Basic::create,
-            Bunny::create,
-            Blending::create,
-            MultiTextures::create,
-            Particle::create,
-            Stencil::create,
-            PostProcess::create,
-            DepthTexture::create,
-            SubImage::create,
+//            BasicBackend::create,
+//            Texture2DBackendTest::create,
+            BunnyBackend::create,
+//            Basic::create,
+//            Bunny::create,
+//            Blending::create,
+//            MultiTextures::create,
+//            Particle::create,
+//            Stencil::create,
+//            PostProcess::create,
+//            DepthTexture::create,
+//            SubImage::create,
             Texture2DTest::create,
-            GuiProjection::create,
+//            GuiProjection::create,
         };
         
         test = tests[0]();

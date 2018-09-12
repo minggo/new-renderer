@@ -23,7 +23,10 @@
 #include "gfx/DepthTexture.h"
 #include "gfx/GuiProjection.h"
 #include "gfx/SubImage.h"
-#include "gfx/Texture2D.h"
+#include "test/tests/gfx/Texture2D.h"
+
+#include "backend/BasicBackend.h"
+#include "backend/Texture2DBackend.h"
 
 #include "Utils.h"
 
@@ -37,17 +40,19 @@ namespace
     void initTests()
     {
         tests = {
-            Basic::create,
-            Bunny::create,
-            Blending::create,
-            MultiTextures::create,
-            Particle::create,
-            Stencil::create,
-            PostProcess::create,
-            DepthTexture::create,
-            SubImage::create,
-            Texture2DTest::create,
-            GuiProjection::create,
+//            BasicBackend::create,
+            Texture2DBackendTest::create,
+//            Basic::create,
+//            Bunny::create,
+//            Blending::create,
+//            MultiTextures::create,
+//            Particle::create,
+//            Stencil::create,
+//            PostProcess::create,
+//            DepthTexture::create,
+//            SubImage::create,
+//            Texture2DTest::create,
+//            GuiProjection::create,
         };
 
         test = tests[0]();
