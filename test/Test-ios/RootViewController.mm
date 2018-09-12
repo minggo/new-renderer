@@ -1,11 +1,3 @@
-//
-//  ViewController.m
-//  Test-ios
-//
-//  Created by James Chen on 12/29/17.
-//  Copyright © 2017 cocos. All rights reserved.
-//
-
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
 #import "platform/ios/CCDirectorCaller-ios.h"
@@ -13,17 +5,6 @@
 #include <chrono>
 #include "TestBase.h"
 #include "defines.h"
-#include "gfx/Basic.h"
-#include "gfx/Bunny.h"
-#include "gfx/Blending.h"
-#include "gfx/MultiTextures.h"
-#include "gfx/Particle.h"
-#include "gfx/Stencil.h"
-#include "gfx/PostProcess.h"
-#include "gfx/DepthTexture.h"
-#include "gfx/GuiProjection.h"
-#include "gfx/SubImage.h"
-#include "test/tests/gfx/Texture2D.h"
 
 #include "backend/BasicBackend.h"
 #include "backend/Texture2DBackend.h"
@@ -42,17 +23,6 @@ namespace
         tests = {
 //            BasicBackend::create,
             Texture2DBackendTest::create,
-//            Basic::create,
-//            Bunny::create,
-//            Blending::create,
-//            MultiTextures::create,
-//            Particle::create,
-//            Stencil::create,
-//            PostProcess::create,
-//            DepthTexture::create,
-//            SubImage::create,
-//            Texture2DTest::create,
-//            GuiProjection::create,
         };
 
         test = tests[0]();
