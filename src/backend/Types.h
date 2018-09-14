@@ -56,7 +56,10 @@ enum class TextureFormat : uint32_t
     R4G4B4A4,
     // Packed 16-bit format with normalized unsigned integer color components: 5 bits each for
     // RGB and 1 bit for alpha, packed into 16 bits.
-    R5G5B5A1
+    R5G5B5A1,
+    // A 16-bit depth format with one normallized unsigned integer component, typically used for
+    // a depth render target.
+    D16
 };
 
 enum class IndexFormat : uint32_t
@@ -102,6 +105,7 @@ enum class SamplerAddressMode
 
 enum class SamplerFilter
 {
+    NONE,
     NEAREST,
     LINEAR
 };

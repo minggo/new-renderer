@@ -32,6 +32,7 @@ class DepthStencilState : public cocos2d::Ref
 {
 protected:
     DepthStencilState(const DepthStencilDescriptor& descriptor);
+    virtual ~DepthStencilState();
     
     DepthStencilDescriptor _depthStencilInfo;
     bool _isStencilEnabled = false;

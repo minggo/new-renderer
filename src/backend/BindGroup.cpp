@@ -119,19 +119,6 @@ void BindGroup::setSampler(const uint32_t index, Sampler* sampler)
     _samplerInfos[index] = std::move(samplerInfo);
 }
 
-void BindGroup::bindTextureSampler(Texture* texture, Sampler* sampler)
-{
-    _textureSamplerMap[texture] = sampler;
-}
-
-Sampler* BindGroup::getBoundSampler(Texture* texture) const
-{
-    if (_textureSamplerMap.end() != _textureSamplerMap.find(texture))
-        return _textureSamplerMap.at(texture);
-    else
-        return nullptr;
-}
-
 void BindGroup::setTexture(const std::string &name, uint32_t index, Texture *texture)
 {
     TextureInfo textureInfo(name, index, texture);

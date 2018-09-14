@@ -92,6 +92,7 @@ BasicBackend::BasicBackend()
     renderPassDescriptor.setDepthStencilAttachment(nullptr, cocos2d::backend::LoadOp::CLEAR, cocos2d::backend::LoadOp::LOAD);
     renderPassDescriptor.setDepthStencilAttachmentClearValue(1, 0);
     _renderPass = device->createRenderPass(renderPassDescriptor);
+    _renderPass->retain();
 }
 
 BasicBackend::~BasicBackend()

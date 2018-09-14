@@ -28,4 +28,7 @@ DepthStencilState::DepthStencilState(const DepthStencilDescriptor& descriptor)
     _isBackFrontStencilEqual = descriptor.backFaceStencil == descriptor.frontFaceStencil;
 }
 
+DepthStencilState::~DepthStencilState()
+{}
+
 CC_BACKEND_END

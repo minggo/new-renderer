@@ -40,6 +40,7 @@ private:
     
     void prepareDrawing() const;
     void setUniform(bool isArray, GLuint location, uint32_t size, GLenum uniformType, void* data) const;
+    void cleanResources();
     
     GLint _defaultFBO = 0;
     std::vector<BufferGL*> _vertexBuffers;

@@ -28,7 +28,7 @@ private:
 
 struct RenderPassDepthStencilAttachment
 {
-    RenderPassDepthStencilAttachment& operator = (const RenderPassDepthStencilAttachment& rhs);
+    RenderPassDepthStencilAttachment& operator =(const RenderPassDepthStencilAttachment& rhs);
     ~RenderPassDepthStencilAttachment();
     
     LoadOp depthLoadOp = LoadOp::CLEAR;

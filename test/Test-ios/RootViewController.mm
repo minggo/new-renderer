@@ -8,6 +8,10 @@
 
 #include "backend/BasicBackend.h"
 #include "backend/Texture2DBackend.h"
+#include "backend/BunnyBackend.h"
+#include "backend/DepthTextureBackend.h"
+
+#include "gfx/DepthTexture.h"
 
 #include "Utils.h"
 
@@ -21,8 +25,10 @@ namespace
     void initTests()
     {
         tests = {
-//            BasicBackend::create,
+            BasicBackend::create,
+            BunnyBackend::create,
             Texture2DBackendTest::create,
+            DepthTextureBackend::create,
         };
 
         test = tests[0]();

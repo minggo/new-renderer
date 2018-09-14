@@ -75,14 +75,7 @@ CommandBufferGL::CommandBufferGL()
 
 CommandBufferGL::~CommandBufferGL()
 {
-    CC_SAFE_RELEASE_NULL(_indexBuffer);
-    CC_SAFE_RELEASE_NULL(_renderPipeline);
-    CC_SAFE_RELEASE_NULL(_bindGroup);
-    
-    for (auto& vertexBuffer : _vertexBuffers)
-        CC_SAFE_RELEASE(vertexBuffer);
-    
-    _vertexBuffers.clear();
+    cleanResources();
 }
 
 void CommandBufferGL::beginRenderPass(RenderPass *renderPass)
@@ -114,11 +107,6 @@ void CommandBufferGL::setRenderPipeline(RenderPipeline* renderPipeline)
         return;
     
     RenderPipelineGL* rp = static_cast<RenderPipelineGL*>(renderPipeline);
-    GLuint program = rp->getProgram()->getHandler();
-    assert(program != 0);
-    if (program == 0)
-        return;
-    
     rp->retain();
     CC_SAFE_RELEASE(_renderPipeline);
     _renderPipeline = rp;
@@ -143,7 +131,7 @@ void CommandBufferGL::setVertexBuffer(uint32_t index, Buffer* buffer)
     
     buffer->retain();
     
-    if (index >= _vertexBuffers.capacity())
+    if (index >= _vertexBuffers.size())
         _vertexBuffers.resize(index + 1);
 
     CC_SAFE_RELEASE(_vertexBuffers[index]);
@@ -172,6 +160,8 @@ void CommandBufferGL::drawElements(PrimitiveType primitiveType, IndexFormat inde
 
 void CommandBufferGL::endRenderPass()
 {
+    cleanResources();
+    
     //TODO: reset GL states?
 }
 
@@ -231,25 +221,9 @@ void CommandBufferGL::prepareDrawing() const
             const auto& bindUniformTextureInfo = texutreInfos.find(activeUinform.name);
             if (texutreInfos.end() != bindUniformTextureInfo)
             {
-                glActiveTexture(GL_TEXTURE0 + textureIndex);
                 const auto& texture = (*bindUniformTextureInfo).second.texture;
-                const auto& texutreGL = static_cast<TextureGL*>(texture);
-                glBindTexture(toGLTextureType(activeUinform.type), texutreGL->getHandler());
-                
-                const auto& sampler = _bindGroup->getBoundSampler(texture);
-                if (sampler)
-                {
-                    static_cast<SamplerGL*>(sampler)->apply();
-                }
-                else
-                {
-                    // use default values
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-                }
+                const auto& textureGL = static_cast<TextureGL*>(texture);
+                textureGL->apply(textureIndex);
                 
                 setUniform(activeUinform.isArray,
                            activeUinform.location,
@@ -265,6 +239,8 @@ void CommandBufferGL::prepareDrawing() const
     if (_renderPipeline->getDepthStencilState())
         _renderPipeline->getDepthStencilState()->apply(_stencilReferenceValueFront,
                                                        _stencilReferenceValueBack);
+    else
+        DepthStencilStateGL::reset();
 }
 
 #define DEF_TO_INT(pointer, index)     (*((GLint*)(pointer) + index))
@@ -357,6 +333,18 @@ void CommandBufferGL::setUniform(bool isArray, GLuint location, uint32_t size, G
         default:
         break;
     }
+}
+
+void CommandBufferGL::cleanResources()
+{
+    CC_SAFE_RELEASE_NULL(_indexBuffer);
+    CC_SAFE_RELEASE_NULL(_renderPipeline);
+    CC_SAFE_RELEASE_NULL(_bindGroup);
+      
+    for (const auto& vertexBuffer : _vertexBuffers)
+        CC_SAFE_RELEASE(vertexBuffer);
+    
+    _vertexBuffers.clear();
 }
 
 CC_BACKEND_END

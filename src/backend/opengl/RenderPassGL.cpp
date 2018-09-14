@@ -6,8 +6,6 @@ CC_BACKEND_BEGIN
 
 RenderPassGL::RenderPassGL(const RenderPassDescriptor& descriptor) : RenderPass(descriptor)
 {
-
-    
     if (_depthStencilAttachmentSet || _colorAttachmentsSet)
         glGenFramebuffers(1, &_frameBuffer);
 }
@@ -16,7 +14,7 @@ void RenderPassGL::apply(GLuint defaultFrameBuffer) const
 {
     if (_frameBuffer)
     {
-        // depth and stencil buffer
+        // depth and stencil attachment
         glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
         if (_depthStencilAttachmentSet && _depthStencilAttachment.texture)
         {
@@ -26,16 +24,17 @@ void RenderPassGL::apply(GLuint defaultFrameBuffer) const
                                    GL_TEXTURE_2D,
                                    textureGL->getHandler(),
                                    0);
+            CHECK_GL_ERROR_DEBUG();
             
             //TODO: check if has stencil
-            glFramebufferTexture2D(GL_FRAMEBUFFER,
-                                   GL_STENCIL_ATTACHMENT,
-                                   GL_TEXTURE_2D,
-                                   textureGL->getHandler(),
-                                   0);
+//            glFramebufferTexture2D(GL_FRAMEBUFFER,
+//                                   GL_STENCIL_ATTACHMENT,
+//                                   GL_TEXTURE_2D,
+//                                   textureGL->getHandler(),
+//                                   0);
         }
         
-        // color buffer
+        // color attachments
         if (_colorAttachmentsSet)
         {
             int i = 0;
@@ -53,6 +52,16 @@ void RenderPassGL::apply(GLuint defaultFrameBuffer) const
                 }
                 ++i;
             }
+        }
+        else
+        {
+            // If not draw buffer is needed, should invoke this line explicitly, or it will cause
+            // GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER and GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER error.
+            // https://stackoverflow.com/questions/28313782/porting-opengl-es-framebuffer-to-opengl
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+            glDrawBuffer(GL_NONE);
+            glReadBuffer(GL_NONE);
+#endif
         }
     }
     else

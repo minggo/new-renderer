@@ -55,8 +55,6 @@ public:
     
     void setTexture(const std::string& name, uint32_t index, Texture* texture);
     void setSampler(const uint32_t index, Sampler* sampler);
-    void bindTextureSampler(Texture* texture, Sampler* sampler);
-    Sampler* getBoundSampler(Texture* texture) const;
     void setUniform(const std::string& name, uint32_t index, void* data, uint32_t size);
     
     inline const std::unordered_map<std::string, UniformInfo>& getUniformInfos() const { return _uniformInfos; }
@@ -67,7 +65,6 @@ private:
     std::unordered_map<std::string, TextureInfo> _textureInfos;
     
     std::vector<SamplerInfo> _samplerInfos;
-    std::unordered_map<Texture*, Sampler*> _textureSamplerMap;
 };
 
 CC_BACKEND_END

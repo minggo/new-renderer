@@ -72,6 +72,12 @@ namespace
     }
 }
 
+void DepthStencilStateGL::reset()
+{
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_STENCIL_TEST);
+}
+
 DepthStencilStateGL::DepthStencilStateGL(const DepthStencilDescriptor& descriptor)
 : DepthStencilState(descriptor)
 {}

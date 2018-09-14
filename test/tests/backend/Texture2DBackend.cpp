@@ -83,7 +83,7 @@ Texture2DBackendTest::Texture2DBackendTest()
         canvasTexDes.textureFormat = TextureFormat::R8G8B8A8;
         _canvasTexture = device->createTexture(canvasTexDes);
         _canvasTexture->retain();
-        _canvasTexture->updateData(labelData.getBytes(), (uint32_t)labelData.getSize());
+        _canvasTexture->updateData(labelData.getBytes());
     }
 
     {
@@ -101,7 +101,7 @@ Texture2DBackendTest::Texture2DBackendTest()
         texDes.textureType = TextureType::TEXTURE_2D;
         _texture = device->createTexture(texDes);
         _texture->retain();
-        _texture->updateData(data.getBytes(), (uint32_t)data.getSize());
+        _texture->updateData(data.getBytes());
         
         img->release();
     }
@@ -184,7 +184,6 @@ void Texture2DBackendTest::tick(float dt)
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
         _commandBuffer->endRenderPass();
     }
-    
     
     if (_texture)
     {

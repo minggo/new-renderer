@@ -12,14 +12,23 @@ public:
     ~TextureGL();
     
     // TODO: update sub data.
-    virtual void updateData(uint8_t* data, uint32_t size) override;
+    virtual void updateData(uint8_t* data) override;
+    void apply(int index) const;
     
     inline GLuint getHandler() const { return _texture; }
     
 private:
     void toGLTypes();
+    void generateMipmpas() const;
     
     GLuint _texture = 0;
+    SamplerDescriptor _samplerDescriptor;
+    
+    GLint _magFilterGL = GL_LINEAR;
+    GLint _minFilterGL = GL_LINEAR;
+    GLint _rAddressModeGL = GL_REPEAT;
+    GLint _sAddressModeGL = GL_REPEAT;
+    GLint _tAddressModeGL = GL_REPEAT;
     
     // Used in glTexImage2D().
     GLint _internalFormat = GL_RGBA;
