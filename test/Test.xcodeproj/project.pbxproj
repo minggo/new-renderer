@@ -302,6 +302,8 @@
 		4603757A214FA29500DC9ED4 /* BlendState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46037577214FA29500DC9ED4 /* BlendState.cpp */; };
 		4603757D214FA82D00DC9ED4 /* BlendStateGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4603757B214FA82D00DC9ED4 /* BlendStateGL.cpp */; };
 		4603757E214FA82D00DC9ED4 /* BlendStateGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4603757B214FA82D00DC9ED4 /* BlendStateGL.cpp */; };
+		460375812150C91D00DC9ED4 /* MultiTexturesBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460375802150C91C00DC9ED4 /* MultiTexturesBackend.cpp */; };
+		460375822150C91D00DC9ED4 /* MultiTexturesBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460375802150C91C00DC9ED4 /* MultiTexturesBackend.cpp */; };
 		4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		4694927E1FE252A7008D19CC /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927D1FE2529E008D19CC /* OpenGL.framework */; };
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
@@ -521,6 +523,8 @@
 		46037578214FA29500DC9ED4 /* BlendState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlendState.h; sourceTree = "<group>"; };
 		4603757B214FA82D00DC9ED4 /* BlendStateGL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BlendStateGL.cpp; sourceTree = "<group>"; };
 		4603757C214FA82D00DC9ED4 /* BlendStateGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlendStateGL.h; sourceTree = "<group>"; };
+		4603757F2150C91C00DC9ED4 /* MultiTexturesBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTexturesBackend.h; sourceTree = "<group>"; };
+		460375802150C91C00DC9ED4 /* MultiTexturesBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiTexturesBackend.cpp; sourceTree = "<group>"; };
 		462724581FF3A00E000D13BC /* TestBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestBase.h; sourceTree = "<group>"; };
 		462724631FF4BD4E000D13BC /* defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
 		462724681FF4E39E000D13BC /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
@@ -976,6 +980,8 @@
 		460373D821363EDD00DC9ED4 /* backend */ = {
 			isa = PBXGroup;
 			children = (
+				460375802150C91C00DC9ED4 /* MultiTexturesBackend.cpp */,
+				4603757F2150C91C00DC9ED4 /* MultiTexturesBackend.h */,
 				46037573214F44CC00DC9ED4 /* BlendingBackend.cpp */,
 				46037574214F44CD00DC9ED4 /* BlendingBackend.h */,
 				4603744D2148F6BE00DC9ED4 /* DepthTextureBackend.cpp */,
@@ -1372,6 +1378,7 @@
 				460374472147B88400DC9ED4 /* BunnyBackend.cpp in Sources */,
 				1A255E6C20034B0D00069420 /* TGAlib.cpp in Sources */,
 				1A255E5220034B0D00069420 /* Quaternion.cpp in Sources */,
+				460375822150C91D00DC9ED4 /* MultiTexturesBackend.cpp in Sources */,
 				1A255E3220034B0D00069420 /* CCDirectorCaller-ios.mm in Sources */,
 				1A255E6A20034B0D00069420 /* ccTypes.cpp in Sources */,
 				1A255E6820034B0D00069420 /* CCRef.cpp in Sources */,
@@ -1465,6 +1472,7 @@
 				46037575214F44CD00DC9ED4 /* BlendingBackend.cpp in Sources */,
 				460373FB213932AE00DC9ED4 /* BindGroup.cpp in Sources */,
 				1A255E3720034B0D00069420 /* CCFileUtils.cpp in Sources */,
+				460375812150C91D00DC9ED4 /* MultiTexturesBackend.cpp in Sources */,
 				1A255E7120034B0D00069420 /* CCConsole.cpp in Sources */,
 				4603743E2147742800DC9ED4 /* DepthStencilState.cpp in Sources */,
 				1A255E6120034B0D00069420 /* ccRandom.cpp in Sources */,

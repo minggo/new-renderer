@@ -28,26 +28,23 @@
 #include "../TestBase.h"
 #include "backend/Backend.h"
 
-class BlendingBackend : public TestBaseI
+class MultiTexturesBackend : public TestBaseI
 {
 public:
-    DEFINE_CREATE_METHOD(BlendingBackend);
-    BlendingBackend();
-    ~BlendingBackend();
+    DEFINE_CREATE_METHOD(MultiTexturesBackend);
+    MultiTexturesBackend();
+    ~MultiTexturesBackend();
     virtual void tick(float dt) override;
     
 private:
-    
-    float _dt;
-    cocos2d::backend::Texture* _backgroud = nullptr;
-    cocos2d::backend::Texture* _sprite0 = nullptr;
-    cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
+    cocos2d::backend::Texture* _background = nullptr;
+    cocos2d::backend::Texture* _texture1 = nullptr;
+    cocos2d::backend::Buffer* _vertexBuffer = nullptr;
+    cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::CommandQueue* _commandQueue = nullptr;
-    cocos2d::backend::RenderPass* _renderPassBigTriangle = nullptr;
-    cocos2d::backend::BindGroup _bindGroupBigTriangle;
-    
+    cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
+    cocos2d::backend::RenderPass* _renderPass = nullptr;
     cocos2d::backend::BindGroup _bindGroup;
     
-    cocos2d::Mat4 _projection;
-    cocos2d::Mat4 _model;
+    cocos2d::Mat4 _transform;
 };

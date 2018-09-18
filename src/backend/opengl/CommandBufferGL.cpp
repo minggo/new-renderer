@@ -196,7 +196,6 @@ void CommandBufferGL::prepareDrawing() const
         const auto& texutreInfos = _bindGroup->getTextureInfos();
         const auto& bindUniformInfos = _bindGroup->getUniformInfos();
         const auto& activeUniformInfos = program->getUniformInfos();
-        int textureIndex = 0;
         for (const auto& activeUinform : activeUniformInfos)
         {
             // uniforms
@@ -214,17 +213,25 @@ void CommandBufferGL::prepareDrawing() const
             const auto& bindUniformTextureInfo = texutreInfos.find(activeUinform.name);
             if (texutreInfos.end() != bindUniformTextureInfo)
             {
-                const auto& texture = (*bindUniformTextureInfo).second.texture;
-                const auto& textureGL = static_cast<TextureGL*>(texture);
-                textureGL->apply(textureIndex);
+//                const auto& texture = (*bindUniformTextureInfo).second.texture;
+//                const auto& textureGL = static_cast<TextureGL*>(texture);
+//                uint32_t index = (*bindUniformTextureInfo).second.index;
+//                textureGL->apply(index);
+                const auto& textures = (*bindUniformTextureInfo).second.textures;
+                const auto& indices = (*bindUniformTextureInfo).second.indices;
+                
+                int i = 0;
+                for (const auto& texture: textures)
+                {
+                    static_cast<TextureGL*>(texture)->apply(indices[i]);
+                    ++i;
+                }
                 
                 setUniform(activeUinform.isArray,
                            activeUinform.location,
                            activeUinform.size,
                            activeUinform.type,
-                           &textureIndex);
-                
-                ++textureIndex;
+                           (void*)indices.data());
             }
         }
     }

@@ -13,9 +13,6 @@ BindGroup::UniformInfo::UniformInfo(const std::string& _name, uint32_t _index, v
         memcpy(data, _data, size);
 }
 
-BindGroup::UniformInfo::UniformInfo()
-{}
-
 BindGroup::UniformInfo::~UniformInfo()
 {
     if (data)
@@ -36,20 +33,17 @@ BindGroup::UniformInfo& BindGroup::UniformInfo::operator=(UniformInfo&& rhs)
     return *this;
 }
 
-BindGroup::TextureInfo::TextureInfo(const std::string& _name, uint32_t _index, Texture* _texture)
+BindGroup::TextureInfo::TextureInfo(const std::string& _name, const std::vector<uint32_t>& _indices, const std::vector<Texture*> _textures)
 : name(_name)
-, index(_index)
-, texture(_texture)
+, indices(_indices)
+, textures(_textures)
 {
-    CC_SAFE_RETAIN(texture);
+    retainTextures();
 }
-
-BindGroup::TextureInfo::TextureInfo()
-{}
 
 BindGroup::TextureInfo::~TextureInfo()
 {
-    CC_SAFE_RELEASE(texture);
+    releaseTextures();
 }
 
 BindGroup::TextureInfo& BindGroup::TextureInfo::operator=(TextureInfo&& rhs)
@@ -57,14 +51,26 @@ BindGroup::TextureInfo& BindGroup::TextureInfo::operator=(TextureInfo&& rhs)
     if (this != &rhs)
     {
         name = rhs.name;
-        index = rhs.index;
+        indices = rhs.indices;
         
-        CC_SAFE_RETAIN(rhs.texture);
-        CC_SAFE_RELEASE(texture);
-        texture = rhs.texture;
-        rhs.texture = nullptr;
+        rhs.retainTextures();
+        releaseTextures();
+        textures = rhs.textures;
+        rhs.textures.clear();
     }
     return *this;
+}
+
+void BindGroup::TextureInfo::retainTextures()
+{
+    for (auto& texture : textures)
+        CC_SAFE_RETAIN(texture);
+}
+
+void BindGroup::TextureInfo::releaseTextures()
+{
+    for (auto& texture : textures)
+        CC_SAFE_RELEASE(texture);
 }
 
 BindGroup::SamplerInfo::SamplerInfo(uint32_t _index, Sampler* _sampler)
@@ -121,7 +127,15 @@ void BindGroup::setSampler(const uint32_t index, Sampler* sampler)
 
 void BindGroup::setTexture(const std::string &name, uint32_t index, Texture *texture)
 {
-    TextureInfo textureInfo(name, index, texture);
+    TextureInfo textureInfo(name, {index}, {texture});
+    _textureInfos[name] = std::move(textureInfo);
+}
+
+void BindGroup::setTextureArray(const std::string& name, const std::vector<uint32_t>& indices, const std::vector<Texture*> textures)
+{
+    assert(indices.size() == textures.size());
+    
+    TextureInfo textureInfo(name, indices, textures);
     _textureInfos[name] = std::move(textureInfo);
 }
 

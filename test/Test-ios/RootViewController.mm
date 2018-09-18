@@ -11,6 +11,7 @@
 #include "backend/BunnyBackend.h"
 #include "backend/DepthTextureBackend.h"
 #include "backend/BlendingBackend.h"
+#include "backend/MultiTexturesBackend.h"
 
 #include "Utils.h"
 
@@ -24,6 +25,7 @@ namespace
     void initTests()
     {
         tests = {
+            MultiTexturesBackend::create,
             BlendingBackend::create,
             BasicBackend::create,
             BunnyBackend::create,
