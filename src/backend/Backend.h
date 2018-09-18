@@ -15,3 +15,4 @@
 #include "backend/Sampler.h"
 #include "backend/Texture.h"
 #include "backend/DepthStencilState.h"
+#include "backend/BlendState.h"

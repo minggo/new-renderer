@@ -7,6 +7,7 @@
 #include "TextureGL.h"
 #include "SamplerGL.h"
 #include "DepthStencilStateGL.h"
+#include "BlendStateGL.h"
 
 CC_BACKEND_BEGIN
 
@@ -68,6 +69,15 @@ ShaderModule* Device::createShaderModule(ShaderStage stage, const std::string& s
 DepthStencilState* Device::createDepthStencilState(const DepthStencilDescriptor& descriptor)
 {
     auto ret = new (std::nothrow) DepthStencilStateGL(descriptor);
+    if (ret)
+        ret->autorelease();
+    
+    return ret;
+}
+
+BlendState* Device::createBlendState(const BlendDescriptor& descriptor)
+{
+    auto ret = new (std::nothrow) BlendStateGL(descriptor);
     if (ret)
         ret->autorelease();
     

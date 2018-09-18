@@ -1,6 +1,7 @@
 #include "RenderPipelineDescriptor.h"
 #include "ShaderModule.h"
 #include "DepthStencilState.h"
+#include "BlendState.h"
 
 #include <assert.h>
 
@@ -11,6 +12,7 @@ RenderPipelineDescriptor::~RenderPipelineDescriptor()
     CC_SAFE_RELEASE(_vertexShaderModule);
     CC_SAFE_RELEASE(_fragmentShaderModule);
     CC_SAFE_RELEASE(_depthStencilState);
+    CC_SAFE_RELEASE(_blendState);
 }
 
 void RenderPipelineDescriptor::setVertexShaderModule(ShaderModule* module)
@@ -26,15 +28,6 @@ void RenderPipelineDescriptor::setVertexShaderModule(ShaderModule* module)
     }
 }
 
-void RenderPipelineDescriptor::setDepthStencilState(DepthStencilState* depthStencilState)
-{
-    assert(depthStencilState != nullptr);
-    
-    CC_SAFE_RETAIN(depthStencilState);
-    CC_SAFE_RELEASE(_depthStencilState);
-    _depthStencilState = depthStencilState;
-}
-
 void RenderPipelineDescriptor::setFragmentShaderModule(ShaderModule* module)
 {
     assert(module != nullptr);
@@ -46,6 +39,20 @@ void RenderPipelineDescriptor::setFragmentShaderModule(ShaderModule* module)
         CC_SAFE_RELEASE(_fragmentShaderModule);
         _fragmentShaderModule = module;
     }
+}
+
+void RenderPipelineDescriptor::setBlendState(BlendState* blendState)
+{
+    CC_SAFE_RETAIN(blendState);
+    CC_SAFE_RELEASE(_blendState);
+    _blendState = blendState;
+}
+
+void RenderPipelineDescriptor::setDepthStencilState(DepthStencilState* depthStencilState)
+{
+    CC_SAFE_RETAIN(depthStencilState);
+    CC_SAFE_RELEASE(_depthStencilState);
+    _depthStencilState = depthStencilState;
 }
 
 void RenderPipelineDescriptor::setVertexLayout(uint32_t index, const VertexLayout& vertexLayout)

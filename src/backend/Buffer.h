@@ -18,7 +18,7 @@ protected:
     , _usage(usage)
     {}
     
-    virtual ~Buffer() {}
+    virtual ~Buffer() = default;
     
     BufferUsage _usage = BufferUsage::READ;
     BufferType _type = BufferType::VERTEX;

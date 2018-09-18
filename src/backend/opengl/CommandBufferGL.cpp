@@ -8,6 +8,7 @@
 #include "../RenderPass.h"
 #include "../BindGroup.h"
 #include "Program.h"
+#include "BlendStateGL.h"
 
 CC_BACKEND_BEGIN
 
@@ -57,14 +58,6 @@ namespace
                 break;
         }
         return ret;
-    }
-    
-    GLenum toGLTextureType(GLenum samplerType)
-    {
-        if (GL_SAMPLER_2D == samplerType)
-            return GL_TEXTURE_2D;
-        else
-            return GL_TEXTURE_CUBE_MAP;
     }
 }
 
@@ -235,12 +228,19 @@ void CommandBufferGL::prepareDrawing() const
             }
         }
     }
-    
+
+    // depth/stencil state
     if (_renderPipeline->getDepthStencilState())
         _renderPipeline->getDepthStencilState()->apply(_stencilReferenceValueFront,
                                                        _stencilReferenceValueBack);
     else
         DepthStencilStateGL::reset();
+    
+    // blend
+    if (_renderPipeline->getBlendState())
+        _renderPipeline->getBlendState()->apply();
+    else
+        BlendStateGL::reset();
 }
 
 #define DEF_TO_INT(pointer, index)     (*((GLint*)(pointer) + index))

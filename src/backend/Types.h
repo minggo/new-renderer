@@ -96,21 +96,21 @@ enum class TextureType: uint32_t
     TEXTURE_CUBE
 };
 
-enum class SamplerAddressMode
+enum class SamplerAddressMode: uint32_t
 {
     REPEAT,
     MIRROR_REPEAT,
     CLAMP_TO_EDGE
 };
 
-enum class SamplerFilter
+enum class SamplerFilter: uint32_t
 {
     NONE,
     NEAREST,
     LINEAR
 };
 
-enum class StencilOperation
+enum class StencilOperation: uint32_t
 {
     KEEP,
     ZERO,
@@ -120,7 +120,7 @@ enum class StencilOperation
     DECREMENT_WRAP
 };
 
-enum class CompareFunction
+enum class CompareFunction: uint32_t
 {
     NEVER,
     LESS,
@@ -130,6 +130,39 @@ enum class CompareFunction
     EQUAL,
     NOT_EQUAL,
     ALWAYS
+};
+
+enum class BlendOperation: uint32_t
+{
+    ADD,
+    SUBTRACT,
+    RESERVE_SUBTRACT
+};
+
+enum class BlendFactor: uint32_t
+{
+    ZERO,
+    ONE,
+    SRC_COLOR,
+    ONE_MINUS_SRC_COLOR,
+    SRC_ALPHA,
+    ONE_MINUS_SRC_ALPHA,
+    DST_COLOR,
+    ONE_MINUS_DST_COLOR,
+    DST_ALPHA,
+    ONE_MINUS_DST_ALPHA,
+    SRC_ALPHA_SATURATE,
+    BLEND_CLOLOR
+};
+
+enum class ColorWriteMask: uint32_t
+{
+    NONE = 0x00000000,
+    RED = 0x00000001,
+    GREEN = 0x00000002,
+    BLUE = 0x00000004,
+    ALPHA = 0x00000008,
+    ALL = 0x0000000F
 };
 
 CC_BACKEND_END

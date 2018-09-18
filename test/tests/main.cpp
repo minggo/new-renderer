@@ -32,6 +32,7 @@
 #include "backend/Texture2DBackend.h"
 #include "backend/BunnyBackend.h"
 #include "backend/DepthTextureBackend.h"
+#include "backend/BlendingBackend.h"
 
 namespace
 {
@@ -57,10 +58,11 @@ namespace
     void initTests()
     {
         tests = {
+            BlendingBackend::create,
             BasicBackend::create,
             Texture2DBackendTest::create,
             BunnyBackend::create,
-            DepthTextureBackend::create,
+            DepthTextureBackend::create
         };
         
         test = tests[0]();
@@ -71,7 +73,6 @@ int main(int argc, char** argv)
 {
     if (!glfwInit())
         return -1;
-    
     
     utils::WINDOW_WIDTH = 960;
     utils::WINDOW_HEIGHT = 640;

@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Sampler.h"
 #include "DepthStencilState.h"
+#include "BlendState.h"
 
 #include "base/CCRef.h"
 
@@ -31,6 +32,7 @@ public:
     Texture* createTexture(const TextureDescriptor& descriptor);
     ShaderModule* createShaderModule(ShaderStage stage, const std::string& source);
     DepthStencilState* createDepthStencilState(const DepthStencilDescriptor& descriptor);
+    BlendState* createBlendState(const BlendDescriptor& descriptor);
     RenderPipeline* createRenderPipeline(const RenderPipelineDescriptor& descriptor);
     Sampler* createSampler(const SamplerDescriptor& descriptor);
     
