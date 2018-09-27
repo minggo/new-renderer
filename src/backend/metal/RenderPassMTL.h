@@ -9,8 +9,9 @@ class RenderPassMTL : public RenderPass
 {
 public:
     RenderPassMTL(const RenderPassDescriptor& descriptor);
+    ~RenderPassMTL();
     
-    inline MTLRenderPassDescriptor* getMTLRenderPassDescriptor() const { return _renderPassDescritprMTL; }
+    MTLRenderPassDescriptor* getMTLRenderPassDescriptor();
     
 private:
     MTLRenderPassDescriptor* _renderPassDescritprMTL = nil;

@@ -12,8 +12,8 @@ RenderPassColorAttachments& RenderPassColorAttachments::operator=(const RenderPa
 {
     if (this != &rhs)
     {
-        loadOp = rhs.loadOp;
         clearColor = rhs.clearColor;
+        needClearColor = rhs.needClearColor;
         
         rhs.retainTextures();
         releaseTextures();
@@ -48,8 +48,8 @@ RenderPassDepthStencilAttachment& RenderPassDepthStencilAttachment::operator=(co
 {
     if (this != &rhs)
     {
-        depthLoadOp = rhs.depthLoadOp;
-        stencilLoadOp = rhs.stencilLoadOp;
+        needClearDepth = rhs.needClearDepth;
+        needClearStencil = rhs.needClearStencil;
         clearDepth = rhs.clearDepth;
         clearStencil = rhs.clearStencil;
         
@@ -73,33 +73,32 @@ void RenderPassDescriptor::setColorAttachment(uint32_t attachment, Texture* text
         _colorAttachmentsSet = true;
 }
 
-void RenderPassDescriptor::setColorAttachmentsClearColor(float r, float g, float b, float a)
+void RenderPassDescriptor::setClearColor(float r, float g, float b, float a)
 {
     _colorAttachments.clearColor = {r, g, b, a};
+    _colorAttachments.needClearColor = true;
 }
 
-void RenderPassDescriptor::setColorAttachmentsLoadOp(LoadOp loadOp)
-{
-    _colorAttachments.loadOp = loadOp;
-}
-
-void RenderPassDescriptor::setDepthStencilAttachment(Texture* texture, LoadOp depthLoadOp, LoadOp stencilLoadOp)
+void RenderPassDescriptor::setDepthStencilAttachment(Texture* texture)
 {
     CC_SAFE_RETAIN(texture);
     CC_SAFE_RELEASE(_depthStencilAttachment.texture);
     _depthStencilAttachment.texture = texture;
     
-    _depthStencilAttachment.stencilLoadOp = stencilLoadOp;
-    _depthStencilAttachment.depthLoadOp = depthLoadOp;
-    
     if (texture)
         _depthStencilAttachmentSet = true;
 }
 
-void RenderPassDescriptor::setDepthStencilAttachmentClearValue(float clearDepth, float clearStencil)
+void RenderPassDescriptor::setDepthClearValue(float clearValue)
 {
-    _depthStencilAttachment.clearDepth = clearDepth;
-    _depthStencilAttachment.clearStencil = clearStencil;
+    _depthStencilAttachment.clearDepth = clearValue;
+    _depthStencilAttachment.needClearDepth = true;
+}
+
+void RenderPassDescriptor::setStencilClearValue(uint32_t clearValue)
+{
+    _depthStencilAttachment.clearStencil = clearValue;
+    _depthStencilAttachment.needClearStencil = true;
 }
 
 CC_BACKEND_END

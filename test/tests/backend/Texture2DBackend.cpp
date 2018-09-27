@@ -150,10 +150,8 @@ Texture2DBackendTest::Texture2DBackendTest()
     
     // render pass
     RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setColorAttachmentsClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-    renderPassDescriptor.setColorAttachmentsLoadOp(cocos2d::backend::LoadOp::CLEAR);
-    renderPassDescriptor.setDepthStencilAttachment(nullptr, cocos2d::backend::LoadOp::CLEAR, cocos2d::backend::LoadOp::LOAD);
-    renderPassDescriptor.setDepthStencilAttachmentClearValue(1.f, 0);
+    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
+    renderPassDescriptor.setDepthClearValue(1.f);
     _renderPass = device->createRenderPass(renderPassDescriptor);
     _renderPass->retain();
     

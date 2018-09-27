@@ -41,16 +41,22 @@ namespace
     
     void initTests()
     {
-        tests = {
-//            MultiTexturesBackend::create,
-//            BlendingBackend::create,
-            BasicBackend::create,
-//            Texture2DBackendTest::create,
-//            BunnyBackend::create,
-//            DepthTextureBackend::create
-        };
-        
-        test = tests[0]();
+        static bool first = true;
+        if (first)
+        {
+            tests = {
+                //            MultiTexturesBackend::create,
+                //            BlendingBackend::create,
+                BasicBackend::create,
+                //            Texture2DBackendTest::create,
+                //            BunnyBackend::create,
+                //            DepthTextureBackend::create
+            };
+            
+            test = tests[0]();
+            
+            first = false;
+        }
     }
 }
 
@@ -90,8 +96,6 @@ int main(int argc, char * argv[])
         
         cocos2d::backend::DeviceMTL::setCAMetalLayer(layer);
         
-        initTests();
-        
         std::chrono::steady_clock::time_point prevTime;
         std::chrono::steady_clock::time_point now;
         float dt = 0.f;
@@ -99,6 +103,8 @@ int main(int argc, char * argv[])
         {
             prevTime = std::chrono::steady_clock::now();
             cocos2d::backend::DeviceMTL::updateDrawable();
+            // Should invoke after `cocos2d::backend::DeviceMTL::updateDrawable()`.
+            initTests();
             test->tick(dt);
             
             glfwPollEvents();

@@ -33,6 +33,7 @@ public:
 private:
     static CAMetalLayer* _metalLayer;
     static id<CAMetalDrawable> _currentDrawable;
+    static MTLRenderPassDescriptor* _defaultRenderPassDescriptor;
     
     id<MTLDevice> _mtlDevice = nil;
 };

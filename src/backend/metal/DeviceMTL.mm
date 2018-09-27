@@ -3,11 +3,13 @@
 #include "BufferMTL.h"
 #include "RenderPipelineMTL.h"
 #include "ShaderModuleMTL.h"
+#include "RenderPassMTL.h"
 
 CC_BACKEND_BEGIN
 
 CAMetalLayer* DeviceMTL::_metalLayer = nil;
 id<CAMetalDrawable> DeviceMTL::_currentDrawable = nil;
+MTLRenderPassDescriptor* DeviceMTL::_defaultRenderPassDescriptor = nil;
 
 Device* Device::getInstance()
 {
@@ -20,6 +22,13 @@ Device* Device::getInstance()
 void DeviceMTL::setCAMetalLayer(CAMetalLayer* metalLayer)
 {
     DeviceMTL::_metalLayer = metalLayer;
+    
+    DeviceMTL::_defaultRenderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
+    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
+    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.loadAction = MTLLoadActionClear;
+    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+    [DeviceMTL::_defaultRenderPassDescriptor retain];
 }
 
 void DeviceMTL::updateDrawable()
@@ -33,18 +42,14 @@ void DeviceMTL::updateDrawable()
 
 MTLRenderPassDescriptor* DeviceMTL::getDefaultMTLRenderPassDescriptor()
 {
-    MTLRenderPassDescriptor* descriptor = [MTLRenderPassDescriptor renderPassDescriptor];
-    descriptor.colorAttachments[0].texture = DeviceMTL::_currentDrawable.texture;
-    descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
-    descriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
-    descriptor.depthAttachment.loadAction = MTLLoadActionClear;
-    descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
-    return descriptor;
+    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].texture = DeviceMTL::_currentDrawable.texture;
+    return DeviceMTL::_defaultRenderPassDescriptor;
 }
 
 DeviceMTL::DeviceMTL()
 {
     _mtlDevice = DeviceMTL::_metalLayer.device;
+    
 }
 
 DeviceMTL::~DeviceMTL()
@@ -76,7 +81,11 @@ Texture* DeviceMTL::createTexture(const TextureDescriptor& descriptor)
 
 RenderPass* DeviceMTL::createRenderPass(const RenderPassDescriptor& descriptor)
 {
-    return nullptr;
+    auto ret = new (std::nothrow) RenderPassMTL(descriptor);
+    if (ret)
+        ret->autorelease();
+    
+    return ret;
 }
 
 ShaderModule* DeviceMTL::createShaderModule(ShaderStage stage, const std::string& source)

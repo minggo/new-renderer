@@ -220,29 +220,21 @@ DepthTextureBackend::DepthTextureBackend()
     
     // render pass Bunny 1
     backend::RenderPassDescriptor renderPassDescriptorBunny1;
-    renderPassDescriptorBunny1.setDepthStencilAttachment(_depthTexture,
-                                                         cocos2d::backend::LoadOp::CLEAR,
-                                                         cocos2d::backend::LoadOp::LOAD);
-    renderPassDescriptorBunny1.setDepthStencilAttachmentClearValue(1, 0);
+    renderPassDescriptorBunny1.setDepthClearValue(1);
+    renderPassDescriptorBunny1.setDepthStencilAttachment(_depthTexture);
     _renderPassBunny1 = device->createRenderPass(renderPassDescriptorBunny1);
     _renderPassBunny1->retain();
     
     // render pass 2
     backend::RenderPassDescriptor renderPassDescriptorBunny2;
-    renderPassDescriptorBunny2.setDepthStencilAttachment(_depthTexture,
-                                                         cocos2d::backend::LoadOp::LOAD,
-                                                         cocos2d::backend::LoadOp::LOAD);
+    renderPassDescriptorBunny2.setDepthStencilAttachment(_depthTexture);
     _renderPassBunny2 = device->createRenderPass(renderPassDescriptorBunny2);
     _renderPassBunny2->retain();
     
     // render pass BigTriangle
     backend::RenderPassDescriptor renderPassDescriptorBigTriangle;
-    renderPassDescriptorBigTriangle.setColorAttachmentsClearColor(0.1f, 0.1f, 0.1f, 1);
-    renderPassDescriptorBigTriangle.setColorAttachmentsLoadOp(cocos2d::backend::LoadOp::CLEAR);
-    renderPassDescriptorBigTriangle.setDepthStencilAttachment(nullptr,
-                                                              cocos2d::backend::LoadOp::CLEAR,
-                                                              cocos2d::backend::LoadOp::LOAD);
-    renderPassDescriptorBigTriangle.setDepthStencilAttachmentClearValue(1, 0);
+    renderPassDescriptorBigTriangle.setClearColor(0.1f, 0.1f, 0.1f, 1);
+    renderPassDescriptorBigTriangle.setDepthClearValue(1);
     _renderPassBigTriangle = device->createRenderPass(renderPassDescriptorBigTriangle);
     _renderPassBigTriangle->retain();
     

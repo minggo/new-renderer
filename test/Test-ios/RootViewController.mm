@@ -25,11 +25,11 @@ namespace
     void initTests()
     {
         tests = {
-            MultiTexturesBackend::create,
-            BlendingBackend::create,
-//            BasicBackend::create,
-            BunnyBackend::create,
-            Texture2DBackendTest::create,
+//            MultiTexturesBackend::create,
+//            BlendingBackend::create,
+////            BasicBackend::create,
+//            BunnyBackend::create,
+//            Texture2DBackendTest::create,
             DepthTextureBackend::create,
         };
 

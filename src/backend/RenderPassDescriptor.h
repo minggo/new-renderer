@@ -18,8 +18,9 @@ struct RenderPassColorAttachments
     void setTexture(uint32_t attachment, Texture* texture);
     
     std::vector<Texture*> textures;
+    
     std::array<float, 4> clearColor = {0.f, 0.f, 0.f, 0.f};
-    LoadOp loadOp = LoadOp::CLEAR;
+    bool needClearColor = false;
     
 private:
     void releaseTextures() const;
@@ -31,10 +32,12 @@ struct RenderPassDepthStencilAttachment
     RenderPassDepthStencilAttachment& operator =(const RenderPassDepthStencilAttachment& rhs);
     ~RenderPassDepthStencilAttachment();
     
-    LoadOp depthLoadOp = LoadOp::CLEAR;
-    LoadOp stencilLoadOp = LoadOp::CLEAR;
     float clearDepth = 1.f;
+    bool needClearDepth = false;
+    
     uint32_t clearStencil = 0;
+    bool needClearStencil = false;
+    
     Texture *texture = nullptr;
 };
 
@@ -42,10 +45,10 @@ class RenderPassDescriptor
 {
 public:
     void setColorAttachment(uint32_t attachment, Texture* texture);
-    void setColorAttachmentsClearColor(float r, float g, float b, float a);
-    void setColorAttachmentsLoadOp(LoadOp loadOp);
-    void setDepthStencilAttachment(Texture* texture, LoadOp depthLoadOp, LoadOp stencilLoadOp);
-    void setDepthStencilAttachmentClearValue(float clearDepth, float clearStencil);
+    void setClearColor(float r, float g, float b, float a);
+    void setDepthStencilAttachment(Texture* texture);
+    void setDepthClearValue(float clearValue);
+    void setStencilClearValue(uint32_t clearValue);
     
     inline const RenderPassDepthStencilAttachment& getDepthStencilAttachment() const { return _depthStencilAttachment; }
     inline const RenderPassColorAttachments& getColorAttachments() const { return _colorAttachments; }

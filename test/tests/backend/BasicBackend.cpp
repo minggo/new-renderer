@@ -135,13 +135,11 @@ BasicBackend::BasicBackend()
     _vertexBuffer->updateData((uint8_t*)data, sizeof(data));
     _vertexBuffer->retain();
     
-//    cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
-//    renderPassDescriptor.setColorAttachmentsLoadOp(cocos2d::backend::LoadOp::CLEAR);
-//    renderPassDescriptor.setColorAttachmentsClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-//    renderPassDescriptor.setDepthStencilAttachment(nullptr, cocos2d::backend::LoadOp::CLEAR, cocos2d::backend::LoadOp::LOAD);
-//    renderPassDescriptor.setDepthStencilAttachmentClearValue(1, 0);
-//    _renderPass = device->createRenderPass(renderPassDescriptor);
-//    _renderPass->retain();
+    cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
+    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
+    renderPassDescriptor.setDepthClearValue(1);
+    _renderPass = device->createRenderPass(renderPassDescriptor);
+    _renderPass->retain();
 }
 
 BasicBackend::~BasicBackend()
@@ -157,8 +155,7 @@ void BasicBackend::tick(float dt)
     _time += dt;
     float color[4] = {1.f, std::abs(std::sin(_time)), 0.f, 1.f};
     
-//    _commandBuffer->beginRenderPass(_renderPass);
-    _commandBuffer->beginRenderPass(nullptr);
+    _commandBuffer->beginRenderPass(_renderPass);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(_renderPipeline);
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);

@@ -305,11 +305,8 @@ BlendingBackend::BlendingBackend()
     _commandBuffer->retain();
     
     backend::RenderPassDescriptor renderPassDescriptorBigTriangl;
-    renderPassDescriptorBigTriangl.setColorAttachmentsClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptorBigTriangl.setDepthStencilAttachment(nullptr,
-                                                             cocos2d::backend::LoadOp::CLEAR,
-                                                             cocos2d::backend::LoadOp::LOAD);
-    renderPassDescriptorBigTriangl.setDepthStencilAttachmentClearValue(1, 0);
+    renderPassDescriptorBigTriangl.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
+    renderPassDescriptorBigTriangl.setDepthClearValue(1);
     _renderPassBigTriangle = device->createRenderPass(renderPassDescriptorBigTriangl);
     _renderPassBigTriangle->retain();
 }

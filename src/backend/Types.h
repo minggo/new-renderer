@@ -67,12 +67,6 @@ enum class VertexStepMode : uint32_t
     INSTANCE
 };
 
-enum class LoadOp : uint32_t
-{
-    CLEAR,
-    LOAD
-};
-
 enum class PrimitiveType : uint32_t
 {
     POINT,

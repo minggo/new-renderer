@@ -115,9 +115,8 @@ MultiTexturesBackend::MultiTexturesBackend()
     _commandBuffer->retain();
     
     backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setColorAttachmentsClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptor.setDepthStencilAttachment(nullptr, cocos2d::backend::LoadOp::CLEAR, cocos2d::backend::LoadOp::LOAD);
-    renderPassDescriptor.setDepthStencilAttachmentClearValue(1, 0);
+    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
+    renderPassDescriptor.setDepthClearValue(1);
     _renderPass = device->createRenderPass(renderPassDescriptor);
     _renderPass->retain();
 }

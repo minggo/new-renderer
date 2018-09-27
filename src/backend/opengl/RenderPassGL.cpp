@@ -71,7 +71,7 @@ void RenderPassGL::apply(GLuint defaultFrameBuffer) const
         
     // set clear color, depth and stencil
     GLbitfield mask = 0;
-    if (LoadOp::CLEAR == _colorAttachments.loadOp)
+    if (_colorAttachments.needClearColor)
     {
         mask |= GL_COLOR_BUFFER_BIT;
         const auto& clearColor = _colorAttachments.clearColor;
@@ -84,7 +84,7 @@ void RenderPassGL::apply(GLuint defaultFrameBuffer) const
     GLboolean oldDepthTest = GL_FALSE;
     GLfloat oldDepthClearValue = 0.f;
     GLint oldDepthFunc = GL_LESS;
-    if (LoadOp::CLEAR == _depthStencilAttachment.depthLoadOp)
+    if (_depthStencilAttachment.needClearDepth)
     {
         glGetBooleanv(GL_DEPTH_WRITEMASK, &oldDepthWrite);
         glGetBooleanv(GL_DEPTH_TEST, &oldDepthTest);
@@ -100,7 +100,7 @@ void RenderPassGL::apply(GLuint defaultFrameBuffer) const
     
     CHECK_GL_ERROR_DEBUG();
     
-    if (LoadOp::CLEAR == _depthStencilAttachment.stencilLoadOp)
+    if (_depthStencilAttachment.needClearStencil)
     {
         mask |= GL_STENCIL_BUFFER_BIT;
         glClearStencil(_depthStencilAttachment.clearStencil);
@@ -110,7 +110,7 @@ void RenderPassGL::apply(GLuint defaultFrameBuffer) const
     CHECK_GL_ERROR_DEBUG();
     
     // restore depth test
-    if (LoadOp::CLEAR == _depthStencilAttachment.depthLoadOp)
+    if (_depthStencilAttachment.needClearDepth)
     {
         if (!oldDepthTest)
             glDisable(GL_DEPTH_TEST);
