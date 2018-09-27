@@ -9,6 +9,7 @@
 
 #include "backend/metal/DeviceMTL.h"
 #include "../tests/TestBase.h"
+#include "../tests/Utils.h"
 
 #include "../tests/backend/BasicBackend.h"
 //#include "backend/Texture2DBackend.h"
@@ -76,6 +77,8 @@ int main(int argc, char * argv[])
         CGSize size;
         size.width = 960;
         size.height = 640;
+        utils::WINDOW_WIDTH = 960;
+        utils::WINDOW_HEIGHT = 640;
         
         CAMetalLayer* layer = [CAMetalLayer layer];
         [layer setDevice:MTLCreateSystemDefaultDevice()];
