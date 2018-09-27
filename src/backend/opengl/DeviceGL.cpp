@@ -1,8 +1,8 @@
-#include "../Device.h"
+#include "DeviceGL.h"
 #include "RenderPipelineGL.h"
 #include "BufferGL.h"
 #include "ShaderModuleGL.h"
-#include "CommandQueueGL.h"
+#include "CommandBufferGL.h"
 #include "RenderPassGL.h"
 #include "TextureGL.h"
 #include "SamplerGL.h"
@@ -11,26 +11,24 @@
 
 CC_BACKEND_BEGIN
 
-Device* Device::_instance = nullptr;
-
 Device* Device::getInstance()
 {
     if (!_instance)
-        _instance = new (std::nothrow) Device();
+        _instance = new (std::nothrow) DeviceGL();
     
     return _instance;
 }
 
-CommandQueue* Device::createCommandQueue()
+CommandBuffer* DeviceGL::createCommandBuffer()
 {
-    auto ret = new (std::nothrow) CommandQueueGL();
+    auto ret = new (std::nothrow) CommandBufferGL();
     if (ret)
         ret->autorelease();
     
     return ret;
 }
 
-Buffer* Device::createBuffer(uint32_t size, BufferType type, BufferUsage usage)
+Buffer* DeviceGL::createBuffer(uint32_t size, BufferType type, BufferUsage usage)
 {
     auto ret = new (std::nothrow) BufferGL(size, type, usage);
     if (ret)
@@ -39,7 +37,7 @@ Buffer* Device::createBuffer(uint32_t size, BufferType type, BufferUsage usage)
     return ret;
 }
 
-Texture* Device::createTexture(const TextureDescriptor& descriptor)
+Texture* DeviceGL::createTexture(const TextureDescriptor& descriptor)
 {
     auto ret = new (std::nothrow) TextureGL(descriptor);
     if (ret)
@@ -48,7 +46,7 @@ Texture* Device::createTexture(const TextureDescriptor& descriptor)
     return ret;
 }
 
-RenderPass* Device::createRenderPass(const RenderPassDescriptor& descriptor)
+RenderPass* DeviceGL::createRenderPass(const RenderPassDescriptor& descriptor)
 {
     auto ret = new (std::nothrow) RenderPassGL(descriptor);
     if (ret)
@@ -57,7 +55,7 @@ RenderPass* Device::createRenderPass(const RenderPassDescriptor& descriptor)
     return ret;
 }
 
-ShaderModule* Device::createShaderModule(ShaderStage stage, const std::string& source)
+ShaderModule* DeviceGL::createShaderModule(ShaderStage stage, const std::string& source)
 {
     auto ret = new (std::nothrow) ShaderModuleGL(stage, source);
     if (ret)
@@ -66,7 +64,7 @@ ShaderModule* Device::createShaderModule(ShaderStage stage, const std::string& s
     return ret;
 }
 
-DepthStencilState* Device::createDepthStencilState(const DepthStencilDescriptor& descriptor)
+DepthStencilState* DeviceGL::createDepthStencilState(const DepthStencilDescriptor& descriptor)
 {
     auto ret = new (std::nothrow) DepthStencilStateGL(descriptor);
     if (ret)
@@ -75,7 +73,7 @@ DepthStencilState* Device::createDepthStencilState(const DepthStencilDescriptor&
     return ret;
 }
 
-BlendState* Device::createBlendState(const BlendDescriptor& descriptor)
+BlendState* DeviceGL::createBlendState(const BlendDescriptor& descriptor)
 {
     auto ret = new (std::nothrow) BlendStateGL(descriptor);
     if (ret)
@@ -84,7 +82,7 @@ BlendState* Device::createBlendState(const BlendDescriptor& descriptor)
     return ret;
 }
 
-RenderPipeline* Device::createRenderPipeline(const RenderPipelineDescriptor& descriptor)
+RenderPipeline* DeviceGL::createRenderPipeline(const RenderPipelineDescriptor& descriptor)
 {
     auto ret = new (std::nothrow) RenderPipelineGL(descriptor);
     if (ret)
@@ -93,7 +91,7 @@ RenderPipeline* Device::createRenderPipeline(const RenderPipelineDescriptor& des
     return ret;
 }
 
-Sampler* Device::createSampler(const SamplerDescriptor &descriptor)
+Sampler* DeviceGL::createSampler(const SamplerDescriptor &descriptor)
 {
     auto ret = new (std::nothrow) SamplerGL(descriptor);
     if (ret)

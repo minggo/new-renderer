@@ -157,15 +157,14 @@ Texture2DBackendTest::Texture2DBackendTest()
     _renderPass = device->createRenderPass(renderPassDescriptor);
     _renderPass->retain();
     
-    _commandQueue = device->createCommandQueue();
-    _commandBuffer = _commandQueue->createCommandBuffer();
+    _commandBuffer = device->createCommandBuffer();
+    _commandBuffer->retain();
 }
 
 Texture2DBackendTest::~Texture2DBackendTest()
 {
     CC_SAFE_RELEASE(_renderPipeline);
     CC_SAFE_RELEASE(_commandBuffer);
-    CC_SAFE_RELEASE(_commandQueue);
     CC_SAFE_RELEASE(_renderPass);
     CC_SAFE_RELEASE(_vertexBuffer);
     CC_SAFE_RELEASE(_canvasTexture);

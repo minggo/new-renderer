@@ -160,21 +160,21 @@ void TextureGL::toGLTypes()
             _format = GL_RGB;
             _type = GL_UNSIGNED_BYTE;
             break;
-        case TextureFormat::R5G5B5A1:
-            _internalFormat = GL_RGBA;
-            _format = GL_RGBA;
-            _type = GL_UNSIGNED_SHORT_5_5_5_1;
-            break;
-        case TextureFormat::R4G4B4A4:
-            _internalFormat = GL_RGBA;
-            _format = GL_RGBA;
-            _type = GL_UNSIGNED_SHORT_4_4_4_4;
-            break;
-        case TextureFormat::R5G6B5:
-            _internalFormat = GL_RGB;
-            _format = GL_RGB;
-            _type = GL_UNSIGNED_SHORT_5_6_5;
-            break;
+//        case TextureFormat::R5G5B5A1:
+//            _internalFormat = GL_RGBA;
+//            _format = GL_RGBA;
+//            _type = GL_UNSIGNED_SHORT_5_5_5_1;
+//            break;
+//        case TextureFormat::R4G4B4A4:
+//            _internalFormat = GL_RGBA;
+//            _format = GL_RGBA;
+//            _type = GL_UNSIGNED_SHORT_4_4_4_4;
+//            break;
+//        case TextureFormat::R5G6B5:
+//            _internalFormat = GL_RGB;
+//            _format = GL_RGB;
+//            _type = GL_UNSIGNED_SHORT_5_6_5;
+//            break;
         case TextureFormat::A8:
             _internalFormat = GL_ALPHA;
             _format = GL_ALPHA;

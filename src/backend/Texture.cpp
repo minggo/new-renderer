@@ -18,9 +18,9 @@ namespace
             case TextureFormat::A8:
                 ret = 1;
                 break;
-            case TextureFormat::R5G5B5A1:
-            case TextureFormat::R4G4B4A4:
-            case TextureFormat::R5G6B5:
+//            case TextureFormat::R5G5B5A1:
+//            case TextureFormat::R4G4B4A4:
+//            case TextureFormat::R5G6B5:
             case TextureFormat::D16:
                 ret = 2;
                 break;

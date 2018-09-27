@@ -10,8 +10,8 @@ CC_BACKEND_BEGIN
 class RenderPipeline : public cocos2d::Ref
 {
 protected:
-    RenderPipeline() {}
-    virtual ~RenderPipeline() {}
+    RenderPipeline() = default;
+    virtual ~RenderPipeline() = default;
 };
 
 CC_BACKEND_END

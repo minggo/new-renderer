@@ -26,7 +26,6 @@
 #include "BasicBackend.h"
 #include "../Utils.h"
 
-#include "backend/CommandQueue.h"
 #include "backend/RenderPipelineDescriptor.h"
 #include "backend/RenderPassDescriptor.h"
 #include "backend/ShaderModule.h"
@@ -39,6 +38,7 @@ using namespace cocos2d;
 BasicBackend::BasicBackend()
 : _time(0.f)
 {
+#if 0
     const char* vert = R"(
         #ifdef GL_ES
         precision highp float;
@@ -61,6 +61,56 @@ BasicBackend::BasicBackend()
         }
     )";
     
+#else
+    const char* vert = R"(
+    #include <metal_stdlib>
+    #include <simd/simd.h>
+    
+    using namespace metal;
+    
+    typedef struct
+    {
+        float4 position [[position]];
+    } VertexData;
+    
+    typedef struct
+    {
+        // Positions in pixel space (i.e. a value of 100 indicates 100 pixels from the origin/center)
+        vector_float2 position;
+    } AAPLVertex;
+    
+    vertex VertexData
+    main0(uint vertexID [[vertex_id]],
+          constant AAPLVertex *vertexArray [[ buffer(0) ]])
+    {
+        VertexData out;
+        out.position.xy = vertexArray[vertexID].position.xy;
+        out.position.z = 0.0;
+        out.position.w = 1.0;
+        
+        return out;
+    }
+    )";
+    
+    const char* frag = R"(
+        #include <metal_stdlib>
+        #include <simd/simd.h>
+    
+        using namespace metal;
+    
+        typedef struct
+        {
+            float4 position [[position]];
+        } VertexData;
+    
+        fragment float4
+        main0(VertexData in [[stage_in]])
+        {
+            return float4(1.0, 0.0, 0.0, 1.0);
+        }
+    )";
+#endif
+    
     auto device = cocos2d::backend::Device::getInstance();
     
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
@@ -72,13 +122,12 @@ BasicBackend::BasicBackend()
     cocos2d::backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(sizeof(float) * 2, cocos2d::backend::VertexStepMode::VERTEX);
-    renderPipelineDescriptor.setVertexLayout(1, vertexLayout);
+    renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
     
     _renderPipeline = device->createRenderPipeline(renderPipelineDescriptor);
     _renderPipeline->retain();
     
-    auto commandQueue = device->createCommandQueue();
-    _commandBuffer = commandQueue->createCommandBuffer();
+    _commandBuffer = device->createCommandBuffer();
     _commandBuffer->retain();
 
     float data[] = {-1, 0, 0, -1, 1, 1};
@@ -86,13 +135,13 @@ BasicBackend::BasicBackend()
     _vertexBuffer->updateData((uint8_t*)data, sizeof(data));
     _vertexBuffer->retain();
     
-    cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setColorAttachmentsLoadOp(cocos2d::backend::LoadOp::CLEAR);
-    renderPassDescriptor.setColorAttachmentsClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-    renderPassDescriptor.setDepthStencilAttachment(nullptr, cocos2d::backend::LoadOp::CLEAR, cocos2d::backend::LoadOp::LOAD);
-    renderPassDescriptor.setDepthStencilAttachmentClearValue(1, 0);
-    _renderPass = device->createRenderPass(renderPassDescriptor);
-    _renderPass->retain();
+//    cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
+//    renderPassDescriptor.setColorAttachmentsLoadOp(cocos2d::backend::LoadOp::CLEAR);
+//    renderPassDescriptor.setColorAttachmentsClearColor(0.1f, 0.1f, 0.1f, 0.1f);
+//    renderPassDescriptor.setDepthStencilAttachment(nullptr, cocos2d::backend::LoadOp::CLEAR, cocos2d::backend::LoadOp::LOAD);
+//    renderPassDescriptor.setDepthStencilAttachmentClearValue(1, 0);
+//    _renderPass = device->createRenderPass(renderPassDescriptor);
+//    _renderPass->retain();
 }
 
 BasicBackend::~BasicBackend()
@@ -108,10 +157,11 @@ void BasicBackend::tick(float dt)
     _time += dt;
     float color[4] = {1.f, std::abs(std::sin(_time)), 0.f, 1.f};
     
-    _commandBuffer->beginRenderPass(_renderPass);
+//    _commandBuffer->beginRenderPass(_renderPass);
+    _commandBuffer->beginRenderPass(nullptr);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(_renderPipeline);
-    _commandBuffer->setVertexBuffer(1, _vertexBuffer);
+    _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     _bindGroup.setUniform("color", 0, color, sizeof(color));
     _commandBuffer->setBindGroup(&_bindGroup);
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 3);

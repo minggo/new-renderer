@@ -22,7 +22,6 @@ public:
     void setVertexLayout(uint32_t index, const VertexLayout& vertexLayout);
     void setDepthStencilState(DepthStencilState* depthStencilState);
     void setBlendState(BlendState* blendState);
-//    void setDepthStencilAttatmentFormat(PixelFormat format);
     
     inline ShaderModule* getVertexShaderModule() const { return _vertexShaderModule; }
     inline ShaderModule* getFragmentShaderModule() const { return _fragmentShaderModule; }

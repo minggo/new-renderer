@@ -7,7 +7,6 @@
 #include "backend/RenderPipelineDescriptor.h"
 #include "backend/Device.h"
 #include "backend/Types.h"
-#include "backend/CommandQueue.h"
 #include "backend/CommandBuffer.h"
 #include "backend/Buffer.h"
 #include "backend/VertexLayout.h"

@@ -111,9 +111,7 @@ MultiTexturesBackend::MultiTexturesBackend()
     _transform.translate(0, 0, 0);
     _transform.scale(0.5, 0.5, 0.5);
     
-    _commandQueue = device->createCommandQueue();
-    _commandQueue->retain();
-    _commandBuffer = _commandQueue->createCommandBuffer();
+    _commandBuffer = device->createCommandBuffer();
     _commandBuffer->retain();
     
     backend::RenderPassDescriptor renderPassDescriptor;
@@ -127,7 +125,6 @@ MultiTexturesBackend::MultiTexturesBackend()
 MultiTexturesBackend::~MultiTexturesBackend()
 {
     CC_SAFE_RELEASE(_renderPipeline);
-    CC_SAFE_RELEASE(_commandQueue);
     CC_SAFE_RELEASE(_commandBuffer);
     CC_SAFE_RELEASE(_texture1);
     CC_SAFE_RELEASE(_background);

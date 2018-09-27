@@ -118,15 +118,12 @@ BunnyBackend::BunnyBackend()
     _indexBuffer->updateData((void*)&bunny_cells[0], sizeof(bunny_cells));
     _indexBuffer->retain();
     
-    _commandQueue = device->createCommandQueue();
-    _commandQueue->retain();
-    _commandBuffer = _commandQueue->createCommandBuffer();
+    _commandBuffer = device->createCommandBuffer();
     _commandBuffer->retain();
 }
 
 BunnyBackend::~BunnyBackend()
 {
-    CC_SAFE_RELEASE(_commandQueue);
     CC_SAFE_RELEASE(_commandBuffer);
     CC_SAFE_RELEASE(_renderPass);
     CC_SAFE_RELEASE(_indexBuffer);

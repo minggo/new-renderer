@@ -80,19 +80,6 @@ void CommandBufferGL::beginRenderPass(RenderPass *renderPass)
         static_cast<RenderPassGL*>(renderPass)->apply(_defaultFBO);
 }
 
-void CommandBufferGL::setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
-{
-    _viewport.x = x;
-    _viewport.y = y;
-    _viewport.w = w;
-    _viewport.h = h;
-}
-
-void CommandBufferGL::setStencilReferenceValue(uint32_t value)
-{
-    _stencilReferenceValueBack = _stencilReferenceValueFront = value;
-}
-
 void CommandBufferGL::setRenderPipeline(RenderPipeline* renderPipeline)
 {
     assert(renderPipeline != nullptr);
@@ -103,6 +90,14 @@ void CommandBufferGL::setRenderPipeline(RenderPipeline* renderPipeline)
     rp->retain();
     CC_SAFE_RELEASE(_renderPipeline);
     _renderPipeline = rp;
+}
+
+void CommandBufferGL::setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+{
+    _viewport.x = x;
+    _viewport.y = y;
+    _viewport.w = w;
+    _viewport.h = h;
 }
 
 void CommandBufferGL::setIndexBuffer(uint32_t index, Buffer* buffer)
@@ -213,10 +208,6 @@ void CommandBufferGL::prepareDrawing() const
             const auto& bindUniformTextureInfo = texutreInfos.find(activeUinform.name);
             if (texutreInfos.end() != bindUniformTextureInfo)
             {
-//                const auto& texture = (*bindUniformTextureInfo).second.texture;
-//                const auto& textureGL = static_cast<TextureGL*>(texture);
-//                uint32_t index = (*bindUniformTextureInfo).second.index;
-//                textureGL->apply(index);
                 const auto& textures = (*bindUniformTextureInfo).second.textures;
                 const auto& indices = (*bindUniformTextureInfo).second.indices;
                 

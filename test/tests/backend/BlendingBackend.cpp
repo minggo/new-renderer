@@ -274,12 +274,10 @@ namespace
 BlendingBackend::BlendingBackend()
 : _dt(0.f)
 {
-    if (bigTriangle)
-        delete bigTriangle;
+    delete bigTriangle;
     bigTriangle = new BigTriangle();
     
-    if (quad)
-        delete quad;
+    delete quad;
     quad = new Quad();
     
     auto device = backend::Device::getInstance();
@@ -303,9 +301,7 @@ BlendingBackend::BlendingBackend()
     _sprite0->updateData(utils::loadData("assets/sprite0.png").getBytes());
     _sprite0->retain();
     
-    _commandQueue = device->createCommandQueue();
-    _commandQueue->retain();
-    _commandBuffer = _commandQueue->createCommandBuffer();
+    _commandBuffer = device->createCommandBuffer();
     _commandBuffer->retain();
     
     backend::RenderPassDescriptor renderPassDescriptorBigTriangl;
@@ -321,15 +317,11 @@ BlendingBackend::BlendingBackend()
 BlendingBackend::~BlendingBackend()
 {
     delete bigTriangle;
-    bigTriangle = nullptr;
-    
     delete quad;
-    quad = nullptr;
     
     CC_SAFE_RELEASE(_backgroud);
     CC_SAFE_RELEASE(_sprite0);
     CC_SAFE_RELEASE(_commandBuffer);
-    CC_SAFE_RELEASE(_commandQueue);
     CC_SAFE_RELEASE(_renderPassBigTriangle);
 }
 

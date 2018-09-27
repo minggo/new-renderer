@@ -24,6 +24,7 @@ enum class ShaderStage : uint32_t
     FRAGMENT
 };
 
+//TODO: simplify name
 enum class VertexFormat : uint32_t
 {
     FLOAT_R32G32B32A32,
@@ -48,15 +49,6 @@ enum class TextureFormat : uint32_t
     R8G8B8,
     // One 8-bit normalized unsigned integer component.
     A8,
-    // Packed 16-bit format with normalized unsigned integer color components: 5 bits for red,
-    // 6 bits for green, 5 bits in blue, packed into 16 bits.
-    R5G6B5,
-    // Packed 16-bit format with normalized unsigned integer color components: 4 bits each for
-    // RGBA, packed into 16 bits.
-    R4G4B4A4,
-    // Packed 16-bit format with normalized unsigned integer color components: 5 bits each for
-    // RGB and 1 bit for alpha, packed into 16 bits.
-    R5G5B5A1,
     // A 16-bit depth format with one normallized unsigned integer component, typically used for
     // a depth render target.
     D16

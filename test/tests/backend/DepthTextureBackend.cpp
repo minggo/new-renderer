@@ -246,9 +246,7 @@ DepthTextureBackend::DepthTextureBackend()
     _renderPassBigTriangle = device->createRenderPass(renderPassDescriptorBigTriangle);
     _renderPassBigTriangle->retain();
     
-    _commandQueue = device->createCommandQueue();
-    _commandQueue->retain();
-    _commandBuffer = _commandQueue->createCommandBuffer();
+    _commandBuffer = device->createCommandBuffer();
     _commandBuffer->retain();
     
     bunny = new Bunny();
@@ -264,7 +262,6 @@ DepthTextureBackend::~DepthTextureBackend()
     CC_SAFE_RELEASE(_renderPassBunny1);
     CC_SAFE_RELEASE(_renderPassBunny2);
     CC_SAFE_RELEASE(_renderPassBigTriangle);
-    CC_SAFE_RELEASE(_commandQueue);
     CC_SAFE_RELEASE(_commandBuffer);
 }
 

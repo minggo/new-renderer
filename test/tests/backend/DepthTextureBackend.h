@@ -52,6 +52,5 @@ private:
     cocos2d::backend::RenderPass* _renderPassBigTriangle = nullptr;
     cocos2d::backend::BindGroup _bindGroupBunny;
     cocos2d::backend::BindGroup _bindGroupBigTriangle;
-    cocos2d::backend::CommandQueue* _commandQueue = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
 };

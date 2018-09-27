@@ -31,6 +31,7 @@ public:
     };
     
     void setAtrribute(const std::string& name, uint32_t index, VertexFormat format, uint32_t offset);
+    //FIXME: remove stepMode?
     void setLayout(uint32_t stride, VertexStepMode stepMode);
     
     inline uint32_t getStride() const { return _stride; }

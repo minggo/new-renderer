@@ -31,7 +31,6 @@
 #include "backend/RenderPass.h"
 #include "backend/BindGroup.h"
 #include "backend/CommandBuffer.h"
-#include "backend/CommandQueue.h"
 
 #include "math/Mat4.h"
 
@@ -57,7 +56,6 @@ private:
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::RenderPass* _renderPass = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
-    cocos2d::backend::CommandQueue* _commandQueue = nullptr;
 };
 
 

@@ -28,7 +28,6 @@
 #include "backend/RenderPipeline.h"
 #include "backend/RenderPass.h"
 #include "backend/Buffer.h"
-#include "backend/CommandQueue.h"
 #include "backend/CommandBuffer.h"
 #include "backend/DepthStencilState.h"
 #include "backend/BindGroup.h"
@@ -46,7 +45,6 @@ public:
 private:
     cocos2d::backend::Buffer* _vertexBuffer = nullptr;
     cocos2d::backend::Buffer* _indexBuffer = nullptr;
-    cocos2d::backend::CommandQueue* _commandQueue = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::DepthStencilState* _depthStencilState = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
