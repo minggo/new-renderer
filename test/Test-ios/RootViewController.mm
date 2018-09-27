@@ -27,7 +27,7 @@ namespace
         tests = {
             MultiTexturesBackend::create,
             BlendingBackend::create,
-            BasicBackend::create,
+//            BasicBackend::create,
             BunnyBackend::create,
             Texture2DBackendTest::create,
             DepthTextureBackend::create,
