@@ -85,15 +85,13 @@ BunnyBackend::BunnyBackend()
     renderPipelineDescriptor.setVertexShaderModule(vs);
     renderPipelineDescriptor.setFragmentShaderModule(fs);
     
-    _renderPipeline = device->createRenderPipeline(renderPipelineDescriptor);
-    _renderPipeline->retain();
+    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     
     // render pass
     cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     renderPassDescriptor.setDepthClearValue(1.f);
-    _renderPass = device->createRenderPass(renderPassDescriptor);
-    _renderPass->retain();
+    _renderPass = device->newRenderPass(renderPassDescriptor);
     
     // bind group
     _bindGroup.setUniform("model", 0, _model.m, sizeof(_model.m));
@@ -103,21 +101,18 @@ BunnyBackend::BunnyBackend()
     _bindGroup.setUniform("color", 3, color, sizeof(color));
 
     // vertex buffer
-    _vertexBuffer = device->createBuffer(sizeof(bunny_positions),
-                                         cocos2d::backend::BufferType::VERTEX,
-                                         cocos2d::backend::BufferUsage::READ);
+    _vertexBuffer = device->newBuffer(sizeof(bunny_positions),
+                                      cocos2d::backend::BufferType::VERTEX,
+                                      cocos2d::backend::BufferUsage::READ);
     _vertexBuffer->updateData((void*)&bunny_positions[0][0], sizeof(bunny_positions));
-    _vertexBuffer->retain();
 
     // index buffer
-    _indexBuffer = device->createBuffer(sizeof(bunny_cells),
-                                        cocos2d::backend::BufferType::INDEX,
-                                        cocos2d::backend::BufferUsage::READ);
+    _indexBuffer = device->newBuffer(sizeof(bunny_cells),
+                                     cocos2d::backend::BufferType::INDEX,
+                                     cocos2d::backend::BufferUsage::READ);
     _indexBuffer->updateData((void*)&bunny_cells[0], sizeof(bunny_cells));
-    _indexBuffer->retain();
     
-    _commandBuffer = device->createCommandBuffer();
-    _commandBuffer->retain();
+    _commandBuffer = device->newCommandBuffer();
 }
 
 BunnyBackend::~BunnyBackend()

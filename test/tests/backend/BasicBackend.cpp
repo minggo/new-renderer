@@ -23,6 +23,7 @@
  ****************************************************************************/
 
 #include <vector>
+#include "platform/CCPlatformConfig.h"
 #include "BasicBackend.h"
 #include "../Utils.h"
 
@@ -38,7 +39,7 @@ using namespace cocos2d;
 BasicBackend::BasicBackend()
 : _time(0.f)
 {
-#if 0
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_MAC)
     const char* vert = R"(
         #ifdef GL_ES
         precision highp float;
@@ -124,22 +125,18 @@ BasicBackend::BasicBackend()
     vertexLayout.setLayout(sizeof(float) * 2, cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
     
-    _renderPipeline = device->createRenderPipeline(renderPipelineDescriptor);
-    _renderPipeline->retain();
+    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     
-    _commandBuffer = device->createCommandBuffer();
-    _commandBuffer->retain();
+    _commandBuffer = device->newCommandBuffer();
 
     float data[] = {-1, 0, 0, -1, 1, 1};
-    _vertexBuffer = device->createBuffer(sizeof(data), cocos2d::backend::BufferType::VERTEX, cocos2d::backend::BufferUsage::READ);
+    _vertexBuffer = device->newBuffer(sizeof(data), cocos2d::backend::BufferType::VERTEX, cocos2d::backend::BufferUsage::READ);
     _vertexBuffer->updateData((uint8_t*)data, sizeof(data));
-    _vertexBuffer->retain();
     
     cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     renderPassDescriptor.setDepthClearValue(1);
-    _renderPass = device->createRenderPass(renderPassDescriptor);
-    _renderPass->retain();
+    _renderPass = device->newRenderPass(renderPassDescriptor);
 }
 
 BasicBackend::~BasicBackend()

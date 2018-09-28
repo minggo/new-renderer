@@ -71,15 +71,13 @@ MultiTexturesBackend::MultiTexturesBackend()
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
     
-    _renderPipeline = device->createRenderPipeline(renderPipelineDescriptor);
-    _renderPipeline->retain();
+    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
 
     float vertices[] = {-1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1};
-    _vertexBuffer = device->createBuffer(sizeof(vertices),
+    _vertexBuffer = device->newBuffer(sizeof(vertices),
                                          cocos2d::backend::BufferType::VERTEX,
                                          cocos2d::backend::BufferUsage::READ);
     _vertexBuffer->updateData(vertices, sizeof(vertices));
-    _vertexBuffer->retain();
     
     // textures
 
@@ -87,9 +85,8 @@ MultiTexturesBackend::MultiTexturesBackend()
     textureDescriptor1.width = 1024;
     textureDescriptor1.height = 1024;
     textureDescriptor1.textureFormat = backend::TextureFormat::R8G8B8;
-    _texture1 = device->createTexture(textureDescriptor1);
+    _texture1 = device->newTexture(textureDescriptor1);
     _texture1->updateData(utils::loadData("assets/uv_checker_01.jpg").getBytes());
-    _texture1->retain();
     
     int dataSize = 512 * 512 * 3;
     uint8_t data[dataSize];
@@ -103,22 +100,19 @@ MultiTexturesBackend::MultiTexturesBackend()
     textureDescriptor2.width = 512;
     textureDescriptor2.height = 512;
     textureDescriptor2.textureFormat = backend::TextureFormat::R8G8B8;
-    _background = device->createTexture(textureDescriptor2);
+    _background = device->newTexture(textureDescriptor2);
     _background->updateData(data);
-    _background->retain();
     
     _transform = cocos2d::Mat4::IDENTITY;
     _transform.translate(0, 0, 0);
     _transform.scale(0.5, 0.5, 0.5);
     
-    _commandBuffer = device->createCommandBuffer();
-    _commandBuffer->retain();
+    _commandBuffer = device->newCommandBuffer();
     
     backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
     renderPassDescriptor.setDepthClearValue(1);
-    _renderPass = device->createRenderPass(renderPassDescriptor);
-    _renderPass->retain();
+    _renderPass = device->newRenderPass(renderPassDescriptor);
 }
 
 MultiTexturesBackend::~MultiTexturesBackend()

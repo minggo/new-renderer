@@ -87,8 +87,7 @@ namespace
             blendDescriptorNoBlending.destinationAlphaBlendFactor = backend::BlendFactor::ZERO;
             auto blendStateNoBlending = device->createBlendState(blendDescriptorNoBlending);
             renderPipelineDescriptor.setBlendState(blendStateNoBlending);
-            renderPipelineNoBlending = device->createRenderPipeline(renderPipelineDescriptor);
-            renderPipelineNoBlending->retain();
+            renderPipelineNoBlending = device->newRenderPipeline(renderPipelineDescriptor);
 
             backend::BlendDescriptor blendDescriptorNormal;
             blendDescriptorNormal.blendEnabled = true;
@@ -100,8 +99,7 @@ namespace
             blendDescriptorNormal.destinationRGBBlendFactor = backend::BlendFactor::ONE;
             auto blendStateNormal = device->createBlendState(blendDescriptorNormal);
             renderPipelineDescriptor.setBlendState(blendStateNormal);
-            renderPipelineNormal = device->createRenderPipeline(renderPipelineDescriptor);
-            renderPipelineNormal->retain();
+            renderPipelineNormal = device->newRenderPipeline(renderPipelineDescriptor);
             
             backend::BlendDescriptor blendDescriptorAddtive;
             blendDescriptorAddtive.blendEnabled = true;
@@ -113,8 +111,7 @@ namespace
             blendDescriptorAddtive.destinationAlphaBlendFactor = backend::BlendFactor::ONE;
             auto blendStateAddtive = device->createBlendState(blendDescriptorAddtive);
             renderPipelineDescriptor.setBlendState(blendStateAddtive);
-            renderPipelineAddtive = device->createRenderPipeline(renderPipelineDescriptor);
-            renderPipelineAddtive->retain();
+            renderPipelineAddtive = device->newRenderPipeline(renderPipelineDescriptor);
             
             backend::BlendDescriptor blendDescriptorSubstract;
             blendDescriptorSubstract.blendEnabled = true;
@@ -126,8 +123,7 @@ namespace
             blendDescriptorSubstract.destinationAlphaBlendFactor = backend::BlendFactor::ONE;
             auto blendStateSubstract = device->createBlendState(blendDescriptorSubstract);
             renderPipelineDescriptor.setBlendState(blendStateSubstract);
-            renderPipelineSubstract = device->createRenderPipeline(renderPipelineDescriptor);
-            renderPipelineSubstract->retain();
+            renderPipelineSubstract = device->newRenderPipeline(renderPipelineDescriptor);
             
             backend::BlendDescriptor blendDescriptorMultiply;
             blendDescriptorMultiply.blendEnabled = true;
@@ -139,8 +135,7 @@ namespace
             blendDescriptorMultiply.destinationAlphaBlendFactor = backend::BlendFactor::ONE;
             auto blendStateMultiply = device->createBlendState(blendDescriptorMultiply);
             renderPipelineDescriptor.setBlendState(blendStateMultiply);
-            renderPipelineMultiply = device->createRenderPipeline(renderPipelineDescriptor);
-            renderPipelineMultiply->retain();
+            renderPipelineMultiply = device->newRenderPipeline(renderPipelineDescriptor);
             
             float vertices[] = {
                 -0.5f, -0.5f,   0,   0,
@@ -148,18 +143,16 @@ namespace
                  0.5f,  0.5f, 1.f, 1.f,
                  0.5f, -0.5f, 1.f,   0
             };
-            vertexBuffer = device->createBuffer(sizeof(vertices),
-                                                cocos2d::backend::BufferType::VERTEX,
-                                                cocos2d::backend::BufferUsage::READ);
-            vertexBuffer->retain();
+            vertexBuffer = device->newBuffer(sizeof(vertices),
+                                             cocos2d::backend::BufferType::VERTEX,
+                                             cocos2d::backend::BufferUsage::READ);
             vertexBuffer->updateData(vertices, sizeof(vertices));
             
             uint8_t indices[] = {0, 3, 1, 1, 3, 2};
-            indexBuffer = device->createBuffer(sizeof(indices),
-                                               cocos2d::backend::BufferType::INDEX,
-                                               cocos2d::backend::BufferUsage::READ);
+            indexBuffer = device->newBuffer(sizeof(indices),
+                                            cocos2d::backend::BufferType::INDEX,
+                                            cocos2d::backend::BufferUsage::READ);
             indexBuffer->updateData(indices, sizeof(indices));
-            indexBuffer->retain();
         }
         
         ~Quad()
@@ -227,19 +220,17 @@ namespace
             vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
             renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
             
-            renderPipeline = device->createRenderPipeline(renderPipelineDescriptor);
-            renderPipeline->retain();
+            renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
             
             float vertices[] = {
                 -1, 4,
                 -1, -1,
                 4, -1
             };
-            vertexBuffer = device->createBuffer(sizeof(vertices),
-                                                cocos2d::backend::BufferType::VERTEX,
-                                                cocos2d::backend::BufferUsage::READ);
+            vertexBuffer = device->newBuffer(sizeof(vertices),
+                                            cocos2d::backend::BufferType::VERTEX,
+                                            cocos2d::backend::BufferUsage::READ);
             vertexBuffer->updateData(vertices, sizeof(vertices));
-            vertexBuffer->retain();
         }
         
         ~BigTriangle()
@@ -289,32 +280,30 @@ BlendingBackend::BlendingBackend()
     textureDescriptorBackgroud.samplerDescriptor.sAddressMode = backend::SamplerAddressMode::REPEAT;
     textureDescriptorBackgroud.samplerDescriptor.mipmapFilter = backend::SamplerFilter::LINEAR;
     textureDescriptorBackgroud.textureFormat = backend::TextureFormat::R8G8B8;
-    _backgroud = device->createTexture(textureDescriptorBackgroud);
+    _backgroud = device->newTexture(textureDescriptorBackgroud);
     _backgroud->updateData(utils::loadData("assets/background.png").getBytes());
-    _backgroud->retain();
     
     backend::TextureDescriptor textureDescriptorSprite0;
     textureDescriptorSprite0.width = 128;
     textureDescriptorSprite0.height = 128;
     textureDescriptorSprite0.textureFormat = backend::TextureFormat::R8G8B8A8;
-    _sprite0 = device->createTexture(textureDescriptorSprite0);
+    _sprite0 = device->newTexture(textureDescriptorSprite0);
     _sprite0->updateData(utils::loadData("assets/sprite0.png").getBytes());
-    _sprite0->retain();
     
-    _commandBuffer = device->createCommandBuffer();
-    _commandBuffer->retain();
+    _commandBuffer = device->newCommandBuffer();
     
     backend::RenderPassDescriptor renderPassDescriptorBigTriangl;
     renderPassDescriptorBigTriangl.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
     renderPassDescriptorBigTriangl.setDepthClearValue(1);
-    _renderPassBigTriangle = device->createRenderPass(renderPassDescriptorBigTriangl);
-    _renderPassBigTriangle->retain();
+    _renderPassBigTriangle = device->newRenderPass(renderPassDescriptorBigTriangl);
 }
 
 BlendingBackend::~BlendingBackend()
 {
     delete bigTriangle;
+    bigTriangle = nullptr;
     delete quad;
+    quad = nullptr;
     
     CC_SAFE_RELEASE(_backgroud);
     CC_SAFE_RELEASE(_sprite0);

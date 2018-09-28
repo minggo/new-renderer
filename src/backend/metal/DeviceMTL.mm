@@ -56,36 +56,24 @@ DeviceMTL::~DeviceMTL()
 {
 }
 
-CommandBuffer* DeviceMTL::createCommandBuffer()
+CommandBuffer* DeviceMTL::newCommandBuffer()
 {
-    auto ret = new (std::nothrow) CommandBufferMTL(_mtlDevice);
-    if (ret)
-        ret->autorelease();
-    
-    return ret;
+    return new (std::nothrow) CommandBufferMTL(_mtlDevice);
 }
 
-Buffer* DeviceMTL::createBuffer(uint32_t size, BufferType type, BufferUsage usage)
+Buffer* DeviceMTL::newBuffer(uint32_t size, BufferType type, BufferUsage usage)
 {
-    auto ret = new (std::nothrow) BufferMTL(_mtlDevice, size, type, usage);
-    if (ret)
-        ret->autorelease();
-    
-    return ret;
+    return new (std::nothrow) BufferMTL(_mtlDevice, size, type, usage);
 }
 
-Texture* DeviceMTL::createTexture(const TextureDescriptor& descriptor)
+Texture* DeviceMTL::newTexture(const TextureDescriptor& descriptor)
 {
     return nullptr;
 }
 
-RenderPass* DeviceMTL::createRenderPass(const RenderPassDescriptor& descriptor)
+RenderPass* DeviceMTL::newRenderPass(const RenderPassDescriptor& descriptor)
 {
-    auto ret = new (std::nothrow) RenderPassMTL(descriptor);
-    if (ret)
-        ret->autorelease();
-    
-    return ret;
+    return new (std::nothrow) RenderPassMTL(descriptor);
 }
 
 ShaderModule* DeviceMTL::createShaderModule(ShaderStage stage, const std::string& source)
@@ -107,13 +95,9 @@ BlendState* DeviceMTL::createBlendState(const BlendDescriptor& descriptor)
     return nullptr;
 }
 
-RenderPipeline* DeviceMTL::createRenderPipeline(const RenderPipelineDescriptor& descriptor)
+RenderPipeline* DeviceMTL::newRenderPipeline(const RenderPipelineDescriptor& descriptor)
 {
-    auto ret = new (std::nothrow) RenderPipelineMTL(_mtlDevice, descriptor);
-    if (ret)
-        ret->autorelease();
-    
-    return ret;
+    return new (std::nothrow) RenderPipelineMTL(_mtlDevice, descriptor);
 }
 
 Sampler* DeviceMTL::createSampler(const SamplerDescriptor &descriptor)

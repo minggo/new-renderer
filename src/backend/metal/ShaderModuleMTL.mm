@@ -17,8 +17,8 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
         return;
     }
     
+    //TODO: change function name with the name generate by SPIR-V cross.
     _mtlFunction = [library newFunctionWithName:@"main0"];
-    
 }
 
 CC_BACKEND_END

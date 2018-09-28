@@ -82,16 +82,14 @@ namespace
             vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
             renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
             
-            renderPipeline = device->createRenderPipeline(renderPipelineDescriptor);
-            renderPipeline->retain();
+            renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
             
             // vertex buffer
             float vertices[] = {-1, 4, -1, -1, 4, -1};
-            vertexBuffer = device->createBuffer(sizeof(vertices),
-                                                cocos2d::backend::BufferType::VERTEX,
-                                                cocos2d::backend::BufferUsage::READ);
+            vertexBuffer = device->newBuffer(sizeof(vertices),
+                                             cocos2d::backend::BufferType::VERTEX,
+                                             cocos2d::backend::BufferUsage::READ);
             vertexBuffer->updateData(vertices, sizeof(vertices));
-            vertexBuffer->retain();
         }
         
         ~BigTriangle()
@@ -158,22 +156,20 @@ namespace
             auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
             renderPipelineDescriptor.setDepthStencilState(depthStencilState);
             
-            renderPipeline = device->createRenderPipeline(renderPipelineDescriptor);
+            renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
             renderPipeline->retain();
             
             // vertex buffer
-            vertexBuffer = device->createBuffer(sizeof(bunny_positions),
-                                                cocos2d::backend::BufferType::VERTEX,
-                                                cocos2d::backend::BufferUsage::READ);
+            vertexBuffer = device->newBuffer(sizeof(bunny_positions),
+                                             cocos2d::backend::BufferType::VERTEX,
+                                             cocos2d::backend::BufferUsage::READ);
             vertexBuffer->updateData((void*)&bunny_positions[0][0], sizeof(bunny_positions));
-            vertexBuffer->retain();
             
             // index buffer
-            indexBuffer = device->createBuffer(sizeof(bunny_cells),
-                                               cocos2d::backend::BufferType::INDEX,
-                                               cocos2d::backend::BufferUsage::READ);
+            indexBuffer = device->newBuffer(sizeof(bunny_cells),
+                                            cocos2d::backend::BufferType::INDEX,
+                                            cocos2d::backend::BufferUsage::READ);
             indexBuffer->updateData((void*)&bunny_cells[0], sizeof(bunny_cells));
-            indexBuffer->retain();
         }
         
         ~Bunny()
@@ -215,31 +211,26 @@ DepthTextureBackend::DepthTextureBackend()
     textureDescriptor.textureType = backend::TextureType::TEXTURE_2D;
     textureDescriptor.samplerDescriptor = samplerDescriptor;
     textureDescriptor.textureFormat = backend::TextureFormat::D16;
-    _depthTexture = device->createTexture(textureDescriptor);
-    _depthTexture->retain();
+    _depthTexture = device->newTexture(textureDescriptor);
     
     // render pass Bunny 1
     backend::RenderPassDescriptor renderPassDescriptorBunny1;
     renderPassDescriptorBunny1.setDepthClearValue(1);
     renderPassDescriptorBunny1.setDepthStencilAttachment(_depthTexture);
-    _renderPassBunny1 = device->createRenderPass(renderPassDescriptorBunny1);
-    _renderPassBunny1->retain();
+    _renderPassBunny1 = device->newRenderPass(renderPassDescriptorBunny1);
     
     // render pass 2
     backend::RenderPassDescriptor renderPassDescriptorBunny2;
     renderPassDescriptorBunny2.setDepthStencilAttachment(_depthTexture);
-    _renderPassBunny2 = device->createRenderPass(renderPassDescriptorBunny2);
-    _renderPassBunny2->retain();
+    _renderPassBunny2 = device->newRenderPass(renderPassDescriptorBunny2);
     
     // render pass BigTriangle
     backend::RenderPassDescriptor renderPassDescriptorBigTriangle;
     renderPassDescriptorBigTriangle.setClearColor(0.1f, 0.1f, 0.1f, 1);
     renderPassDescriptorBigTriangle.setDepthClearValue(1);
-    _renderPassBigTriangle = device->createRenderPass(renderPassDescriptorBigTriangle);
-    _renderPassBigTriangle->retain();
+    _renderPassBigTriangle = device->newRenderPass(renderPassDescriptorBigTriangle);
     
-    _commandBuffer = device->createCommandBuffer();
-    _commandBuffer->retain();
+    _commandBuffer = device->newCommandBuffer();
     
     bunny = new Bunny();
     bg = new BigTriangle();

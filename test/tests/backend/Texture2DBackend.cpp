@@ -81,8 +81,7 @@ Texture2DBackendTest::Texture2DBackendTest()
         canvasTexDes.height = height;
         canvasTexDes.textureType = TextureType::TEXTURE_2D;
         canvasTexDes.textureFormat = TextureFormat::R8G8B8A8;
-        _canvasTexture = device->createTexture(canvasTexDes);
-        _canvasTexture->retain();
+        _canvasTexture = device->newTexture(canvasTexDes);
         _canvasTexture->updateData(labelData.getBytes());
     }
 
@@ -99,8 +98,7 @@ Texture2DBackendTest::Texture2DBackendTest()
         texDes.height = img->getHeight();
         texDes.textureFormat = TextureFormat::R8G8B8;
         texDes.textureType = TextureType::TEXTURE_2D;
-        _texture = device->createTexture(texDes);
-        _texture->retain();
+        _texture = device->newTexture(texDes);
         _texture->updateData(data.getBytes());
         
         img->release();
@@ -114,8 +112,7 @@ Texture2DBackendTest::Texture2DBackendTest()
         -1, 1,
         -1, -1
     };
-    _vertexBuffer = device->createBuffer(sizeof(vertexBuf), cocos2d::backend::BufferType::VERTEX, cocos2d::backend::BufferUsage::READ);
-    _vertexBuffer->retain();
+    _vertexBuffer = device->newBuffer(sizeof(vertexBuf), cocos2d::backend::BufferType::VERTEX, cocos2d::backend::BufferUsage::READ);
     _vertexBuffer->updateData(vertexBuf, sizeof(vertexBuf));
     
     // create render pipeline
@@ -130,8 +127,7 @@ Texture2DBackendTest::Texture2DBackendTest()
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
-    _renderPipeline = device->createRenderPipeline(renderPipelineDescriptor);
-    _renderPipeline->retain();
+    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
 
     _transform0.translate(-0.5f, 0, 0);
     _transform0.scale(0.5f);
@@ -152,11 +148,9 @@ Texture2DBackendTest::Texture2DBackendTest()
     RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     renderPassDescriptor.setDepthClearValue(1.f);
-    _renderPass = device->createRenderPass(renderPassDescriptor);
-    _renderPass->retain();
+    _renderPass = device->newRenderPass(renderPassDescriptor);
     
-    _commandBuffer = device->createCommandBuffer();
-    _commandBuffer->retain();
+    _commandBuffer = device->newCommandBuffer();
 }
 
 Texture2DBackendTest::~Texture2DBackendTest()
