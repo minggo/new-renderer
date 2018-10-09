@@ -23,6 +23,9 @@ void DeviceMTL::setCAMetalLayer(CAMetalLayer* metalLayer)
 {
     DeviceMTL::_metalLayer = metalLayer;
     
+    if (DeviceMTL::_defaultRenderPassDescriptor)
+        [DeviceMTL::_defaultRenderPassDescriptor release];
+    
     DeviceMTL::_defaultRenderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
     DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
     DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
@@ -49,7 +52,6 @@ MTLRenderPassDescriptor* DeviceMTL::getDefaultMTLRenderPassDescriptor()
 DeviceMTL::DeviceMTL()
 {
     _mtlDevice = DeviceMTL::_metalLayer.device;
-    
 }
 
 DeviceMTL::~DeviceMTL()

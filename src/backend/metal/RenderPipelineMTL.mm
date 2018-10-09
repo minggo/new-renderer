@@ -67,8 +67,16 @@ RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipeli
 {
     MTLRenderPipelineDescriptor *mtlDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
     mtlDescriptor.colorAttachments[0].pixelFormat = DeviceMTL::getCAMetalLayer().pixelFormat;
-    mtlDescriptor.vertexFunction = static_cast<ShaderModuleMTL*>(descriptor.getVertexShaderModule())->getMTLFunction();
-    mtlDescriptor.fragmentFunction = static_cast<ShaderModuleMTL*>(descriptor.getFragmentShaderModule())->getMTLFunction();
+    
+    auto vertexShaderModule = static_cast<ShaderModuleMTL*>(descriptor.getVertexShaderModule());
+    mtlDescriptor.vertexFunction = vertexShaderModule->getMTLFunction();
+    _activeVertexUniforms = vertexShaderModule->getActiveUniforms();
+    _vertexUniformBuffer = vertexShaderModule->getUniformBuffer();
+    
+    auto fragShaderModule = static_cast<ShaderModuleMTL*>(descriptor.getFragmentShaderModule());
+    mtlDescriptor.fragmentFunction = fragShaderModule->getMTLFunction();
+    _activeFragmentUniforms = fragShaderModule->getActiveUniforms();
+    _fragementUniformBuffer = fragShaderModule->getUniformBuffer();
     
     const auto& vertexLayouts = descriptor.getVertexLayouts();
     int vertexIndex = 0;
@@ -95,6 +103,17 @@ RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipeli
     _mtlRenderPipelineState = [mtlDevice newRenderPipelineStateWithDescriptor:mtlDescriptor error:nil];
     
     [mtlDescriptor release];
+}
+
+RenderPipelineMTL::~RenderPipelineMTL()
+{
+    [_mtlRenderPipelineState release];
+    
+    if (_vertexUniformBuffer)
+        free(_vertexUniformBuffer);
+    
+    if (_fragementUniformBuffer)
+        free(_fragementUniformBuffer);
 }
 
 CC_BACKEND_END

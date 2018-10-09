@@ -3,6 +3,7 @@
 #include "RenderPassMTL.h"
 #include "DeviceMTL.h"
 #include "RenderPipelineMTL.h"
+#include "../BindGroup.h"
 
 CC_BACKEND_BEGIN
 
@@ -87,7 +88,9 @@ void CommandBufferMTL::setVertexBuffer(uint32_t index, Buffer* buffer)
 
 void CommandBufferMTL::setBindGroup(BindGroup* bindGroup)
 {
-    //TODO
+    CC_SAFE_RETAIN(bindGroup);
+    CC_SAFE_RELEASE(_bindGroup);
+    _bindGroup = bindGroup;
 }
 
 void CommandBufferMTL::setIndexBuffer(uint32_t index, Buffer* buffer)
@@ -97,6 +100,7 @@ void CommandBufferMTL::setIndexBuffer(uint32_t index, Buffer* buffer)
 
 void CommandBufferMTL::drawArrays(PrimitiveType primitiveType, uint32_t start,  uint32_t count)
 {
+    setUniformBuffer();
     [_mtlRenderEncoder setRenderPipelineState:_renderPipelineMTL->getMTLRenderPipelineState()];
     [_mtlRenderEncoder drawPrimitives:toMTLPrimitive(primitiveType)
                           vertexStart:start
@@ -116,6 +120,47 @@ void CommandBufferMTL::endRenderPass()
     
     [_mtlCommandBuffer release];
     [_mtlRenderEncoder release];
+}
+
+void CommandBufferMTL::setUniformBuffer() const
+{
+    if (_bindGroup)
+    {
+        // FIXME: uniform buffer should change to index 1?
+        auto vertexUniformBuffer = _renderPipelineMTL->getVertexUniformBuffer();
+        if (vertexUniformBuffer)
+        {
+            uint32_t size = fillUniformBuffer(vertexUniformBuffer, _renderPipelineMTL->getVertexUniforms());
+            [_mtlRenderEncoder setVertexBytes:vertexUniformBuffer
+                                       length:size atIndex:0];
+        }
+        
+        auto fragUniformBuffer = _renderPipelineMTL->getFragmentUniformBuffer();
+        if (fragUniformBuffer)
+        {
+            uint32_t size = fillUniformBuffer(fragUniformBuffer, _renderPipelineMTL->getFragmentUniforms());
+            [_mtlRenderEncoder setFragmentBytes:fragUniformBuffer
+                                         length:size
+                                        atIndex:0];
+        }
+    }
+}
+
+uint32_t CommandBufferMTL::fillUniformBuffer(void* buffer, const std::vector<std::string>& uniforms) const
+{
+    const auto& bindUniformInfos = _bindGroup->getUniformInfos();
+    uint32_t offset = 0;
+    for (const auto& uniform : uniforms)
+    {
+        auto iter = bindUniformInfos.find(uniform);
+        if (bindUniformInfos.end() != iter)
+        {
+            const auto& bindUniformInfo = iter->second;
+            memcpy((char*)buffer + offset, bindUniformInfo.data, bindUniformInfo.size);
+            offset += bindUniformInfo.size;
+        }
+    }
+    return offset;
 }
 
 CC_BACKEND_END

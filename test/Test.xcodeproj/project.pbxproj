@@ -100,7 +100,6 @@
 		1A69F1021FF22B0200B224DF /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 1A69F0E71FF22B0200B224DF /* COPYING */; };
 		1A69F1031FF22B0200B224DF /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A69F0E81FF22B0200B224DF /* package.json */; };
 		1A69F1041FF22B0200B224DF /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A69F0FA1FF22B0200B224DF /* libz.a */; };
-		1A69F10D1FF32D9300B224DF /* Types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F10C1FF32D9300B224DF /* Types.cpp */; };
 		1A69F1111FF36A4600B224DF /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 1A69F1101FF36A4600B224DF /* assets */; };
 		1ACB61671FF5F23E0007F081 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61661FF5F23E0007F081 /* AppDelegate.mm */; };
 		1ACB616A1FF5F23E0007F081 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1ACB61691FF5F23E0007F081 /* RootViewController.mm */; };
@@ -111,7 +110,6 @@
 		1ACB617C1FF5F2C10007F081 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ACB617A1FF5F2C10007F081 /* libjpeg.a */; };
 		1ACB617E1FF5F2CF0007F081 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ACB617D1FF5F2CF0007F081 /* OpenGLES.framework */; };
 		1ACB61801FF5F2E60007F081 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ACB617F1FF5F2E60007F081 /* Foundation.framework */; };
-		1ACB61AA1FF5F3450007F081 /* Types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F10C1FF32D9300B224DF /* Types.cpp */; };
 		1ACB61B21FF5F4780007F081 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ACB61B11FF5F4770007F081 /* QuartzCore.framework */; };
 		1ACB61B41FF6027B0007F081 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ACB61B31FF6027B0007F081 /* libz.tbd */; };
 		1ACB61B51FF6028B0007F081 /* ioapi_mem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A69F0DB1FF22B0200B224DF /* ioapi_mem.cpp */; };
@@ -147,6 +145,9 @@
 		4603757A214FA29500DC9ED4 /* BlendState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46037577214FA29500DC9ED4 /* BlendState.cpp */; };
 		4603757E214FA82D00DC9ED4 /* BlendStateGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4603757B214FA82D00DC9ED4 /* BlendStateGL.cpp */; };
 		460375822150C91D00DC9ED4 /* MultiTexturesBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460375802150C91C00DC9ED4 /* MultiTexturesBackend.cpp */; };
+		4605C845216B451100214B3A /* libglsl_optimizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4605C844216B451100214B3A /* libglsl_optimizer.a */; };
+		4605C848216B4B8400214B3A /* libglcpp-library.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4605C846216B4B8400214B3A /* libglcpp-library.a */; };
+		4605C849216B4B8400214B3A /* libmesa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4605C847216B4B8400214B3A /* libmesa.a */; };
 		461DCEA221524B5000A8E43F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461DCEA121524B5000A8E43F /* main.cpp */; };
 		461DD09C21524D2900A8E43F /* libshaderc_combined.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 461DD09B21524D2900A8E43F /* libshaderc_combined.a */; };
 		461DD0A721533A7000A8E43F /* libspirv-cross-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 461DD0A221533A7000A8E43F /* libspirv-cross-util.a */; };
@@ -329,7 +330,6 @@
 		1A69F0FB1FF22B0200B224DF /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng.a; sourceTree = "<group>"; };
 		1A69F0FC1FF22B0200B224DF /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
 		1A69F0FD1FF22B0200B224DF /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
-		1A69F10C1FF32D9300B224DF /* Types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Types.cpp; sourceTree = "<group>"; };
 		1A69F1101FF36A4600B224DF /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = SOURCE_ROOT; };
 		1ACB61631FF5F23E0007F081 /* Test-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1ACB61651FF5F23E0007F081 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -407,6 +407,9 @@
 		4603757C214FA82D00DC9ED4 /* BlendStateGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlendStateGL.h; sourceTree = "<group>"; };
 		4603757F2150C91C00DC9ED4 /* MultiTexturesBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiTexturesBackend.h; sourceTree = "<group>"; };
 		460375802150C91C00DC9ED4 /* MultiTexturesBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MultiTexturesBackend.cpp; sourceTree = "<group>"; };
+		4605C844216B451100214B3A /* libglsl_optimizer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglsl_optimizer.a; path = ../external/mac/libs/libglsl_optimizer.a; sourceTree = "<group>"; };
+		4605C846216B4B8400214B3A /* libglcpp-library.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libglcpp-library.a"; path = "../external/mac/libs/glsl-optimizer/libglcpp-library.a"; sourceTree = "<group>"; };
+		4605C847216B4B8400214B3A /* libmesa.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmesa.a; path = "../external/mac/libs/glsl-optimizer/libmesa.a"; sourceTree = "<group>"; };
 		461DB4BF2151F49A00A8E43F /* shader-compiler */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "shader-compiler"; sourceTree = BUILT_PRODUCTS_DIR; };
 		461DCEA121524B5000A8E43F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		461DD09B21524D2900A8E43F /* libshaderc_combined.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libshaderc_combined.a; path = ../external/mac/libs/libshaderc_combined.a; sourceTree = "<group>"; };
@@ -462,8 +465,6 @@
 		4694927F1FE252E3008D19CC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		469492811FE252FB008D19CC /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		469492831FE2530E008D19CC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
-		469492931FE270F2008D19CC /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
-		4694929B1FE28190008D19CC /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -501,6 +502,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4605C848216B4B8400214B3A /* libglcpp-library.a in Frameworks */,
+				4605C849216B4B8400214B3A /* libmesa.a in Frameworks */,
+				4605C845216B451100214B3A /* libglsl_optimizer.a in Frameworks */,
 				468BD2EB2154FF58007BCACF /* QuartzCore.framework in Frameworks */,
 				461DD0E021537BB800A8E43F /* Metal.framework in Frameworks */,
 				1A1A4E2E1FFB6BFD0061A6E1 /* AppKit.framework in Frameworks */,
@@ -993,6 +997,9 @@
 		4694927A1FE25061008D19CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4605C846216B4B8400214B3A /* libglcpp-library.a */,
+				4605C847216B4B8400214B3A /* libmesa.a */,
+				4605C844216B451100214B3A /* libglsl_optimizer.a */,
 				468BD2EA2154FF58007BCACF /* QuartzCore.framework */,
 				461DD0DF21537BB800A8E43F /* Metal.framework */,
 				461DD0AC21533C3100A8E43F /* libspirv-cross-glsl.a */,
@@ -1048,9 +1055,6 @@
 			isa = PBXGroup;
 			children = (
 				460373AF212FA9EB00DC9ED4 /* backend */,
-				469492931FE270F2008D19CC /* Macro.h */,
-				1A69F10C1FF32D9300B224DF /* Types.cpp */,
-				4694929B1FE28190008D19CC /* Types.h */,
 			);
 			name = src;
 			path = ../src;
@@ -1268,7 +1272,6 @@
 				1ACB61B81FF6028F0007F081 /* tinyxml2.cpp in Sources */,
 				1A255E5020034B0D00069420 /* TransformUtils.cpp in Sources */,
 				1A255E5A20034B0D00069420 /* Vec2.cpp in Sources */,
-				1ACB61AA1FF5F3450007F081 /* Types.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1312,7 +1315,6 @@
 				1A255E6B20034B0D00069420 /* TGAlib.cpp in Sources */,
 				468BD2E92154FE95007BCACF /* BlendState.cpp in Sources */,
 				1A255E7320034B0D00069420 /* etc1.cpp in Sources */,
-				1A69F10D1FF32D9300B224DF /* Types.cpp in Sources */,
 				468BD2E62154FE89007BCACF /* Sampler.cpp in Sources */,
 				468BD2E02154FE66007BCACF /* VertexLayout.cpp in Sources */,
 				460373DB21363EDE00DC9ED4 /* BasicBackend.cpp in Sources */,
@@ -1601,6 +1603,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../external/mac/libs",
+					"$(SRCROOT)/../external/mac/libs/glsl-optimizer",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.org.cocos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1626,6 +1629,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../external/mac/libs",
+					"$(SRCROOT)/../external/mac/libs/glsl-optimizer",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.org.cocos;
 				PRODUCT_NAME = "$(TARGET_NAME)";

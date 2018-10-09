@@ -4,9 +4,10 @@
 
 CC_BACKEND_BEGIN
 
-BindGroup::UniformInfo::UniformInfo(const std::string& _name, uint32_t _index, void* _data, uint32_t size)
+BindGroup::UniformInfo::UniformInfo(const std::string& _name, uint32_t _index, void* _data, uint32_t _size)
 : name(_name)
 , index(_index)
+, size(_size)
 {
     data = malloc(size);
     if (data)
@@ -25,6 +26,7 @@ BindGroup::UniformInfo& BindGroup::UniformInfo::operator=(UniformInfo&& rhs)
     {
         name = rhs.name;
         index = rhs.index;
+        size = rhs.size;
         
         data = rhs.data;
         rhs.data = nullptr;

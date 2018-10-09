@@ -24,11 +24,15 @@ public:
     virtual void endRenderPass() override;
     
 private:
+    void setUniformBuffer() const;
+    uint32_t fillUniformBuffer(void* buffer, const std::vector<std::string>& uniforms) const;
+    
     id<MTLCommandBuffer> _mtlCommandBuffer = nil;
     id<MTLCommandQueue> _mtlCommandQueue = nil;
     id<MTLRenderCommandEncoder> _mtlRenderEncoder = nil;
     
     RenderPipelineMTL* _renderPipelineMTL = nullptr;
+    BindGroup* _bindGroup = nullptr;
 };
 
 CC_BACKEND_END

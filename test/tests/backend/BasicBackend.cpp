@@ -39,7 +39,6 @@ using namespace cocos2d;
 BasicBackend::BasicBackend()
 : _time(0.f)
 {
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_MAC)
     const char* vert = R"(
         #ifdef GL_ES
         precision highp float;
@@ -61,56 +60,6 @@ BasicBackend::BasicBackend()
             gl_FragColor = color;
         }
     )";
-    
-#else
-    const char* vert = R"(
-    #include <metal_stdlib>
-    #include <simd/simd.h>
-    
-    using namespace metal;
-    
-    typedef struct
-    {
-        float4 position [[position]];
-    } VertexData;
-    
-    typedef struct
-    {
-        // Positions in pixel space (i.e. a value of 100 indicates 100 pixels from the origin/center)
-        vector_float2 position;
-    } AAPLVertex;
-    
-    vertex VertexData
-    main0(uint vertexID [[vertex_id]],
-          constant AAPLVertex *vertexArray [[ buffer(0) ]])
-    {
-        VertexData out;
-        out.position.xy = vertexArray[vertexID].position.xy;
-        out.position.z = 0.0;
-        out.position.w = 1.0;
-        
-        return out;
-    }
-    )";
-    
-    const char* frag = R"(
-        #include <metal_stdlib>
-        #include <simd/simd.h>
-    
-        using namespace metal;
-    
-        typedef struct
-        {
-            float4 position [[position]];
-        } VertexData;
-    
-        fragment float4
-        main0(VertexData in [[stage_in]])
-        {
-            return float4(1.0, 0.0, 0.0, 1.0);
-        }
-    )";
-#endif
     
     auto device = cocos2d::backend::Device::getInstance();
     

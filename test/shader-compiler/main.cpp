@@ -40,14 +40,24 @@ int main(int argc, const char * argv[])
 {
     compileShader(shaderc_glsl_vertex_shader, R"(
                   #version 450
+    
+                  layout(set = 0, location = 0) in vec4 v_texcoord;
+                  layout(set =0, location = 1) in vec4 v_color;
+                  layout(set = 1, location = 2) in vec4 v_tex;
                   
+//                  layout(binding = 0) uniform sampler u_sampler;
+                  layout(binding = 0) uniform sampler u_texture_sampler;
+                  layout(binding = 1) uniform texture2D u_texture;
                   
-                  layout(location = 0) in vec4 pos;
-                  layout(binding = 0) uniform sampler2D u_texture0;
-                  layout(location = 0) out vec4 outColor;
+                  layout(binding = 2) uniform UniformBlock
+                  {
+                      vec4 color2;
+                  };
+                  
+                  layout(location = 0) out vec4 frag_color;
                   void main() {
-                      //gl_Position = pos;
-                      outColor = texture(u_texture0, vec2(0,0));
+                      frag_color = texture(sampler2D(u_texture, u_sample_texture), v_texcoord.xy + v_tex.xy);
+                      frag_color = frag_color + color2 + v_color;
                   })"
     );
     

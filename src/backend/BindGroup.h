@@ -17,13 +17,14 @@ class BindGroup : public cocos2d::Ref
 public:
     struct UniformInfo
     {
-        UniformInfo(const std::string& _name, uint32_t index, void* _data, uint32_t size);
+        UniformInfo(const std::string& _name, uint32_t index, void* _data, uint32_t _size);
         UniformInfo() = default;
         ~UniformInfo();
         UniformInfo& operator =(UniformInfo&& rhs);
         
         std::string name;
         uint32_t index = 0;
+        uint32_t size = 0;
         void* data = nullptr;
     };
     
