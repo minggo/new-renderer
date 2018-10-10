@@ -16,6 +16,7 @@ public:
     static void updateDrawable();
     static CAMetalLayer* getCAMetalLayer() { return DeviceMTL::_metalLayer; }
     static id<CAMetalDrawable> getCurrentDrawable() { return DeviceMTL::_currentDrawable; }
+    static MTLPixelFormat getDefaultDepthStencilPixelFormat();
     
     DeviceMTL();
     ~DeviceMTL();
@@ -31,6 +32,8 @@ public:
     virtual Sampler* createSampler(const SamplerDescriptor& descriptor) override;
     
 private:
+    static id<MTLTexture> createDepthStencilTexture(id<MTLDevice> mtlDevice, uint32_t width, uint32_t height);
+
     static CAMetalLayer* _metalLayer;
     static id<CAMetalDrawable> _currentDrawable;
     static MTLRenderPassDescriptor* _defaultRenderPassDescriptor;

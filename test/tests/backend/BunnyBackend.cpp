@@ -76,9 +76,8 @@ BunnyBackend::BunnyBackend()
     cocos2d::backend::DepthStencilDescriptor depthStencilDescriptor;
     depthStencilDescriptor.depthWriteEnabled = true;
     depthStencilDescriptor.depthCompareFunction = cocos2d::backend::CompareFunction::LESS;
-    _depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
-    _depthStencilState->retain();
-    renderPipelineDescriptor.setDepthStencilState(_depthStencilState);
+    auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
+    renderPipelineDescriptor.setDepthStencilState(depthStencilState);
     
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
@@ -121,7 +120,6 @@ BunnyBackend::~BunnyBackend()
     CC_SAFE_RELEASE(_renderPass);
     CC_SAFE_RELEASE(_indexBuffer);
     CC_SAFE_RELEASE(_vertexBuffer);
-    CC_SAFE_RELEASE(_depthStencilState);
     CC_SAFE_RELEASE(_renderPipeline);
 }
 
@@ -135,7 +133,7 @@ void BunnyBackend::tick(float dt)
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(_renderPipeline);
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
-    _commandBuffer->setIndexBuffer(1, _indexBuffer);
+    _commandBuffer->setIndexBuffer(_indexBuffer);
     _commandBuffer->setBindGroup(&_bindGroup);
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_SHORT,

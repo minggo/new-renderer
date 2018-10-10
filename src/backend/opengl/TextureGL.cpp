@@ -92,9 +92,8 @@ TextureGL::TextureGL(const TextureDescriptor& descriptor) : Texture(descriptor)
     _minFilterGL = toGLMinFilter(descriptor.samplerDescriptor.minFilter,
                                  descriptor.samplerDescriptor.mipmapFilter);
     
-    _rAddressModeGL = toGLAddressMode(descriptor.samplerDescriptor.rAddressMode);
     _sAddressModeGL = toGLAddressMode(descriptor.samplerDescriptor.sAddressMode);
-    _tAddressModeGL = toGLAddressMode(descriptor.samplerDescriptor.tAssressMode);
+    _tAddressModeGL = toGLAddressMode(descriptor.samplerDescriptor.tAddressMode);
     
     // Update data here because `updateData()` may not be invoked later,
     // for example, a texture is used as depth buffer.
@@ -135,7 +134,6 @@ void TextureGL::apply(int index) const
     glBindTexture(GL_TEXTURE_2D, _texture);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, _magFilterGL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, _minFilterGL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, _rAddressModeGL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, _sAddressModeGL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, _tAddressModeGL);
 }
@@ -182,13 +180,12 @@ void TextureGL::toGLTypes()
             break;
         case TextureFormat::D16:
             _format = GL_DEPTH_COMPONENT;
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
             _internalFormat = GL_DEPTH_COMPONENT;
             _type = GL_UNSIGNED_INT;
-#else
-            _internalFormat = GL_DEPTH_COMPONENT16;
-            _type = GL_UNSIGNED_SHORT;
-#endif
+        case TextureFormat::D24S8:
+            _format = GL_DEPTH_STENCIL_OES;
+            _internalFormat = GL_DEPTH_STENCIL_OES;
+            _type = GL_UNSIGNED_INT_24_8_OES;
             break;
         default:
             break;

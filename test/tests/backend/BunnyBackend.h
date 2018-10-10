@@ -46,7 +46,6 @@ private:
     cocos2d::backend::Buffer* _vertexBuffer = nullptr;
     cocos2d::backend::Buffer* _indexBuffer = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
-    cocos2d::backend::DepthStencilState* _depthStencilState = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::RenderPass* _renderPass = nullptr;
     cocos2d::backend::BindGroup _bindGroup;

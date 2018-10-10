@@ -9,6 +9,7 @@ class BufferMTL : public Buffer
 {
 public:
     BufferMTL(id<MTLDevice> mtlDevice, uint32_t size, BufferType type, BufferUsage usage);
+    ~BufferMTL();
     
     virtual void updateData(void* data, uint32_t size) override;
     

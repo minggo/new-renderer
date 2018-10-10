@@ -14,6 +14,7 @@ public:
     
 private:
     GLuint _frameBuffer = 0;
+    bool _hasStencil = false;
 };
 
 CC_BACKEND_END

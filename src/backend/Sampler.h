@@ -11,9 +11,8 @@ struct SamplerDescriptor
     SamplerFilter magFilter = SamplerFilter::LINEAR;
     SamplerFilter minFilter = SamplerFilter::LINEAR;
     SamplerFilter mipmapFilter = SamplerFilter::NONE;
-    SamplerAddressMode rAddressMode = SamplerAddressMode::REPEAT;
     SamplerAddressMode sAddressMode = SamplerAddressMode::REPEAT;
-    SamplerAddressMode tAssressMode = SamplerAddressMode::REPEAT;
+    SamplerAddressMode tAddressMode = SamplerAddressMode::REPEAT;
 };
 
 class Sampler : public cocos2d::Ref

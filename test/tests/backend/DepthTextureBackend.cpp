@@ -202,8 +202,8 @@ DepthTextureBackend::DepthTextureBackend()
     // depth texture
     
     backend::SamplerDescriptor samplerDescriptor;
-    samplerDescriptor.rAddressMode = backend::SamplerAddressMode::CLAMP_TO_EDGE;
     samplerDescriptor.sAddressMode = backend::SamplerAddressMode::CLAMP_TO_EDGE;
+    samplerDescriptor.tAddressMode = backend::SamplerAddressMode::CLAMP_TO_EDGE;
     
     backend::TextureDescriptor textureDescriptor;
     textureDescriptor.width = utils::WINDOW_WIDTH;
@@ -265,7 +265,7 @@ void DepthTextureBackend::tick(float dt)
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bunny->renderPipeline);
     _commandBuffer->setVertexBuffer(0, bunny->vertexBuffer);
-    _commandBuffer->setIndexBuffer(0, bunny->indexBuffer);
+    _commandBuffer->setIndexBuffer(bunny->indexBuffer);
     
     _model = Mat4::IDENTITY;
     _model.translate(5, 0, 0);
@@ -284,7 +284,7 @@ void DepthTextureBackend::tick(float dt)
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bunny->renderPipeline);
     _commandBuffer->setVertexBuffer(0, bunny->vertexBuffer);
-    _commandBuffer->setIndexBuffer(0, bunny->indexBuffer);
+    _commandBuffer->setIndexBuffer(bunny->indexBuffer);
     
     _model = Mat4::IDENTITY;
     _model.translate(-5, 0, 0);

@@ -15,6 +15,7 @@ public:
     ~RenderPipelineMTL();
     
     inline id<MTLRenderPipelineState> getMTLRenderPipelineState() const { return _mtlRenderPipelineState; }
+    inline id<MTLDepthStencilState> getMTLDepthStencilState() const { return _mtlDepthStencilState; }
     
     inline void* getVertexUniformBuffer() const { return _vertexUniformBuffer; }
     inline void* getFragmentUniformBuffer() const { return _fragementUniformBuffer; }
@@ -23,6 +24,7 @@ public:
     
 private:
     id<MTLRenderPipelineState> _mtlRenderPipelineState = nil;
+    id<MTLDepthStencilState> _mtlDepthStencilState = nil;
     
     void* _vertexUniformBuffer = nullptr;
     std::vector<std::string> _activeVertexUniforms;

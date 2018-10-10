@@ -51,12 +51,15 @@ enum class TextureFormat : uint32_t
     A8,
     // A 16-bit depth format with one normallized unsigned integer component, typically used for
     // a depth render target.
-    D16
+    D16,
+    // A packed 32-bit combined depth and stencil pixel format with two nomorlized unsigned integer
+    // components: 24 bits, typically used for a depth render target, and 8 bits, typically used for
+    // a stencil render target.
+    D24S8
 };
 
 enum class IndexFormat : uint32_t
 {
-    U_BYTE,
     U_SHORT,
     U_INT
 };

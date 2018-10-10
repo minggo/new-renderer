@@ -101,4 +101,10 @@ void RenderPassDescriptor::setStencilClearValue(uint32_t clearValue)
     _depthStencilAttachment.needClearStencil = true;
 }
 
+bool RenderPassDescriptor::hasStencil() const
+{
+    return (_depthStencilAttachmentSet &&
+            TextureFormat::D24S8 == _depthStencilAttachment.texture->getTextureFormat());
+}
+
 CC_BACKEND_END

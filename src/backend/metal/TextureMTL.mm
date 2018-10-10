@@ -22,6 +22,9 @@ namespace
             case TextureFormat::D16:
                 ret = MTLPixelFormatDepth16Unorm;
                 break;
+            case TextureFormat::D24S8:
+                ret = MTLPixelFormatDepth24Unorm_Stencil8;
+                break;
             default:
                 break;
         }

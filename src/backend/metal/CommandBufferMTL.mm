@@ -34,6 +34,14 @@ namespace
         }
         return ret;
     }
+    
+    MTLIndexType toMTLIndexType(IndexFormat indexFormat)
+    {
+        if (IndexFormat::U_SHORT == indexFormat)
+            return MTLIndexTypeUInt16;
+        else
+            return MTLIndexTypeUInt32;
+    }
 }
 
 CommandBufferMTL::CommandBufferMTL(id<MTLDevice> mtlDevice)
@@ -93,15 +101,19 @@ void CommandBufferMTL::setBindGroup(BindGroup* bindGroup)
     _bindGroup = bindGroup;
 }
 
-void CommandBufferMTL::setIndexBuffer(uint32_t index, Buffer* buffer)
+void CommandBufferMTL::setIndexBuffer(Buffer* buffer)
 {
-    //TODO
+    assert(buffer != nullptr);
+    if (!buffer)
+        return;
+    
+    _mtlIndexBuffer = static_cast<BufferMTL*>(buffer)->getMTLBuffer();
+    [_mtlIndexBuffer retain];
 }
 
 void CommandBufferMTL::drawArrays(PrimitiveType primitiveType, uint32_t start,  uint32_t count)
 {
-    setUniformBuffer();
-    [_mtlRenderEncoder setRenderPipelineState:_renderPipelineMTL->getMTLRenderPipelineState()];
+    prepareDrawing();
     [_mtlRenderEncoder drawPrimitives:toMTLPrimitive(primitiveType)
                           vertexStart:start
                           vertexCount:count];
@@ -109,7 +121,12 @@ void CommandBufferMTL::drawArrays(PrimitiveType primitiveType, uint32_t start,  
 
 void CommandBufferMTL::drawElements(PrimitiveType primitiveType, IndexFormat indexType, uint32_t count)
 {
-    //TODO
+    prepareDrawing();
+    [_mtlRenderEncoder drawIndexedPrimitives:toMTLPrimitive(primitiveType)
+                                  indexCount:count
+                                   indexType:toMTLIndexType(indexType)
+                                 indexBuffer:_mtlIndexBuffer
+                           indexBufferOffset:0];
 }
 
 void CommandBufferMTL::endRenderPass()
@@ -118,8 +135,26 @@ void CommandBufferMTL::endRenderPass()
     [_mtlCommandBuffer presentDrawable:DeviceMTL::getCurrentDrawable()];
     [_mtlCommandBuffer commit];
     
+    if (_mtlIndexBuffer)
+    {
+        [_mtlIndexBuffer release];
+        _mtlIndexBuffer = nullptr;
+    }
+    
+    CC_SAFE_RELEASE_NULL(_bindGroup);
     [_mtlCommandBuffer release];
     [_mtlRenderEncoder release];
+}
+
+void CommandBufferMTL::prepareDrawing() const
+{
+    setUniformBuffer();
+    
+    auto mtlDepthStencilState = _renderPipelineMTL->getMTLDepthStencilState();
+    if (mtlDepthStencilState)
+        [_mtlRenderEncoder setDepthStencilState:mtlDepthStencilState];
+    
+    [_mtlRenderEncoder setRenderPipelineState:_renderPipelineMTL->getMTLRenderPipelineState()];
 }
 
 void CommandBufferMTL::setUniformBuffer() const
@@ -132,7 +167,7 @@ void CommandBufferMTL::setUniformBuffer() const
         {
             uint32_t size = fillUniformBuffer(vertexUniformBuffer, _renderPipelineMTL->getVertexUniforms());
             [_mtlRenderEncoder setVertexBytes:vertexUniformBuffer
-                                       length:size atIndex:0];
+                                       length:size atIndex:1];
         }
         
         auto fragUniformBuffer = _renderPipelineMTL->getFragmentUniformBuffer();
@@ -141,7 +176,7 @@ void CommandBufferMTL::setUniformBuffer() const
             uint32_t size = fillUniformBuffer(fragUniformBuffer, _renderPipelineMTL->getFragmentUniforms());
             [_mtlRenderEncoder setFragmentBytes:fragUniformBuffer
                                          length:size
-                                        atIndex:0];
+                                        atIndex:1];
         }
     }
 }

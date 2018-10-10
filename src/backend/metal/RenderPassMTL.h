@@ -8,13 +8,14 @@ CC_BACKEND_BEGIN
 class RenderPassMTL : public RenderPass
 {
 public:
-    RenderPassMTL(const RenderPassDescriptor& descriptor);
+    RenderPassMTL(id<MTLDevice> mtlDevice, const RenderPassDescriptor& descriptor);
     ~RenderPassMTL();
     
-    MTLRenderPassDescriptor* getMTLRenderPassDescriptor();
+    inline MTLRenderPassDescriptor* getMTLRenderPassDescriptor() const { return _renderPassDescritprMTL; }
     
 private:
     MTLRenderPassDescriptor* _renderPassDescritprMTL = nil;
+    bool _newRenderPassDescriptorMTL = false;
 };
 
 CC_BACKEND_END

@@ -13,7 +13,7 @@
 
 #include "../tests/backend/BasicBackend.h"
 //#include "backend/Texture2DBackend.h"
-//#include "backend/BunnyBackend.h"
+#include "../tests/backend/BunnyBackend.h"
 //#include "backend/DepthTextureBackend.h"
 //#include "backend/BlendingBackend.h"
 //#include "backend/MultiTexturesBackend.h"
@@ -25,13 +25,13 @@ namespace
     std::vector<createFunc> tests;
     TestBaseI* test = nullptr;
     
-    void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+    void keyCallback(GLFWwindow* window, int button, int action, int mods)
     {
         if (GLFW_RELEASE == action)
         {
-            if (GLFW_KEY_RIGHT == key)
+            if (GLFW_MOUSE_BUTTON_RIGHT == button)
                 nextIndex = (++nextIndex) % tests.size();
-            else if (GLFW_KEY_LEFT == key)
+            else if (GLFW_MOUSE_BUTTON_LEFT == button)
                 nextIndex = int((--nextIndex + tests.size()) % tests.size());
             
             delete test;
@@ -49,7 +49,7 @@ namespace
                 //            BlendingBackend::create,
                 BasicBackend::create,
                 //            Texture2DBackendTest::create,
-                //            BunnyBackend::create,
+                BunnyBackend::create,
                 //            DepthTextureBackend::create
             };
             
@@ -75,7 +75,6 @@ int main(int argc, char * argv[])
             glfwTerminate();
             return -1;
         }
-        glfwSetKeyCallback(window, keyCallback);
         
         NSView* contentView = [glfwGetCocoaWindow(window) contentView];
         [contentView setWantsLayer: YES];
@@ -95,6 +94,8 @@ int main(int argc, char * argv[])
         [contentView setLayer:layer];
         
         cocos2d::backend::DeviceMTL::setCAMetalLayer(layer);
+        
+        glfwSetMouseButtonCallback(window, keyCallback);
         
         std::chrono::steady_clock::time_point prevTime;
         std::chrono::steady_clock::time_point now;

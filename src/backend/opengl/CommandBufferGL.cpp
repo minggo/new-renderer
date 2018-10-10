@@ -48,9 +48,6 @@ namespace
             case IndexFormat::U_INT:
                 ret = GL_UNSIGNED_INT;
                 break;
-            case IndexFormat::U_BYTE:
-                ret = GL_UNSIGNED_BYTE;
-                break;
             case IndexFormat::U_SHORT:
                 ret = GL_UNSIGNED_SHORT;
                 break;
@@ -100,7 +97,7 @@ void CommandBufferGL::setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h
     _viewport.h = h;
 }
 
-void CommandBufferGL::setIndexBuffer(uint32_t index, Buffer* buffer)
+void CommandBufferGL::setIndexBuffer(Buffer* buffer)
 {
     assert(buffer != nullptr);
     if (buffer == nullptr)

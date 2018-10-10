@@ -4,7 +4,9 @@
 
 CC_BACKEND_BEGIN
 
-RenderPassGL::RenderPassGL(const RenderPassDescriptor& descriptor) : RenderPass(descriptor)
+RenderPassGL::RenderPassGL(const RenderPassDescriptor& descriptor)
+: RenderPass(descriptor)
+, _hasStencil(descriptor.hasStencil())
 {
     if (_depthStencilAttachmentSet || _colorAttachmentsSet)
         glGenFramebuffers(1, &_frameBuffer);
@@ -26,12 +28,15 @@ void RenderPassGL::apply(GLuint defaultFrameBuffer) const
                                    0);
             CHECK_GL_ERROR_DEBUG();
             
-            //TODO: check if has stencil
-//            glFramebufferTexture2D(GL_FRAMEBUFFER,
-//                                   GL_STENCIL_ATTACHMENT,
-//                                   GL_TEXTURE_2D,
-//                                   textureGL->getHandler(),
-//                                   0);
+            if (_hasStencil)
+            {
+                glFramebufferTexture2D(GL_FRAMEBUFFER,
+                                       GL_STENCIL_ATTACHMENT,
+                                       GL_TEXTURE_2D,
+                                       textureGL->getHandler(),
+                                       0);
+                CHECK_GL_ERROR_DEBUG();
+            }
         }
         
         // color attachments

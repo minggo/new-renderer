@@ -23,6 +23,8 @@ class Texture : public cocos2d::Ref
 public:
     virtual void updateData(uint8_t* data) = 0;
     
+    inline TextureFormat getTextureFormat() const { return _textureFormat; }
+    
 protected:
     Texture(const TextureDescriptor& descriptor);
     virtual ~Texture();

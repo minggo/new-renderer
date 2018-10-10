@@ -4,6 +4,9 @@
 #include "RenderPipelineMTL.h"
 #include "ShaderModuleMTL.h"
 #include "RenderPassMTL.h"
+#include "DepthStencilStateMTL.h"
+
+#define DEFAULT_DEPTH_STENCIL_PIXEL_FORMAT MTLPixelFormatDepth24Unorm_Stencil8
 
 CC_BACKEND_BEGIN
 
@@ -29,6 +32,14 @@ void DeviceMTL::setCAMetalLayer(CAMetalLayer* metalLayer)
     DeviceMTL::_defaultRenderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
     DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
     DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
+    
+    // Set default depth and stencil texture.
+    auto defaultDepthStencilTexture = DeviceMTL::createDepthStencilTexture(metalLayer.device,
+                                                                           metalLayer.drawableSize.width,
+                                                                           metalLayer.drawableSize.height);
+    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.texture = defaultDepthStencilTexture;
+    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.texture = defaultDepthStencilTexture;
+    
     DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.loadAction = MTLLoadActionClear;
     DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionClear;
     [DeviceMTL::_defaultRenderPassDescriptor retain];
@@ -41,12 +52,18 @@ void DeviceMTL::updateDrawable()
     
     DeviceMTL::_currentDrawable = [DeviceMTL::_metalLayer nextDrawable];
     [DeviceMTL::_currentDrawable retain];
+    
+    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].texture = DeviceMTL::_currentDrawable.texture;
 }
 
 MTLRenderPassDescriptor* DeviceMTL::getDefaultMTLRenderPassDescriptor()
 {
-    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].texture = DeviceMTL::_currentDrawable.texture;
     return DeviceMTL::_defaultRenderPassDescriptor;
+}
+
+MTLPixelFormat DeviceMTL::getDefaultDepthStencilPixelFormat()
+{
+    return DEFAULT_DEPTH_STENCIL_PIXEL_FORMAT;
 }
 
 DeviceMTL::DeviceMTL()
@@ -75,7 +92,7 @@ Texture* DeviceMTL::newTexture(const TextureDescriptor& descriptor)
 
 RenderPass* DeviceMTL::newRenderPass(const RenderPassDescriptor& descriptor)
 {
-    return new (std::nothrow) RenderPassMTL(descriptor);
+    return new (std::nothrow) RenderPassMTL(_mtlDevice, descriptor);
 }
 
 ShaderModule* DeviceMTL::createShaderModule(ShaderStage stage, const std::string& source)
@@ -89,7 +106,11 @@ ShaderModule* DeviceMTL::createShaderModule(ShaderStage stage, const std::string
 
 DepthStencilState* DeviceMTL::createDepthStencilState(const DepthStencilDescriptor& descriptor)
 {
-    return nullptr;
+    auto ret = new (std::nothrow) DepthStencilStateMTL(_mtlDevice, descriptor);
+    if (ret)
+        ret->autorelease();
+    
+    return ret;
 }
 
 BlendState* DeviceMTL::createBlendState(const BlendDescriptor& descriptor)
@@ -105,6 +126,20 @@ RenderPipeline* DeviceMTL::newRenderPipeline(const RenderPipelineDescriptor& des
 Sampler* DeviceMTL::createSampler(const SamplerDescriptor &descriptor)
 {
     return nullptr;
+}
+
+id<MTLTexture> DeviceMTL::createDepthStencilTexture(id<MTLDevice> mtlDevice, uint32_t width, uint32_t height)
+{
+    MTLTextureDescriptor* textureDescriptor = [[MTLTextureDescriptor alloc] init];
+    textureDescriptor.width = width;
+    textureDescriptor.height = height;
+    textureDescriptor.pixelFormat = DEFAULT_DEPTH_STENCIL_PIXEL_FORMAT;
+    textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
+    textureDescriptor.usage = MTLTextureUsageRenderTarget;
+    auto ret = [mtlDevice newTextureWithDescriptor:textureDescriptor];
+    [textureDescriptor release];
+    
+    return ret;
 }
 
 CC_BACKEND_END

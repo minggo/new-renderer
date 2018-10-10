@@ -148,7 +148,7 @@ namespace
                                              cocos2d::backend::BufferUsage::READ);
             vertexBuffer->updateData(vertices, sizeof(vertices));
             
-            uint8_t indices[] = {0, 3, 1, 1, 3, 2};
+            uint32_t indices[] = {0, 3, 1, 1, 3, 2};
             indexBuffer = device->newBuffer(sizeof(indices),
                                             cocos2d::backend::BufferType::INDEX,
                                             cocos2d::backend::BufferUsage::READ);
@@ -276,7 +276,6 @@ BlendingBackend::BlendingBackend()
     backend::TextureDescriptor textureDescriptorBackgroud;
     textureDescriptorBackgroud.width = 128;
     textureDescriptorBackgroud.height = 128;
-    textureDescriptorBackgroud.samplerDescriptor.rAddressMode = backend::SamplerAddressMode::REPEAT;
     textureDescriptorBackgroud.samplerDescriptor.sAddressMode = backend::SamplerAddressMode::REPEAT;
     textureDescriptorBackgroud.samplerDescriptor.mipmapFilter = backend::SamplerFilter::LINEAR;
     textureDescriptorBackgroud.textureFormat = backend::TextureFormat::R8G8B8;
@@ -349,9 +348,9 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->setBindGroup(&_bindGroup);
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
-    _commandBuffer->setIndexBuffer(0, quad->indexBuffer);
+    _commandBuffer->setIndexBuffer(quad->indexBuffer);
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
-                                 cocos2d::backend::IndexFormat::U_BYTE,
+                                 cocos2d::backend::IndexFormat::U_INT,
                                  6);
     _commandBuffer->endRenderPass();
 
@@ -367,9 +366,9 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->setBindGroup(&_bindGroup);
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
-    _commandBuffer->setIndexBuffer(0, quad->indexBuffer);
+    _commandBuffer->setIndexBuffer(quad->indexBuffer);
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
-                                 cocos2d::backend::IndexFormat::U_BYTE,
+                                 cocos2d::backend::IndexFormat::U_INT,
                                  6);
     _commandBuffer->endRenderPass();
 
@@ -385,9 +384,9 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->setBindGroup(&_bindGroup);
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
-    _commandBuffer->setIndexBuffer(0, quad->indexBuffer);
+    _commandBuffer->setIndexBuffer(quad->indexBuffer);
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
-                                 cocos2d::backend::IndexFormat::U_BYTE,
+                                 cocos2d::backend::IndexFormat::U_INT,
                                  6);
     _commandBuffer->endRenderPass();
 
@@ -404,9 +403,9 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->setBindGroup(&_bindGroup);
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
-    _commandBuffer->setIndexBuffer(0, quad->indexBuffer);
+    _commandBuffer->setIndexBuffer(quad->indexBuffer);
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
-                                 cocos2d::backend::IndexFormat::U_BYTE,
+                                 cocos2d::backend::IndexFormat::U_INT,
                                  6);
     _commandBuffer->endRenderPass();
 
@@ -422,9 +421,9 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->setBindGroup(&_bindGroup);
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
-    _commandBuffer->setIndexBuffer(0, quad->indexBuffer);
+    _commandBuffer->setIndexBuffer(quad->indexBuffer);
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
-                                 cocos2d::backend::IndexFormat::U_BYTE,
+                                 cocos2d::backend::IndexFormat::U_INT,
                                  6);
     _commandBuffer->endRenderPass();
 }

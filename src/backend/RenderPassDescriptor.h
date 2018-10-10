@@ -50,6 +50,8 @@ public:
     void setDepthClearValue(float clearValue);
     void setStencilClearValue(uint32_t clearValue);
     
+    bool hasStencil() const;
+    
     inline const RenderPassDepthStencilAttachment& getDepthStencilAttachment() const { return _depthStencilAttachment; }
     inline const RenderPassColorAttachments& getColorAttachments() const { return _colorAttachments; }
     

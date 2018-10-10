@@ -62,7 +62,21 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
     glslopt_ctx* ctx = glslopt_initialize(kGlslTargetMetal);
     glslopt_shader_type shaderType = stage == ShaderStage::VERTEX ? kGlslOptShaderVertex : kGlslOptShaderFragment;
     glslopt_shader* glslShader = glslopt_optimize(ctx, shaderType, source.c_str(), 0);
+    if (!glslShader)
+    {
+        NSLog(@"Can not translate GLSL shader to metal shader:");
+        NSLog(@"%s", source.c_str());
+        return;
+    }
+    
     const char* metalShader = glslopt_get_raw_output(glslShader);
+    if (!metalShader)
+    {
+        NSLog(@"Can not get metal shader:");
+        NSLog(@"%s", source.c_str());
+        return;
+    }
+        
     parseUniform(mtlDevice, glslShader);
     
     glslopt_cleanup(ctx);
@@ -74,7 +88,8 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
                                                        error:&error];
     if (!library)
     {
-        NSLog(@"Can not compile shader: %@", error);
+        NSLog(@"Can not compile metal shader: %@", error);
+        NSLog(@"%s", metalShader);
         return;
     }
     

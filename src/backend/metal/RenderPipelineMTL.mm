@@ -1,6 +1,7 @@
 #include "RenderPipelineMTL.h"
 #include "DeviceMTL.h"
 #include "ShaderModuleMTL.h"
+#include "DepthStencilStateMTL.h"
 
 CC_BACKEND_BEGIN
 
@@ -56,7 +57,7 @@ namespace
                 ret = MTLVertexFormatUChar2;
                 break;
             default:
-                assert("unknow format");
+                assert(false);
                 break;
         }
         return ret;
@@ -67,6 +68,8 @@ RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipeli
 {
     MTLRenderPipelineDescriptor *mtlDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
     mtlDescriptor.colorAttachments[0].pixelFormat = DeviceMTL::getCAMetalLayer().pixelFormat;
+    mtlDescriptor.depthAttachmentPixelFormat = MTLPixelFormatDepth24Unorm_Stencil8;
+    mtlDescriptor.stencilAttachmentPixelFormat = MTLPixelFormatDepth24Unorm_Stencil8;
     
     auto vertexShaderModule = static_cast<ShaderModuleMTL*>(descriptor.getVertexShaderModule());
     mtlDescriptor.vertexFunction = vertexShaderModule->getMTLFunction();
@@ -103,6 +106,11 @@ RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipeli
     _mtlRenderPipelineState = [mtlDevice newRenderPipelineStateWithDescriptor:mtlDescriptor error:nil];
     
     [mtlDescriptor release];
+    
+    // Depth stencil state.
+    auto depthStencilState = descriptor.getDepthStencilState();
+    if (depthStencilState)
+        _mtlDepthStencilState = static_cast<DepthStencilStateMTL*>(depthStencilState)->getMTLDepthStencilState();
 }
 
 RenderPipelineMTL::~RenderPipelineMTL()

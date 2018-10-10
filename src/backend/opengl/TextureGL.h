@@ -26,7 +26,6 @@ private:
     
     GLint _magFilterGL = GL_LINEAR;
     GLint _minFilterGL = GL_LINEAR;
-    GLint _rAddressModeGL = GL_REPEAT;
     GLint _sAddressModeGL = GL_REPEAT;
     GLint _tAddressModeGL = GL_REPEAT;
     
