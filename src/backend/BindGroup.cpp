@@ -4,9 +4,8 @@
 
 CC_BACKEND_BEGIN
 
-BindGroup::UniformInfo::UniformInfo(const std::string& _name, uint32_t _index, void* _data, uint32_t _size)
+BindGroup::UniformInfo::UniformInfo(const std::string& _name, void* _data, uint32_t _size)
 : name(_name)
-, index(_index)
 , size(_size)
 {
     data = malloc(size);
@@ -25,7 +24,6 @@ BindGroup::UniformInfo& BindGroup::UniformInfo::operator=(UniformInfo&& rhs)
     if (this != &rhs)
     {
         name = rhs.name;
-        index = rhs.index;
         size = rhs.size;
         
         data = rhs.data;
@@ -141,9 +139,9 @@ void BindGroup::setTextureArray(const std::string& name, const std::vector<uint3
     _textureInfos[name] = std::move(textureInfo);
 }
 
-void BindGroup::setUniform(const std::string& name, uint32_t index, void* data, uint32_t size)
+void BindGroup::setUniform(const std::string& name, void* data, uint32_t size)
 {
-    UniformInfo uniform(name, index, data, size);
+    UniformInfo uniform(name, data, size);
     _uniformInfos[name] = std::move(uniform);
 }
 

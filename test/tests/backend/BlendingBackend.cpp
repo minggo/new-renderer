@@ -320,8 +320,8 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bigTriangle->renderPipeline);
     
-    _bindGroupBigTriangle.setUniform("time", 0, &_dt, sizeof(_dt));
-    _bindGroupBigTriangle.setUniform("projection", 1, _projection.m, sizeof(_projection.m));
+    _bindGroupBigTriangle.setUniform("time", &_dt, sizeof(_dt));
+    _bindGroupBigTriangle.setUniform("projection", _projection.m, sizeof(_projection.m));
     _bindGroupBigTriangle.setTexture("texture", 0, _backgroud);
     _commandBuffer->setBindGroup(&_bindGroupBigTriangle);
     
@@ -342,8 +342,8 @@ void BlendingBackend::tick(float dt)
     float offsetX = 5.f + hsize;
     float offsetY = 5.f + hsize;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", 0, _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", 1, _projection.m, sizeof(_projection.m));
+    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
+    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     
@@ -360,8 +360,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", 0, _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", 1, _projection.m, sizeof(_projection.m));
+    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
+    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     
@@ -378,8 +378,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", 0, _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", 1, _projection.m, sizeof(_projection.m));
+    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
+    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     
@@ -397,8 +397,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", 0, _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", 1, _projection.m, sizeof(_projection.m));
+    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
+    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     
@@ -415,8 +415,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", 0, _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", 1, _projection.m, sizeof(_projection.m));
+    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
+    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     

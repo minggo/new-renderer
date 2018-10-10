@@ -133,8 +133,8 @@ void MultiTexturesBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     
     float color[4] = {1.f, 0, 0, 1.f};
-    _bindGroup.setUniform("color", 0, color, sizeof(color));
-    _bindGroup.setUniform("transform", 1, _transform.m, sizeof(_transform.m));
+    _bindGroup.setUniform("color", color, sizeof(color));
+    _bindGroup.setUniform("transform", _transform.m, sizeof(_transform.m));
     _bindGroup.setTextureArray("texture", {6, 7}, {_background, _texture1});
     _commandBuffer->setBindGroup(&_bindGroup);
     

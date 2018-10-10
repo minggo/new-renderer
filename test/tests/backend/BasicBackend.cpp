@@ -105,7 +105,7 @@ void BasicBackend::tick(float dt)
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(_renderPipeline);
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
-    _bindGroup.setUniform("color", 0, color, sizeof(color));
+    _bindGroup.setUniform("color", color, sizeof(color));
     _commandBuffer->setBindGroup(&_bindGroup);
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 3);
     _commandBuffer->endRenderPass();

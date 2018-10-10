@@ -62,7 +62,6 @@ Texture2DBackendTest::Texture2DBackendTest()
     )";
 
     auto device = cocos2d::backend::Device::getInstance();
-
     {
         FontDefinition fontDef;
         fontDef._dimensions = Size(512, 512);
@@ -137,12 +136,12 @@ Texture2DBackendTest::Texture2DBackendTest()
     // set uniforms
     _bindGroupCanvas.setTexture("texture", 0, _canvasTexture);
     float color[4] = {1.f, 0.f, 0.f, 1.f};
-    _bindGroupCanvas.setUniform("color", 0, color, sizeof(color));
-    _bindGroupCanvas.setUniform("transform", 1, _transform0.m, sizeof(_transform0.m));
+    _bindGroupCanvas.setUniform("color", color, sizeof(color));
+    _bindGroupCanvas.setUniform("transform", _transform0.m, sizeof(_transform0.m));
     
     _bindGroupdTexture.setTexture("texture", 0, _texture);
-    _bindGroupdTexture.setUniform("color", 0, color, sizeof(color));
-    _bindGroupdTexture.setUniform("transform", 1, _transform1.m, sizeof(_transform1.m));
+    _bindGroupdTexture.setUniform("color", color, sizeof(color));
+    _bindGroupdTexture.setUniform("transform", _transform1.m, sizeof(_transform1.m));
     
     // render pass
     RenderPassDescriptor renderPassDescriptor;

@@ -93,11 +93,11 @@ BunnyBackend::BunnyBackend()
     _renderPass = device->newRenderPass(renderPassDescriptor);
     
     // bind group
-    _bindGroup.setUniform("model", 0, _model.m, sizeof(_model.m));
+    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
     Mat4::createPerspective(60.0f, 1.0f * utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
-    _bindGroup.setUniform("projection", 2, _projection.m, sizeof(_projection.m));
+    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
     float color[4] = {0.5f, 0.5f, 0.5f, 1.0f};
-    _bindGroup.setUniform("color", 3, color, sizeof(color));
+    _bindGroup.setUniform("color", color, sizeof(color));
 
     // vertex buffer
     _vertexBuffer = device->newBuffer(sizeof(bunny_positions),
@@ -127,7 +127,7 @@ void BunnyBackend::tick(float dt)
 {
     _time += dt;
     Mat4::createLookAt(Vec3(30.0f * std::cos(_time), 20.0f, 30.0f * std::sin(_time)), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
-    _bindGroup.setUniform("view", 1, _view.m, sizeof(_view.m));
+    _bindGroup.setUniform("view", _view.m, sizeof(_view.m));
     
     _commandBuffer->beginRenderPass(_renderPass);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);

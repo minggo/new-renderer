@@ -14,7 +14,6 @@ struct TextureDescriptor
     uint32_t height = 0;
     uint32_t depth = 0;
     
-    // It is needed for opengl es 2.
     SamplerDescriptor samplerDescriptor;
 };
 

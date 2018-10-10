@@ -269,9 +269,9 @@ void DepthTextureBackend::tick(float dt)
     
     _model = Mat4::IDENTITY;
     _model.translate(5, 0, 0);
-    _bindGroupBunny.setUniform("model", 0, _model.m, sizeof(_model.m));
-    _bindGroupBunny.setUniform("view", 1, _view.m, sizeof(_view.m));
-    _bindGroupBunny.setUniform("projection", 2, _projection.m, sizeof(_projection.m));
+    _bindGroupBunny.setUniform("model", _model.m, sizeof(_model.m));
+    _bindGroupBunny.setUniform("view", _view.m, sizeof(_view.m));
+    _bindGroupBunny.setUniform("projection", _projection.m, sizeof(_projection.m));
     _commandBuffer->setBindGroup(&_bindGroupBunny);
     
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
@@ -288,9 +288,9 @@ void DepthTextureBackend::tick(float dt)
     
     _model = Mat4::IDENTITY;
     _model.translate(-5, 0, 0);
-    _bindGroupBunny.setUniform("model", 0, _model.m, sizeof(_model.m));
-    _bindGroupBunny.setUniform("view", 1, _view.m, sizeof(_view.m));
-    _bindGroupBunny.setUniform("projection", 2, _projection.m, sizeof(_projection.m));
+    _bindGroupBunny.setUniform("model", _model.m, sizeof(_model.m));
+    _bindGroupBunny.setUniform("view", _view.m, sizeof(_view.m));
+    _bindGroupBunny.setUniform("projection", _projection.m, sizeof(_projection.m));
     _commandBuffer->setBindGroup(&_bindGroupBunny);
     
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
@@ -308,8 +308,8 @@ void DepthTextureBackend::tick(float dt)
     _bindGroupBigTriangle.setTexture("texture", 0, _depthTexture);
     float near = 0.1f;
     float far = 100.f;
-    _bindGroupBigTriangle.setUniform("near", 1, &near, sizeof(float));
-    _bindGroupBigTriangle.setUniform("far", 2, &far, sizeof(float));
+    _bindGroupBigTriangle.setUniform("near", &near, sizeof(float));
+    _bindGroupBigTriangle.setUniform("far", &far, sizeof(float));
     _commandBuffer->setBindGroup(&_bindGroupBigTriangle);
     
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
