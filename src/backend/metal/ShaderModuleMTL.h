@@ -17,16 +17,20 @@ public:
     
     inline id<MTLFunction> getMTLFunction() const { return _mtlFunction; }
     inline void* getUniformBuffer() const { return _uniformBuffer; }
-    inline const std::vector<std::string>& getActiveUniforms() const { return _activeUniforms; }
+    inline const std::vector<std::string>& getUniforms() const { return _uniforms; }
+    inline const std::vector<std::string>& getTextures() const { return _textures; }
     
 private:
     void parseUniform(id<MTLDevice> mtlDevice, glslopt_shader* shader);
+    void parseTexture(id<MTLDevice> mtlDevice, glslopt_shader* shader);
     
     id<MTLFunction> _mtlFunction = nil;
     
-    // Buffer for uniforms.
     void* _uniformBuffer = nullptr;
-    std::vector<std::string> _activeUniforms;
+    std::vector<std::string> _uniforms;
+    
+    // Texture index is the same as vector index.
+    std::vector<std::string> _textures;
 };
 
 CC_BACKEND_END

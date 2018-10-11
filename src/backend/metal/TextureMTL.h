@@ -2,6 +2,7 @@
 
 #include "../Texture.h"
 #include "DeviceMTL.h"
+#import <Metal/Metal.h>
 
 CC_BACKEND_BEGIN
 
@@ -13,10 +14,15 @@ public:
     
     virtual void updateData(uint8_t* data) override;
     
-    inline id<MTLTexture> getMTLTexture() const { return _metlTexture; }
+    inline id<MTLTexture> getMTLTexture() const { return _mtlTexture; }
+    inline id<MTLSamplerState> getMTLSamplerState() const { return _mtlSamplerState; }
     
 private:
-    id<MTLTexture> _metlTexture = nil;
+    void createTexture(id<MTLDevice> mtlDevice, const TextureDescriptor& descriptor);
+    void createSampler(id<MTLDevice> mtlDevice, const TextureDescriptor& descriptor);
+    
+    id<MTLTexture> _mtlTexture = nil;
+    id<MTLSamplerState> _mtlSamplerState = nil;
     uint32_t _bytesPerRow = 0;
 };
 

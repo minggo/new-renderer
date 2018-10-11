@@ -166,6 +166,7 @@
 		461DD0ED21538B0100A8E43F /* CommandBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461DD0EC21538B0100A8E43F /* CommandBuffer.cpp */; };
 		461DD0EE21538B0100A8E43F /* CommandBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461DD0EC21538B0100A8E43F /* CommandBuffer.cpp */; };
 		4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
+		46486F1A216DE9740078BE0E /* Texture2DBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460374102142137E00DC9ED4 /* Texture2DBackend.cpp */; };
 		466BA3B3216C5F4A006C15A5 /* BunnyBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460374442147B88300DC9ED4 /* BunnyBackend.cpp */; };
 		466BA3B6216C79C7006C15A5 /* DepthStencilStateMTL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 466BA3B4216C79C7006C15A5 /* DepthStencilStateMTL.mm */; };
 		467E26232154A3FB0055AD62 /* RenderPassMTL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 467E26212154A3FB0055AD62 /* RenderPassMTL.mm */; };
@@ -1317,6 +1318,7 @@
 				1A255E2920034B0D00069420 /* CCImage.cpp in Sources */,
 				466BA3B6216C79C7006C15A5 /* DepthStencilStateMTL.mm in Sources */,
 				1A255E6D20034B0D00069420 /* pvr.cpp in Sources */,
+				46486F1A216DE9740078BE0E /* Texture2DBackend.cpp in Sources */,
 				461DD0E62153845000A8E43F /* Device.cpp in Sources */,
 				468BD2DB2154EB34007BCACF /* BufferMTL.mm in Sources */,
 				1A255E6B20034B0D00069420 /* TGAlib.cpp in Sources */,

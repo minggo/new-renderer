@@ -12,7 +12,7 @@
 #include "../tests/Utils.h"
 
 #include "../tests/backend/BasicBackend.h"
-//#include "backend/Texture2DBackend.h"
+#include "../tests/backend/Texture2DBackend.h"
 #include "../tests/backend/BunnyBackend.h"
 //#include "backend/DepthTextureBackend.h"
 //#include "backend/BlendingBackend.h"
@@ -45,10 +45,11 @@ namespace
         if (first)
         {
             tests = {
+                Texture2DBackendTest::create,
                 //            MultiTexturesBackend::create,
                 //            BlendingBackend::create,
                 BasicBackend::create,
-                //            Texture2DBackendTest::create,
+                
                 BunnyBackend::create,
                 //            DepthTextureBackend::create
             };

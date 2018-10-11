@@ -25,6 +25,8 @@ public:
     
 private:
     void prepareDrawing() const;
+    void setTextures() const;
+    void doSetTextures(const std::vector<std::string>& textures, bool isVertex) const;
     void setUniformBuffer() const;
     uint32_t fillUniformBuffer(void* buffer, const std::vector<std::string>& uniforms) const;
     

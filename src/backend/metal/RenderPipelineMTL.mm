@@ -73,13 +73,15 @@ RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipeli
     
     auto vertexShaderModule = static_cast<ShaderModuleMTL*>(descriptor.getVertexShaderModule());
     mtlDescriptor.vertexFunction = vertexShaderModule->getMTLFunction();
-    _activeVertexUniforms = vertexShaderModule->getActiveUniforms();
+    _vertexUniforms = vertexShaderModule->getUniforms();
     _vertexUniformBuffer = vertexShaderModule->getUniformBuffer();
+    _vertexTextures = vertexShaderModule->getTextures();
     
     auto fragShaderModule = static_cast<ShaderModuleMTL*>(descriptor.getFragmentShaderModule());
     mtlDescriptor.fragmentFunction = fragShaderModule->getMTLFunction();
-    _activeFragmentUniforms = fragShaderModule->getActiveUniforms();
+    _fragmentUniforms = fragShaderModule->getUniforms();
     _fragementUniformBuffer = fragShaderModule->getUniformBuffer();
+    _fragmentTextures = fragShaderModule->getTextures();
     
     const auto& vertexLayouts = descriptor.getVertexLayouts();
     int vertexIndex = 0;

@@ -91,7 +91,7 @@ Texture2DBackendTest::Texture2DBackendTest()
 
         cocos2d::Data data;
         data.copy(img->getData(), img->getDataLen());
-        
+
         TextureDescriptor texDes;
         texDes.width = img->getWidth();
         texDes.height = img->getHeight();
@@ -99,7 +99,7 @@ Texture2DBackendTest::Texture2DBackendTest()
         texDes.textureType = TextureType::TEXTURE_2D;
         _texture = device->newTexture(texDes);
         _texture->updateData(data.getBytes());
-        
+
         img->release();
     }
 

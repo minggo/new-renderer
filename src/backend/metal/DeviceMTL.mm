@@ -5,6 +5,7 @@
 #include "ShaderModuleMTL.h"
 #include "RenderPassMTL.h"
 #include "DepthStencilStateMTL.h"
+#include "TextureMTL.h"
 
 #define DEFAULT_DEPTH_STENCIL_PIXEL_FORMAT MTLPixelFormatDepth24Unorm_Stencil8
 
@@ -30,7 +31,7 @@ void DeviceMTL::setCAMetalLayer(CAMetalLayer* metalLayer)
         [DeviceMTL::_defaultRenderPassDescriptor release];
     
     DeviceMTL::_defaultRenderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
-    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionLoad;
     DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
     
     // Set default depth and stencil texture.
@@ -40,8 +41,8 @@ void DeviceMTL::setCAMetalLayer(CAMetalLayer* metalLayer)
     DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.texture = defaultDepthStencilTexture;
     DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.texture = defaultDepthStencilTexture;
     
-    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.loadAction = MTLLoadActionClear;
-    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
     [DeviceMTL::_defaultRenderPassDescriptor retain];
 }
 
@@ -87,7 +88,7 @@ Buffer* DeviceMTL::newBuffer(uint32_t size, BufferType type, BufferUsage usage)
 
 Texture* DeviceMTL::newTexture(const TextureDescriptor& descriptor)
 {
-    return nullptr;
+    return new (std::nothrow) TextureMTL(_mtlDevice, descriptor);
 }
 
 RenderPass* DeviceMTL::newRenderPass(const RenderPassDescriptor& descriptor)
