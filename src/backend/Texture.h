@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Types.h"
-#include "Sampler.h"
 #include "base/CCRef.h"
 
 CC_BACKEND_BEGIN

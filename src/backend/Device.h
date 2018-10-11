@@ -5,7 +5,6 @@
 #include "RenderPipelineDescriptor.h"
 #include "RenderPassDescriptor.h"
 #include "Texture.h"
-#include "Sampler.h"
 #include "DepthStencilState.h"
 #include "BlendState.h"
 
@@ -44,8 +43,6 @@ public:
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) = 0;
     // Create a render pipeline, not auto released.
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) = 0;
-    // Create a auto released sampler.
-    virtual Sampler* createSampler(const SamplerDescriptor& descriptor) = 0;
     
 private:
     static Device* _instance;

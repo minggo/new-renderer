@@ -5,7 +5,6 @@
 #include "CommandBufferGL.h"
 #include "RenderPassGL.h"
 #include "TextureGL.h"
-#include "SamplerGL.h"
 #include "DepthStencilStateGL.h"
 #include "BlendStateGL.h"
 
@@ -69,15 +68,6 @@ BlendState* DeviceGL::createBlendState(const BlendDescriptor& descriptor)
 RenderPipeline* DeviceGL::newRenderPipeline(const RenderPipelineDescriptor& descriptor)
 {
     return new (std::nothrow) RenderPipelineGL(descriptor);
-}
-
-Sampler* DeviceGL::createSampler(const SamplerDescriptor &descriptor)
-{
-    auto ret = new (std::nothrow) SamplerGL(descriptor);
-    if (ret)
-        ret->autorelease();
-    
-    return ret;
 }
 
 CC_BACKEND_END

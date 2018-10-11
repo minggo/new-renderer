@@ -10,7 +10,7 @@ class RenderPipelineMTL;
 class CommandBufferMTL : public CommandBuffer
 {
 public:
-    CommandBufferMTL(id<MTLDevice> mtlDevice);
+    CommandBufferMTL(DeviceMTL* deviceMTL);
     ~CommandBufferMTL();
     
     virtual void beginRenderPass(RenderPass* renderPass) override;
@@ -35,6 +35,7 @@ private:
     id<MTLRenderCommandEncoder> _mtlRenderEncoder = nil;
     id<MTLBuffer> _mtlIndexBuffer = nil;
     
+    DeviceMTL* _deviceMTL = nullptr;
     RenderPipelineMTL* _renderPipelineMTL = nullptr;
     BindGroup* _bindGroup = nullptr;
 };

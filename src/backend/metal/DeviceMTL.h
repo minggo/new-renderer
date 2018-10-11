@@ -29,7 +29,9 @@ public:
     virtual DepthStencilState* createDepthStencilState(const DepthStencilDescriptor& descriptor) override;
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) override;
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) override;
-    virtual Sampler* createSampler(const SamplerDescriptor& descriptor) override;
+        
+    void resetDefaultRenderPass();
+    inline id<MTLDevice> getMTLDevice() const { return _mtlDevice; }
     
 private:
     static id<MTLTexture> createDepthStencilTexture(id<MTLDevice> mtlDevice, uint32_t width, uint32_t height);

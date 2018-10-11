@@ -78,7 +78,7 @@ DeviceMTL::~DeviceMTL()
 
 CommandBuffer* DeviceMTL::newCommandBuffer()
 {
-    return new (std::nothrow) CommandBufferMTL(_mtlDevice);
+    return new (std::nothrow) CommandBufferMTL(this);
 }
 
 Buffer* DeviceMTL::newBuffer(uint32_t size, BufferType type, BufferUsage usage)
@@ -124,9 +124,12 @@ RenderPipeline* DeviceMTL::newRenderPipeline(const RenderPipelineDescriptor& des
     return new (std::nothrow) RenderPipelineMTL(_mtlDevice, descriptor);
 }
 
-Sampler* DeviceMTL::createSampler(const SamplerDescriptor &descriptor)
+void DeviceMTL::resetDefaultRenderPass()
 {
-    return nullptr;
+    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionLoad;
+    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
+    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
 }
 
 id<MTLTexture> DeviceMTL::createDepthStencilTexture(id<MTLDevice> mtlDevice, uint32_t width, uint32_t height)

@@ -13,7 +13,6 @@ public:
     virtual DepthStencilState* createDepthStencilState(const DepthStencilDescriptor& descriptor) override;
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) override;
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) override;
-    virtual Sampler* createSampler(const SamplerDescriptor& descriptor) override;
 };
 
 CC_BACKEND_END

@@ -3,7 +3,6 @@
 #include "RenderPipelineGL.h"
 #include "RenderPassGL.h"
 #include "TextureGL.h"
-#include "SamplerGL.h"
 #include "DepthStencilStateGL.h"
 #include "../RenderPass.h"
 #include "../BindGroup.h"

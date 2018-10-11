@@ -154,4 +154,13 @@ enum class ColorWriteMask: uint32_t
     ALL = 0x0000000F
 };
 
+struct SamplerDescriptor
+{
+    SamplerFilter magFilter = SamplerFilter::LINEAR;
+    SamplerFilter minFilter = SamplerFilter::LINEAR;
+    SamplerFilter mipmapFilter = SamplerFilter::NONE;
+    SamplerAddressMode sAddressMode = SamplerAddressMode::REPEAT;
+    SamplerAddressMode tAddressMode = SamplerAddressMode::REPEAT;
+};
+
 CC_BACKEND_END

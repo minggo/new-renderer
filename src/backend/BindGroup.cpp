@@ -1,6 +1,5 @@
 #include "BindGroup.h"
 #include "Texture.h"
-#include "Sampler.h"
 
 CC_BACKEND_BEGIN
 
@@ -71,58 +70,6 @@ void BindGroup::TextureInfo::releaseTextures()
 {
     for (auto& texture : textures)
         CC_SAFE_RELEASE(texture);
-}
-
-BindGroup::SamplerInfo::SamplerInfo(uint32_t _index, Sampler* _sampler)
-: index(_index)
-, sampler(_sampler)
-{
-    CC_SAFE_RETAIN(sampler);
-}
-
-BindGroup::SamplerInfo::SamplerInfo()
-{}
-
-BindGroup::SamplerInfo::~SamplerInfo()
-{
-    CC_SAFE_RELEASE(sampler);
-}
-
-BindGroup::SamplerInfo& BindGroup::SamplerInfo::operator=(SamplerInfo &&rhs)
-{
-    if (this != &rhs)
-    {
-        index = rhs.index;
-        
-        sampler = rhs.sampler;
-        rhs.sampler = nullptr;
-    }
-    return *this;
-}
-
-BindGroup::SamplerInfo::SamplerInfo(const SamplerInfo& rhs)
-: index(rhs.index)
-{
-    if (this != &rhs)
-    {
-        CC_SAFE_RETAIN(rhs.sampler);
-        CC_SAFE_RELEASE(sampler);
-        sampler = rhs.sampler;
-    }
-}
-
-BindGroup::BindGroup()
-{
-    _samplerInfos.reserve(5);
-}
-
-void BindGroup::setSampler(const uint32_t index, Sampler* sampler)
-{
-    if (index >= _samplerInfos.size())
-        _samplerInfos.resize(index + 1);
-
-    SamplerInfo samplerInfo(index, sampler);
-    _samplerInfos[index] = std::move(samplerInfo);
 }
 
 void BindGroup::setTexture(const std::string &name, uint32_t index, Texture *texture)

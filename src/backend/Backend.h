@@ -11,7 +11,6 @@
 #include "backend/Buffer.h"
 #include "backend/VertexLayout.h"
 #include "backend/ShaderModule.h"
-#include "backend/Sampler.h"
 #include "backend/Texture.h"
 #include "backend/DepthStencilState.h"
 #include "backend/BlendState.h"

@@ -45,8 +45,9 @@ namespace
     }
 }
 
-CommandBufferMTL::CommandBufferMTL(id<MTLDevice> mtlDevice)
-: _mtlCommandQueue([mtlDevice newCommandQueue])
+CommandBufferMTL::CommandBufferMTL(DeviceMTL* deviceMTL)
+: _mtlCommandQueue([deviceMTL->getMTLDevice() newCommandQueue])
+, _deviceMTL(deviceMTL)
 {
 }
 
@@ -145,6 +146,8 @@ void CommandBufferMTL::endRenderPass()
     CC_SAFE_RELEASE_NULL(_bindGroup);
     [_mtlCommandBuffer release];
     [_mtlRenderEncoder release];
+    
+    _deviceMTL->resetDefaultRenderPass();
 }
 
 void CommandBufferMTL::prepareDrawing() const
