@@ -9,8 +9,11 @@ CC_BACKEND_BEGIN
 class RenderPass : public cocos2d::Ref
 {
 public:
-    bool hasDepthStencilAttachment() const { return _depthStencilAttachmentSet; }
-    bool hasColorAttachments() const { return _colorAttachmentsSet; }
+    inline bool hasDepthStencilAttachment() const { return _depthStencilAttachmentSet; }
+    inline bool hasColorAttachments() const { return _colorAttachmentsSet; }
+    
+    inline const RenderPassDepthStencilAttachment& getDepthStencilAttachment() const { return _depthStencilAttachment; }
+    inline const RenderPassColorAttachments& getColorAttachments() const { return _colorAttachments; }
     
 protected:
     RenderPass(const RenderPassDescriptor& descriptor);

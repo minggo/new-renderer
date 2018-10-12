@@ -6,14 +6,13 @@
 #include "RenderPassMTL.h"
 #include "DepthStencilStateMTL.h"
 #include "TextureMTL.h"
+#include "Utils.h"
 
-#define DEFAULT_DEPTH_STENCIL_PIXEL_FORMAT MTLPixelFormatDepth24Unorm_Stencil8
 
 CC_BACKEND_BEGIN
 
 CAMetalLayer* DeviceMTL::_metalLayer = nil;
 id<CAMetalDrawable> DeviceMTL::_currentDrawable = nil;
-MTLRenderPassDescriptor* DeviceMTL::_defaultRenderPassDescriptor = nil;
 
 Device* Device::getInstance()
 {
@@ -26,24 +25,7 @@ Device* Device::getInstance()
 void DeviceMTL::setCAMetalLayer(CAMetalLayer* metalLayer)
 {
     DeviceMTL::_metalLayer = metalLayer;
-    
-    if (DeviceMTL::_defaultRenderPassDescriptor)
-        [DeviceMTL::_defaultRenderPassDescriptor release];
-    
-    DeviceMTL::_defaultRenderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
-    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionLoad;
-    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
-    
-    // Set default depth and stencil texture.
-    auto defaultDepthStencilTexture = DeviceMTL::createDepthStencilTexture(metalLayer.device,
-                                                                           metalLayer.drawableSize.width,
-                                                                           metalLayer.drawableSize.height);
-    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.texture = defaultDepthStencilTexture;
-    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.texture = defaultDepthStencilTexture;
-    
-    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.loadAction = MTLLoadActionLoad;
-    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
-    [DeviceMTL::_defaultRenderPassDescriptor retain];
+    Utils::createDefaultRenderPassDescriptor();
 }
 
 void DeviceMTL::updateDrawable()
@@ -54,17 +36,7 @@ void DeviceMTL::updateDrawable()
     DeviceMTL::_currentDrawable = [DeviceMTL::_metalLayer nextDrawable];
     [DeviceMTL::_currentDrawable retain];
     
-    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].texture = DeviceMTL::_currentDrawable.texture;
-}
-
-MTLRenderPassDescriptor* DeviceMTL::getDefaultMTLRenderPassDescriptor()
-{
-    return DeviceMTL::_defaultRenderPassDescriptor;
-}
-
-MTLPixelFormat DeviceMTL::getDefaultDepthStencilPixelFormat()
-{
-    return DEFAULT_DEPTH_STENCIL_PIXEL_FORMAT;
+    Utils::updateDefaultRenderPassDescriptor(DeviceMTL::_currentDrawable.texture);
 }
 
 DeviceMTL::DeviceMTL()
@@ -124,26 +96,12 @@ RenderPipeline* DeviceMTL::newRenderPipeline(const RenderPipelineDescriptor& des
     return new (std::nothrow) RenderPipelineMTL(_mtlDevice, descriptor);
 }
 
-void DeviceMTL::resetDefaultRenderPass()
-{
-    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionLoad;
-    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
-    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.loadAction = MTLLoadActionLoad;
-    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
-}
-
-id<MTLTexture> DeviceMTL::createDepthStencilTexture(id<MTLDevice> mtlDevice, uint32_t width, uint32_t height)
-{
-    MTLTextureDescriptor* textureDescriptor = [[MTLTextureDescriptor alloc] init];
-    textureDescriptor.width = width;
-    textureDescriptor.height = height;
-    textureDescriptor.pixelFormat = DEFAULT_DEPTH_STENCIL_PIXEL_FORMAT;
-    textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
-    textureDescriptor.usage = MTLTextureUsageRenderTarget;
-    auto ret = [mtlDevice newTextureWithDescriptor:textureDescriptor];
-    [textureDescriptor release];
-    
-    return ret;
-}
+//void DeviceMTL::resetDefaultRenderPass()
+//{
+//    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionLoad;
+//    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
+//    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+//    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
+//}
 
 CC_BACKEND_END

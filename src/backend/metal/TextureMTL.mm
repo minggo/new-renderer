@@ -1,27 +1,10 @@
 #include "TextureMTL.h"
+#include "Utils.h"
 
 CC_BACKEND_BEGIN
 
 namespace
 {
-    MTLPixelFormat toMTLPixelFormat(TextureFormat textureFormat)
-    {
-        switch (textureFormat)
-        {
-            case TextureFormat::R8G8B8A8:
-                return MTLPixelFormatRGBA8Unorm;
-            // Should transfer the data to match pixel format when updating data.
-            case TextureFormat::R8G8B8:
-                return MTLPixelFormatRGBA8Unorm;
-            case TextureFormat::A8:
-                return MTLPixelFormatA8Unorm;
-            case TextureFormat::D16:
-                return MTLPixelFormatDepth16Unorm;
-            case TextureFormat::D24S8:
-                return MTLPixelFormatDepth24Unorm_Stencil8;
-        }
-    }
-    
     MTLSamplerAddressMode toMTLSamplerAddressMode(SamplerAddressMode mode)
     {
         MTLSamplerAddressMode ret = MTLSamplerAddressModeRepeat;
@@ -139,7 +122,12 @@ void TextureMTL::createTexture(id<MTLDevice> mtlDevice, const TextureDescriptor&
     MTLTextureDescriptor* textureDescriptor = [MTLTextureDescriptor new];
     textureDescriptor.width = descriptor.width;
     textureDescriptor.height = descriptor.height;
-    textureDescriptor.pixelFormat = toMTLPixelFormat(descriptor.textureFormat);
+    textureDescriptor.pixelFormat = Utils::toMTLPixelFormat(descriptor.textureFormat);
+    if (TextureFormat::D24S8 == descriptor.textureFormat)
+    {
+        textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
+        textureDescriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;
+    }
     _mtlTexture = [mtlDevice newTextureWithDescriptor:textureDescriptor];
     [textureDescriptor release];
 }

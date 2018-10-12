@@ -29,6 +29,7 @@ private:
     void doSetTextures(const std::vector<std::string>& textures, bool isVertex) const;
     void setUniformBuffer() const;
     uint32_t fillUniformBuffer(void* buffer, const std::vector<std::string>& uniforms) const;
+    void afterDraw();
     
     id<MTLCommandBuffer> _mtlCommandBuffer = nil;
     id<MTLCommandQueue> _mtlCommandQueue = nil;
@@ -38,6 +39,7 @@ private:
     DeviceMTL* _deviceMTL = nullptr;
     RenderPipelineMTL* _renderPipelineMTL = nullptr;
     BindGroup* _bindGroup = nullptr;
+    RenderPass* _renderPass = nullptr; // weak reference
 };
 
 CC_BACKEND_END

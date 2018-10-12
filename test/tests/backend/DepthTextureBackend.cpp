@@ -210,7 +210,7 @@ DepthTextureBackend::DepthTextureBackend()
     textureDescriptor.height = utils::WINDOW_HEIGHT;
     textureDescriptor.textureType = backend::TextureType::TEXTURE_2D;
     textureDescriptor.samplerDescriptor = samplerDescriptor;
-    textureDescriptor.textureFormat = backend::TextureFormat::D16;
+    textureDescriptor.textureFormat = backend::TextureFormat::D24S8;
     _depthTexture = device->newTexture(textureDescriptor);
     
     // render pass Bunny 1
@@ -277,10 +277,10 @@ void DepthTextureBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_SHORT,
                                  sizeof(bunny_cells) / bunny_cells[0]);    
-    _commandBuffer->endRenderPass();
+//    _commandBuffer->endRenderPass();
 
     // Draw bunny two.
-    _commandBuffer->beginRenderPass(_renderPassBunny2);
+//    _commandBuffer->beginRenderPass(_renderPassBunny2);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bunny->renderPipeline);
     _commandBuffer->setVertexBuffer(0, bunny->vertexBuffer);

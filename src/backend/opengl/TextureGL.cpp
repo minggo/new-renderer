@@ -140,7 +140,7 @@ void TextureGL::apply(int index) const
 
 void TextureGL::generateMipmpas() const
 {
-    if (TextureFormat::D16 != _textureFormat)
+    if (TextureFormat::D24S8 != _textureFormat)
         glGenerateMipmap(GL_TEXTURE_2D);
 }
 
@@ -178,10 +178,10 @@ void TextureGL::toGLTypes()
             _format = GL_ALPHA;
             _type = GL_UNSIGNED_BYTE;
             break;
-        case TextureFormat::D16:
-            _format = GL_DEPTH_COMPONENT;
-            _internalFormat = GL_DEPTH_COMPONENT;
-            _type = GL_UNSIGNED_INT;
+//        case TextureFormat::D16:
+//            _format = GL_DEPTH_COMPONENT;
+//            _internalFormat = GL_DEPTH_COMPONENT;
+//            _type = GL_UNSIGNED_INT;
         case TextureFormat::D24S8:
             _format = GL_DEPTH_STENCIL_OES;
             _internalFormat = GL_DEPTH_STENCIL_OES;

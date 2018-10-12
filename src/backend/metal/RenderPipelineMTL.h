@@ -2,6 +2,7 @@
 
 #include "../RenderPipeline.h"
 #include "../RenderPipelineDescriptor.h"
+#include "../RenderPass.h"
 #include <string>
 #include <vector>
 #import <Metal/Metal.h>
@@ -14,6 +15,8 @@ public:
     RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipelineDescriptor& descriptor);
     ~RenderPipelineMTL();
     
+    void apply(const RenderPass* renderPass);
+    
     inline id<MTLRenderPipelineState> getMTLRenderPipelineState() const { return _mtlRenderPipelineState; }
     inline id<MTLDepthStencilState> getMTLDepthStencilState() const { return _mtlDepthStencilState; }
     
@@ -25,8 +28,11 @@ public:
     inline const std::vector<std::string>& getFragmentTextures() const { return _fragmentTextures; }
     
 private:
+    void setVertexLayout(MTLRenderPipelineDescriptor*, const RenderPipelineDescriptor&);
+    
     id<MTLRenderPipelineState> _mtlRenderPipelineState = nil;
     id<MTLDepthStencilState> _mtlDepthStencilState = nil;
+    id<MTLDevice> _mtlDevice = nil;
     
     void* _vertexUniformBuffer = nullptr;
     std::vector<std::string> _vertexUniforms;
@@ -35,6 +41,8 @@ private:
     void* _fragementUniformBuffer = nullptr;
     std::vector<std::string> _fragmentUniforms;
     std::vector<std::string> _fragmentTextures;
+    
+    MTLRenderPipelineDescriptor* _mtlRenderPipelineDescriptor = nil;
 };
 
 CC_BACKEND_END

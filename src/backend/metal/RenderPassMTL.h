@@ -11,11 +11,13 @@ public:
     RenderPassMTL(id<MTLDevice> mtlDevice, const RenderPassDescriptor& descriptor);
     ~RenderPassMTL();
     
-    inline MTLRenderPassDescriptor* getMTLRenderPassDescriptor() const { return _renderPassDescritprMTL; }
+    MTLRenderPassDescriptor* getMTLRenderPassDescriptor();
     
 private:
+    void setColorAttachments(const RenderPassDescriptor& descriptor);
+    void setDepthStencilAttachment(const RenderPassDescriptor& descriptor);
+    
     MTLRenderPassDescriptor* _renderPassDescritprMTL = nil;
-    bool _newRenderPassDescriptorMTL = false;
 };
 
 CC_BACKEND_END

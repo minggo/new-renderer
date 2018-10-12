@@ -2,6 +2,7 @@
 #include "DeviceMTL.h"
 #include "ShaderModuleMTL.h"
 #include "DepthStencilStateMTL.h"
+#include "Utils.h"
 
 CC_BACKEND_BEGIN
 
@@ -65,24 +66,92 @@ namespace
 }
 
 RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipelineDescriptor& descriptor)
+: _mtlDevice(mtlDevice)
 {
-    MTLRenderPipelineDescriptor *mtlDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
-    mtlDescriptor.colorAttachments[0].pixelFormat = DeviceMTL::getCAMetalLayer().pixelFormat;
-    mtlDescriptor.depthAttachmentPixelFormat = MTLPixelFormatDepth24Unorm_Stencil8;
-    mtlDescriptor.stencilAttachmentPixelFormat = MTLPixelFormatDepth24Unorm_Stencil8;
+    _mtlRenderPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
     
     auto vertexShaderModule = static_cast<ShaderModuleMTL*>(descriptor.getVertexShaderModule());
-    mtlDescriptor.vertexFunction = vertexShaderModule->getMTLFunction();
+    _mtlRenderPipelineDescriptor.vertexFunction = vertexShaderModule->getMTLFunction();
     _vertexUniforms = vertexShaderModule->getUniforms();
     _vertexUniformBuffer = vertexShaderModule->getUniformBuffer();
     _vertexTextures = vertexShaderModule->getTextures();
     
     auto fragShaderModule = static_cast<ShaderModuleMTL*>(descriptor.getFragmentShaderModule());
-    mtlDescriptor.fragmentFunction = fragShaderModule->getMTLFunction();
+    _mtlRenderPipelineDescriptor.fragmentFunction = fragShaderModule->getMTLFunction();
     _fragmentUniforms = fragShaderModule->getUniforms();
     _fragementUniformBuffer = fragShaderModule->getUniformBuffer();
     _fragmentTextures = fragShaderModule->getTextures();
     
+    setVertexLayout(_mtlRenderPipelineDescriptor, descriptor);
+    
+    // Depth stencil state.
+    auto depthStencilState = descriptor.getDepthStencilState();
+    if (depthStencilState)
+        _mtlDepthStencilState = static_cast<DepthStencilStateMTL*>(depthStencilState)->getMTLDepthStencilState();
+}
+
+RenderPipelineMTL::~RenderPipelineMTL()
+{
+    [_mtlRenderPipelineState release];
+    
+    if (_vertexUniformBuffer)
+        free(_vertexUniformBuffer);
+    
+    if (_fragementUniformBuffer)
+        free(_fragementUniformBuffer);
+}
+
+void RenderPipelineMTL::apply(const RenderPass* renderPass)
+{
+    if (!_mtlRenderPipelineState)
+    {
+        // If color attachments and depth/stencil attachment are not set, then use default render pass descriptor.
+        // Or it uses custome render pass descriptor.
+        if (renderPass->hasColorAttachments() || renderPass->hasDepthStencilAttachment())
+        {
+            if (renderPass->hasDepthStencilAttachment())
+            {
+                const auto& depthStencilAttacment = renderPass->getDepthStencilAttachment();
+                const auto& pixelFormat = Utils::toMTLPixelFormat(depthStencilAttacment.texture->getTextureFormat());
+                _mtlRenderPipelineDescriptor.depthAttachmentPixelFormat = pixelFormat;
+                _mtlRenderPipelineDescriptor.stencilAttachmentPixelFormat = pixelFormat;
+            }
+            else
+            {
+                _mtlRenderPipelineDescriptor.depthAttachmentPixelFormat = Utils::getTempDepthStencilAttachmentPixelFormat();
+                _mtlRenderPipelineDescriptor.stencilAttachmentPixelFormat = Utils::getTempDepthStencilAttachmentPixelFormat();
+            }
+            
+            if (renderPass->hasColorAttachments())
+            {
+                const auto& colorAttachments = renderPass->getColorAttachments();
+                int i = 0;
+                for (const auto& texture : colorAttachments.textures)
+                {
+                    if (!texture)
+                        continue;
+                    
+                    _mtlRenderPipelineDescriptor.colorAttachments[i].pixelFormat = Utils::toMTLPixelFormat(texture->getTextureFormat());
+                    ++i;
+                }
+            }
+            else
+                _mtlRenderPipelineDescriptor.colorAttachments[0].pixelFormat = Utils::getTempColorAttachmentPixelFormat();
+        }
+        else
+        {
+            _mtlRenderPipelineDescriptor.colorAttachments[0].pixelFormat = Utils::getDefaultColorAttachmentPixelFormat();
+            _mtlRenderPipelineDescriptor.depthAttachmentPixelFormat = Utils::getDefaultDepthStencilAttachmentPixelFormat();
+            _mtlRenderPipelineDescriptor.stencilAttachmentPixelFormat = Utils::getDefaultDepthStencilAttachmentPixelFormat();
+        }
+        
+        _mtlRenderPipelineState = [_mtlDevice newRenderPipelineStateWithDescriptor:_mtlRenderPipelineDescriptor error:nil];
+        [_mtlRenderPipelineDescriptor release];
+    }
+}
+
+void RenderPipelineMTL::setVertexLayout(MTLRenderPipelineDescriptor* mtlDescriptor, const RenderPipelineDescriptor& descriptor)
+{
     const auto& vertexLayouts = descriptor.getVertexLayouts();
     int vertexIndex = 0;
     for (const auto& vertexLayout : vertexLayouts)
@@ -104,26 +173,6 @@ RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipeli
         
         ++vertexIndex;
     }
-    
-    _mtlRenderPipelineState = [mtlDevice newRenderPipelineStateWithDescriptor:mtlDescriptor error:nil];
-    
-    [mtlDescriptor release];
-    
-    // Depth stencil state.
-    auto depthStencilState = descriptor.getDepthStencilState();
-    if (depthStencilState)
-        _mtlDepthStencilState = static_cast<DepthStencilStateMTL*>(depthStencilState)->getMTLDepthStencilState();
-}
-
-RenderPipelineMTL::~RenderPipelineMTL()
-{
-    [_mtlRenderPipelineState release];
-    
-    if (_vertexUniformBuffer)
-        free(_vertexUniformBuffer);
-    
-    if (_fragementUniformBuffer)
-        free(_fragementUniformBuffer);
 }
 
 CC_BACKEND_END

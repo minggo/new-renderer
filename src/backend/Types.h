@@ -49,9 +49,6 @@ enum class TextureFormat : uint32_t
     R8G8B8,
     // One 8-bit normalized unsigned integer component.
     A8,
-    // A 16-bit depth format with one normallized unsigned integer component, typically used for
-    // a depth render target.
-    D16,
     // A packed 32-bit combined depth and stencil pixel format with two nomorlized unsigned integer
     // components: 24 bits, typically used for a depth render target, and 8 bits, typically used for
     // a stencil render target.

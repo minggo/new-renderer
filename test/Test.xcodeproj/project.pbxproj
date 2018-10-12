@@ -165,6 +165,8 @@
 		461DD0EE21538B0100A8E43F /* CommandBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461DD0EC21538B0100A8E43F /* CommandBuffer.cpp */; };
 		4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		46486F1A216DE9740078BE0E /* Texture2DBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460374102142137E00DC9ED4 /* Texture2DBackend.cpp */; };
+		46486F1B216F1BC20078BE0E /* DepthTextureBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4603744D2148F6BE00DC9ED4 /* DepthTextureBackend.cpp */; };
+		46486F31217077020078BE0E /* Utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46486F2F217077020078BE0E /* Utils.mm */; };
 		466BA3B3216C5F4A006C15A5 /* BunnyBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460374442147B88300DC9ED4 /* BunnyBackend.cpp */; };
 		466BA3B6216C79C7006C15A5 /* DepthStencilStateMTL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 466BA3B4216C79C7006C15A5 /* DepthStencilStateMTL.mm */; };
 		467E26232154A3FB0055AD62 /* RenderPassMTL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 467E26212154A3FB0055AD62 /* RenderPassMTL.mm */; };
@@ -442,6 +444,8 @@
 		462724631FF4BD4E000D13BC /* defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
 		462724681FF4E39E000D13BC /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		462724691FF4E39E000D13BC /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		46486F2F217077020078BE0E /* Utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Utils.mm; sourceTree = "<group>"; };
+		46486F30217077020078BE0E /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		466BA3B4216C79C7006C15A5 /* DepthStencilStateMTL.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DepthStencilStateMTL.mm; sourceTree = "<group>"; };
 		466BA3B5216C79C7006C15A5 /* DepthStencilStateMTL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DepthStencilStateMTL.h; sourceTree = "<group>"; };
 		467E26212154A3FB0055AD62 /* RenderPassMTL.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RenderPassMTL.mm; sourceTree = "<group>"; };
@@ -961,6 +965,8 @@
 				468BD2F0215A142B007BCACF /* RenderPipelineMTL.h */,
 				466BA3B4216C79C7006C15A5 /* DepthStencilStateMTL.mm */,
 				466BA3B5216C79C7006C15A5 /* DepthStencilStateMTL.h */,
+				46486F2F217077020078BE0E /* Utils.mm */,
+				46486F30217077020078BE0E /* Utils.h */,
 			);
 			path = metal;
 			sourceTree = "<group>";
@@ -1307,6 +1313,7 @@
 				1A255E6D20034B0D00069420 /* pvr.cpp in Sources */,
 				46486F1A216DE9740078BE0E /* Texture2DBackend.cpp in Sources */,
 				461DD0E62153845000A8E43F /* Device.cpp in Sources */,
+				46486F1B216F1BC20078BE0E /* DepthTextureBackend.cpp in Sources */,
 				468BD2DB2154EB34007BCACF /* BufferMTL.mm in Sources */,
 				1A255E6B20034B0D00069420 /* TGAlib.cpp in Sources */,
 				468BD2E92154FE95007BCACF /* BlendState.cpp in Sources */,
@@ -1325,6 +1332,7 @@
 				1A255E4D20034B0D00069420 /* Mat4.cpp in Sources */,
 				461DD0ED21538B0100A8E43F /* CommandBuffer.cpp in Sources */,
 				1A255E5D20034B0D00069420 /* CCAffineTransform.cpp in Sources */,
+				46486F31217077020078BE0E /* Utils.mm in Sources */,
 				1A255E2520034B0D00069420 /* CCFileUtils-apple.mm in Sources */,
 				466BA3B3216C5F4A006C15A5 /* BunnyBackend.cpp in Sources */,
 				468BD2F1215A142B007BCACF /* RenderPipelineMTL.mm in Sources */,

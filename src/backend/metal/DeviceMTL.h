@@ -11,12 +11,10 @@ class DeviceMTL : public Device
 public:
     // TODO: temple solution to get default renderpass descriptor.
     static void setCAMetalLayer(CAMetalLayer* metalLayer);
-    static MTLRenderPassDescriptor* getDefaultMTLRenderPassDescriptor();
     // Invoke by engine internally at the beginning of rendering a new frame.
     static void updateDrawable();
     static CAMetalLayer* getCAMetalLayer() { return DeviceMTL::_metalLayer; }
     static id<CAMetalDrawable> getCurrentDrawable() { return DeviceMTL::_currentDrawable; }
-    static MTLPixelFormat getDefaultDepthStencilPixelFormat();
     
     DeviceMTL();
     ~DeviceMTL();
@@ -30,15 +28,11 @@ public:
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) override;
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) override;
         
-    void resetDefaultRenderPass();
     inline id<MTLDevice> getMTLDevice() const { return _mtlDevice; }
     
 private:
-    static id<MTLTexture> createDepthStencilTexture(id<MTLDevice> mtlDevice, uint32_t width, uint32_t height);
-
     static CAMetalLayer* _metalLayer;
     static id<CAMetalDrawable> _currentDrawable;
-    static MTLRenderPassDescriptor* _defaultRenderPassDescriptor;
     
     id<MTLDevice> _mtlDevice = nil;
 };

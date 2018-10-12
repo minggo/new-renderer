@@ -172,12 +172,12 @@ void Texture2DBackendTest::tick(float dt)
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setBindGroup(&_bindGroupCanvas);
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
-        _commandBuffer->endRenderPass();
+//        _commandBuffer->endRenderPass();
     }
     
     if (_texture)
     {
-        _commandBuffer->beginRenderPass(nullptr);
+//        _commandBuffer->beginRenderPass(nullptr);
         _commandBuffer->setRenderPipeline(_renderPipeline);
         _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);

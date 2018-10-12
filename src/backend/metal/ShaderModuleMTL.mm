@@ -48,6 +48,12 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
     }
     
     _mtlFunction = [library newFunctionWithName:@"xlatMtlMain"];
+    if (!_mtlFunction)
+    {
+        NSLog(@"metal shader is ---------------");
+        NSLog(@"%s", metalShader);
+        assert(false);
+    }
 }
 
 ShaderModuleMTL::~ShaderModuleMTL()

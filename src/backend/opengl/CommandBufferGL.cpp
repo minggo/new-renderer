@@ -133,6 +133,8 @@ void CommandBufferGL::drawArrays(PrimitiveType primitiveType, uint32_t start,  u
 {
     prepareDrawing();
     glDrawArrays(toGLPrimitiveType(primitiveType), start, count);
+    
+    cleanResources();
 }
 
 void CommandBufferGL::drawElements(PrimitiveType primitiveType, IndexFormat indexType, uint32_t count)
@@ -140,11 +142,13 @@ void CommandBufferGL::drawElements(PrimitiveType primitiveType, IndexFormat inde
     prepareDrawing();
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer->getHandler());
     glDrawElements(toGLPrimitiveType(primitiveType), count, toGLIndexType(indexType), (GLvoid*)0);
+    
+    cleanResources();
 }
 
 void CommandBufferGL::endRenderPass()
 {
-    cleanResources();
+    
     
     //TODO: reset GL states?
 }

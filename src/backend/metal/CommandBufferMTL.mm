@@ -4,6 +4,7 @@
 #include "DeviceMTL.h"
 #include "RenderPipelineMTL.h"
 #include "TextureMTL.h"
+#include "Utils.h"
 #include "../BindGroup.h"
 
 CC_BACKEND_BEGIN
@@ -64,10 +65,12 @@ void CommandBufferMTL::beginRenderPass(RenderPass* renderPass)
     if (renderPass)
         _mtlRenderEncoder = [_mtlCommandBuffer renderCommandEncoderWithDescriptor:static_cast<RenderPassMTL*>(renderPass)->getMTLRenderPassDescriptor()];
     else
-        _mtlRenderEncoder = [_mtlCommandBuffer renderCommandEncoderWithDescriptor:DeviceMTL::getDefaultMTLRenderPassDescriptor()];
+        _mtlRenderEncoder = [_mtlCommandBuffer renderCommandEncoderWithDescriptor:Utils::getDefaultRenderPassDescriptor()];
     
     [_mtlRenderEncoder retain];
     [_mtlRenderEncoder setFrontFacingWinding:MTLWindingCounterClockwise];
+    
+    _renderPass = renderPass;
 }
 
 void CommandBufferMTL::setRenderPipeline(RenderPipeline* renderPipeline)
@@ -75,6 +78,7 @@ void CommandBufferMTL::setRenderPipeline(RenderPipeline* renderPipeline)
     CC_SAFE_RETAIN(renderPipeline);
     CC_SAFE_RELEASE(_renderPipelineMTL);
     _renderPipelineMTL = static_cast<RenderPipelineMTL*>(renderPipeline);
+    _renderPipelineMTL->apply(_renderPass);
 }
 
 void CommandBufferMTL::setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
@@ -119,6 +123,7 @@ void CommandBufferMTL::drawArrays(PrimitiveType primitiveType, uint32_t start,  
     [_mtlRenderEncoder drawPrimitives:toMTLPrimitive(primitiveType)
                           vertexStart:start
                           vertexCount:count];
+    afterDraw();
 }
 
 void CommandBufferMTL::drawElements(PrimitiveType primitiveType, IndexFormat indexType, uint32_t count)
@@ -129,6 +134,7 @@ void CommandBufferMTL::drawElements(PrimitiveType primitiveType, IndexFormat ind
                                    indexType:toMTLIndexType(indexType)
                                  indexBuffer:_mtlIndexBuffer
                            indexBufferOffset:0];
+    afterDraw();
 }
 
 void CommandBufferMTL::endRenderPass()
@@ -137,6 +143,12 @@ void CommandBufferMTL::endRenderPass()
     [_mtlCommandBuffer presentDrawable:DeviceMTL::getCurrentDrawable()];
     [_mtlCommandBuffer commit];
     
+    [_mtlCommandBuffer release];
+    [_mtlRenderEncoder release];
+}
+
+void CommandBufferMTL::afterDraw()
+{
     if (_mtlIndexBuffer)
     {
         [_mtlIndexBuffer release];
@@ -144,10 +156,6 @@ void CommandBufferMTL::endRenderPass()
     }
     
     CC_SAFE_RELEASE_NULL(_bindGroup);
-    [_mtlCommandBuffer release];
-    [_mtlRenderEncoder release];
-    
-    _deviceMTL->resetDefaultRenderPass();
 }
 
 void CommandBufferMTL::prepareDrawing() const

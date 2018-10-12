@@ -13,7 +13,7 @@
 #include "backend/BlendingBackend.h"
 #include "backend/MultiTexturesBackend.h"
 
-#include "Utils.h"
+#include "../Tests/Utils.h"
 
 namespace
 {
