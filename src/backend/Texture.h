@@ -8,7 +8,7 @@ CC_BACKEND_BEGIN
 struct TextureDescriptor
 {
     TextureType textureType = TextureType::TEXTURE_2D;
-    TextureFormat textureFormat = TextureFormat::R8G8B8;
+    TextureFormat textureFormat = TextureFormat::R8G8B8A8;
     uint32_t width = 0;
     uint32_t height = 0;
     uint32_t depth = 0;
@@ -33,6 +33,7 @@ protected:
     uint8_t _bytesPerElement = 0;
     TextureType _textureType = TextureType::TEXTURE_2D;
     TextureFormat _textureFormat = TextureFormat::R8G8B8;
+    bool _isMipmapEnabled = false;
 };
 
 CC_BACKEND_END

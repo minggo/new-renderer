@@ -91,7 +91,6 @@ enum class SamplerAddressMode: uint32_t
 
 enum class SamplerFilter: uint32_t
 {
-    NONE,
     NEAREST,
     LINEAR
 };
@@ -153,9 +152,10 @@ enum class ColorWriteMask: uint32_t
 
 struct SamplerDescriptor
 {
+    bool mipmapEnabled = false;
     SamplerFilter magFilter = SamplerFilter::LINEAR;
     SamplerFilter minFilter = SamplerFilter::LINEAR;
-    SamplerFilter mipmapFilter = SamplerFilter::NONE;
+    SamplerFilter mipmapFilter = SamplerFilter::LINEAR;
     SamplerAddressMode sAddressMode = SamplerAddressMode::REPEAT;
     SamplerAddressMode tAddressMode = SamplerAddressMode::REPEAT;
 };

@@ -92,4 +92,16 @@ namespace utils
         out.z = a.z + (b.z * scale);
         return out;
     };
+    
+    const cocos2d::Mat4& getAdjustMatrix()
+    {
+        static cocos2d::Mat4 adjustMatrix = {
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 0.5, 0.5,
+            0, 0, 0, 1
+        };
+        
+        return adjustMatrix;
+    }
 }

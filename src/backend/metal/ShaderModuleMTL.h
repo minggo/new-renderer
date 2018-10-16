@@ -3,6 +3,7 @@
 #include "../ShaderModule.h"
 #include <string>
 #include <vector>
+#include <memory>
 #import <Metal/Metal.h>
 
 struct glslopt_shader;
@@ -16,7 +17,7 @@ public:
     ~ShaderModuleMTL();
     
     inline id<MTLFunction> getMTLFunction() const { return _mtlFunction; }
-    inline void* getUniformBuffer() const { return _uniformBuffer; }
+    inline const std::shared_ptr<uint8_t>& getUniformBuffer() const { return _uniformBuffer; }
     inline const std::vector<std::string>& getUniforms() const { return _uniforms; }
     inline const std::vector<std::string>& getTextures() const { return _textures; }
     
@@ -26,7 +27,7 @@ private:
     
     id<MTLFunction> _mtlFunction = nil;
     
-    void* _uniformBuffer = nullptr;
+    std::shared_ptr<uint8_t> _uniformBuffer = nullptr;
     std::vector<std::string> _uniforms;
     
     // Texture index is the same as vector index.

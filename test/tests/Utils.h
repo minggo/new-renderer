@@ -37,4 +37,6 @@ namespace utils
     void fillRectWithColor(uint8_t* buf, uint32_t totalWidth, uint32_t totalHeight, uint32_t x, uint32_t y, uint32_t width, uint32_t height, uint8_t r, uint8_t g, uint8_t b);
     cocos2d::Vec3 vec3Random(float scale = 1.0f);
     cocos2d::Vec3 vec3ScaleAndAdd(const cocos2d::Vec3& a, const cocos2d::Vec3& b, float scale);
+    
+    const cocos2d::Mat4& getAdjustMatrix();
 }

@@ -29,12 +29,14 @@ public:
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) override;
         
     inline id<MTLDevice> getMTLDevice() const { return _mtlDevice; }
+    inline id<MTLCommandQueue> getMTLCommandQueue() const { return _mtlCommandQueue; }
     
 private:
     static CAMetalLayer* _metalLayer;
     static id<CAMetalDrawable> _currentDrawable;
     
     id<MTLDevice> _mtlDevice = nil;
+    id<MTLCommandQueue> _mtlCommandQueue = nil;
 };
 
 CC_BACKEND_END

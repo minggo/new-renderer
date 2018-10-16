@@ -163,10 +163,12 @@
 		461DD0E72153845000A8E43F /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461DD0E52153845000A8E43F /* Device.cpp */; };
 		461DD0ED21538B0100A8E43F /* CommandBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461DD0EC21538B0100A8E43F /* CommandBuffer.cpp */; };
 		461DD0EE21538B0100A8E43F /* CommandBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461DD0EC21538B0100A8E43F /* CommandBuffer.cpp */; };
+		46233BEA217446B3000F1F21 /* BlendingBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46037573214F44CC00DC9ED4 /* BlendingBackend.cpp */; };
 		4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		46486F1A216DE9740078BE0E /* Texture2DBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460374102142137E00DC9ED4 /* Texture2DBackend.cpp */; };
 		46486F1B216F1BC20078BE0E /* DepthTextureBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4603744D2148F6BE00DC9ED4 /* DepthTextureBackend.cpp */; };
 		46486F31217077020078BE0E /* Utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46486F2F217077020078BE0E /* Utils.mm */; };
+		46486F32217422060078BE0E /* MultiTexturesBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460375802150C91C00DC9ED4 /* MultiTexturesBackend.cpp */; };
 		466BA3B3216C5F4A006C15A5 /* BunnyBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460374442147B88300DC9ED4 /* BunnyBackend.cpp */; };
 		466BA3B6216C79C7006C15A5 /* DepthStencilStateMTL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 466BA3B4216C79C7006C15A5 /* DepthStencilStateMTL.mm */; };
 		467E26232154A3FB0055AD62 /* RenderPassMTL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 467E26212154A3FB0055AD62 /* RenderPassMTL.mm */; };
@@ -1306,6 +1308,7 @@
 				1A255E6120034B0D00069420 /* ccRandom.cpp in Sources */,
 				1A255E5320034B0D00069420 /* CCVertex.cpp in Sources */,
 				1A255E2720034B0D00069420 /* CCSAXParser.cpp in Sources */,
+				46233BEA217446B3000F1F21 /* BlendingBackend.cpp in Sources */,
 				468BD2E32154FE75007BCACF /* RenderPassDescriptor.cpp in Sources */,
 				461DD0D821536FC900A8E43F /* main.mm in Sources */,
 				1A255E2920034B0D00069420 /* CCImage.cpp in Sources */,
@@ -1313,6 +1316,7 @@
 				1A255E6D20034B0D00069420 /* pvr.cpp in Sources */,
 				46486F1A216DE9740078BE0E /* Texture2DBackend.cpp in Sources */,
 				461DD0E62153845000A8E43F /* Device.cpp in Sources */,
+				46486F32217422060078BE0E /* MultiTexturesBackend.cpp in Sources */,
 				46486F1B216F1BC20078BE0E /* DepthTextureBackend.cpp in Sources */,
 				468BD2DB2154EB34007BCACF /* BufferMTL.mm in Sources */,
 				1A255E6B20034B0D00069420 /* TGAlib.cpp in Sources */,

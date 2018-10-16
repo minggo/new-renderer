@@ -23,43 +23,37 @@ namespace
         return ret;
     }
     
-    GLint toGLMinFilter(SamplerFilter minFilter, SamplerFilter mipmapFilter)
+    GLint toGLMinFilter(SamplerFilter minFilter, SamplerFilter mipmapFilter, bool mipmapEnabled)
     {
-        GLint ret = GL_LINEAR;
-        switch (minFilter)
+        if (mipmapEnabled)
         {
-            case SamplerFilter::LINEAR:
-                switch (mipmapFilter)
-                {
-                    case SamplerFilter::LINEAR:
-                        ret = GL_LINEAR_MIPMAP_LINEAR;
-                        break;
-                    case SamplerFilter::NEAREST:
-                        ret = GL_LINEAR_MIPMAP_NEAREST;
-                        break;
-                    case SamplerFilter::NONE:
-                    default:
-                        break;
-                }
-                break;
-            case SamplerFilter::NEAREST:
-                switch (mipmapFilter)
-                {
-                    case SamplerFilter::LINEAR:
-                        ret = GL_NEAREST_MIPMAP_LINEAR;
-                        break;
-                    case SamplerFilter::NEAREST:
-                        ret = GL_NEAREST_MIPMAP_NEAREST;
-                        break;
-                    case SamplerFilter::NONE:
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
+            switch (minFilter)
+            {
+                case SamplerFilter::LINEAR:
+                    switch (mipmapFilter)
+                    {
+                        case SamplerFilter::LINEAR:
+                            return GL_LINEAR_MIPMAP_LINEAR;
+                        case SamplerFilter::NEAREST:
+                            return GL_LINEAR_MIPMAP_NEAREST;
+                    }
+                case SamplerFilter::NEAREST:
+                    switch (mipmapFilter)
+                    {
+                        case SamplerFilter::LINEAR:
+                            return GL_NEAREST_MIPMAP_LINEAR;
+                        case SamplerFilter::NEAREST:
+                            return GL_NEAREST_MIPMAP_NEAREST;
+                    }
+            }
         }
-        return ret;
+        else
+        {
+            if (SamplerFilter::LINEAR == minFilter)
+                return GL_LINEAR;
+            else
+                return GL_NEAREST;
+        }
     }
     
     GLint toGLAddressMode(SamplerAddressMode addressMode)
@@ -90,7 +84,7 @@ TextureGL::TextureGL(const TextureDescriptor& descriptor) : Texture(descriptor)
     
     _magFilterGL = toGLMagFilter(descriptor.samplerDescriptor.magFilter);
     _minFilterGL = toGLMinFilter(descriptor.samplerDescriptor.minFilter,
-                                 descriptor.samplerDescriptor.mipmapFilter);
+                                 descriptor.samplerDescriptor.mipmapFilter, _isMipmapEnabled);
     
     _sAddressModeGL = toGLAddressMode(descriptor.samplerDescriptor.sAddressMode);
     _tAddressModeGL = toGLAddressMode(descriptor.samplerDescriptor.tAddressMode);
@@ -124,7 +118,9 @@ void TextureGL::updateData(uint8_t* data)
                  data);
     CHECK_GL_ERROR_DEBUG();
     
-    generateMipmpas();
+    if (_isMipmapEnabled)
+        generateMipmpas();
+    
     CHECK_GL_ERROR_DEBUG();
 }
 
@@ -158,21 +154,6 @@ void TextureGL::toGLTypes()
             _format = GL_RGB;
             _type = GL_UNSIGNED_BYTE;
             break;
-//        case TextureFormat::R5G5B5A1:
-//            _internalFormat = GL_RGBA;
-//            _format = GL_RGBA;
-//            _type = GL_UNSIGNED_SHORT_5_5_5_1;
-//            break;
-//        case TextureFormat::R4G4B4A4:
-//            _internalFormat = GL_RGBA;
-//            _format = GL_RGBA;
-//            _type = GL_UNSIGNED_SHORT_4_4_4_4;
-//            break;
-//        case TextureFormat::R5G6B5:
-//            _internalFormat = GL_RGB;
-//            _format = GL_RGB;
-//            _type = GL_UNSIGNED_SHORT_5_6_5;
-//            break;
         case TextureFormat::A8:
             _internalFormat = GL_ALPHA;
             _format = GL_ALPHA;

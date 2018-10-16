@@ -49,12 +49,15 @@ MultiTexturesBackend::MultiTexturesBackend()
 #ifdef GL_ES
         precision highp float;
 #endif
-        uniform sampler2D texture[2];
+//        uniform sampler2D texture[2];
+        uniform sampler2D texture1;
+        uniform sampler2D texture2;
         uniform vec4 color;
         varying vec2 v_texcoord;
         void main ()
         {
-            gl_FragColor = texture2D(texture[0], v_texcoord) * v_texcoord.x + texture2D(texture[1], v_texcoord) * (1.0 - v_texcoord.x);
+//            gl_FragColor = texture2D(texture[0], v_texcoord) * v_texcoord.x + texture2D(texture[1], v_texcoord) * (1.0 - v_texcoord.x);
+            gl_FragColor = texture2D(texture1, v_texcoord) * v_texcoord.x + texture2D(texture2, v_texcoord) * (1.0 - v_texcoord.x);
         }
     )";
     
@@ -135,9 +138,12 @@ void MultiTexturesBackend::tick(float dt)
     float color[4] = {1.f, 0, 0, 1.f};
     _bindGroup.setUniform("color", color, sizeof(color));
     _bindGroup.setUniform("transform", _transform.m, sizeof(_transform.m));
-    _bindGroup.setTextureArray("texture", {6, 7}, {_background, _texture1});
+//    _bindGroup.setTextureArray("texture", {6, 7}, {_background, _texture1});
+    _bindGroup.setTexture("texture1", 6, _background);
+    _bindGroup.setTexture("texture2", 7, _texture1);
     _commandBuffer->setBindGroup(&_bindGroup);
     
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
+    _commandBuffer->endRenderPass();
 }

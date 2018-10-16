@@ -44,6 +44,9 @@ namespace
             
                 void main() {
                     uv = (a_position + 1.0) * 0.5;
+#ifndef GL_ES
+                    uv = vec2(uv.x, 1.0 - uv.y);
+#endif
                     gl_Position = vec4(a_position, 0, 1);
                 }
             )";

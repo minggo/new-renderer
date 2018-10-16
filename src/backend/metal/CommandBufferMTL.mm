@@ -47,14 +47,13 @@ namespace
 }
 
 CommandBufferMTL::CommandBufferMTL(DeviceMTL* deviceMTL)
-: _mtlCommandQueue([deviceMTL->getMTLDevice() newCommandQueue])
-, _deviceMTL(deviceMTL)
+: _deviceMTL(deviceMTL)
+, _mtlCommandQueue(deviceMTL->getMTLCommandQueue())
 {
 }
 
 CommandBufferMTL::~CommandBufferMTL()
 {
-    [_mtlCommandQueue release];
 }
 
 void CommandBufferMTL::beginRenderPass(RenderPass* renderPass)
@@ -220,23 +219,23 @@ void CommandBufferMTL::setUniformBuffer() const
         const auto& vertexUniformBuffer = _renderPipelineMTL->getVertexUniformBuffer();
         if (vertexUniformBuffer)
         {
-            uint32_t size = fillUniformBuffer(vertexUniformBuffer, _renderPipelineMTL->getVertexUniforms());
-            [_mtlRenderEncoder setVertexBytes:vertexUniformBuffer
+            uint32_t size = fillUniformBuffer(vertexUniformBuffer.get(), _renderPipelineMTL->getVertexUniforms());
+            [_mtlRenderEncoder setVertexBytes:vertexUniformBuffer.get()
                                        length:size atIndex:1];
         }
         
         const auto& fragUniformBuffer = _renderPipelineMTL->getFragmentUniformBuffer();
         if (fragUniformBuffer)
         {
-            uint32_t size = fillUniformBuffer(fragUniformBuffer, _renderPipelineMTL->getFragmentUniforms());
-            [_mtlRenderEncoder setFragmentBytes:fragUniformBuffer
+            uint32_t size = fillUniformBuffer(fragUniformBuffer.get(), _renderPipelineMTL->getFragmentUniforms());
+            [_mtlRenderEncoder setFragmentBytes:fragUniformBuffer.get()
                                          length:size
                                         atIndex:1];
         }
     }
 }
 
-uint32_t CommandBufferMTL::fillUniformBuffer(void* buffer, const std::vector<std::string>& uniforms) const
+uint32_t CommandBufferMTL::fillUniformBuffer(uint8_t* buffer, const std::vector<std::string>& uniforms) const
 {
     const auto& bindUniformInfos = _bindGroup->getUniformInfos();
     uint32_t offset = 0;
@@ -246,7 +245,7 @@ uint32_t CommandBufferMTL::fillUniformBuffer(void* buffer, const std::vector<std
         if (bindUniformInfos.end() != iter)
         {
             const auto& bindUniformInfo = iter->second;
-            memcpy((char*)buffer + offset, bindUniformInfo.data, bindUniformInfo.size);
+            memcpy(buffer + offset, bindUniformInfo.data, bindUniformInfo.size);
             offset += bindUniformInfo.size;
         }
     }

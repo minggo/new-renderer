@@ -32,9 +32,6 @@ namespace
                 return MTLSamplerMinMagFilterNearest;
             case SamplerFilter::LINEAR:
                 return MTLSamplerMinMagFilterLinear;
-            case SamplerFilter::NONE:
-                assert(false);
-                return MTLSamplerMinMagFilterLinear;
         }
     }
     
@@ -43,9 +40,6 @@ namespace
             case SamplerFilter::NEAREST:
                 return MTLSamplerMipFilterNearest;
             case SamplerFilter::LINEAR:
-                return MTLSamplerMipFilterLinear;
-            case SamplerFilter::NONE:
-                assert(false);
                 return MTLSamplerMipFilterLinear;
         }
     }
@@ -113,23 +107,27 @@ void TextureMTL::updateData(uint8_t* data)
                      withBytes:convertedData
                    bytesPerRow:_bytesPerRow];
     
+    // metal doesn't generate mipmaps automatically, so should generate it manually.
+    if (_isMipmapEnabled)
+        Utils::generateMipmaps(_mtlTexture);
+    
     if (converted)
         free(convertedData);
 }
 
 void TextureMTL::createTexture(id<MTLDevice> mtlDevice, const TextureDescriptor& descriptor)
 {
-    MTLTextureDescriptor* textureDescriptor = [MTLTextureDescriptor new];
-    textureDescriptor.width = descriptor.width;
-    textureDescriptor.height = descriptor.height;
-    textureDescriptor.pixelFormat = Utils::toMTLPixelFormat(descriptor.textureFormat);
+    MTLTextureDescriptor* textureDescriptor =
+           [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:Utils::toMTLPixelFormat(descriptor.textureFormat)
+                                                              width:descriptor.width
+                                                             height:descriptor.height
+                                                          mipmapped:TRUE];
     if (TextureFormat::D24S8 == descriptor.textureFormat)
     {
         textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
         textureDescriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;
     }
     _mtlTexture = [mtlDevice newTextureWithDescriptor:textureDescriptor];
-    [textureDescriptor release];
 }
 
 void TextureMTL::createSampler(id<MTLDevice> mtlDevice, const TextureDescriptor &descriptor)
@@ -140,7 +138,7 @@ void TextureMTL::createSampler(id<MTLDevice> mtlDevice, const TextureDescriptor 
     
     mtlDescriptor.minFilter = toMTLSamplerMinMagFilter(descriptor.samplerDescriptor.minFilter);
     mtlDescriptor.magFilter = toMTLSamplerMinMagFilter(descriptor.samplerDescriptor.magFilter);
-    if (descriptor.samplerDescriptor.mipmapFilter != SamplerFilter::NONE)
+    if (_isMipmapEnabled)
         mtlDescriptor.mipFilter = toMTLSamplerMipFilter(descriptor.samplerDescriptor.mipmapFilter);
     
     _mtlSamplerState = [mtlDevice newSamplerStateWithDescriptor:mtlDescriptor];

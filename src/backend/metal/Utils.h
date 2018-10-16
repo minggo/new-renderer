@@ -23,6 +23,8 @@ public:
     
     static MTLPixelFormat toMTLPixelFormat(TextureFormat textureFormat);
     
+    static void generateMipmaps(id<MTLTexture> texture);
+    
 private:
     static id<MTLTexture> createColorAttachmentTexture();
     static id<MTLTexture> createDepthStencilAttachmentTexture();

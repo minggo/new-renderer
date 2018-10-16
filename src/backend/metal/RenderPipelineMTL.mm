@@ -88,17 +88,15 @@ RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipeli
     auto depthStencilState = descriptor.getDepthStencilState();
     if (depthStencilState)
         _mtlDepthStencilState = static_cast<DepthStencilStateMTL*>(depthStencilState)->getMTLDepthStencilState();
+    
+    auto blendState = static_cast<BlendStateMTL*>(descriptor.getBlendState());
+    if (blendState)
+        _blendDescriptorMTL = blendState->getBlendDescriptorMTL();
 }
 
 RenderPipelineMTL::~RenderPipelineMTL()
 {
     [_mtlRenderPipelineState release];
-    
-    if (_vertexUniformBuffer)
-        free(_vertexUniformBuffer);
-    
-    if (_fragementUniformBuffer)
-        free(_fragementUniformBuffer);
 }
 
 void RenderPipelineMTL::apply(const RenderPass* renderPass)
@@ -107,7 +105,8 @@ void RenderPipelineMTL::apply(const RenderPass* renderPass)
     {
         // If color attachments and depth/stencil attachment are not set, then use default render pass descriptor.
         // Or it uses custome render pass descriptor.
-        if (renderPass->hasColorAttachments() || renderPass->hasDepthStencilAttachment())
+        if (renderPass &&
+            (renderPass->hasColorAttachments() || renderPass->hasDepthStencilAttachment()))
         {
             if (renderPass->hasDepthStencilAttachment())
             {
@@ -132,17 +131,22 @@ void RenderPipelineMTL::apply(const RenderPass* renderPass)
                         continue;
                     
                     _mtlRenderPipelineDescriptor.colorAttachments[i].pixelFormat = Utils::toMTLPixelFormat(texture->getTextureFormat());
+                    setBlendState(_mtlRenderPipelineDescriptor.colorAttachments[i]);
                     ++i;
                 }
             }
             else
+            {
                 _mtlRenderPipelineDescriptor.colorAttachments[0].pixelFormat = Utils::getTempColorAttachmentPixelFormat();
+                setBlendState(_mtlRenderPipelineDescriptor.colorAttachments[0]);
+            }
         }
         else
         {
             _mtlRenderPipelineDescriptor.colorAttachments[0].pixelFormat = Utils::getDefaultColorAttachmentPixelFormat();
             _mtlRenderPipelineDescriptor.depthAttachmentPixelFormat = Utils::getDefaultDepthStencilAttachmentPixelFormat();
             _mtlRenderPipelineDescriptor.stencilAttachmentPixelFormat = Utils::getDefaultDepthStencilAttachmentPixelFormat();
+            setBlendState(_mtlRenderPipelineDescriptor.colorAttachments[0]);
         }
         
         _mtlRenderPipelineState = [_mtlDevice newRenderPipelineStateWithDescriptor:_mtlRenderPipelineDescriptor error:nil];
@@ -173,6 +177,20 @@ void RenderPipelineMTL::setVertexLayout(MTLRenderPipelineDescriptor* mtlDescript
         
         ++vertexIndex;
     }
+}
+
+void RenderPipelineMTL::setBlendState(MTLRenderPipelineColorAttachmentDescriptor* colorAttachmentDescriptor)
+{
+    colorAttachmentDescriptor.blendingEnabled = _blendDescriptorMTL.blendEnabled;
+    colorAttachmentDescriptor.writeMask = _blendDescriptorMTL.writeMask;
+    
+    colorAttachmentDescriptor.rgbBlendOperation = _blendDescriptorMTL.rgbBlendOperation;
+    colorAttachmentDescriptor.alphaBlendOperation = _blendDescriptorMTL.alphaBlendOperation;
+    
+    colorAttachmentDescriptor.sourceRGBBlendFactor = _blendDescriptorMTL.sourceRGBBlendFactor;
+    colorAttachmentDescriptor.destinationRGBBlendFactor = _blendDescriptorMTL.destinationRGBBlendFactor;
+    colorAttachmentDescriptor.sourceAlphaBlendFactor = _blendDescriptorMTL.sourceAlphaBlendFactor;
+    colorAttachmentDescriptor.destinationAlphaBlendFactor = _blendDescriptorMTL.destinationAlphaBlendFactor;
 }
 
 CC_BACKEND_END

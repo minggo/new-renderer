@@ -277,8 +277,10 @@ BlendingBackend::BlendingBackend()
     textureDescriptorBackgroud.width = 128;
     textureDescriptorBackgroud.height = 128;
     textureDescriptorBackgroud.samplerDescriptor.sAddressMode = backend::SamplerAddressMode::REPEAT;
+    textureDescriptorBackgroud.samplerDescriptor.tAddressMode = backend::SamplerAddressMode::REPEAT;
     textureDescriptorBackgroud.samplerDescriptor.mipmapFilter = backend::SamplerFilter::LINEAR;
-    textureDescriptorBackgroud.textureFormat = backend::TextureFormat::R8G8B8;
+    textureDescriptorBackgroud.samplerDescriptor.mipmapEnabled = true;
+    textureDescriptorBackgroud.textureFormat = backend::TextureFormat::R8G8B8A8;
     _backgroud = device->newTexture(textureDescriptorBackgroud);
     _backgroud->updateData(utils::loadData("assets/background.png").getBytes());
     
@@ -316,7 +318,14 @@ void BlendingBackend::tick(float dt)
     
     Mat4::createOrthographicOffCenter(0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT, 0, 0, 1000.f, &_projection);
     
+    // OpenGL and metal have different NDC, so should adjust the matrix.
+    // https://metashapes.com/blog/opengl-metal-projection-matrix-problem/
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    _projection = utils::getAdjustMatrix() * _projection;
+#endif
+    // Begin render pass.
     _commandBuffer->beginRenderPass(_renderPassBigTriangle);
+    
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bigTriangle->renderPipeline);
     
@@ -327,8 +336,6 @@ void BlendingBackend::tick(float dt)
     
     _commandBuffer->setVertexBuffer(0, bigTriangle->vertexBuffer);
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 3);
-    _commandBuffer->endRenderPass();
-    
 
     // sprites
     
@@ -336,7 +343,6 @@ void BlendingBackend::tick(float dt)
     float hsize = size * 0.5f;
 
     // no blending
-    _commandBuffer->beginRenderPass(nullptr);
     _commandBuffer->setRenderPipeline(quad->renderPipelineNoBlending);
     
     float offsetX = 5.f + hsize;
@@ -352,10 +358,8 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_INT,
                                  6);
-    _commandBuffer->endRenderPass();
 
     // normal
-    _commandBuffer->beginRenderPass(nullptr);
     _commandBuffer->setRenderPipeline(quad->renderPipelineNormal);
     
     offsetY = offsetY + 5.f + size;
@@ -370,10 +374,8 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_INT,
                                  6);
-    _commandBuffer->endRenderPass();
 
     // additive
-    _commandBuffer->beginRenderPass(nullptr);
     _commandBuffer->setRenderPipeline(quad->renderPipelineAddtive);
     
     offsetY = offsetY + 5.f + size;
@@ -388,11 +390,7 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_INT,
                                  6);
-    _commandBuffer->endRenderPass();
-
     // substract
-
-    _commandBuffer->beginRenderPass(nullptr);
     _commandBuffer->setRenderPipeline(quad->renderPipelineSubstract);
     
     offsetY = offsetY + 5.f + size;
@@ -407,10 +405,8 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_INT,
                                  6);
-    _commandBuffer->endRenderPass();
 
     // multiply
-    _commandBuffer->beginRenderPass(nullptr);
     _commandBuffer->setRenderPipeline(quad->renderPipelineMultiply);
     
     offsetY = offsetY + 5.f + size;
@@ -425,6 +421,7 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_INT,
                                  6);
+    // End render pass.
     _commandBuffer->endRenderPass();
 }
 

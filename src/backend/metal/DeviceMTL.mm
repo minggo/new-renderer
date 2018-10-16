@@ -6,6 +6,7 @@
 #include "RenderPassMTL.h"
 #include "DepthStencilStateMTL.h"
 #include "TextureMTL.h"
+#include "BlendStateMTL.h"
 #include "Utils.h"
 
 
@@ -42,6 +43,7 @@ void DeviceMTL::updateDrawable()
 DeviceMTL::DeviceMTL()
 {
     _mtlDevice = DeviceMTL::_metalLayer.device;
+    _mtlCommandQueue = [_mtlDevice newCommandQueue];
 }
 
 DeviceMTL::~DeviceMTL()
@@ -88,20 +90,16 @@ DepthStencilState* DeviceMTL::createDepthStencilState(const DepthStencilDescript
 
 BlendState* DeviceMTL::createBlendState(const BlendDescriptor& descriptor)
 {
-    return nullptr;
+    auto ret = new (std::nothrow) BlendStateMTL(descriptor);
+    if (ret)
+        ret->autorelease();
+    
+    return ret;
 }
 
 RenderPipeline* DeviceMTL::newRenderPipeline(const RenderPipelineDescriptor& descriptor)
 {
     return new (std::nothrow) RenderPipelineMTL(_mtlDevice, descriptor);
 }
-
-//void DeviceMTL::resetDefaultRenderPass()
-//{
-//    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionLoad;
-//    DeviceMTL::_defaultRenderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
-//    DeviceMTL::_defaultRenderPassDescriptor.depthAttachment.loadAction = MTLLoadActionLoad;
-//    DeviceMTL::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
-//}
 
 CC_BACKEND_END

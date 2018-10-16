@@ -25,6 +25,7 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
     {
         NSLog(@"Can not get metal shader:");
         NSLog(@"%s", source.c_str());
+        glslopt_cleanup(ctx);
         return;
     }
     
@@ -32,8 +33,6 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
     
     parseUniform(mtlDevice, glslShader);
     parseTexture(mtlDevice, glslShader);
-    
-    glslopt_cleanup(ctx);
     
     NSString* shader = [NSString stringWithUTF8String:metalShader];
     NSError* error;
@@ -44,6 +43,8 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
     {
         NSLog(@"Can not compile metal shader: %@", error);
         NSLog(@"%s", metalShader);
+        glslopt_shader_delete(glslShader);
+        glslopt_cleanup(ctx);
         return;
     }
     
@@ -54,13 +55,14 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
         NSLog(@"%s", metalShader);
         assert(false);
     }
+    
+    glslopt_shader_delete(glslShader);
+    glslopt_cleanup(ctx);
 }
 
 ShaderModuleMTL::~ShaderModuleMTL()
 {
     [_mtlFunction release];
-    
-    // _uniformBuffer is free by RenderPipeline
 }
 
 void ShaderModuleMTL::parseUniform(id<MTLDevice> mtlDevice, glslopt_shader* shader)
@@ -69,7 +71,8 @@ void ShaderModuleMTL::parseUniform(id<MTLDevice> mtlDevice, glslopt_shader* shad
     const int uniformSize = glslopt_shader_get_uniform_total_size(shader);
     if (uniformSize > 0)
     {
-        _uniformBuffer = malloc(uniformSize);
+        std::shared_ptr<uint8_t> sp(new uint8_t[uniformSize], [](uint8_t *p) { delete[] p; });
+        _uniformBuffer = sp;
     }
     for (int i = 0; i < uniformCount; ++i)
     {

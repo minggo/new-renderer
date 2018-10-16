@@ -121,4 +121,14 @@ id<MTLTexture> Utils::createDepthStencilAttachmentTexture()
     return ret;
 }
 
+void Utils::generateMipmaps(id<MTLTexture> texture)
+{
+    auto commandQueue = static_cast<DeviceMTL*>(DeviceMTL::getInstance())->getMTLCommandQueue();
+    auto commandBuffer = [commandQueue commandBuffer];
+    id<MTLBlitCommandEncoder> commandEncoder = [commandBuffer blitCommandEncoder];
+    [commandEncoder generateMipmapsForTexture:texture];
+    [commandEncoder endEncoding];
+    [commandBuffer commit];
+}
+
 CC_BACKEND_END

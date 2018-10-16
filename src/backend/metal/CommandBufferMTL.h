@@ -28,7 +28,7 @@ private:
     void setTextures() const;
     void doSetTextures(const std::vector<std::string>& textures, bool isVertex) const;
     void setUniformBuffer() const;
-    uint32_t fillUniformBuffer(void* buffer, const std::vector<std::string>& uniforms) const;
+    uint32_t fillUniformBuffer(uint8_t* buffer, const std::vector<std::string>& uniforms) const;
     void afterDraw();
     
     id<MTLCommandBuffer> _mtlCommandBuffer = nil;
