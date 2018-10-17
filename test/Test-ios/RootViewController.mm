@@ -13,6 +13,7 @@
 #include "backend/BlendingBackend.h"
 #include "backend/MultiTexturesBackend.h"
 #include "backend/StencilBackend.h"
+#include "backend/PostProcessBackend.h"
 
 #include "../Tests/Utils.h"
 
@@ -26,6 +27,7 @@ namespace
     void initTests()
     {
         tests = {
+            PostProcessBackend::create,
             StencilBackend::create,
             MultiTexturesBackend::create,
             BlendingBackend::create,

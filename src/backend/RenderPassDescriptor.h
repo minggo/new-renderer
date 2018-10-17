@@ -13,6 +13,8 @@ class RenderPass;
 
 struct RenderPassColorAttachments
 {
+    RenderPassColorAttachments() = default;
+    RenderPassColorAttachments(const RenderPassColorAttachments& rhs);
     ~RenderPassColorAttachments();
     RenderPassColorAttachments& operator=(const RenderPassColorAttachments& rhs);
     void setTexture(uint32_t attachment, Texture* texture);
@@ -29,8 +31,10 @@ private:
 
 struct RenderPassDepthStencilAttachment
 {
-    RenderPassDepthStencilAttachment& operator =(const RenderPassDepthStencilAttachment& rhs);
+    RenderPassDepthStencilAttachment() = default;
+    RenderPassDepthStencilAttachment(const RenderPassDepthStencilAttachment& rhs);
     ~RenderPassDepthStencilAttachment();
+    RenderPassDepthStencilAttachment& operator =(const RenderPassDepthStencilAttachment& rhs);
     
     float clearDepth = 1.f;
     bool needClearDepth = false;

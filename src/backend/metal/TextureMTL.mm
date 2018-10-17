@@ -122,7 +122,8 @@ void TextureMTL::createTexture(id<MTLDevice> mtlDevice, const TextureDescriptor&
                                                               width:descriptor.width
                                                              height:descriptor.height
                                                           mipmapped:TRUE];
-    if (TextureFormat::D24S8 == descriptor.textureFormat)
+    if (TextureFormat::D24S8 == descriptor.textureFormat ||
+        TextureUsage::RENDER_TARGET == descriptor.textureUsage)
     {
         textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
         textureDescriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;

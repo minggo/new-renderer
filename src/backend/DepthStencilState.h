@@ -21,7 +21,7 @@ struct StencilDescriptor
 
 struct DepthStencilDescriptor
 {
-    CompareFunction depthCompareFunction = CompareFunction::ALWAYS;
+    CompareFunction depthCompareFunction = CompareFunction::LESS;
     bool depthWriteEnabled = false;
     
     StencilDescriptor backFaceStencil;

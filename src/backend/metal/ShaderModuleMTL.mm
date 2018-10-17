@@ -48,7 +48,10 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
         return;
     }
     
-    _mtlFunction = [library newFunctionWithName:@"xlatMtlMain"];
+    if (ShaderStage::VERTEX == stage)
+        _mtlFunction = [library newFunctionWithName:@"xlatMtlMain1"];
+    else
+        _mtlFunction = [library newFunctionWithName:@"xlatMtlMain2"];
     if (!_mtlFunction)
     {
         NSLog(@"metal shader is ---------------");

@@ -55,6 +55,13 @@ enum class TextureFormat : uint32_t
     D24S8
 };
 
+enum class TextureUsage : uint32_t
+{
+    READ,
+    WRITE,
+    RENDER_TARGET
+};
+
 enum class IndexFormat : uint32_t
 {
     U_SHORT,

@@ -9,6 +9,7 @@ struct TextureDescriptor
 {
     TextureType textureType = TextureType::TEXTURE_2D;
     TextureFormat textureFormat = TextureFormat::R8G8B8A8;
+    TextureUsage textureUsage = TextureUsage::READ;
     uint32_t width = 0;
     uint32_t height = 0;
     uint32_t depth = 0;
