@@ -160,4 +160,11 @@ struct SamplerDescriptor
     SamplerAddressMode tAddressMode = SamplerAddressMode::REPEAT;
 };
 
+enum class CullMode: uint32_t
+{
+    NONE = 0x00000000,
+    BACK = 0x00000001,
+    FRONT = 0x00000002
+};
+
 CC_BACKEND_END

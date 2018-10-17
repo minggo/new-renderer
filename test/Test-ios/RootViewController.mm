@@ -12,6 +12,7 @@
 #include "backend/DepthTextureBackend.h"
 #include "backend/BlendingBackend.h"
 #include "backend/MultiTexturesBackend.h"
+#include "backend/StencilBackend.h"
 
 #include "../Tests/Utils.h"
 
@@ -25,6 +26,7 @@ namespace
     void initTests()
     {
         tests = {
+            StencilBackend::create,
             MultiTexturesBackend::create,
             BlendingBackend::create,
             BasicBackend::create,
@@ -54,7 +56,7 @@ namespace
     CGRect rect = [UIScreen mainScreen].bounds;
     CCEAGLView *eaglView = [CCEAGLView viewWithFrame: rect
                                          pixelFormat: kEAGLColorFormatRGB565
-                                         depthFormat: GL_DEPTH_COMPONENT24_OES
+                                         depthFormat: GL_DEPTH24_STENCIL8_OES
                                   preserveBackbuffer: NO
                                           sharegroup: nil
                                        multiSampling: NO

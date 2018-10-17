@@ -164,6 +164,8 @@
 		461DD0ED21538B0100A8E43F /* CommandBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461DD0EC21538B0100A8E43F /* CommandBuffer.cpp */; };
 		461DD0EE21538B0100A8E43F /* CommandBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461DD0EC21538B0100A8E43F /* CommandBuffer.cpp */; };
 		46233BEA217446B3000F1F21 /* BlendingBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46037573214F44CC00DC9ED4 /* BlendingBackend.cpp */; };
+		46233BED2176C979000F1F21 /* StencilBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46233BEB2176C978000F1F21 /* StencilBackend.cpp */; };
+		46233BEE2176C979000F1F21 /* StencilBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46233BEB2176C978000F1F21 /* StencilBackend.cpp */; };
 		4627246A1FF4E39E000D13BC /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462724681FF4E39E000D13BC /* Utils.cpp */; };
 		46486F1A216DE9740078BE0E /* Texture2DBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460374102142137E00DC9ED4 /* Texture2DBackend.cpp */; };
 		46486F1B216F1BC20078BE0E /* DepthTextureBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4603744D2148F6BE00DC9ED4 /* DepthTextureBackend.cpp */; };
@@ -442,6 +444,8 @@
 		461DD0E52153845000A8E43F /* Device.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Device.cpp; sourceTree = "<group>"; };
 		461DD0E82153861D00A8E43F /* DeviceGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceGL.h; sourceTree = "<group>"; };
 		461DD0EC21538B0100A8E43F /* CommandBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CommandBuffer.cpp; sourceTree = "<group>"; };
+		46233BEB2176C978000F1F21 /* StencilBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StencilBackend.cpp; sourceTree = "<group>"; };
+		46233BEC2176C979000F1F21 /* StencilBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StencilBackend.h; sourceTree = "<group>"; };
 		462724581FF3A00E000D13BC /* TestBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestBase.h; sourceTree = "<group>"; };
 		462724631FF4BD4E000D13BC /* defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = defines.h; sourceTree = "<group>"; };
 		462724681FF4E39E000D13BC /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
@@ -896,6 +900,8 @@
 				460374482147BBFB00DC9ED4 /* BunnyData.h */,
 				460374442147B88300DC9ED4 /* BunnyBackend.cpp */,
 				460374452147B88400DC9ED4 /* BunnyBackend.h */,
+				46233BEB2176C978000F1F21 /* StencilBackend.cpp */,
+				46233BEC2176C979000F1F21 /* StencilBackend.h */,
 				460374102142137E00DC9ED4 /* Texture2DBackend.cpp */,
 				460374112142137E00DC9ED4 /* Texture2DBackend.h */,
 				460373D921363EDD00DC9ED4 /* BasicBackend.cpp */,
@@ -1262,6 +1268,7 @@
 				1A255E2420034B0D00069420 /* CCDevice-apple.mm in Sources */,
 				1A255E2E20034B0D00069420 /* CCEAGLView-ios.mm in Sources */,
 				1A255E5C20034B0D00069420 /* Vec3.cpp in Sources */,
+				46233BEE2176C979000F1F21 /* StencilBackend.cpp in Sources */,
 				1A255E6E20034B0D00069420 /* pvr.cpp in Sources */,
 				46037414214247B100DC9ED4 /* RenderPass.cpp in Sources */,
 				1A255E4C20034B0D00069420 /* CCGeometry.cpp in Sources */,
@@ -1297,6 +1304,7 @@
 				468BD2E72154FE8D007BCACF /* Texture.cpp in Sources */,
 				468BD2E22154FE71007BCACF /* RenderPass.cpp in Sources */,
 				1A255E5120034B0D00069420 /* Quaternion.cpp in Sources */,
+				46233BED2176C979000F1F21 /* StencilBackend.cpp in Sources */,
 				468BD2EE215A036F007BCACF /* ShaderModuleMTL.mm in Sources */,
 				1A69F0FE1FF22B0200B224DF /* ioapi_mem.cpp in Sources */,
 				1A255E7C20034EE700069420 /* xxtea.cpp in Sources */,

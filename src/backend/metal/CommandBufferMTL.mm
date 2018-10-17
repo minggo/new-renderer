@@ -44,6 +44,18 @@ namespace
         else
             return MTLIndexTypeUInt32;
     }
+    
+    MTLCullMode toMTLCullMode(CullMode mode)
+    {
+        switch (mode) {
+            case CullMode::NONE:
+                return MTLCullModeNone;
+            case CullMode::FRONT:
+                return MTLCullModeFront;
+            case CullMode::BACK:
+                return MTLCullModeBack;
+        }
+    }
 }
 
 CommandBufferMTL::CommandBufferMTL(DeviceMTL* deviceMTL)
@@ -78,18 +90,26 @@ void CommandBufferMTL::setRenderPipeline(RenderPipeline* renderPipeline)
     CC_SAFE_RELEASE(_renderPipelineMTL);
     _renderPipelineMTL = static_cast<RenderPipelineMTL*>(renderPipeline);
     _renderPipelineMTL->apply(_renderPass);
+    [_mtlRenderEncoder setRenderPipelineState:_renderPipelineMTL->getMTLRenderPipelineState()];
 }
 
 void CommandBufferMTL::setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
     MTLViewport viewport;
     viewport.originX = x;
-    viewport.originY = y;
+    // Metal coordinate origin is top-left, which is different from OpenGL,
+    // so adjust the coordinate here.
+    viewport.originY = DeviceMTL::getCAMetalLayer().drawableSize.height - y - h;
     viewport.width = w;
     viewport.height = h;
     viewport.znear = -1;
     viewport.zfar = 1;
     [_mtlRenderEncoder setViewport:viewport];
+}
+
+void CommandBufferMTL::setCullMode(CullMode mode)
+{
+    [_mtlRenderEncoder setCullMode:toMTLCullMode(mode)];
 }
 
 void CommandBufferMTL::setVertexBuffer(uint32_t index, Buffer* buffer)
@@ -164,9 +184,11 @@ void CommandBufferMTL::prepareDrawing() const
     
     auto mtlDepthStencilState = _renderPipelineMTL->getMTLDepthStencilState();
     if (mtlDepthStencilState)
+    {
         [_mtlRenderEncoder setDepthStencilState:mtlDepthStencilState];
-    
-    [_mtlRenderEncoder setRenderPipelineState:_renderPipelineMTL->getMTLRenderPipelineState()];
+        [_mtlRenderEncoder setStencilFrontReferenceValue:_stencilReferenceValueFront
+                                      backReferenceValue:_stencilReferenceValueBack];
+    }
 }
 
 void CommandBufferMTL::setTextures() const

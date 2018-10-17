@@ -41,13 +41,17 @@ private:
     cocos2d::Mat4 _transform1;
 
     cocos2d::backend::Texture* _canvasTexture = nullptr;
-    cocos2d::backend::Textrue* _texture = nullptr;
+    cocos2d::backend::Texture* _texture = nullptr;
     cocos2d::backend::Buffer* _vertexBuffer = nullptr;
-    cocos2d::backend::CommandQueue* _commandQueue = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
-    cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::RenderPass* _renderPass = nullptr;
     cocos2d::backend::BindGroup _bindGroup;
+    
+    cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
+    cocos2d::backend::RenderPipeline* _renderPipelineCavasTexture = nullptr;
+    cocos2d::backend::RenderPipeline* _renderPipelineTextureBackAndFront = nullptr;
+    cocos2d::backend::RenderPipeline* _renderPipelineTextureBack = nullptr;
+    cocos2d::backend::RenderPipeline* _renderPipelineTextureFront = nullptr;
 };
 
 

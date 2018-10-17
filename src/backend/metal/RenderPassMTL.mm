@@ -40,9 +40,9 @@ MTLRenderPassDescriptor* RenderPassMTL::getMTLRenderPassDescriptor()
 
 void RenderPassMTL::setColorAttachments(const RenderPassDescriptor& descriptor)
 {
+    const auto& renderPassColorAttachments = descriptor.getColorAttachments();
     if (_colorAttachmentsSet)
     {
-        const auto& renderPassColorAttachments = descriptor.getColorAttachments();
         int i = 0;
         for (const auto& texture : renderPassColorAttachments.textures)
         {
@@ -68,9 +68,15 @@ void RenderPassMTL::setColorAttachments(const RenderPassDescriptor& descriptor)
     }
     else
     {
-//        const auto& defaultRenderPassDescriptor = DeviceMTL::getDefaultMTLRenderPassDescriptor();
-//        _renderPassDescritprMTL.colorAttachments[0].texture = defaultRenderPassDescriptor.colorAttachments[0].texture;
         _renderPassDescritprMTL.colorAttachments[0].texture = Utils::getTempColorAttachmentTexture();
+        if (renderPassColorAttachments.needClearColor)
+        {
+            _renderPassDescritprMTL.colorAttachments[0].loadAction = MTLLoadActionClear;
+            _renderPassDescritprMTL.colorAttachments[0].clearColor = MTLClearColorMake(renderPassColorAttachments.clearColor[0],
+                                                                                       renderPassColorAttachments.clearColor[1],
+                                                                                       renderPassColorAttachments.clearColor[2],
+                                                                                       renderPassColorAttachments.clearColor[3]);
+        }
     }
 }
 

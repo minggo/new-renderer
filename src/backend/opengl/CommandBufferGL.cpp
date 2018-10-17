@@ -55,6 +55,14 @@ namespace
         }
         return ret;
     }
+    
+    GLenum toGLCullMode(CullMode mode)
+    {
+        if (CullMode::BACK == mode)
+            return GL_BACK;
+        else
+            return GL_FRONT;
+    }
 }
 
 CommandBufferGL::CommandBufferGL()
@@ -94,6 +102,19 @@ void CommandBufferGL::setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h
     _viewport.y = y;
     _viewport.w = w;
     _viewport.h = h;
+}
+
+void CommandBufferGL::setCullMode(CullMode mode)
+{
+    if (CullMode::NONE == mode)
+    {
+        glDisable(GL_CULL_FACE);
+    }
+    else
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(toGLCullMode(mode));
+    }
 }
 
 void CommandBufferGL::setIndexBuffer(Buffer* buffer)
@@ -148,8 +169,6 @@ void CommandBufferGL::drawElements(PrimitiveType primitiveType, IndexFormat inde
 
 void CommandBufferGL::endRenderPass()
 {
-    
-    
     //TODO: reset GL states?
 }
 
