@@ -218,7 +218,7 @@ DepthTextureBackend::DepthTextureBackend()
     
     // render pass Bunny 1
     backend::RenderPassDescriptor renderPassDescriptorBunny1;
-    renderPassDescriptorBunny1.setDepthClearValue(1);
+    renderPassDescriptorBunny1.setClearDepth(1);
     renderPassDescriptorBunny1.setDepthStencilAttachment(_depthTexture);
     _renderPassBunny1 = device->newRenderPass(renderPassDescriptorBunny1);
     
@@ -230,7 +230,7 @@ DepthTextureBackend::DepthTextureBackend()
     // render pass BigTriangle
     backend::RenderPassDescriptor renderPassDescriptorBigTriangle;
     renderPassDescriptorBigTriangle.setClearColor(0.1f, 0.1f, 0.1f, 1);
-    renderPassDescriptorBigTriangle.setDepthClearValue(1);
+    renderPassDescriptorBigTriangle.setClearDepth(1);
     _renderPassBigTriangle = device->newRenderPass(renderPassDescriptorBigTriangle);
     
     _commandBuffer = device->newCommandBuffer();

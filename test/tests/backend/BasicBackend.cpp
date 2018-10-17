@@ -84,7 +84,7 @@ BasicBackend::BasicBackend()
     
     cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-    renderPassDescriptor.setDepthClearValue(1);
+    renderPassDescriptor.setClearDepth(1);
     _renderPass = device->newRenderPass(renderPassDescriptor);
 }
 

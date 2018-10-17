@@ -220,14 +220,14 @@ PostProcessBackend::PostProcessBackend()
     
     backend::RenderPassDescriptor renderPassDescriptorBunny;
     renderPassDescriptorBunny.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptorBunny.setDepthClearValue(1);
+    renderPassDescriptorBunny.setClearDepth(1);
     renderPassDescriptorBunny.setColorAttachment(0, _colorTexture);
     renderPassDescriptorBunny.setDepthStencilAttachment(_depthTexture);
     _renderPassBunny = device->newRenderPass(renderPassDescriptorBunny);
     
     backend::RenderPassDescriptor renderPassDescriptorBg;
     renderPassDescriptorBg.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptorBg.setDepthClearValue(1);
+    renderPassDescriptorBg.setClearDepth(1);
     _renderPassBg = device->newRenderPass(renderPassDescriptorBg);
     
     _commandBuffer = device->newCommandBuffer();

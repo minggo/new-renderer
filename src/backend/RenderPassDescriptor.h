@@ -51,8 +51,8 @@ public:
     void setColorAttachment(uint32_t attachment, Texture* texture);
     void setClearColor(float r, float g, float b, float a);
     void setDepthStencilAttachment(Texture* texture);
-    void setDepthClearValue(float clearValue);
-    void setStencilClearValue(uint32_t clearValue);
+    void setClearDepth(float clearValue);
+    void setClearStencil(uint32_t clearValue);
     
     bool hasStencil() const;
     

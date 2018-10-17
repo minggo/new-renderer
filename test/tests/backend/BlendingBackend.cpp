@@ -295,7 +295,7 @@ BlendingBackend::BlendingBackend()
     
     backend::RenderPassDescriptor renderPassDescriptorBigTriangl;
     renderPassDescriptorBigTriangl.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptorBigTriangl.setDepthClearValue(1);
+    renderPassDescriptorBigTriangl.setClearDepth(1);
     _renderPassBigTriangle = device->newRenderPass(renderPassDescriptorBigTriangl);
 }
 

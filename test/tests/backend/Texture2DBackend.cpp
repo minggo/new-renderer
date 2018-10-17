@@ -146,7 +146,7 @@ Texture2DBackendTest::Texture2DBackendTest()
     // render pass
     RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-    renderPassDescriptor.setDepthClearValue(1.f);
+    renderPassDescriptor.setClearDepth(1.f);
     _renderPass = device->newRenderPass(renderPassDescriptor);
     
     _commandBuffer = device->newCommandBuffer();

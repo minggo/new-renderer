@@ -89,7 +89,7 @@ BunnyBackend::BunnyBackend()
     // render pass
     cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-    renderPassDescriptor.setDepthClearValue(1.f);
+    renderPassDescriptor.setClearDepth(1.f);
     _renderPass = device->newRenderPass(renderPassDescriptor);
     
     // bind group

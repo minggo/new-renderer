@@ -99,13 +99,13 @@ void RenderPassDescriptor::setDepthStencilAttachment(Texture* texture)
         _depthStencilAttachmentSet = true;
 }
 
-void RenderPassDescriptor::setDepthClearValue(float clearValue)
+void RenderPassDescriptor::setClearDepth(float clearValue)
 {
     _depthStencilAttachment.clearDepth = clearValue;
     _depthStencilAttachment.needClearDepth = true;
 }
 
-void RenderPassDescriptor::setStencilClearValue(uint32_t clearValue)
+void RenderPassDescriptor::setClearStencil(uint32_t clearValue)
 {
     _depthStencilAttachment.clearStencil = clearValue;
     _depthStencilAttachment.needClearStencil = true;

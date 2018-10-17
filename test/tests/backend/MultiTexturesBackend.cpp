@@ -114,7 +114,7 @@ MultiTexturesBackend::MultiTexturesBackend()
     
     backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptor.setDepthClearValue(1);
+    renderPassDescriptor.setClearDepth(1);
     _renderPass = device->newRenderPass(renderPassDescriptor);
 }
 

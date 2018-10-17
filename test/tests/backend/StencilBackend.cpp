@@ -131,7 +131,7 @@ StencilBackend::StencilBackend()
     
     backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(1.0f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptor.setDepthClearValue(1);
+    renderPassDescriptor.setClearDepth(1);
     _renderPass = device->newRenderPass(renderPassDescriptor);
 
     float vertexBuf[][2] = {
