@@ -215,6 +215,7 @@ PostProcessBackend::PostProcessBackend()
     backend::TextureDescriptor textureDescriptor2;
     textureDescriptor2.width = utils::WINDOW_WIDTH;
     textureDescriptor2.height = utils::WINDOW_HEIGHT;
+    textureDescriptor2.textureUsage = backend::TextureUsage::RENDER_TARGET;
     textureDescriptor2.textureFormat = backend::TextureFormat::D24S8;
     _depthTexture = device->newTexture(textureDescriptor2);
     

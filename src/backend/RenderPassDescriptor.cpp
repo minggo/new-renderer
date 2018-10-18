@@ -77,6 +77,8 @@ RenderPassDepthStencilAttachment& RenderPassDepthStencilAttachment::operator=(co
 
 void RenderPassDescriptor::setColorAttachment(uint32_t attachment, Texture* texture)
 {
+    assert(TextureUsage::RENDER_TARGET == texture->getTextureUsage());
+    
     _colorAttachments.setTexture(attachment, texture);
     
     if (texture)
@@ -91,6 +93,8 @@ void RenderPassDescriptor::setClearColor(float r, float g, float b, float a)
 
 void RenderPassDescriptor::setDepthStencilAttachment(Texture* texture)
 {
+    assert(TextureUsage::RENDER_TARGET == texture->getTextureUsage());
+    
     CC_SAFE_RETAIN(texture);
     CC_SAFE_RELEASE(_depthStencilAttachment.texture);
     _depthStencilAttachment.texture = texture;

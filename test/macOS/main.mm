@@ -19,6 +19,7 @@
 #include "../tests/backend/MultiTexturesBackend.h"
 #include "../tests/backend/StencilBackend.h"
 #include "../tests/backend/PostProcessBackend.h"
+#include "../tests/backend/SubImageBackend.h"
 
 namespace
 {
@@ -47,6 +48,7 @@ namespace
         if (first)
         {
             tests = {
+                SubImageBackend::create,
                 PostProcessBackend::create,
                 StencilBackend::create,
                 BlendingBackend::create,

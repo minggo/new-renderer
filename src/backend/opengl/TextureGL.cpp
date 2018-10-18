@@ -1,5 +1,4 @@
 #include "TextureGL.h"
-
 #include "ccMacros.h"
 
 CC_BACKEND_BEGIN
@@ -89,8 +88,8 @@ TextureGL::TextureGL(const TextureDescriptor& descriptor) : Texture(descriptor)
     _sAddressModeGL = toGLAddressMode(descriptor.samplerDescriptor.sAddressMode);
     _tAddressModeGL = toGLAddressMode(descriptor.samplerDescriptor.tAddressMode);
     
-    // Update data here because `updateData()` may not be invoked later,
-    // for example, a texture is used as depth buffer.
+    // Update data here because `updateData()` may not be invoked later.
+    // For example, a texture used as depth buffer will not invoke updateData().
     uint8_t* data = (uint8_t*)malloc(_width * _height * _bytesPerElement);
     updateData(data);
     free(data);
@@ -118,9 +117,26 @@ void TextureGL::updateData(uint8_t* data)
                  data);
     CHECK_GL_ERROR_DEBUG();
     
-    if (_isMipmapEnabled)
-        generateMipmpas();
+    generateMipmpas();
+    CHECK_GL_ERROR_DEBUG();
+}
+
+void TextureGL::updateSubData(uint32_t xoffset, uint32_t yoffset, uint32_t width, uint32_t height, uint8_t* data)
+{
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, _texture);
+    glTexSubImage2D(GL_TEXTURE_2D,
+                    0,
+                    xoffset,
+                    yoffset,
+                    width,
+                    height,
+                    _format,
+                    _type,
+                    data);
+    CHECK_GL_ERROR_DEBUG();
     
+    generateMipmpas();
     CHECK_GL_ERROR_DEBUG();
 }
 
@@ -136,7 +152,8 @@ void TextureGL::apply(int index) const
 
 void TextureGL::generateMipmpas() const
 {
-    if (TextureFormat::D24S8 != _textureFormat)
+    if (_isMipmapEnabled &&
+        TextureUsage::RENDER_TARGET != _textureUsage)
         glGenerateMipmap(GL_TEXTURE_2D);
 }
 

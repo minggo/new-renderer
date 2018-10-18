@@ -194,16 +194,9 @@ namespace
 DepthTextureBackend::DepthTextureBackend()
 : _t(0.0f)
 {
-    
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-//    if (!(_device->supportGLExtension("OES_depth_texture")))
-//        printf("error: the device doesn't support OES_depth_texture");
-//#endif
-    
     auto device = backend::Device::getInstance();
     
     // depth texture
-    
     backend::SamplerDescriptor samplerDescriptor;
     samplerDescriptor.sAddressMode = backend::SamplerAddressMode::CLAMP_TO_EDGE;
     samplerDescriptor.tAddressMode = backend::SamplerAddressMode::CLAMP_TO_EDGE;
@@ -212,6 +205,7 @@ DepthTextureBackend::DepthTextureBackend()
     textureDescriptor.width = utils::WINDOW_WIDTH;
     textureDescriptor.height = utils::WINDOW_HEIGHT;
     textureDescriptor.textureType = backend::TextureType::TEXTURE_2D;
+    textureDescriptor.textureUsage = backend::TextureUsage::RENDER_TARGET;
     textureDescriptor.samplerDescriptor = samplerDescriptor;
     textureDescriptor.textureFormat = backend::TextureFormat::D24S8;
     _depthTexture = device->newTexture(textureDescriptor);
@@ -263,7 +257,6 @@ void DepthTextureBackend::tick(float dt)
     Mat4::createPerspective(45.f, 1.0f * utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT, 0.1f, 100.f, &_projection);
 
     // Draw bunny one.
-    
     _commandBuffer->beginRenderPass(_renderPassBunny1);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bunny->renderPipeline);
@@ -280,10 +273,8 @@ void DepthTextureBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_SHORT,
                                  sizeof(bunny_cells) / bunny_cells[0]);    
-//    _commandBuffer->endRenderPass();
 
     // Draw bunny two.
-//    _commandBuffer->beginRenderPass(_renderPassBunny2);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bunny->renderPipeline);
     _commandBuffer->setVertexBuffer(0, bunny->vertexBuffer);
@@ -302,7 +293,6 @@ void DepthTextureBackend::tick(float dt)
     _commandBuffer->endRenderPass();
     
     // Draw bg.
-
     _commandBuffer->beginRenderPass(_renderPassBigTriangle);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bg->renderPipeline);

@@ -11,10 +11,10 @@ public:
     TextureGL(const TextureDescriptor& descriptor);
     ~TextureGL();
     
-    // TODO: update sub data.
     virtual void updateData(uint8_t* data) override;
-    void apply(int index) const;
+    virtual void updateSubData(uint32_t xoffset, uint32_t yoffset, uint32_t width, uint32_t height, uint8_t* data) override;
     
+    void apply(int index) const;
     inline GLuint getHandler() const { return _texture; }
     
 private:

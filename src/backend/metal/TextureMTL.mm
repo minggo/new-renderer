@@ -91,15 +91,20 @@ TextureMTL::~TextureMTL()
 
 void TextureMTL::updateData(uint8_t* data)
 {
+    updateSubData(0, 0, (uint32_t)_mtlTexture.width, (uint32_t)_mtlTexture.height, data);
+}
+
+void TextureMTL::updateSubData(uint32_t xoffset, uint32_t yoffset, uint32_t width, uint32_t height, uint8_t* data)
+{
     MTLRegion region =
     {
-        { 0, 0, 0 },                               // MTLOrigin
-        {_mtlTexture.width, _mtlTexture.height, 1} // MTLSize
+        {xoffset, yoffset, 0},  // MTLOrigin
+        {width, height, 1}      // MTLSize
     };
     
     uint8_t* convertedData = nullptr;
     bool converted = convertData(data,
-                                 (uint32_t)(_mtlTexture.width * _mtlTexture.height),
+                                 (uint32_t)(width * height),
                                  _textureFormat, &convertedData);
     
     [_mtlTexture replaceRegion:region
@@ -107,12 +112,12 @@ void TextureMTL::updateData(uint8_t* data)
                      withBytes:convertedData
                    bytesPerRow:_bytesPerRow];
     
+    if (converted)
+        free(convertedData);
+    
     // metal doesn't generate mipmaps automatically, so should generate it manually.
     if (_isMipmapEnabled)
         Utils::generateMipmaps(_mtlTexture);
-    
-    if (converted)
-        free(convertedData);
 }
 
 void TextureMTL::createTexture(id<MTLDevice> mtlDevice, const TextureDescriptor& descriptor)
@@ -122,8 +127,7 @@ void TextureMTL::createTexture(id<MTLDevice> mtlDevice, const TextureDescriptor&
                                                               width:descriptor.width
                                                              height:descriptor.height
                                                           mipmapped:TRUE];
-    if (TextureFormat::D24S8 == descriptor.textureFormat ||
-        TextureUsage::RENDER_TARGET == descriptor.textureUsage)
+    if (TextureUsage::RENDER_TARGET == descriptor.textureUsage)
     {
         textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
         textureDescriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderRead;

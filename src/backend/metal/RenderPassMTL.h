@@ -17,7 +17,7 @@ private:
     void setColorAttachments(const RenderPassDescriptor& descriptor);
     void setDepthStencilAttachment(const RenderPassDescriptor& descriptor);
     
-    MTLRenderPassDescriptor* _renderPassDescritprMTL = nil;
+    MTLRenderPassDescriptor* _mtlRenderPassDescritpr = nil;
 };
 
 CC_BACKEND_END

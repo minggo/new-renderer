@@ -14,6 +14,7 @@
 #include "backend/MultiTexturesBackend.h"
 #include "backend/StencilBackend.h"
 #include "backend/PostProcessBackend.h"
+#include "backend/SubImageBackend.h"
 
 #include "../Tests/Utils.h"
 
@@ -27,6 +28,7 @@ namespace
     void initTests()
     {
         tests = {
+            SubImageBackend::create,
             PostProcessBackend::create,
             StencilBackend::create,
             MultiTexturesBackend::create,

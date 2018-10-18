@@ -32,6 +32,7 @@ Texture::Texture(const TextureDescriptor& descriptor)
 , _textureFormat(descriptor.textureFormat)
 , _bytesPerElement(computeBytesPerElement(descriptor.textureFormat))
 , _isMipmapEnabled(descriptor.samplerDescriptor.mipmapEnabled)
+, _textureUsage(descriptor.textureUsage)
 {
 }
 

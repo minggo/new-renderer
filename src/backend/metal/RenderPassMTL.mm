@@ -9,10 +9,10 @@ RenderPassMTL::RenderPassMTL(id<MTLDevice> mtlDevice, const RenderPassDescriptor
 : RenderPass(descriptor)
 {
     if (_colorAttachmentsSet || _depthStencilAttachmentSet)
-        _renderPassDescritprMTL = [MTLRenderPassDescriptor renderPassDescriptor];
+        _mtlRenderPassDescritpr = [MTLRenderPassDescriptor renderPassDescriptor];
     else
-        _renderPassDescritprMTL = Utils::getDefaultRenderPassDescriptor();
-    [_renderPassDescritprMTL retain];
+        _mtlRenderPassDescritpr = Utils::getDefaultRenderPassDescriptor();
+    [_mtlRenderPassDescritpr retain];
     
     setColorAttachments(descriptor);
     setDepthStencilAttachment(descriptor);
@@ -21,7 +21,7 @@ RenderPassMTL::RenderPassMTL(id<MTLDevice> mtlDevice, const RenderPassDescriptor
 RenderPassMTL::~RenderPassMTL()
 {
     if (!_colorAttachmentsSet && !_depthStencilAttachmentSet)
-        [_renderPassDescritprMTL release];
+        [_mtlRenderPassDescritpr release];
 }
 
 MTLRenderPassDescriptor* RenderPassMTL::getMTLRenderPassDescriptor()
@@ -30,12 +30,12 @@ MTLRenderPassDescriptor* RenderPassMTL::getMTLRenderPassDescriptor()
     {
         const auto& defaultRenderPassDescriptor = Utils::getDefaultRenderPassDescriptor();
         if (!_colorAttachmentsSet)
-            _renderPassDescritprMTL.colorAttachments[0].texture = defaultRenderPassDescriptor.colorAttachments[0].texture;
+            _mtlRenderPassDescritpr.colorAttachments[0].texture = defaultRenderPassDescriptor.colorAttachments[0].texture;
         if (!_depthStencilAttachmentSet)
-            _renderPassDescritprMTL.depthAttachment.texture = defaultRenderPassDescriptor.depthAttachment.texture;
+            _mtlRenderPassDescritpr.depthAttachment.texture = defaultRenderPassDescriptor.depthAttachment.texture;
     }
     
-    return _renderPassDescritprMTL;
+    return _mtlRenderPassDescritpr;
 }
 
 void RenderPassMTL::setColorAttachments(const RenderPassDescriptor& descriptor)
@@ -51,28 +51,28 @@ void RenderPassMTL::setColorAttachments(const RenderPassDescriptor& descriptor)
             
             if (renderPassColorAttachments.needClearColor)
             {
-                _renderPassDescritprMTL.colorAttachments[i].loadAction = MTLLoadActionClear;
-                _renderPassDescritprMTL.colorAttachments[i].clearColor = MTLClearColorMake(renderPassColorAttachments.clearColor[0],
+                _mtlRenderPassDescritpr.colorAttachments[i].loadAction = MTLLoadActionClear;
+                _mtlRenderPassDescritpr.colorAttachments[i].clearColor = MTLClearColorMake(renderPassColorAttachments.clearColor[0],
                                                                                            renderPassColorAttachments.clearColor[1],
                                                                                            renderPassColorAttachments.clearColor[2],
                                                                                            renderPassColorAttachments.clearColor[3]);
             }
             else
-                _renderPassDescritprMTL.colorAttachments[i].loadAction = MTLLoadActionLoad;
+                _mtlRenderPassDescritpr.colorAttachments[i].loadAction = MTLLoadActionLoad;
             
-            _renderPassDescritprMTL.colorAttachments[i].texture = static_cast<TextureMTL*>(texture)->getMTLTexture();
-            _renderPassDescritprMTL.colorAttachments[i].storeAction = MTLStoreActionStore;
+            _mtlRenderPassDescritpr.colorAttachments[i].texture = static_cast<TextureMTL*>(texture)->getMTLTexture();
+            _mtlRenderPassDescritpr.colorAttachments[i].storeAction = MTLStoreActionStore;
             
             ++i;
         }
     }
     else
     {
-        _renderPassDescritprMTL.colorAttachments[0].texture = Utils::getTempColorAttachmentTexture();
+        _mtlRenderPassDescritpr.colorAttachments[0].texture = Utils::getTempColorAttachmentTexture();
         if (renderPassColorAttachments.needClearColor)
         {
-            _renderPassDescritprMTL.colorAttachments[0].loadAction = MTLLoadActionClear;
-            _renderPassDescritprMTL.colorAttachments[0].clearColor = MTLClearColorMake(renderPassColorAttachments.clearColor[0],
+            _mtlRenderPassDescritpr.colorAttachments[0].loadAction = MTLLoadActionClear;
+            _mtlRenderPassDescritpr.colorAttachments[0].clearColor = MTLClearColorMake(renderPassColorAttachments.clearColor[0],
                                                                                        renderPassColorAttachments.clearColor[1],
                                                                                        renderPassColorAttachments.clearColor[2],
                                                                                        renderPassColorAttachments.clearColor[3]);
@@ -87,27 +87,27 @@ void RenderPassMTL::setDepthStencilAttachment(const RenderPassDescriptor &descri
     if (_depthStencilAttachmentSet)
     {
         const auto& textureMTL = static_cast<TextureMTL*>(renderPassDepthStencilAttachment.texture);
-        _renderPassDescritprMTL.depthAttachment.texture = textureMTL->getMTLTexture();
-        _renderPassDescritprMTL.stencilAttachment.texture = textureMTL->getMTLTexture();
+        _mtlRenderPassDescritpr.depthAttachment.texture = textureMTL->getMTLTexture();
+        _mtlRenderPassDescritpr.stencilAttachment.texture = textureMTL->getMTLTexture();
     }
     
     // Set depth clear value.
     if (renderPassDepthStencilAttachment.needClearDepth)
     {
-        _renderPassDescritprMTL.depthAttachment.loadAction = MTLLoadActionClear;
-        _renderPassDescritprMTL.depthAttachment.clearDepth = renderPassDepthStencilAttachment.clearDepth;
+        _mtlRenderPassDescritpr.depthAttachment.loadAction = MTLLoadActionClear;
+        _mtlRenderPassDescritpr.depthAttachment.clearDepth = renderPassDepthStencilAttachment.clearDepth;
     }
     else
-        _renderPassDescritprMTL.depthAttachment.loadAction = MTLLoadActionLoad;
+        _mtlRenderPassDescritpr.depthAttachment.loadAction = MTLLoadActionLoad;
     
     // Set stencil clear value.
     if (renderPassDepthStencilAttachment.needClearStencil)
     {
-        _renderPassDescritprMTL.stencilAttachment.loadAction = MTLLoadActionClear;
-        _renderPassDescritprMTL.stencilAttachment.clearStencil = renderPassDepthStencilAttachment.clearStencil;
+        _mtlRenderPassDescritpr.stencilAttachment.loadAction = MTLLoadActionClear;
+        _mtlRenderPassDescritpr.stencilAttachment.clearStencil = renderPassDepthStencilAttachment.clearStencil;
     }
     else
-        _renderPassDescritprMTL.stencilAttachment.loadAction = MTLLoadActionLoad;
+        _mtlRenderPassDescritpr.stencilAttachment.loadAction = MTLLoadActionLoad;
 }
 
 CC_BACKEND_END
