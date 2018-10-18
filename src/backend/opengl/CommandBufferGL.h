@@ -11,6 +11,7 @@ CC_BACKEND_BEGIN
 
 class BufferGL;
 class RenderPipelineGL;
+class Program;
 
 class CommandBufferGL : public CommandBuffer
 {
@@ -39,6 +40,8 @@ private:
     };
     
     void prepareDrawing() const;
+    void bindVertexBuffer(Program* program) const;
+    void setUniforms(Program* program) const;
     void setUniform(bool isArray, GLuint location, uint32_t size, GLenum uniformType, void* data) const;
     void cleanResources();
     
@@ -48,6 +51,7 @@ private:
     BindGroup* _bindGroup = nullptr;
     BufferGL* _indexBuffer = nullptr;
     RenderPipelineGL* _renderPipeline = nullptr;
+    CullMode _cullMode = CullMode::NONE;
 };
 
 CC_BACKEND_END

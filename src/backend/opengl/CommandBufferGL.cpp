@@ -106,15 +106,7 @@ void CommandBufferGL::setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h
 
 void CommandBufferGL::setCullMode(CullMode mode)
 {
-    if (CullMode::NONE == mode)
-    {
-        glDisable(GL_CULL_FACE);
-    }
-    else
-    {
-        glEnable(GL_CULL_FACE);
-        glCullFace(toGLCullMode(mode));
-    }
+    _cullMode = mode;
 }
 
 void CommandBufferGL::setIndexBuffer(Buffer* buffer)
@@ -169,7 +161,6 @@ void CommandBufferGL::drawElements(PrimitiveType primitiveType, IndexFormat inde
 
 void CommandBufferGL::endRenderPass()
 {
-    //TODO: reset GL states?
 }
 
 void CommandBufferGL::prepareDrawing() const
@@ -179,7 +170,37 @@ void CommandBufferGL::prepareDrawing() const
     const auto& program = _renderPipeline->getProgram();
     glUseProgram(program->getHandler());
     
-    // bind buffers and set attributes
+    bindVertexBuffer(program);
+    setUniforms(program);
+
+    // Set depth/stencil state.
+    if (_renderPipeline->getDepthStencilState())
+        _renderPipeline->getDepthStencilState()->apply(_stencilReferenceValueFront,
+                                                       _stencilReferenceValueBack);
+    else
+        DepthStencilStateGL::reset();
+    
+    // Set blend state.
+    if (_renderPipeline->getBlendState())
+        _renderPipeline->getBlendState()->apply();
+    else
+        BlendStateGL::reset();
+    
+    // Set cull mode.
+    if (CullMode::NONE == _cullMode)
+    {
+        glDisable(GL_CULL_FACE);
+    }
+    else
+    {
+        glEnable(GL_CULL_FACE);
+        glCullFace(toGLCullMode(_cullMode));
+    }
+}
+
+void CommandBufferGL::bindVertexBuffer(Program *program) const
+{
+    // Bind vertex buffers and set the attributes.
     int i = 0;
     const auto& attributeInfos = program->getAttributeInfos();
     for (const auto& vertexBuffer : _vertexBuffers)
@@ -203,8 +224,10 @@ void CommandBufferGL::prepareDrawing() const
         
         ++i;
     }
-    
-    // set uniforms
+}
+
+void CommandBufferGL::setUniforms(Program* program) const
+{
     if (_bindGroup)
     {
         const auto& texutreInfos = _bindGroup->getTextureInfos();
@@ -212,7 +235,7 @@ void CommandBufferGL::prepareDrawing() const
         const auto& activeUniformInfos = program->getUniformInfos();
         for (const auto& activeUinform : activeUniformInfos)
         {
-            // uniforms
+            // Set normal uniforms.
             const auto& bindUniformInfo = bindUniformInfos.find(activeUinform.name);
             if (bindUniformInfos.end() != bindUniformInfo)
             {
@@ -223,7 +246,7 @@ void CommandBufferGL::prepareDrawing() const
                            (*bindUniformInfo).second.data);
             }
             
-            // bind textures
+            // Bind textures.
             const auto& bindUniformTextureInfo = texutreInfos.find(activeUinform.name);
             if (texutreInfos.end() != bindUniformTextureInfo)
             {
@@ -245,24 +268,10 @@ void CommandBufferGL::prepareDrawing() const
             }
         }
     }
-
-    // depth/stencil state
-    if (_renderPipeline->getDepthStencilState())
-        _renderPipeline->getDepthStencilState()->apply(_stencilReferenceValueFront,
-                                                       _stencilReferenceValueBack);
-    else
-        DepthStencilStateGL::reset();
-    
-    // blend
-    if (_renderPipeline->getBlendState())
-        _renderPipeline->getBlendState()->apply();
-    else
-        BlendStateGL::reset();
 }
 
 #define DEF_TO_INT(pointer, index)     (*((GLint*)(pointer) + index))
 #define DEF_TO_FLOAT(pointer, index)   (*((GLfloat*)(pointer) + index))
-
 void CommandBufferGL::setUniform(bool isArray, GLuint location, uint32_t size, GLenum uniformType, void* data) const
 {
     GLsizei count = size;

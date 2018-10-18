@@ -114,9 +114,10 @@ void CommandBufferMTL::setCullMode(CullMode mode)
 
 void CommandBufferMTL::setVertexBuffer(uint32_t index, Buffer* buffer)
 {
+    // Vertex buffer is bound in index 0.
     [_mtlRenderEncoder setVertexBuffer:static_cast<BufferMTL*>(buffer)->getMTLBuffer()
                                 offset:0
-                               atIndex:index];
+                               atIndex:0];
 }
 
 void CommandBufferMTL::setBindGroup(BindGroup* bindGroup)
@@ -168,6 +169,9 @@ void CommandBufferMTL::endRenderPass()
 
 void CommandBufferMTL::afterDraw()
 {
+    // Reset encoder state.
+    [_mtlRenderEncoder setCullMode:MTLCullModeNone];
+    
     if (_mtlIndexBuffer)
     {
         [_mtlIndexBuffer release];
