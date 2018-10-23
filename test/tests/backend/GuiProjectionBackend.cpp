@@ -101,15 +101,6 @@ GuiProjectionBackend::GuiProjectionBackend()
 
     img->release();
 
-   
-//    float vertexBuf[][4] = {
-//        0, 0,                       0, 0,
-//        0, _spriteHeight,            0, 1,
-//        _spriteWidth, _spriteHeight,  1, 1,
-//        0, 0,                       0, 0,
-//        _spriteWidth, _spriteHeight,  1, 1,
-//        _spriteWidth, 0,             1, 0
-//    };
     float vertexBuf[][4] = {
         0,            _spriteHeight,   0, 0,
         0,                        0,   0, 1,
