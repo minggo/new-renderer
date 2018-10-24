@@ -2,7 +2,7 @@
 #include "DeviceMTL.h"
 
 #define COLOR_ATTAHCMENT_PIXEL_FORMAT MTLPixelFormatBGRA8Unorm
-#define DEPTH_STENCIL_ATTACHMENT_PIXEL_FORMAT MTLPixelFormatDepth24Unorm_Stencil8
+#define DEPTH_STENCIL_ATTACHMENT_PIXEL_FORMAT MTLPixelFormatDepth32Float_Stencil8
 
 CC_BACKEND_BEGIN
 
