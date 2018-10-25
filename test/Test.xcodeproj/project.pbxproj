@@ -196,6 +196,10 @@
 		469492801FE252EA008D19CC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4694927F1FE252E3008D19CC /* Cocoa.framework */; };
 		469492821FE25305008D19CC /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469492811FE252FB008D19CC /* IOKit.framework */; };
 		469492841FE25314008D19CC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 469492831FE2530E008D19CC /* CoreVideo.framework */; };
+		ED3B4C42217E15C000D982A0 /* GuiProjectionBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */; };
+		ED3B4C43217E15C000D982A0 /* GuiProjectionBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */; };
+		ED3B4C44217E15C000D982A0 /* ParticleBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3B4C41217E15C000D982A0 /* ParticleBackend.cpp */; };
+		ED3B4C45217E15C000D982A0 /* ParticleBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3B4C41217E15C000D982A0 /* ParticleBackend.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -481,6 +485,10 @@
 		4694927F1FE252E3008D19CC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		469492811FE252FB008D19CC /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		469492831FE2530E008D19CC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuiProjectionBackend.cpp; sourceTree = "<group>"; };
+		ED3B4C3F217E15BF00D982A0 /* ParticleBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleBackend.h; sourceTree = "<group>"; };
+		ED3B4C40217E15C000D982A0 /* GuiProjectionBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiProjectionBackend.h; sourceTree = "<group>"; };
+		ED3B4C41217E15C000D982A0 /* ParticleBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleBackend.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -899,6 +907,10 @@
 		460373D821363EDD00DC9ED4 /* backend */ = {
 			isa = PBXGroup;
 			children = (
+				ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */,
+				ED3B4C40217E15C000D982A0 /* GuiProjectionBackend.h */,
+				ED3B4C41217E15C000D982A0 /* ParticleBackend.cpp */,
+				ED3B4C3F217E15BF00D982A0 /* ParticleBackend.h */,
 				460375802150C91C00DC9ED4 /* MultiTexturesBackend.cpp */,
 				4603757F2150C91C00DC9ED4 /* MultiTexturesBackend.h */,
 				46037573214F44CC00DC9ED4 /* BlendingBackend.cpp */,
@@ -1255,6 +1267,7 @@
 				1A255E7D20034EE700069420 /* xxtea.cpp in Sources */,
 				460374502148F6BE00DC9ED4 /* DepthTextureBackend.cpp in Sources */,
 				1A255E5420034B0D00069420 /* CCVertex.cpp in Sources */,
+				ED3B4C43217E15C000D982A0 /* GuiProjectionBackend.cpp in Sources */,
 				1A255E4E20034B0D00069420 /* Mat4.cpp in Sources */,
 				4603741A214247CF00DC9ED4 /* DeviceGL.cpp in Sources */,
 				4603757A214FA29500DC9ED4 /* BlendState.cpp in Sources */,
@@ -1274,6 +1287,7 @@
 				1ACB61B51FF6028B0007F081 /* ioapi_mem.cpp in Sources */,
 				4603743F2147742800DC9ED4 /* DepthStencilState.cpp in Sources */,
 				1A255E2C20034B0D00069420 /* CCES2Renderer-ios.m in Sources */,
+				ED3B4C45217E15C000D982A0 /* ParticleBackend.cpp in Sources */,
 				46037417214247C200DC9ED4 /* VertexLayout.cpp in Sources */,
 				1A255E2A20034B0D00069420 /* CCImage.cpp in Sources */,
 				1A255E3020034B0D00069420 /* CCDevice-ios.mm in Sources */,
@@ -1333,6 +1347,7 @@
 				1A255E2720034B0D00069420 /* CCSAXParser.cpp in Sources */,
 				46233BEA217446B3000F1F21 /* BlendingBackend.cpp in Sources */,
 				468BD2E32154FE75007BCACF /* RenderPassDescriptor.cpp in Sources */,
+				ED3B4C44217E15C000D982A0 /* ParticleBackend.cpp in Sources */,
 				461DD0D821536FC900A8E43F /* main.mm in Sources */,
 				1A255E2920034B0D00069420 /* CCImage.cpp in Sources */,
 				466BA3B6216C79C7006C15A5 /* DepthStencilStateMTL.mm in Sources */,
@@ -1361,6 +1376,7 @@
 				461DD0ED21538B0100A8E43F /* CommandBuffer.cpp in Sources */,
 				1A255E5D20034B0D00069420 /* CCAffineTransform.cpp in Sources */,
 				46486F31217077020078BE0E /* Utils.mm in Sources */,
+				ED3B4C42217E15C000D982A0 /* GuiProjectionBackend.cpp in Sources */,
 				1A255E2520034B0D00069420 /* CCFileUtils-apple.mm in Sources */,
 				466BA3B3216C5F4A006C15A5 /* BunnyBackend.cpp in Sources */,
 				468BD2F1215A142B007BCACF /* RenderPipelineMTL.mm in Sources */,

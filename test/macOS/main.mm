@@ -20,6 +20,8 @@
 #include "../tests/backend/StencilBackend.h"
 #include "../tests/backend/PostProcessBackend.h"
 #include "../tests/backend/SubImageBackend.h"
+#include "../tests/backend/ParticleBackend.h"
+#include "../tests/backend/GuiProjectionBackend.h"
 
 namespace
 {
@@ -57,6 +59,8 @@ namespace
                 MultiTexturesBackend::create,
                 BasicBackend::create,
                 BunnyBackend::create,
+                ParticleBackend::create,
+                GuiProjectionBackend::create,
             };
             
             test = tests[0]();
