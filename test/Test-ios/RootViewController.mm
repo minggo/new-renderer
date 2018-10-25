@@ -15,6 +15,8 @@
 #include "backend/StencilBackend.h"
 #include "backend/PostProcessBackend.h"
 #include "backend/SubImageBackend.h"
+#include "backend/ParticleBackend.h"
+#include "backend/GuiProjectionBackend.h"
 
 #include "../Tests/Utils.h"
 
@@ -37,6 +39,8 @@ namespace
             BunnyBackend::create,
             Texture2DBackendTest::create,
             DepthTextureBackend::create,
+            ParticleBackend::create,
+            GuiProjectionBackend::create,
         };
 
         test = tests[0]();
