@@ -56,9 +56,8 @@ BindGroup::TextureInfo& BindGroup::TextureInfo::operator=(TextureInfo&& rhs)
         releaseTextures();
         textures = rhs.textures;
         
-        //release the textures before clearning the vertor
-        for (auto& texture : rhs.textures)
-            CC_SAFE_RELEASE(texture);
+        //release the textures before cleaning the vertor
+        rhs.releaseTextures();
         rhs.textures.clear();
     }
     return *this;
