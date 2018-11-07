@@ -88,16 +88,16 @@ namespace
             auto device = backend::Device::getInstance();
 
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
-            auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
+            auto vs = device->cacheShaderModule(backend::ShaderStage::VERTEX, vert);
+            auto fs = device->cacheShaderModule(backend::ShaderStage::FRAGMENT, frag);
             renderPipelineDescriptor.setVertexShaderModule(vs);
             renderPipelineDescriptor.setFragmentShaderModule(fs);
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
             vertexLayout.setLayout(2 * sizeof(float), backend::VertexStepMode::VERTEX);
             renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
-            _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-            
+            _renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
+
             float vertices[] = {-1, 4, -1, -1, 4, -1};
             _vertexBuffer = device->newBuffer(sizeof(vertices),
                                               backend::BufferType::VERTEX,
@@ -169,8 +169,8 @@ namespace
             depthStencilDescriptor.depthCompareFunction = backend::CompareFunction::LESS;
             auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
             renderPipelineDescriptor.setDepthStencilState(depthStencilState);
-            _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-            
+            _renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
+
             _vertexBuffer = device->newBuffer(sizeof(bunny_positions),
                                               backend::BufferType::VERTEX,
                                               backend::BufferUsage::READ);
@@ -224,12 +224,12 @@ PostProcessBackend::PostProcessBackend()
     renderPassDescriptorBunny.setClearDepth(1);
     renderPassDescriptorBunny.setColorAttachment(0, _colorTexture);
     renderPassDescriptorBunny.setDepthStencilAttachment(_depthTexture);
-    _renderPassBunny = device->newRenderPass(renderPassDescriptorBunny);
+    _renderPassBunny = device->cacheRenderPass(renderPassDescriptorBunny);
     
     backend::RenderPassDescriptor renderPassDescriptorBg;
     renderPassDescriptorBg.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
     renderPassDescriptorBg.setClearDepth(1);
-    _renderPassBg = device->newRenderPass(renderPassDescriptorBg);
+    _renderPassBg = device->cacheRenderPass(renderPassDescriptorBg);
     
     _commandBuffer = device->newCommandBuffer();
     

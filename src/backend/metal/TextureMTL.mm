@@ -1,5 +1,6 @@
 #include "TextureMTL.h"
 #include "Utils.h"
+#include "math/HashAlgorithm.h"
 
 CC_BACKEND_BEGIN
 
@@ -91,6 +92,12 @@ TextureMTL::~TextureMTL()
 
 void TextureMTL::updateData(uint8_t* data)
 {
+    uint8_t componentCount = (TextureFormat::R8G8B8 == _textureFormat)?3:4;
+    size_t dataLen = _mtlTexture.width * _mtlTexture.height*componentCount;
+    uint32_t dataHash = HashAlgorithm::PJWHash((char*)data, dataLen);
+    if(_textureHashCode == dataHash)
+        return;
+    _textureHashCode = dataHash;
     updateSubData(0, 0, (uint32_t)_mtlTexture.width, (uint32_t)_mtlTexture.height, data);
 }
 

@@ -2,6 +2,7 @@
 #include "DeviceMTL.h"
 
 #include "glsl_optimizer/glsl/glsl_optimizer.h"
+#include "math/HashAlgorithm.h"
 
 CC_BACKEND_BEGIN
 
@@ -59,6 +60,8 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
         assert(false);
     }
     
+    _hashCode = HashAlgorithm::PJWHash(source.c_str(), source.length());
+    
     glslopt_shader_delete(glslShader);
     glslopt_cleanup(ctx);
 }
@@ -100,6 +103,13 @@ void ShaderModuleMTL::parseTexture(id<MTLDevice> mtlDevice, glslopt_shader* shad
         glslopt_shader_get_texture_desc(shader, i, &parName, &parType, &parPrec, &parVecSize, &parMatSize, &parArrSize, &location);
         _textures.push_back(parName);
     }
+}
+
+bool ShaderModuleMTL::Find(const std::string& source)
+{
+    uint32_t hashShader = HashAlgorithm::PJWHash(source.c_str(), source.length());
+    
+    return _hashCode == hashShader ? true : false;
 }
 
 CC_BACKEND_END

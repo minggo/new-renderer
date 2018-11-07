@@ -11,7 +11,7 @@ RenderPassMTL::RenderPassMTL(id<MTLDevice> mtlDevice, const RenderPassDescriptor
     if (_colorAttachmentsSet || _depthStencilAttachmentSet)
         _mtlRenderPassDescritpr = [MTLRenderPassDescriptor renderPassDescriptor];
     else
-        _mtlRenderPassDescritpr = Utils::getDefaultRenderPassDescriptor();
+        _mtlRenderPassDescritpr = Utils::createNewRenderPassDescriptor();
     [_mtlRenderPassDescritpr retain];
     
     setColorAttachments(descriptor);
@@ -32,7 +32,11 @@ MTLRenderPassDescriptor* RenderPassMTL::getMTLRenderPassDescriptor()
         if (!_colorAttachmentsSet)
             _mtlRenderPassDescritpr.colorAttachments[0].texture = defaultRenderPassDescriptor.colorAttachments[0].texture;
         if (!_depthStencilAttachmentSet)
+        {
+//            When depth and stencil are used together, the texture bound to the depth and stencil render pass attachments must be the same depth and stencil
             _mtlRenderPassDescritpr.depthAttachment.texture = defaultRenderPassDescriptor.depthAttachment.texture;
+            _mtlRenderPassDescritpr.stencilAttachment.texture = defaultRenderPassDescriptor.stencilAttachment.texture;
+        }
     }
     
     return _mtlRenderPassDescritpr;

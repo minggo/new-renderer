@@ -66,8 +66,8 @@ namespace
             auto device = backend::Device::getInstance();
             
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
-            auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
+            auto vs = device->cacheShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
+            auto fs = device->cacheShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
             renderPipelineDescriptor.setVertexShaderModule(vs);
             renderPipelineDescriptor.setFragmentShaderModule(fs);
             
@@ -87,8 +87,8 @@ namespace
             blendDescriptorNoBlending.destinationAlphaBlendFactor = backend::BlendFactor::ZERO;
             auto blendStateNoBlending = device->createBlendState(blendDescriptorNoBlending);
             renderPipelineDescriptor.setBlendState(blendStateNoBlending);
-            renderPipelineNoBlending = device->newRenderPipeline(renderPipelineDescriptor);
-
+            renderPipelineNoBlending = device->cacheRenderPipeline(renderPipelineDescriptor);
+    
             backend::BlendDescriptor blendDescriptorNormal;
             blendDescriptorNormal.blendEnabled = true;
             blendDescriptorNormal.rgbBlendOperation = backend::BlendOperation::ADD;
@@ -99,7 +99,7 @@ namespace
             blendDescriptorNormal.destinationRGBBlendFactor = backend::BlendFactor::ONE;
             auto blendStateNormal = device->createBlendState(blendDescriptorNormal);
             renderPipelineDescriptor.setBlendState(blendStateNormal);
-            renderPipelineNormal = device->newRenderPipeline(renderPipelineDescriptor);
+            renderPipelineNormal = device->cacheRenderPipeline(renderPipelineDescriptor);
             
             backend::BlendDescriptor blendDescriptorAddtive;
             blendDescriptorAddtive.blendEnabled = true;
@@ -111,8 +111,8 @@ namespace
             blendDescriptorAddtive.destinationAlphaBlendFactor = backend::BlendFactor::ONE;
             auto blendStateAddtive = device->createBlendState(blendDescriptorAddtive);
             renderPipelineDescriptor.setBlendState(blendStateAddtive);
-            renderPipelineAddtive = device->newRenderPipeline(renderPipelineDescriptor);
-            
+            renderPipelineAddtive = device->cacheRenderPipeline(renderPipelineDescriptor);
+           
             backend::BlendDescriptor blendDescriptorSubstract;
             blendDescriptorSubstract.blendEnabled = true;
             blendDescriptorSubstract.rgbBlendOperation = backend::BlendOperation::ADD;
@@ -123,7 +123,7 @@ namespace
             blendDescriptorSubstract.destinationAlphaBlendFactor = backend::BlendFactor::ONE;
             auto blendStateSubstract = device->createBlendState(blendDescriptorSubstract);
             renderPipelineDescriptor.setBlendState(blendStateSubstract);
-            renderPipelineSubstract = device->newRenderPipeline(renderPipelineDescriptor);
+            renderPipelineSubstract = device->cacheRenderPipeline(renderPipelineDescriptor);
             
             backend::BlendDescriptor blendDescriptorMultiply;
             blendDescriptorMultiply.blendEnabled = true;
@@ -135,7 +135,7 @@ namespace
             blendDescriptorMultiply.destinationAlphaBlendFactor = backend::BlendFactor::ONE;
             auto blendStateMultiply = device->createBlendState(blendDescriptorMultiply);
             renderPipelineDescriptor.setBlendState(blendStateMultiply);
-            renderPipelineMultiply = device->newRenderPipeline(renderPipelineDescriptor);
+            renderPipelineMultiply = device->cacheRenderPipeline(renderPipelineDescriptor);
             
             float vertices[] = {
                 -0.5f, -0.5f,   0,   0,
@@ -220,7 +220,7 @@ namespace
             vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
             renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
             
-            renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
+            renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
             
             float vertices[] = {
                 -1, 4,
@@ -296,7 +296,7 @@ BlendingBackend::BlendingBackend()
     backend::RenderPassDescriptor renderPassDescriptorBigTriangl;
     renderPassDescriptorBigTriangl.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
     renderPassDescriptorBigTriangl.setClearDepth(1);
-    _renderPassBigTriangle = device->newRenderPass(renderPassDescriptorBigTriangl);
+    _renderPassBigTriangle = device->cacheRenderPass(renderPassDescriptorBigTriangl);
 }
 
 BlendingBackend::~BlendingBackend()

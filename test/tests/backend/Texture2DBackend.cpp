@@ -117,8 +117,8 @@ Texture2DBackendTest::Texture2DBackendTest()
     // create render pipeline
     
     RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
+    auto vs = device->cacheShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
+    auto fs = device->cacheShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.setVertexShaderModule(vs);
     renderPipelineDescriptor.setFragmentShaderModule(fs);
     
@@ -126,8 +126,8 @@ Texture2DBackendTest::Texture2DBackendTest()
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
-    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-
+    _renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
+   
     _transform0.translate(-0.5f, 0, 0);
     _transform0.scale(0.5f);
     _transform1.translate(0.5f, 0, 0);
@@ -147,7 +147,7 @@ Texture2DBackendTest::Texture2DBackendTest()
     RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     renderPassDescriptor.setClearDepth(1.f);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
+    _renderPass = device->cacheRenderPass(renderPassDescriptor);
     
     _commandBuffer = device->newCommandBuffer();
 }

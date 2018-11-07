@@ -67,6 +67,7 @@ namespace
 }
 
 BlendStateMTL::BlendStateMTL(const BlendDescriptor& descriptor)
+: BlendState(descriptor)
 {
     _blendDescriptorMTL.writeMask = toMTLColorWriteMask(descriptor.writeMask);
     _blendDescriptorMTL.blendEnabled = descriptor.blendEnabled;

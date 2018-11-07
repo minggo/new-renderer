@@ -75,8 +75,8 @@ namespace
             // render pipeline
             
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
-            auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
+            auto vs = device->cacheShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
+            auto fs = device->cacheShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
             renderPipelineDescriptor.setVertexShaderModule(vs);
             renderPipelineDescriptor.setFragmentShaderModule(fs);
             
@@ -84,8 +84,7 @@ namespace
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
             vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
             renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
-            
-            renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
+            renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
             
             // vertex buffer
             float vertices[] = {-1, 4, -1, -1, 4, -1};
@@ -143,8 +142,8 @@ namespace
             // render pipeline
             
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
-            auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
+            auto vs = device->cacheShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
+            auto fs = device->cacheShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
             renderPipelineDescriptor.setVertexShaderModule(vs);
             renderPipelineDescriptor.setFragmentShaderModule(fs);
 
@@ -158,8 +157,8 @@ namespace
             depthStencilDescriptor.depthCompareFunction = backend::CompareFunction::LESS;
             auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
             renderPipelineDescriptor.setDepthStencilState(depthStencilState);
-            
-            renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
+            renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
+          
             renderPipeline->retain();
             
             // vertex buffer
@@ -214,18 +213,19 @@ DepthTextureBackend::DepthTextureBackend()
     backend::RenderPassDescriptor renderPassDescriptorBunny1;
     renderPassDescriptorBunny1.setClearDepth(1);
     renderPassDescriptorBunny1.setDepthStencilAttachment(_depthTexture);
-    _renderPassBunny1 = device->newRenderPass(renderPassDescriptorBunny1);
+    _renderPassBunny1 = device->cacheRenderPass(renderPassDescriptorBunny1);
     
     // render pass 2
-    backend::RenderPassDescriptor renderPassDescriptorBunny2;
-    renderPassDescriptorBunny2.setDepthStencilAttachment(_depthTexture);
-    _renderPassBunny2 = device->newRenderPass(renderPassDescriptorBunny2);
+//    backend::RenderPassDescriptor renderPassDescriptorBunny2;
+//    renderPassDescriptorBunny2.setDepthStencilAttachment(_depthTexture);
+////    _renderPassBunny2 = device->newRenderPass(renderPassDescriptorBunny2);
+//    _renderPassBunny2 = device->cacheRenderPass(renderPassDescriptorBunny2);
     
     // render pass BigTriangle
     backend::RenderPassDescriptor renderPassDescriptorBigTriangle;
     renderPassDescriptorBigTriangle.setClearColor(0.1f, 0.1f, 0.1f, 1);
     renderPassDescriptorBigTriangle.setClearDepth(1);
-    _renderPassBigTriangle = device->newRenderPass(renderPassDescriptorBigTriangle);
+    _renderPassBigTriangle = device->cacheRenderPass(renderPassDescriptorBigTriangle);
     
     _commandBuffer = device->newCommandBuffer();
     
@@ -240,7 +240,7 @@ DepthTextureBackend::~DepthTextureBackend()
     
     CC_SAFE_RELEASE(_depthTexture);
     CC_SAFE_RELEASE(_renderPassBunny1);
-    CC_SAFE_RELEASE(_renderPassBunny2);
+//    CC_SAFE_RELEASE(_renderPassBunny2);
     CC_SAFE_RELEASE(_renderPassBigTriangle);
     CC_SAFE_RELEASE(_commandBuffer);
 }

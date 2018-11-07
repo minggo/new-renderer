@@ -60,8 +60,8 @@ SubImageBackend::SubImageBackend()
     auto device = backend::Device::getInstance();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
+    auto vs = device->cacheShaderModule(backend::ShaderStage::VERTEX, vert);
+    auto fs = device->cacheShaderModule(backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.setVertexShaderModule(vs);
     renderPipelineDescriptor.setFragmentShaderModule(fs);
     
@@ -69,8 +69,8 @@ SubImageBackend::SubImageBackend()
     vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(2 * sizeof(float), backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
-    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-
+    _renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
+   
     backend::TextureDescriptor textureDescriptor;
     textureDescriptor.width = 128;
     textureDescriptor.height = 128;

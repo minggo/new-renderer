@@ -13,6 +13,7 @@ public:
     static id<MTLTexture> getTempDepthStencilAttachmentTexture();
     
     static void createDefaultRenderPassDescriptor();
+    static MTLRenderPassDescriptor* createNewRenderPassDescriptor();
     static MTLRenderPassDescriptor* getDefaultRenderPassDescriptor();
     static void updateDefaultRenderPassDescriptor(id<MTLTexture> texture);
     static MTLPixelFormat getDefaultDepthStencilAttachmentPixelFormat();

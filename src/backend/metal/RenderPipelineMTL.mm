@@ -3,6 +3,8 @@
 #include "ShaderModuleMTL.h"
 #include "DepthStencilStateMTL.h"
 #include "Utils.h"
+#include "../StringUtils.hpp"
+#include "math/HashAlgorithm.h"
 
 CC_BACKEND_BEGIN
 
@@ -92,6 +94,8 @@ RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipeli
     auto blendState = static_cast<BlendStateMTL*>(descriptor.getBlendState());
     if (blendState)
         _blendDescriptorMTL = blendState->getBlendDescriptorMTL();
+    
+    _hashRenderPipelineDescriptor = createHash(descriptor);
 }
 
 RenderPipelineMTL::~RenderPipelineMTL()
@@ -191,6 +195,60 @@ void RenderPipelineMTL::setBlendState(MTLRenderPipelineColorAttachmentDescriptor
     colorAttachmentDescriptor.destinationRGBBlendFactor = _blendDescriptorMTL.destinationRGBBlendFactor;
     colorAttachmentDescriptor.sourceAlphaBlendFactor = _blendDescriptorMTL.sourceAlphaBlendFactor;
     colorAttachmentDescriptor.destinationAlphaBlendFactor = _blendDescriptorMTL.destinationAlphaBlendFactor;
+}
+
+uint32_t RenderPipelineMTL::createHash(const RenderPipelineDescriptor& descriptor)
+{
+    std::string info = "";
+    ShaderModuleMTL* vertModule = static_cast<ShaderModuleMTL*>(descriptor.getVertexShaderModule());
+    ShaderModuleMTL* fragModule = static_cast<ShaderModuleMTL*>(descriptor.getFragmentShaderModule());
+    if(vertModule || fragModule)
+    {
+        info += std::to_string(vertModule->getHash());
+        info += std::to_string(fragModule->getHash());
+    }
+    
+    DepthStencilState* depStencilState = descriptor.getDepthStencilState();
+    if(depStencilState)
+    {
+        DepthStencilStateMTL* depthStencilStateMTL = static_cast<DepthStencilStateMTL*>(depStencilState);
+        DepthStencilDescriptor depthStencilDescriptor = depthStencilStateMTL->getDepthStencilDescriptor();
+
+        info += StringUtils::CompareFunction2String(depthStencilDescriptor.depthCompareFunction);
+        info += depthStencilDescriptor.depthWriteEnabled;
+        
+        info += StringUtils::StencilOperation2String(depthStencilDescriptor.backFaceStencil.stencilFailureOperation);
+        info += StringUtils::StencilOperation2String(depthStencilDescriptor.backFaceStencil.depthFailureOperation);
+        info += StringUtils::StencilOperation2String(depthStencilDescriptor.backFaceStencil.depthStencilPassOperation);
+        info += StringUtils::CompareFunction2String(depthStencilDescriptor.backFaceStencil.stencilCompareFunction);
+        info += depthStencilDescriptor.backFaceStencil.readMask;
+        info += depthStencilDescriptor.backFaceStencil.writeMask;
+        
+        info += StringUtils::StencilOperation2String(depthStencilDescriptor.frontFaceStencil.stencilFailureOperation);
+        info += StringUtils::StencilOperation2String(depthStencilDescriptor.frontFaceStencil.depthFailureOperation);
+        info += StringUtils::StencilOperation2String(depthStencilDescriptor.frontFaceStencil.depthStencilPassOperation);
+        info += StringUtils::CompareFunction2String(depthStencilDescriptor.frontFaceStencil.stencilCompareFunction);
+        info += depthStencilDescriptor.frontFaceStencil.readMask;
+        info += depthStencilDescriptor.frontFaceStencil.writeMask;
+    }
+    
+    BlendState* blendState = descriptor.getBlendState();
+    if(blendState)
+    {
+        BlendStateMTL* blendStateMTL = static_cast<BlendStateMTL*>(blendState);
+        BlendDescriptor blendDescriptor = blendStateMTL->getBlendDescriptor();
+        
+        info += StringUtils::ColorWriteMask2String(blendDescriptor.writeMask);
+        info += blendDescriptor.blendEnabled;
+        info += StringUtils::BlendOperation2String(blendDescriptor.rgbBlendOperation);
+        info += StringUtils::BlendOperation2String(blendDescriptor.alphaBlendOperation);
+        info += StringUtils::BlendFactor2String(blendDescriptor.sourceRGBBlendFactor);
+        info += StringUtils::BlendFactor2String(blendDescriptor.destinationRGBBlendFactor);
+        info += StringUtils::BlendFactor2String(blendDescriptor.sourceAlphaBlendFactor);
+        info += StringUtils::BlendFactor2String(blendDescriptor.destinationAlphaBlendFactor);
+    }
+    
+    return HashAlgorithm::PJWHash(info.c_str(), info.length());
 }
 
 CC_BACKEND_END

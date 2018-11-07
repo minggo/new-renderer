@@ -89,16 +89,16 @@ StencilBackend::StencilBackend()
     img->release();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
+    auto vs = device->cacheShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
+    auto fs = device->cacheShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.setVertexShaderModule(vs);
     renderPipelineDescriptor.setFragmentShaderModule(fs);
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
-    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-    
+    _renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
+  
     backend::DepthStencilDescriptor depthStencilDescriptor;
     depthStencilDescriptor.backFaceStencil.stencilCompareFunction = backend::CompareFunction::NEVER;
     depthStencilDescriptor.backFaceStencil.readMask = 0xFF;
@@ -109,30 +109,30 @@ StencilBackend::StencilBackend()
     depthStencilDescriptor.frontFaceStencil = depthStencilDescriptor.backFaceStencil;
     auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.setDepthStencilState(depthStencilState);
-    _renderPipelineCavasTexture = device->newRenderPipeline(renderPipelineDescriptor);
-    
+    _renderPipelineCavasTexture = device->cacheRenderPipeline(renderPipelineDescriptor);
+
     depthStencilDescriptor.backFaceStencil.stencilCompareFunction = backend::CompareFunction::EQUAL;
     depthStencilDescriptor.backFaceStencil.stencilFailureOperation = backend::StencilOperation::KEEP;
     depthStencilDescriptor.frontFaceStencil = depthStencilDescriptor.backFaceStencil;
     depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.setDepthStencilState(depthStencilState);
-    _renderPipelineTextureBackAndFront = device->newRenderPipeline(renderPipelineDescriptor);
-    
+    _renderPipelineTextureBackAndFront = device->cacheRenderPipeline(renderPipelineDescriptor);
+   
     depthStencilDescriptor.frontFaceStencil.stencilCompareFunction = backend::CompareFunction::ALWAYS;
     depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.setDepthStencilState(depthStencilState);
-    _renderPipelineTextureBack = device->newRenderPipeline(renderPipelineDescriptor);
-    
+    _renderPipelineTextureBack = device->cacheRenderPipeline(renderPipelineDescriptor);
+   
     depthStencilDescriptor.frontFaceStencil.stencilCompareFunction = backend::CompareFunction::EQUAL;
     depthStencilDescriptor.backFaceStencil.stencilCompareFunction = backend::CompareFunction::ALWAYS;
     depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.setDepthStencilState(depthStencilState);
-    _renderPipelineTextureFront = device->newRenderPipeline(renderPipelineDescriptor);
-    
+    _renderPipelineTextureFront = device->cacheRenderPipeline(renderPipelineDescriptor);
+   
     backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(1.0f, 0.1f, 0.1f, 1.f);
     renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
+    _renderPass = device->cacheRenderPass(renderPassDescriptor);
 
     float vertexBuf[][2] = {
         {-1, -1},

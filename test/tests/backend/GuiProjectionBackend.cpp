@@ -66,8 +66,8 @@ GuiProjectionBackend::GuiProjectionBackend()
 
     auto device = backend::Device::getInstance();
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
+    auto vs = device->cacheShaderModule(backend::ShaderStage::VERTEX, vert);
+    auto fs = device->cacheShaderModule(backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.setVertexShaderModule(vs);
     renderPipelineDescriptor.setFragmentShaderModule(fs);
     
@@ -82,7 +82,7 @@ GuiProjectionBackend::GuiProjectionBackend()
     vertexLayout.setLayout(totalOffset, backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
     
-    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
+    _renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
     _commandBuffer = device->newCommandBuffer();
     
     auto img = new cocos2d::Image();
@@ -126,7 +126,7 @@ GuiProjectionBackend::GuiProjectionBackend()
     backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
     renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
+    _renderPass = device->cacheRenderPass(renderPassDescriptor);
 }
 
 GuiProjectionBackend::~GuiProjectionBackend()

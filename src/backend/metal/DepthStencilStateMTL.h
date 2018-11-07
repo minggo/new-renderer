@@ -12,6 +12,7 @@ public:
     ~DepthStencilStateMTL();
     
     inline id<MTLDepthStencilState> getMTLDepthStencilState() const { return _mtlDepthStencilState; }
+    inline const DepthStencilDescriptor& getDepthStencilDescriptor() const {return _depthStencilInfo;}
     
 private:
     id<MTLDepthStencilState> _mtlDepthStencilState = nil;

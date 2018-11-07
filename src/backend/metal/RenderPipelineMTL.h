@@ -28,6 +28,8 @@ public:
     inline const std::vector<std::string>& getFragmentUniforms() const { return _fragmentUniforms; }
     inline const std::vector<std::string>& getVertexTextures() const { return _vertexTextures; }
     inline const std::vector<std::string>& getFragmentTextures() const { return _fragmentTextures; }
+    inline const uint32_t getHash() const {return _hashRenderPipelineDescriptor;};
+    uint32_t createHash(const RenderPipelineDescriptor& descriptor);
     
 private:
     void setVertexLayout(MTLRenderPipelineDescriptor*, const RenderPipelineDescriptor&);
@@ -47,6 +49,7 @@ private:
     
     MTLRenderPipelineDescriptor* _mtlRenderPipelineDescriptor = nil;
     BlendDescriptorMTL _blendDescriptorMTL;
+    uint32_t _hashRenderPipelineDescriptor = 0;
 };
 
 CC_BACKEND_END

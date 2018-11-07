@@ -75,8 +75,8 @@ ParticleBackend::ParticleBackend()
     auto device = backend::Device::getInstance();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
+    auto vs = device->cacheShaderModule(backend::ShaderStage::VERTEX, vert);
+    auto fs = device->cacheShaderModule(backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.setVertexShaderModule(vs);
     renderPipelineDescriptor.setFragmentShaderModule(fs);
     
@@ -104,7 +104,7 @@ ParticleBackend::ParticleBackend()
     blendDescriptorNormal.destinationRGBBlendFactor = backend::BlendFactor::ONE;
     auto blendStateNormal = device->createBlendState(blendDescriptorNormal);
     renderPipelineDescriptor.setBlendState(blendStateNormal);
-    _renderPipelineWithBlend = device->newRenderPipeline(renderPipelineDescriptor);
+    _renderPipelineWithBlend = device->cacheRenderPipeline(renderPipelineDescriptor);
     
     Data imageData;
     const size_t BUFFER_SIZE = 128 * 128 * 3;
@@ -161,10 +161,9 @@ ParticleBackend::ParticleBackend()
     Mat4::createLookAt(Vec3(30.0f , 20.0f, 30.0f), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
     
     backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
+    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
-
+    _renderPass = device->cacheRenderPass(renderPassDescriptor);
 }
 
 ParticleBackend::~ParticleBackend()
