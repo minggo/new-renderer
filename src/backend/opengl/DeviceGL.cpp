@@ -70,4 +70,17 @@ RenderPipeline* DeviceGL::newRenderPipeline(const RenderPipelineDescriptor& desc
     return new (std::nothrow) RenderPipelineGL(descriptor);
 }
 
+RenderPass* DeviceGL::cacheRenderPass(const RenderPassDescriptor& descriptor)
+{
+    return newRenderPass(descriptor);
+}
+ShaderModule* DeviceGL::cacheShaderModule(ShaderStage stage, const std::string& source)
+{
+    return createShaderModule(stage, source);
+}
+RenderPipeline* DeviceGL::cacheRenderPipeline(const RenderPipelineDescriptor& descriptor)
+{
+    return newRenderPipeline(descriptor);
+}
+
 CC_BACKEND_END
