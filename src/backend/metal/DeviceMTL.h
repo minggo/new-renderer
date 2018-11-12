@@ -24,13 +24,10 @@ public:
     virtual Buffer* newBuffer(uint32_t size, BufferType type, BufferUsage usage) override;
     virtual RenderPass* newRenderPass(const RenderPassDescriptor& descriptor) override;
     virtual Texture* newTexture(const TextureDescriptor& descriptor) override;
-    virtual RenderPass* cacheRenderPass(const RenderPassDescriptor& descriptor) override;
     virtual ShaderModule* createShaderModule(ShaderStage stage, const std::string& source) override;
-    virtual ShaderModule* cacheShaderModule(ShaderStage stage, const std::string& source) override;
     virtual DepthStencilState* createDepthStencilState(const DepthStencilDescriptor& descriptor) override;
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) override;
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) override;
-    virtual RenderPipeline* cacheRenderPipeline(const RenderPipelineDescriptor& descriptor) override;
     inline id<MTLDevice> getMTLDevice() const { return _mtlDevice; }
     inline id<MTLCommandQueue> getMTLCommandQueue() const { return _mtlCommandQueue; }
     
@@ -46,9 +43,9 @@ private:
     id<MTLDevice> _mtlDevice = nil;
     id<MTLCommandQueue> _mtlCommandQueue = nil;
     
-    std::vector<RenderPass*> _cacheRenderPass;
-    std::vector<ShaderModule*> _cacheShaderModule;
-    std::vector<RenderPipeline*> _cacheRenderPipeline;
+    std::vector<RenderPass*> _cachedRenderPass;
+    std::vector<ShaderModule*> _cachedShaderModule;
+    std::vector<RenderPipeline*> _cachedRenderPipeline;
 };
 
 CC_BACKEND_END

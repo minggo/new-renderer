@@ -93,7 +93,7 @@ bool RenderPassDepthStencilAttachment::operator==(const RenderPassDepthStencilAt
         return  false;
     
     if(texture && renderAttachment.texture)
-        return texture->getTextureHashCode() == renderAttachment.texture->getTextureHashCode();
+        return texture->getTextureHashCode()?texture->getTextureHashCode() == renderAttachment.texture->getTextureHashCode():false;
     else if(!texture && !(renderAttachment.texture))
         return  true;
     

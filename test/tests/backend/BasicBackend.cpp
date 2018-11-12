@@ -62,8 +62,8 @@ BasicBackend::BasicBackend()
     )";
     
     auto device = cocos2d::backend::Device::getInstance();
-    auto vs = device->cacheShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->cacheShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
+    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
+    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     cocos2d::backend::RenderPipelineDescriptor renderPipelineDescriptor;
     renderPipelineDescriptor.setVertexShaderModule(vs);
     renderPipelineDescriptor.setFragmentShaderModule(fs);
@@ -72,7 +72,7 @@ BasicBackend::BasicBackend()
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(sizeof(float) * 2, cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
-    _renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
+    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     
     _commandBuffer = device->newCommandBuffer();
 
@@ -83,7 +83,7 @@ BasicBackend::BasicBackend()
     cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->cacheRenderPass(renderPassDescriptor);
+    _renderPass = device->newRenderPass(renderPassDescriptor);
 }
 
 BasicBackend::~BasicBackend()

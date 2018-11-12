@@ -49,17 +49,17 @@ DeviceMTL::DeviceMTL()
 
 DeviceMTL::~DeviceMTL()
 {
-    for(auto& renderPass : _cacheRenderPass)
+    for(auto& renderPass : _cachedRenderPass)
         CC_SAFE_RELEASE(renderPass);
-    _cacheRenderPass.clear();
+    _cachedRenderPass.clear();
     
-    for(auto& renderPipeline : _cacheRenderPipeline)
+    for(auto& renderPipeline : _cachedRenderPipeline)
         CC_SAFE_RELEASE(renderPipeline);
-    _cacheRenderPipeline.clear();
+    _cachedRenderPipeline.clear();
     
-    for(auto& shaderModule : _cacheShaderModule)
+    for(auto& shaderModule : _cachedShaderModule)
         CC_SAFE_RELEASE(shaderModule);
-    _cacheShaderModule.clear();
+    _cachedShaderModule.clear();
 }
 
 CommandBuffer* DeviceMTL::newCommandBuffer()
@@ -79,52 +79,53 @@ Texture* DeviceMTL::newTexture(const TextureDescriptor& descriptor)
 
 RenderPass* DeviceMTL::newRenderPass(const RenderPassDescriptor& descriptor)
 {
-    return new (std::nothrow) RenderPassMTL(_mtlDevice, descriptor);
+    auto posIndex = findRenderPassInCache(descriptor);
+    if(posIndex != -1)
+    {
+        _cachedRenderPass[posIndex]->retain();
+        return _cachedRenderPass[posIndex];
+    }
+    else
+    {
+        auto renderPass = new (std::nothrow) RenderPassMTL(_mtlDevice, descriptor);
+        renderPass->retain();
+        _cachedRenderPass.push_back(renderPass);
+        return renderPass;
+    }
 }
 
 size_t DeviceMTL::findRenderPassInCache(const RenderPassDescriptor& descriptor)
 {
-    for(std::vector<RenderPass*>::const_iterator iter = _cacheRenderPass.begin(); iter != _cacheRenderPass.end(); iter++)
+    for(std::vector<RenderPass*>::const_iterator iter = _cachedRenderPass.begin(); iter != _cachedRenderPass.end(); iter++)
     {
         bool bFound = (*iter)->Find(descriptor);
         if(bFound)
         {
-            return iter - _cacheRenderPass.begin();
+            return iter - _cachedRenderPass.begin();
         }
     }
 
     return -1;
 }
 
-RenderPass* DeviceMTL::cacheRenderPass(const RenderPassDescriptor& descriptor)
-{
-    auto posIndex = findRenderPassInCache(descriptor);
-    if(posIndex != -1)
-    {
-        _cacheRenderPass[posIndex]->retain();
-        return _cacheRenderPass[posIndex];
-    }
-    else
-    {
-        RenderPass* renderPass = newRenderPass(descriptor);
-        renderPass->retain();
-        _cacheRenderPass.push_back(renderPass);
-        return renderPass;
-    }
-}
-
 ShaderModule* DeviceMTL::createShaderModule(ShaderStage stage, const std::string& source)
 {
-    auto ret = new (std::nothrow) ShaderModuleMTL(_mtlDevice, stage, source);
-    if (ret)
-        ret->autorelease();
-    
-    return ret;
+    auto posIndex = findShaderModuleInCache(stage, source);
+    if (posIndex != -1)
+    {
+        _cachedShaderModule[posIndex]->retain();
+        return _cachedShaderModule[posIndex];
+    }
+
+    auto shaderModule = new (std::nothrow) ShaderModuleMTL(_mtlDevice, stage, source);
+    shaderModule->retain();
+    _cachedShaderModule.push_back(shaderModule);
+    return shaderModule;
 }
 
 size_t DeviceMTL::findShaderModuleInCache(const ShaderStage& stage, const std::string& source)
 {
-    for(std::vector<ShaderModule*>::const_iterator iter = _cacheShaderModule.begin(); iter != _cacheShaderModule.end(); iter++)
+    for(std::vector<ShaderModule*>::const_iterator iter = _cachedShaderModule.begin(); iter != _cachedShaderModule.end(); iter++)
     {
         ShaderModuleMTL* shader = static_cast<ShaderModuleMTL*>(*iter);
         if(shader->getShaderStage() != stage)
@@ -132,27 +133,10 @@ size_t DeviceMTL::findShaderModuleInCache(const ShaderStage& stage, const std::s
         bool bFound = shader->Find(source);
         if(bFound)
         {
-            return iter - _cacheShaderModule.begin();
+            return iter - _cachedShaderModule.begin();
         }
     }
     return -1;
-}
-
-ShaderModule* DeviceMTL::cacheShaderModule(ShaderStage stage, const std::string& source)
-{
-    auto posIndex = findShaderModuleInCache(stage, source);
-    if (posIndex != -1)
-    {
-        _cacheShaderModule[posIndex]->retain();
-        return _cacheShaderModule[posIndex];
-    }
-    else
-    {
-        ShaderModule* shaderModule = createShaderModule(stage, source);
-        shaderModule->retain();
-        _cacheShaderModule.push_back(shaderModule);
-        return shaderModule;
-    }
 }
 
 DepthStencilState* DeviceMTL::createDepthStencilState(const DepthStencilDescriptor& descriptor)
@@ -175,40 +159,32 @@ BlendState* DeviceMTL::createBlendState(const BlendDescriptor& descriptor)
 
 RenderPipeline* DeviceMTL::newRenderPipeline(const RenderPipelineDescriptor& descriptor)
 {
-    return new (std::nothrow) RenderPipelineMTL(_mtlDevice, descriptor);
+    auto posIndex = findRenderPipelineInCache(descriptor);
+    if (posIndex != -1)
+    {
+        _cachedRenderPipeline[posIndex]->retain();
+        return _cachedRenderPipeline[posIndex];
+    }
+    else
+    {
+        auto renderPipeline = new (std::nothrow) RenderPipelineMTL(_mtlDevice, descriptor);
+        renderPipeline->retain();
+        _cachedRenderPipeline.push_back(renderPipeline);
+        return renderPipeline;
+    }
 }
 
 size_t DeviceMTL::findRenderPipelineInCache(const RenderPipelineDescriptor& descriptor)
 {
-    for(std::vector<RenderPipeline*>::const_iterator iter = _cacheRenderPipeline.begin(); iter != _cacheRenderPipeline.end(); iter++)
+    for(std::vector<RenderPipeline*>::const_iterator iter = _cachedRenderPipeline.begin(); iter != _cachedRenderPipeline.end(); iter++)
     {
         RenderPipelineMTL* renderPipeline = static_cast<RenderPipelineMTL*>(*iter);
         if(renderPipeline->getHash() == renderPipeline->createHash(descriptor))
         {
-            return iter - _cacheRenderPipeline.begin();
+            return iter - _cachedRenderPipeline.begin();
         }
     }
     return -1;
 }
 
-RenderPipeline* DeviceMTL::cacheRenderPipeline(const RenderPipelineDescriptor& descriptor)
-{
-    auto posIndex = findRenderPipelineInCache(descriptor);
-    if (posIndex != -1)
-    {
-        _cacheRenderPipeline[posIndex]->retain();
-        return _cacheRenderPipeline[posIndex];
-    }
-    else
-    {
-        RenderPipeline* renderPipeline = newRenderPipeline(descriptor);
-        renderPipeline->retain();
-        _cacheRenderPipeline.push_back(renderPipeline);
-//        _cacheRenderPipeline[_cacheRenderPipeline.size()] = renderPipeline;
-//        _cacheRenderPipelineDescriptor.push_back(descriptor._hash);
-        
-        return renderPipeline;
-    }
-
-}
 CC_BACKEND_END

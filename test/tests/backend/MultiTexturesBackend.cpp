@@ -64,8 +64,8 @@ MultiTexturesBackend::MultiTexturesBackend()
     auto device = backend::Device::getInstance();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->cacheShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->cacheShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
+    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
+    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.setVertexShaderModule(vs);
     renderPipelineDescriptor.setFragmentShaderModule(fs);
     
@@ -74,7 +74,7 @@ MultiTexturesBackend::MultiTexturesBackend()
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
     
-    _renderPipeline = device->cacheRenderPipeline(renderPipelineDescriptor);
+    _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     float vertices[] = {-1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1};
     _vertexBuffer = device->newBuffer(sizeof(vertices),
                                          cocos2d::backend::BufferType::VERTEX,
@@ -114,7 +114,7 @@ MultiTexturesBackend::MultiTexturesBackend()
     backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
     renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->cacheRenderPass(renderPassDescriptor);
+    _renderPass = device->newRenderPass(renderPassDescriptor);
 }
 
 MultiTexturesBackend::~MultiTexturesBackend()

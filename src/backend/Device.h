@@ -34,13 +34,13 @@ public:
     // Create a render pass, not auto released.
     virtual RenderPass* newRenderPass(const RenderPassDescriptor& descriptor) = 0;
     // Cache RenderPass for reuse
-    virtual RenderPass* cacheRenderPass(const RenderPassDescriptor& descriptor) = 0;
+//    virtual RenderPass* cacheRenderPass(const RenderPassDescriptor& descriptor) = 0;
     // Create a texture, not auto released.
     virtual Texture* newTexture(const TextureDescriptor& descriptor) = 0;
     // Create a auto released shader module.
     virtual ShaderModule* createShaderModule(ShaderStage stage, const std::string& source) = 0;
     // Cache ShaderModule for reuse
-    virtual ShaderModule* cacheShaderModule(ShaderStage stage, const std::string& source) = 0;
+//    virtual ShaderModule* cacheShaderModule(ShaderStage stage, const std::string& source) = 0;
     // Create a auto released depth stencil state.
     virtual DepthStencilState* createDepthStencilState(const DepthStencilDescriptor& descriptor) = 0;
     // Create a auto released blend state.
@@ -48,7 +48,7 @@ public:
     // Create a render pipeline, not auto released.
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) = 0;
     // Cache RenderPipeline for reuse
-    virtual RenderPipeline* cacheRenderPipeline(const RenderPipelineDescriptor& descriptor) = 0;
+//    virtual RenderPipeline* cacheRenderPipeline(const RenderPipelineDescriptor& descriptor) = 0;
 private:
     static Device* _instance;
 };
