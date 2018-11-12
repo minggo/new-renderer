@@ -202,8 +202,6 @@
 		ED2F9F47218FDC40008E6BC2 /* ParticleBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED2F9F45218FDC3F008E6BC2 /* ParticleBackend.cpp */; };
 		ED3B4C42217E15C000D982A0 /* GuiProjectionBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */; };
 		ED3B4C43217E15C000D982A0 /* GuiProjectionBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */; };
-		ED54310621880D080048B076 /* HashAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED54310521880D080048B076 /* HashAlgorithm.cpp */; };
-		ED54310721880D080048B076 /* HashAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED54310521880D080048B076 /* HashAlgorithm.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -495,8 +493,6 @@
 		ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuiProjectionBackend.cpp; sourceTree = "<group>"; };
 		ED3B4C3F217E15BF00D982A0 /* ParticleBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleBackend.h; sourceTree = "<group>"; };
 		ED3B4C40217E15C000D982A0 /* GuiProjectionBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiProjectionBackend.h; sourceTree = "<group>"; };
-		ED54310421880D080048B076 /* HashAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashAlgorithm.h; sourceTree = "<group>"; };
-		ED54310521880D080048B076 /* HashAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HashAlgorithm.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -633,8 +629,6 @@
 		1A255D9820034B0D00069420 /* math */ = {
 			isa = PBXGroup;
 			children = (
-				ED54310521880D080048B076 /* HashAlgorithm.cpp */,
-				ED54310421880D080048B076 /* HashAlgorithm.h */,
 				1A255DB720034B0D00069420 /* CCAffineTransform.cpp */,
 				1A255DA820034B0D00069420 /* CCAffineTransform.h */,
 				1A255DA620034B0D00069420 /* CCGeometry.cpp */,
@@ -1320,7 +1314,6 @@
 				1ACB61B71FF6028B0007F081 /* unzip.cpp in Sources */,
 				1A255E4820034B0D00069420 /* MathUtil.cpp in Sources */,
 				1ACB61B81FF6028F0007F081 /* tinyxml2.cpp in Sources */,
-				ED54310721880D080048B076 /* HashAlgorithm.cpp in Sources */,
 				1A255E5020034B0D00069420 /* TransformUtils.cpp in Sources */,
 				1A255E5A20034B0D00069420 /* Vec2.cpp in Sources */,
 			);
@@ -1376,7 +1369,6 @@
 				468BD2E02154FE66007BCACF /* VertexLayout.cpp in Sources */,
 				460373DB21363EDE00DC9ED4 /* BasicBackend.cpp in Sources */,
 				468BD2E12154FE6D007BCACF /* BindGroup.cpp in Sources */,
-				ED54310621880D080048B076 /* HashAlgorithm.cpp in Sources */,
 				468BD2DF2154FCB0007BCACF /* BlendStateMTL.mm in Sources */,
 				1A255E5920034B0D00069420 /* Vec2.cpp in Sources */,
 				461DD0DB2153773F00A8E43F /* DeviceMTL.mm in Sources */,

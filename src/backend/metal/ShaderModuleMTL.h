@@ -33,7 +33,7 @@ private:
     
     // Texture index is the same as vector index.
     std::vector<std::string> _textures;
-    uint32_t _hashCode = 0;
+    size_t _hashCode = 0;
 };
 
 CC_BACKEND_END

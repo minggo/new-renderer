@@ -8,7 +8,6 @@
 #include "TextureMTL.h"
 #include "BlendStateMTL.h"
 #include "Utils.h"
-#include "math/HashAlgorithm.h"
 
 
 CC_BACKEND_BEGIN

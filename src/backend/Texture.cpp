@@ -1,5 +1,4 @@
 #include "Texture.h"
-#include "math/HashAlgorithm.h"
 #include "StringUtils.h"
 
 #include <string>

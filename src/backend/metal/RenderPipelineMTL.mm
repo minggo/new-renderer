@@ -4,7 +4,6 @@
 #include "DepthStencilStateMTL.h"
 #include "Utils.h"
 #include "../StringUtils.h"
-#include "math/HashAlgorithm.h"
 
 CC_BACKEND_BEGIN
 
@@ -197,7 +196,7 @@ void RenderPipelineMTL::setBlendState(MTLRenderPipelineColorAttachmentDescriptor
     colorAttachmentDescriptor.destinationAlphaBlendFactor = _blendDescriptorMTL.destinationAlphaBlendFactor;
 }
 
-uint32_t RenderPipelineMTL::createHash(const RenderPipelineDescriptor& descriptor)
+size_t RenderPipelineMTL::createHash(const RenderPipelineDescriptor& descriptor)
 {
     std::string info = "";
     ShaderModuleMTL* vertModule = static_cast<ShaderModuleMTL*>(descriptor.getVertexShaderModule());
@@ -248,7 +247,7 @@ uint32_t RenderPipelineMTL::createHash(const RenderPipelineDescriptor& descripto
         info += StringUtils::BlendFactor2String(blendDescriptor.destinationAlphaBlendFactor);
     }
     
-    return HashAlgorithm::PJWHash(info.c_str(), info.length());
+    return std::hash<std::string>{}(info);
 }
 
 CC_BACKEND_END

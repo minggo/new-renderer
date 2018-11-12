@@ -40,7 +40,7 @@ protected:
     TextureFormat _textureFormat = TextureFormat::R8G8B8;
     TextureUsage _textureUsage = TextureUsage::READ;
     bool _isMipmapEnabled = false;
-    uint32_t _textureHashCode = 0;
+    size_t _textureHashCode = 0;
 };
 
 CC_BACKEND_END
