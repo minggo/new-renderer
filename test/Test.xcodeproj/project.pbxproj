@@ -490,8 +490,8 @@
 		469492811FE252FB008D19CC /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		469492831FE2530E008D19CC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		ED0875D0218BF27900B7F6A4 /* StringUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtils.cpp; sourceTree = "<group>"; };
-		ED0875D1218BF27900B7F6A4 /* StringUtils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StringUtils.hpp; sourceTree = "<group>"; };
 		ED2F9F45218FDC3F008E6BC2 /* ParticleBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleBackend.cpp; sourceTree = "<group>"; };
+		ED366CF92199B77400035735 /* StringUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringUtils.h; sourceTree = "<group>"; };
 		ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuiProjectionBackend.cpp; sourceTree = "<group>"; };
 		ED3B4C3F217E15BF00D982A0 /* ParticleBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleBackend.h; sourceTree = "<group>"; };
 		ED3B4C40217E15C000D982A0 /* GuiProjectionBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiProjectionBackend.h; sourceTree = "<group>"; };
@@ -854,8 +854,8 @@
 		460373AF212FA9EB00DC9ED4 /* backend */ = {
 			isa = PBXGroup;
 			children = (
+				ED366CF92199B77400035735 /* StringUtils.h */,
 				ED0875D0218BF27900B7F6A4 /* StringUtils.cpp */,
-				ED0875D1218BF27900B7F6A4 /* StringUtils.hpp */,
 				460374512148F78600DC9ED4 /* Backend.h */,
 				460373F9213932AE00DC9ED4 /* BindGroup.cpp */,
 				460373FA213932AE00DC9ED4 /* BindGroup.h */,

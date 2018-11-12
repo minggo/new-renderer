@@ -6,7 +6,7 @@
 //  Copyright © 2018 cocos. All rights reserved.
 //
 
-#include "StringUtils.hpp"
+#include "StringUtils.h"
 
 CC_BACKEND_BEGIN
 

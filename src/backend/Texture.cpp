@@ -1,7 +1,8 @@
 #include "Texture.h"
-#include <string>
 #include "math/HashAlgorithm.h"
-#include "StringUtils.hpp"
+#include "StringUtils.h"
+
+#include <string>
 
 CC_BACKEND_BEGIN
 

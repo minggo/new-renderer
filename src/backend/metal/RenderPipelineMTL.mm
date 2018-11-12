@@ -3,7 +3,7 @@
 #include "ShaderModuleMTL.h"
 #include "DepthStencilStateMTL.h"
 #include "Utils.h"
-#include "../StringUtils.hpp"
+#include "../StringUtils.h"
 #include "math/HashAlgorithm.h"
 
 CC_BACKEND_BEGIN
