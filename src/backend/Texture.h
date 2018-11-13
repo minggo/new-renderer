@@ -27,7 +27,7 @@ public:
     inline TextureUsage getTextureUsage() const { return _textureUsage; }
     inline uint32_t getWidth() const { return _width; }
     inline uint32_t getHeight() const { return _height; }
-    inline uint32_t getTextureHashCode() const {return _textureHashCode;}
+    inline size_t getTextureHashCode() const {return _textureHashCode;}
 protected:
     Texture(const TextureDescriptor& descriptor);
     virtual ~Texture();
