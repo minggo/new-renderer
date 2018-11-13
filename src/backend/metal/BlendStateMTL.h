@@ -26,7 +26,7 @@ public:
     BlendStateMTL(const BlendDescriptor& descriptor);
     
     inline const BlendDescriptorMTL& getBlendDescriptorMTL() const { return _blendDescriptorMTL; }
-    
+    inline const BlendDescriptor& getBlendDescriptor() const {return _blendDescriptor;}
 private:
     BlendDescriptorMTL _blendDescriptorMTL;
 };

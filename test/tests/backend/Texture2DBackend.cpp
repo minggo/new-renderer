@@ -127,7 +127,7 @@ Texture2DBackendTest::Texture2DBackendTest()
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-
+   
     _transform0.translate(-0.5f, 0, 0);
     _transform0.scale(0.5f);
     _transform1.translate(0.5f, 0, 0);

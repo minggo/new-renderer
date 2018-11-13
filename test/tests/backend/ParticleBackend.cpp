@@ -161,10 +161,9 @@ ParticleBackend::ParticleBackend()
     Mat4::createLookAt(Vec3(30.0f , 20.0f, 30.0f), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
     
     backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
+    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
     renderPassDescriptor.setClearDepth(1);
     _renderPass = device->newRenderPass(renderPassDescriptor);
-
 }
 
 ParticleBackend::~ParticleBackend()

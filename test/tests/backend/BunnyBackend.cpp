@@ -78,12 +78,12 @@ BunnyBackend::BunnyBackend()
     depthStencilDescriptor.depthCompareFunction = cocos2d::backend::CompareFunction::LESS;
     auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.setDepthStencilState(depthStencilState);
-    
+ 
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.setVertexShaderModule(vs);
     renderPipelineDescriptor.setFragmentShaderModule(fs);
-    
+ 
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     
     // render pass

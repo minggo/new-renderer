@@ -88,7 +88,7 @@ namespace
             auto blendStateNoBlending = device->createBlendState(blendDescriptorNoBlending);
             renderPipelineDescriptor.setBlendState(blendStateNoBlending);
             renderPipelineNoBlending = device->newRenderPipeline(renderPipelineDescriptor);
-
+    
             backend::BlendDescriptor blendDescriptorNormal;
             blendDescriptorNormal.blendEnabled = true;
             blendDescriptorNormal.rgbBlendOperation = backend::BlendOperation::ADD;
@@ -112,7 +112,7 @@ namespace
             auto blendStateAddtive = device->createBlendState(blendDescriptorAddtive);
             renderPipelineDescriptor.setBlendState(blendStateAddtive);
             renderPipelineAddtive = device->newRenderPipeline(renderPipelineDescriptor);
-            
+           
             backend::BlendDescriptor blendDescriptorSubstract;
             blendDescriptorSubstract.blendEnabled = true;
             blendDescriptorSubstract.rgbBlendOperation = backend::BlendOperation::ADD;

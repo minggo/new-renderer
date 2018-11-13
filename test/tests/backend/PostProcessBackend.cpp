@@ -97,7 +97,7 @@ namespace
             vertexLayout.setLayout(2 * sizeof(float), backend::VertexStepMode::VERTEX);
             renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
             _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-            
+
             float vertices[] = {-1, 4, -1, -1, 4, -1};
             _vertexBuffer = device->newBuffer(sizeof(vertices),
                                               backend::BufferType::VERTEX,
@@ -170,7 +170,7 @@ namespace
             auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
             renderPipelineDescriptor.setDepthStencilState(depthStencilState);
             _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-            
+
             _vertexBuffer = device->newBuffer(sizeof(bunny_positions),
                                               backend::BufferType::VERTEX,
                                               backend::BufferUsage::READ);

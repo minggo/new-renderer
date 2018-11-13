@@ -25,6 +25,9 @@ class BlendState : public cocos2d::Ref
 {
 protected:
     virtual ~BlendState() = default;
+    BlendState(const BlendDescriptor& descriptor);
+    
+    BlendDescriptor _blendDescriptor;
 };
 
 CC_BACKEND_END

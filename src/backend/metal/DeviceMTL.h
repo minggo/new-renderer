@@ -3,7 +3,8 @@
 #include "../Device.h"
 #import <Metal/Metal.h>
 #import <QuartzCore/CAMetalLayer.h>
-
+#import <vector>
+#include <unordered_map>
 CC_BACKEND_BEGIN
 
 class DeviceMTL : public Device
@@ -27,16 +28,24 @@ public:
     virtual DepthStencilState* createDepthStencilState(const DepthStencilDescriptor& descriptor) override;
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) override;
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) override;
-        
     inline id<MTLDevice> getMTLDevice() const { return _mtlDevice; }
     inline id<MTLCommandQueue> getMTLCommandQueue() const { return _mtlCommandQueue; }
     
+private:
+    size_t findRenderPassInCache(const RenderPassDescriptor& descriptor);
+    size_t findShaderModuleInCache(const ShaderStage& stage, const std::string& source);
+    size_t findRenderPipelineInCache(const RenderPipelineDescriptor& descriptor);
+
 private:
     static CAMetalLayer* _metalLayer;
     static id<CAMetalDrawable> _currentDrawable;
     
     id<MTLDevice> _mtlDevice = nil;
     id<MTLCommandQueue> _mtlCommandQueue = nil;
+    
+    std::vector<RenderPass*> _cachedRenderPass;
+    std::vector<ShaderModule*> _cachedShaderModule;
+    std::vector<RenderPipeline*> _cachedRenderPipeline;
 };
 
 CC_BACKEND_END

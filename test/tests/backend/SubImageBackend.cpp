@@ -70,7 +70,7 @@ SubImageBackend::SubImageBackend()
     vertexLayout.setLayout(2 * sizeof(float), backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-
+   
     backend::TextureDescriptor textureDescriptor;
     textureDescriptor.width = 128;
     textureDescriptor.height = 128;

@@ -62,7 +62,6 @@ BasicBackend::BasicBackend()
     )";
     
     auto device = cocos2d::backend::Device::getInstance();
-    
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     cocos2d::backend::RenderPipelineDescriptor renderPipelineDescriptor;
@@ -73,7 +72,6 @@ BasicBackend::BasicBackend()
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(sizeof(float) * 2, cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
-    
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     
     _commandBuffer = device->newCommandBuffer();

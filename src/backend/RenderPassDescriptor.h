@@ -18,6 +18,7 @@ struct RenderPassColorAttachments
     ~RenderPassColorAttachments();
     RenderPassColorAttachments& operator=(const RenderPassColorAttachments& rhs);
     void setTexture(uint32_t attachment, Texture* texture);
+    bool operator==(const RenderPassColorAttachments& colorAttachment) const;
     
     std::vector<Texture*> textures;
     
@@ -35,6 +36,7 @@ struct RenderPassDepthStencilAttachment
     RenderPassDepthStencilAttachment(const RenderPassDepthStencilAttachment& rhs);
     ~RenderPassDepthStencilAttachment();
     RenderPassDepthStencilAttachment& operator =(const RenderPassDepthStencilAttachment& rhs);
+    bool operator==(const RenderPassDepthStencilAttachment& renderAttachment) const;
     
     float clearDepth = 1.f;
     bool needClearDepth = false;
@@ -58,6 +60,8 @@ public:
     
     inline const RenderPassDepthStencilAttachment& getDepthStencilAttachment() const { return _depthStencilAttachment; }
     inline const RenderPassColorAttachments& getColorAttachments() const { return _colorAttachments; }
+    inline bool getColorAttachmentSet() const {return _colorAttachmentsSet;}
+    inline bool getDepthStencilAttachmentSet() const {return _depthStencilAttachmentSet;}
     
 private:
     bool _colorAttachmentsSet = false;

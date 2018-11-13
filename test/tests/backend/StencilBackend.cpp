@@ -98,7 +98,7 @@ StencilBackend::StencilBackend()
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-    
+  
     backend::DepthStencilDescriptor depthStencilDescriptor;
     depthStencilDescriptor.backFaceStencil.stencilCompareFunction = backend::CompareFunction::NEVER;
     depthStencilDescriptor.backFaceStencil.readMask = 0xFF;
@@ -110,25 +110,25 @@ StencilBackend::StencilBackend()
     auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.setDepthStencilState(depthStencilState);
     _renderPipelineCavasTexture = device->newRenderPipeline(renderPipelineDescriptor);
-    
+
     depthStencilDescriptor.backFaceStencil.stencilCompareFunction = backend::CompareFunction::EQUAL;
     depthStencilDescriptor.backFaceStencil.stencilFailureOperation = backend::StencilOperation::KEEP;
     depthStencilDescriptor.frontFaceStencil = depthStencilDescriptor.backFaceStencil;
     depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.setDepthStencilState(depthStencilState);
     _renderPipelineTextureBackAndFront = device->newRenderPipeline(renderPipelineDescriptor);
-    
+   
     depthStencilDescriptor.frontFaceStencil.stencilCompareFunction = backend::CompareFunction::ALWAYS;
     depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.setDepthStencilState(depthStencilState);
     _renderPipelineTextureBack = device->newRenderPipeline(renderPipelineDescriptor);
-    
+   
     depthStencilDescriptor.frontFaceStencil.stencilCompareFunction = backend::CompareFunction::EQUAL;
     depthStencilDescriptor.backFaceStencil.stencilCompareFunction = backend::CompareFunction::ALWAYS;
     depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.setDepthStencilState(depthStencilState);
     _renderPipelineTextureFront = device->newRenderPipeline(renderPipelineDescriptor);
-    
+   
     backend::RenderPassDescriptor renderPassDescriptor;
     renderPassDescriptor.setClearColor(1.0f, 0.1f, 0.1f, 1.f);
     renderPassDescriptor.setClearDepth(1);

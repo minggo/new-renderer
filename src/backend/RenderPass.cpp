@@ -13,4 +13,20 @@ RenderPass::RenderPass(const RenderPassDescriptor& descriptor)
 RenderPass::~RenderPass()
 {}
 
+bool RenderPass::Find(const RenderPassDescriptor& descriptor) const
+{
+    if(_colorAttachmentsSet != descriptor.getColorAttachmentSet() ||
+       _depthStencilAttachmentSet != descriptor.getDepthStencilAttachmentSet())
+        return false;
+   
+    const RenderPassColorAttachments colorAttachment = descriptor.getColorAttachments();
+    const RenderPassDepthStencilAttachment depthStencilAttachment = descriptor.getDepthStencilAttachment();
+
+    if(_colorAttachments == colorAttachment &&
+       _depthStencilAttachment == depthStencilAttachment)
+        return true;
+    
+    return  false;
+}
+
 CC_BACKEND_END

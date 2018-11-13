@@ -75,7 +75,6 @@ MultiTexturesBackend::MultiTexturesBackend()
     renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
     
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
-
     float vertices[] = {-1, -1, 1, -1, 1, 1, 1, 1, -1, 1, -1, -1};
     _vertexBuffer = device->newBuffer(sizeof(vertices),
                                          cocos2d::backend::BufferType::VERTEX,

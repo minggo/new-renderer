@@ -91,6 +91,10 @@ TextureMTL::~TextureMTL()
 
 void TextureMTL::updateData(uint8_t* data)
 {
+    size_t dataHash = std::hash<const uint8_t*>{}(data);
+    if(_textureHashCode == dataHash)
+        return;
+    _textureHashCode = dataHash;
     updateSubData(0, 0, (uint32_t)_mtlTexture.width, (uint32_t)_mtlTexture.height, data);
 }
 

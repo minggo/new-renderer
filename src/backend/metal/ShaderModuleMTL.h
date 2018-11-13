@@ -20,7 +20,8 @@ public:
     inline const std::shared_ptr<uint8_t>& getUniformBuffer() const { return _uniformBuffer; }
     inline const std::vector<std::string>& getUniforms() const { return _uniforms; }
     inline const std::vector<std::string>& getTextures() const { return _textures; }
-    
+    inline const uint32_t getHash() const {return _hashCode;}
+    bool Find(const std::string& source);
 private:
     void parseUniform(id<MTLDevice> mtlDevice, glslopt_shader* shader);
     void parseTexture(id<MTLDevice> mtlDevice, glslopt_shader* shader);
@@ -32,6 +33,7 @@ private:
     
     // Texture index is the same as vector index.
     std::vector<std::string> _textures;
+    size_t _hashCode = 0;
 };
 
 CC_BACKEND_END

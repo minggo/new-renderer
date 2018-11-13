@@ -59,6 +59,8 @@ ShaderModuleMTL::ShaderModuleMTL(id<MTLDevice> mtlDevice, ShaderStage stage, con
         assert(false);
     }
     
+    _hashCode = std::hash<std::string>{}(source);
+    
     glslopt_shader_delete(glslShader);
     glslopt_cleanup(ctx);
 }
@@ -100,6 +102,13 @@ void ShaderModuleMTL::parseTexture(id<MTLDevice> mtlDevice, glslopt_shader* shad
         glslopt_shader_get_texture_desc(shader, i, &parName, &parType, &parPrec, &parVecSize, &parMatSize, &parArrSize, &location);
         _textures.push_back(parName);
     }
+}
+
+bool ShaderModuleMTL::Find(const std::string& source)
+{
+    size_t hashShader = std::hash<std::string>{}(source);
+    
+    return _hashCode == hashShader ? true : false;
 }
 
 CC_BACKEND_END

@@ -63,6 +63,27 @@ void Utils::createDefaultRenderPassDescriptor()
         Utils::_defaultRenderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionClear;
         [Utils::_defaultRenderPassDescriptor retain];
     }
+    
+}
+
+MTLRenderPassDescriptor* Utils:: createNewRenderPassDescriptor()
+{
+    MTLRenderPassDescriptor* _renderPassDescriptor = [MTLRenderPassDescriptor renderPassDescriptor];
+    
+    //The MTLLoadActionDontCare action allows the GPU to avoid loading the existing contents of the texture, ensuring the best performance.
+    _renderPassDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+    _renderPassDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
+    
+    // Set default depth and stencil texture.
+    auto defaultDepthStencilTexture = Utils::createDepthStencilAttachmentTexture();
+    _renderPassDescriptor.depthAttachment.texture = defaultDepthStencilTexture;
+    _renderPassDescriptor.stencilAttachment.texture = defaultDepthStencilTexture;
+    
+    _renderPassDescriptor.depthAttachment.loadAction = MTLLoadActionClear;
+    _renderPassDescriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+    [_renderPassDescriptor retain];
+    
+    return _renderPassDescriptor;
 }
 
 MTLRenderPassDescriptor* Utils::getDefaultRenderPassDescriptor()

@@ -49,6 +49,15 @@ void RenderPassColorAttachments::retainTextures() const
         CC_SAFE_RETAIN(texture);
 }
 
+bool RenderPassColorAttachments::operator==(const RenderPassColorAttachments& colorAttachment) const
+{
+    if(needClearColor != colorAttachment.needClearColor ||
+       clearColor != colorAttachment.clearColor)
+        return false;
+  
+    return textures == colorAttachment.textures;
+}
+
 RenderPassDepthStencilAttachment::RenderPassDepthStencilAttachment(const RenderPassDepthStencilAttachment& rhs)
 {
     *this = rhs;
@@ -73,6 +82,22 @@ RenderPassDepthStencilAttachment& RenderPassDepthStencilAttachment::operator=(co
         texture = rhs.texture;
     }
     return *this;
+}
+
+bool RenderPassDepthStencilAttachment::operator==(const RenderPassDepthStencilAttachment& renderAttachment) const
+{
+    if(needClearDepth != renderAttachment.needClearDepth ||
+       clearDepth != renderAttachment.clearDepth ||
+       needClearStencil != renderAttachment.needClearStencil ||
+       clearStencil != renderAttachment.clearStencil)
+        return  false;
+    
+    if(texture && renderAttachment.texture)
+        return texture->getTextureHashCode()?texture->getTextureHashCode() == renderAttachment.texture->getTextureHashCode():false;
+    else if(!texture && !(renderAttachment.texture))
+        return  true;
+    
+    return false;
 }
 
 void RenderPassDescriptor::setColorAttachment(uint32_t attachment, Texture* texture)

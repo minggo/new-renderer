@@ -14,6 +14,7 @@ public:
     
     inline const RenderPassDepthStencilAttachment& getDepthStencilAttachment() const { return _depthStencilAttachment; }
     inline const RenderPassColorAttachments& getColorAttachments() const { return _colorAttachments; }
+    bool Find(const RenderPassDescriptor& descriptor) const;
     
 protected:
     RenderPass(const RenderPassDescriptor& descriptor);

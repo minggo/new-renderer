@@ -79,7 +79,8 @@ void BlendStateGL::reset()
 }
 
 BlendStateGL::BlendStateGL(const BlendDescriptor& descriptor)
-: _blendEnabled(descriptor.blendEnabled)
+: BlendState(descriptor)
+, _blendEnabled(descriptor.blendEnabled)
 , _rgbBlendOperation(toGLBlendOperation(descriptor.rgbBlendOperation))
 , _alphaBlendOperation(toGLBlendOperation(descriptor.alphaBlendOperation))
 , _sourceRGBBlendFactor(toGLBlendFactor(descriptor.sourceRGBBlendFactor))
