@@ -43,6 +43,7 @@ public:
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) = 0;
     // Create a render pipeline, not auto released.
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) = 0;
+    
 private:
     static Device* _instance;
 };
