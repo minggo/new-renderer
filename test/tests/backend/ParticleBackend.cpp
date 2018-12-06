@@ -77,8 +77,8 @@ ParticleBackend::ParticleBackend()
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
     auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.setVertexShaderModule(vs);
-    renderPipelineDescriptor.setFragmentShaderModule(fs);
+    renderPipelineDescriptor.vertexShaderModule = vs;
+    renderPipelineDescriptor.fragmentShaderModule = fs;
     
 #define VERTEX_QUAD_SIZE 2
 #define VERTEX_POS_SIZE 3
@@ -92,7 +92,7 @@ ParticleBackend::ParticleBackend()
     vertexLayout.setAtrribute("a_position", 1, backend::VertexFormat::FLOAT_R32G32B32, positionOffset);
     vertexLayout.setAtrribute("a_color", 2, backend::VertexFormat::FLOAT_R32G32B32A32, colorOffset);
     vertexLayout.setLayout(totalSize, backend::VertexStepMode::VERTEX);
-    renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+    renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
     
     backend::BlendDescriptor blendDescriptorNormal;
     blendDescriptorNormal.blendEnabled = true;
@@ -103,7 +103,7 @@ ParticleBackend::ParticleBackend()
     blendDescriptorNormal.sourceAlphaBlendFactor = backend::BlendFactor::ONE;
     blendDescriptorNormal.destinationRGBBlendFactor = backend::BlendFactor::ONE;
     auto blendStateNormal = device->createBlendState(blendDescriptorNormal);
-    renderPipelineDescriptor.setBlendState(blendStateNormal);
+    renderPipelineDescriptor.blendState = blendStateNormal;
     _renderPipelineWithBlend = device->newRenderPipeline(renderPipelineDescriptor);
     
     Data imageData;
@@ -160,11 +160,9 @@ ParticleBackend::ParticleBackend()
     Mat4::createPerspective(60.0f, 1.0f * utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
     Mat4::createLookAt(Vec3(30.0f , 20.0f, 30.0f), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
     
-    backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
-
+    _renderPassDescriptor.clearColorValue = {0.1f, 0.1f, 0.1f, 1.f};
+    _renderPassDescriptor.needClearColor = true;
+    _renderPassDescriptor.needColorAttachment = true;
 }
 
 ParticleBackend::~ParticleBackend()
@@ -174,12 +172,12 @@ ParticleBackend::~ParticleBackend()
     CC_SAFE_RELEASE(_commandBuffer);
     CC_SAFE_RELEASE(_texture);
     CC_SAFE_RELEASE(_renderPipelineWithBlend);
-    CC_SAFE_RELEASE(_renderPass);
 }
 
 void ParticleBackend::tick(float dt)
 {
-    _commandBuffer->beginRenderPass(_renderPass);
+    _commandBuffer->beginFrame();
+    _commandBuffer->beginRenderPass(_renderPassDescriptor);
     _commandBuffer->setRenderPipeline(_renderPipelineWithBlend);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
@@ -239,5 +237,6 @@ void ParticleBackend::tick(float dt)
     
     _commandBuffer->drawElements(backend::PrimitiveType::TRIANGLE, backend::IndexFormat::U_SHORT, _indexCount);
     _commandBuffer->endRenderPass();
+    _commandBuffer->endFrame();
 }
 

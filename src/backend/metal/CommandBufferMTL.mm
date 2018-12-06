@@ -1,6 +1,5 @@
 #include "CommandBufferMTL.h"
 #include "BufferMTL.h"
-#include "RenderPassMTL.h"
 #include "DeviceMTL.h"
 #include "RenderPipelineMTL.h"
 #include "TextureMTL.h"
@@ -56,6 +55,83 @@ namespace
                 return MTLCullModeBack;
         }
     }
+    
+    MTLRenderPassDescriptor* toMTLRenderPassDescriptor(const RenderPassDescriptor& descriptor)
+    {
+        MTLRenderPassDescriptor* mtlDescritpor = [MTLRenderPassDescriptor renderPassDescriptor];
+        
+        // Set color attachments.
+        if (descriptor.needColorAttachment)
+        {
+            bool hasCustomColorAttachment = false;
+            for (int i = 0; i < MAX_COLOR_ATTCHMENT; ++i)
+            {
+                if (! descriptor.colorAttachmentsTexture[i])
+                    continue;
+                
+                mtlDescritpor.colorAttachments[i].texture = static_cast<TextureMTL*>(descriptor.colorAttachmentsTexture[i])->getMTLTexture();
+                if (descriptor.needClearColor)
+                {
+                    mtlDescritpor.colorAttachments[i].loadAction = MTLLoadActionClear;
+                    mtlDescritpor.colorAttachments[i].clearColor = MTLClearColorMake(descriptor.clearColorValue[0],
+                                                                                     descriptor.clearColorValue[1],
+                                                                                     descriptor.clearColorValue[2],
+                                                                                     descriptor.clearColorValue[3]);
+                }
+                
+                hasCustomColorAttachment = true;
+            }
+            
+            if (!hasCustomColorAttachment)
+            {
+                mtlDescritpor.colorAttachments[0].texture = DeviceMTL::getCurrentDrawable().texture;
+                if (descriptor.needClearColor)
+                {
+                    mtlDescritpor.colorAttachments[0].loadAction = MTLLoadActionClear;
+                    mtlDescritpor.colorAttachments[0].clearColor = MTLClearColorMake(descriptor.clearColorValue[0],
+                                                                                     descriptor.clearColorValue[1],
+                                                                                     descriptor.clearColorValue[2],
+                                                                                     descriptor.clearColorValue[3]);
+                }
+                else
+                    mtlDescritpor.colorAttachments[0].loadAction = MTLLoadActionLoad;
+            }
+        }
+        
+        // Set depth/stencil attachment
+        if (descriptor.needDepthAttachment)
+        {
+            if (descriptor.depthAttachmentTexture)
+                mtlDescritpor.depthAttachment.texture = static_cast<TextureMTL*>(descriptor.depthAttachmentTexture)->getMTLTexture();
+            else
+                mtlDescritpor.depthAttachment.texture = Utils::getDefaultDepthStencilTexture();
+            
+            if (descriptor.needClearDepth)
+            {
+                mtlDescritpor.depthAttachment.loadAction = MTLLoadActionClear;
+                mtlDescritpor.depthAttachment.clearDepth = descriptor.clearDepthValue;
+            }
+            else
+                mtlDescritpor.depthAttachment.loadAction = MTLLoadActionLoad;
+        }
+        if (descriptor.needStencilAttachment)
+        {
+            if (descriptor.stencilAttachmentTexture)
+                mtlDescritpor.stencilAttachment.texture = static_cast<TextureMTL*>(descriptor.stencilAttachmentTexture)->getMTLTexture();
+            else
+                mtlDescritpor.stencilAttachment.texture = Utils::getDefaultDepthStencilTexture();
+            
+            if (descriptor.needClearStencil)
+            {
+                mtlDescritpor.stencilAttachment.loadAction = MTLLoadActionClear;
+                mtlDescritpor.stencilAttachment.clearStencil = descriptor.clearStencilValue;
+            }
+            else
+                mtlDescritpor.stencilAttachment.loadAction = MTLLoadActionLoad;
+        }
+        
+        return mtlDescritpor;
+    }
 }
 
 CommandBufferMTL::CommandBufferMTL(DeviceMTL* deviceMTL)
@@ -68,20 +144,21 @@ CommandBufferMTL::~CommandBufferMTL()
 {
 }
 
-void CommandBufferMTL::beginRenderPass(RenderPass* renderPass)
+void CommandBufferMTL::beginFrame()
 {
     _mtlCommandBuffer = [_mtlCommandQueue commandBuffer];
     [_mtlCommandBuffer retain];
     
-    if (renderPass)
-        _mtlRenderEncoder = [_mtlCommandBuffer renderCommandEncoderWithDescriptor:static_cast<RenderPassMTL*>(renderPass)->getMTLRenderPassDescriptor()];
-    else
-        _mtlRenderEncoder = [_mtlCommandBuffer renderCommandEncoderWithDescriptor:Utils::getDefaultRenderPassDescriptor()];
+    _deviceMTL->updateDrawable();
+}
+
+void CommandBufferMTL::beginRenderPass(const RenderPassDescriptor& descriptor)
+{
+    _renderPassDescriptor = descriptor;
     
+    _mtlRenderEncoder = [_mtlCommandBuffer renderCommandEncoderWithDescriptor:toMTLRenderPassDescriptor(_renderPassDescriptor)];
     [_mtlRenderEncoder retain];
     [_mtlRenderEncoder setFrontFacingWinding:MTLWindingCounterClockwise];
-    
-    _renderPass = renderPass;
 }
 
 void CommandBufferMTL::setRenderPipeline(RenderPipeline* renderPipeline)
@@ -89,7 +166,6 @@ void CommandBufferMTL::setRenderPipeline(RenderPipeline* renderPipeline)
     CC_SAFE_RETAIN(renderPipeline);
     CC_SAFE_RELEASE(_renderPipelineMTL);
     _renderPipelineMTL = static_cast<RenderPipelineMTL*>(renderPipeline);
-    _renderPipelineMTL->apply(_renderPass);
     [_mtlRenderEncoder setRenderPipelineState:_renderPipelineMTL->getMTLRenderPipelineState()];
 }
 
@@ -143,7 +219,6 @@ void CommandBufferMTL::drawArrays(PrimitiveType primitiveType, uint32_t start,  
     [_mtlRenderEncoder drawPrimitives:toMTLPrimitive(primitiveType)
                           vertexStart:start
                           vertexCount:count];
-    afterDraw();
 }
 
 void CommandBufferMTL::drawElements(PrimitiveType primitiveType, IndexFormat indexType, uint32_t count)
@@ -154,24 +229,25 @@ void CommandBufferMTL::drawElements(PrimitiveType primitiveType, IndexFormat ind
                                    indexType:toMTLIndexType(indexType)
                                  indexBuffer:_mtlIndexBuffer
                            indexBufferOffset:0];
-    afterDraw();
+    
 }
 
 void CommandBufferMTL::endRenderPass()
 {
+    afterDraw();
     [_mtlRenderEncoder endEncoding];
+    [_mtlRenderEncoder release];
+}
+
+void CommandBufferMTL::endFrame()
+{
     [_mtlCommandBuffer presentDrawable:DeviceMTL::getCurrentDrawable()];
     [_mtlCommandBuffer commit];
-    
     [_mtlCommandBuffer release];
-    [_mtlRenderEncoder release];
 }
 
 void CommandBufferMTL::afterDraw()
 {
-    // Reset encoder state.
-    [_mtlRenderEncoder setCullMode:MTLCullModeNone];
-    
     if (_mtlIndexBuffer)
     {
         [_mtlIndexBuffer release];

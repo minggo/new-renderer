@@ -43,6 +43,7 @@ enum class VertexFormat : uint32_t
 
 enum class TextureFormat : uint32_t
 {
+    NONE,
     // Four 8-bit normalized unsigned integer components in RGBA order.
     R8G8B8A8,
     // Three 8-bit normalized unsigned integer components in RGB order.
@@ -52,7 +53,8 @@ enum class TextureFormat : uint32_t
     // A packed 32-bit combined depth and stencil pixel format with two nomorlized unsigned integer
     // components: 24 bits, typically used for a depth render target, and 8 bits, typically used for
     // a stencil render target.
-    D24S8
+    D24S8,
+    SYSTEM_DEFAULT,
 };
 
 enum class TextureUsage : uint32_t

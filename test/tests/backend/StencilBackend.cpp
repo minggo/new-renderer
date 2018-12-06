@@ -89,17 +89,20 @@ StencilBackend::StencilBackend()
     img->release();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
+    renderPipelineDescriptor.stencilAttachmentFormat = backend::TextureFormat::D24S8;
+    renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::SYSTEM_DEFAULT;
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.setVertexShaderModule(vs);
-    renderPipelineDescriptor.setFragmentShaderModule(fs);
+    renderPipelineDescriptor.vertexShaderModule = vs;
+    renderPipelineDescriptor.fragmentShaderModule = fs;
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
-    renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+    renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     
     backend::DepthStencilDescriptor depthStencilDescriptor;
+    depthStencilDescriptor.stencilTestEnabled = true;
     depthStencilDescriptor.backFaceStencil.stencilCompareFunction = backend::CompareFunction::NEVER;
     depthStencilDescriptor.backFaceStencil.readMask = 0xFF;
     depthStencilDescriptor.backFaceStencil.writeMask = 0xFF;
@@ -108,31 +111,31 @@ StencilBackend::StencilBackend()
     depthStencilDescriptor.backFaceStencil.depthStencilPassOperation = backend::StencilOperation::KEEP;
     depthStencilDescriptor.frontFaceStencil = depthStencilDescriptor.backFaceStencil;
     auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
-    renderPipelineDescriptor.setDepthStencilState(depthStencilState);
+    renderPipelineDescriptor.depthStencilState = depthStencilState;
     _renderPipelineCavasTexture = device->newRenderPipeline(renderPipelineDescriptor);
     
     depthStencilDescriptor.backFaceStencil.stencilCompareFunction = backend::CompareFunction::EQUAL;
     depthStencilDescriptor.backFaceStencil.stencilFailureOperation = backend::StencilOperation::KEEP;
     depthStencilDescriptor.frontFaceStencil = depthStencilDescriptor.backFaceStencil;
     depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
-    renderPipelineDescriptor.setDepthStencilState(depthStencilState);
+    renderPipelineDescriptor.depthStencilState = depthStencilState;
     _renderPipelineTextureBackAndFront = device->newRenderPipeline(renderPipelineDescriptor);
     
     depthStencilDescriptor.frontFaceStencil.stencilCompareFunction = backend::CompareFunction::ALWAYS;
     depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
-    renderPipelineDescriptor.setDepthStencilState(depthStencilState);
+    renderPipelineDescriptor.depthStencilState = depthStencilState;
     _renderPipelineTextureBack = device->newRenderPipeline(renderPipelineDescriptor);
     
     depthStencilDescriptor.frontFaceStencil.stencilCompareFunction = backend::CompareFunction::EQUAL;
     depthStencilDescriptor.backFaceStencil.stencilCompareFunction = backend::CompareFunction::ALWAYS;
     depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
-    renderPipelineDescriptor.setDepthStencilState(depthStencilState);
+    renderPipelineDescriptor.depthStencilState = depthStencilState;
     _renderPipelineTextureFront = device->newRenderPipeline(renderPipelineDescriptor);
     
-    backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setClearColor(1.0f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
+    _renderPassDescriptor.clearColorValue = {1.0f, 0.1f, 0.1f, 1.f};
+    _renderPassDescriptor.needClearColor = true;
+    _renderPassDescriptor.needColorAttachment = true;
+    _renderPassDescriptor.needStencilAttachment = true;
 
     float vertexBuf[][2] = {
         {-1, -1},
@@ -159,7 +162,6 @@ StencilBackend::~StencilBackend()
     CC_SAFE_RELEASE(_texture);
     CC_SAFE_RELEASE(_canvasTexture);
     CC_SAFE_RELEASE(_renderPipeline);
-    CC_SAFE_RELEASE(_renderPass);
     CC_SAFE_RELEASE(_commandBuffer);
     CC_SAFE_RELEASE(_renderPipelineCavasTexture);
     CC_SAFE_RELEASE(_renderPipelineTextureBackAndFront);
@@ -169,119 +171,149 @@ StencilBackend::~StencilBackend()
 
 void StencilBackend::tick(float dt)
 {
-    _commandBuffer->beginRenderPass(_renderPass);
+    _commandBuffer->beginFrame();
+    
+    float color[4] = {1, 0, 0, 1};
     
     // draw stencil and image
     if (_canvasTexture)
     {
+        _renderPassDescriptor.needClearColor = true;
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
         _commandBuffer->setViewport(utils::WINDOW_WIDTH / 6, utils::WINDOW_HEIGHT / 2, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setCullMode(backend::CullMode::NONE);
         _commandBuffer->setRenderPipeline(_renderPipeline);
         
-        float color[4] = {1, 0, 0, 1};
         _bindGroup.setUniform("color", color, sizeof(color));
         _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
         _bindGroup.setTexture("texture", 0, _canvasTexture);
         _commandBuffer->setBindGroup(&_bindGroup);
         
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
+        
+        _commandBuffer->endRenderPass();
     }
     
     if (_texture)
     {
+        _renderPassDescriptor.needClearColor = false;
+        _renderPassDescriptor.needClearStencil = false;
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
+
         _commandBuffer->setViewport(utils::WINDOW_WIDTH / 2, utils::WINDOW_HEIGHT / 2, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
         _commandBuffer->setRenderPipeline(_renderPipeline);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setCullMode(backend::CullMode::NONE);
-        
         _bindGroup.setTexture("texture", 0, _texture);
         _bindGroup.setUniform("transform", _transform1.m, sizeof(_transform1.m));
         _commandBuffer->setBindGroup(&_bindGroup);
-        
+
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
+        _commandBuffer->endRenderPass();
     }
     
     // back and front
-    _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
+    
     if (_canvasTexture)
     {
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
+
+        _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setCullMode(backend::CullMode::NONE);
         _commandBuffer->setStencilReferenceValue(0x1);
         _commandBuffer->setRenderPipeline(_renderPipelineCavasTexture);
-        
+
         _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
         _bindGroup.setTexture("texture", 0, _canvasTexture);
         _commandBuffer->setBindGroup(&_bindGroup);
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
+        _commandBuffer->endRenderPass();
     }
     if (_texture)
     {
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
+        _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
+        _commandBuffer->setStencilReferenceValue(0x1);
         _commandBuffer->setRenderPipeline(_renderPipelineTextureBackAndFront);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setCullMode(backend::CullMode::NONE);
-        
+
         _bindGroup.setTexture("texture", 0, _texture);
         _bindGroup.setUniform("transform", _transform1.m, sizeof(_transform1.m));
         _commandBuffer->setBindGroup(&_bindGroup);
-        
+
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
+        _commandBuffer->endRenderPass();
     }
 
     // back
-    _commandBuffer->setViewport(utils::WINDOW_WIDTH / 3, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
+
     if (_canvasTexture)
     {
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
+        _commandBuffer->setViewport(utils::WINDOW_WIDTH / 3, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setCullMode(backend::CullMode::NONE);
         _commandBuffer->setStencilReferenceValue(0x1);
         _commandBuffer->setRenderPipeline(_renderPipelineCavasTexture);
-        
+
         _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
         _bindGroup.setTexture("texture", 0, _canvasTexture);
         _commandBuffer->setBindGroup(&_bindGroup);
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
+        _commandBuffer->endRenderPass();
     }
     if (_texture)
     {
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
+        _commandBuffer->setViewport(utils::WINDOW_WIDTH / 3, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
         _commandBuffer->setRenderPipeline(_renderPipelineTextureBack);
+        _commandBuffer->setStencilReferenceValue(0x1);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setCullMode(backend::CullMode::NONE);
-        
+
         _bindGroup.setTexture("texture", 0, _texture);
         _bindGroup.setUniform("transform", _transform1.m, sizeof(_transform1.m));
         _commandBuffer->setBindGroup(&_bindGroup);
-        
+
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
+        _commandBuffer->endRenderPass();
     }
 
     // front
-    _commandBuffer->setViewport(utils::WINDOW_WIDTH * 2 / 3, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
     if (_canvasTexture)
     {
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
+        _commandBuffer->setViewport(utils::WINDOW_WIDTH * 2 / 3, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setCullMode(backend::CullMode::NONE);
         _commandBuffer->setStencilReferenceValue(0x1);
         _commandBuffer->setRenderPipeline(_renderPipelineCavasTexture);
-        
+
         _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
         _bindGroup.setTexture("texture", 0, _canvasTexture);
         _commandBuffer->setBindGroup(&_bindGroup);
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
+        _commandBuffer->endRenderPass();
     }
     if (_texture)
     {
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
+        _commandBuffer->setViewport(utils::WINDOW_WIDTH * 2 / 3, 0, utils::WINDOW_WIDTH / 3, utils::WINDOW_HEIGHT / 2);
         _commandBuffer->setRenderPipeline(_renderPipelineTextureFront);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
+        _commandBuffer->setStencilReferenceValue(0x1);
         _commandBuffer->setCullMode(backend::CullMode::NONE);
-        
+
         _bindGroup.setTexture("texture", 0, _texture);
         _bindGroup.setUniform("transform", _transform1.m, sizeof(_transform1.m));
         _commandBuffer->setBindGroup(&_bindGroup);
-        
+
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
+        _commandBuffer->endRenderPass();
     }
     
-    _commandBuffer->endRenderPass();
+    _commandBuffer->endFrame();
 }

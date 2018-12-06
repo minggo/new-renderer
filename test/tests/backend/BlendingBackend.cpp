@@ -68,14 +68,14 @@ namespace
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.setVertexShaderModule(vs);
-            renderPipelineDescriptor.setFragmentShaderModule(fs);
+            renderPipelineDescriptor.vertexShaderModule = vs;
+            renderPipelineDescriptor.fragmentShaderModule = fs;
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
             vertexLayout.setAtrribute("a_uv", 1, cocos2d::backend::VertexFormat::FLOAT_R32G32, 2 * sizeof(float));
             vertexLayout.setLayout(4 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
-            renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+            renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
             
             backend::BlendDescriptor blendDescriptorNoBlending;
             blendDescriptorNoBlending.blendEnabled = true;
@@ -86,7 +86,7 @@ namespace
             blendDescriptorNoBlending.sourceAlphaBlendFactor = backend::BlendFactor::ONE;
             blendDescriptorNoBlending.destinationAlphaBlendFactor = backend::BlendFactor::ZERO;
             auto blendStateNoBlending = device->createBlendState(blendDescriptorNoBlending);
-            renderPipelineDescriptor.setBlendState(blendStateNoBlending);
+            renderPipelineDescriptor.blendState = blendStateNoBlending;
             renderPipelineNoBlending = device->newRenderPipeline(renderPipelineDescriptor);
 
             backend::BlendDescriptor blendDescriptorNormal;
@@ -98,7 +98,7 @@ namespace
             blendDescriptorNormal.sourceAlphaBlendFactor = backend::BlendFactor::ONE;
             blendDescriptorNormal.destinationRGBBlendFactor = backend::BlendFactor::ONE;
             auto blendStateNormal = device->createBlendState(blendDescriptorNormal);
-            renderPipelineDescriptor.setBlendState(blendStateNormal);
+            renderPipelineDescriptor.blendState = blendStateNormal;
             renderPipelineNormal = device->newRenderPipeline(renderPipelineDescriptor);
             
             backend::BlendDescriptor blendDescriptorAddtive;
@@ -110,7 +110,7 @@ namespace
             blendDescriptorAddtive.sourceAlphaBlendFactor = backend::BlendFactor::ONE;
             blendDescriptorAddtive.destinationAlphaBlendFactor = backend::BlendFactor::ONE;
             auto blendStateAddtive = device->createBlendState(blendDescriptorAddtive);
-            renderPipelineDescriptor.setBlendState(blendStateAddtive);
+            renderPipelineDescriptor.blendState = blendStateAddtive;
             renderPipelineAddtive = device->newRenderPipeline(renderPipelineDescriptor);
             
             backend::BlendDescriptor blendDescriptorSubstract;
@@ -122,7 +122,7 @@ namespace
             blendDescriptorSubstract.sourceAlphaBlendFactor = backend::BlendFactor::ONE;
             blendDescriptorSubstract.destinationAlphaBlendFactor = backend::BlendFactor::ONE;
             auto blendStateSubstract = device->createBlendState(blendDescriptorSubstract);
-            renderPipelineDescriptor.setBlendState(blendStateSubstract);
+            renderPipelineDescriptor.blendState = blendStateSubstract;
             renderPipelineSubstract = device->newRenderPipeline(renderPipelineDescriptor);
             
             backend::BlendDescriptor blendDescriptorMultiply;
@@ -134,7 +134,7 @@ namespace
             blendDescriptorMultiply.sourceAlphaBlendFactor = backend::BlendFactor::ONE;
             blendDescriptorMultiply.destinationAlphaBlendFactor = backend::BlendFactor::ONE;
             auto blendStateMultiply = device->createBlendState(blendDescriptorMultiply);
-            renderPipelineDescriptor.setBlendState(blendStateMultiply);
+            renderPipelineDescriptor.blendState = blendStateMultiply;
             renderPipelineMultiply = device->newRenderPipeline(renderPipelineDescriptor);
             
             float vertices[] = {
@@ -212,13 +212,13 @@ namespace
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.setVertexShaderModule(vs);
-            renderPipelineDescriptor.setFragmentShaderModule(fs);
+            renderPipelineDescriptor.vertexShaderModule = vs;
+            renderPipelineDescriptor.fragmentShaderModule = fs;
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
             vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
-            renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+            renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
             
             renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
             
@@ -293,10 +293,9 @@ BlendingBackend::BlendingBackend()
     
     _commandBuffer = device->newCommandBuffer();
     
-    backend::RenderPassDescriptor renderPassDescriptorBigTriangl;
-    renderPassDescriptorBigTriangl.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptorBigTriangl.setClearDepth(1);
-    _renderPassBigTriangle = device->newRenderPass(renderPassDescriptorBigTriangl);
+    _renderPassDescriptorBigTriangle.clearColorValue = {0.1f, 0.1f, 0.1f, 1.f};
+    _renderPassDescriptorBigTriangle.needClearColor = true;
+    _renderPassDescriptorBigTriangle.needColorAttachment = true;
 }
 
 BlendingBackend::~BlendingBackend()
@@ -309,7 +308,6 @@ BlendingBackend::~BlendingBackend()
     CC_SAFE_RELEASE(_backgroud);
     CC_SAFE_RELEASE(_sprite0);
     CC_SAFE_RELEASE(_commandBuffer);
-    CC_SAFE_RELEASE(_renderPassBigTriangle);
 }
 
 void BlendingBackend::tick(float dt)
@@ -318,13 +316,16 @@ void BlendingBackend::tick(float dt)
     
     Mat4::createOrthographicOffCenter(0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT, 0, 0, 1000.f, &_projection);
     
+    _commandBuffer->beginFrame();
+    
     // OpenGL and metal have different NDC, so should adjust the matrix.
     // https://metashapes.com/blog/opengl-metal-projection-matrix-problem/
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     _projection = utils::getAdjustMatrix() * _projection;
 #endif
     // Begin render pass.
-    _commandBuffer->beginRenderPass(_renderPassBigTriangle);
+    _renderPassDescriptorBigTriangle.needClearColor = true;
+    _commandBuffer->beginRenderPass(_renderPassDescriptorBigTriangle);
     
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bigTriangle->renderPipeline);
@@ -336,6 +337,8 @@ void BlendingBackend::tick(float dt)
     
     _commandBuffer->setVertexBuffer(0, bigTriangle->vertexBuffer);
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 3);
+    
+    _commandBuffer->endRenderPass();
 
     // sprites
     
@@ -343,7 +346,10 @@ void BlendingBackend::tick(float dt)
     float hsize = size * 0.5f;
 
     // no blending
+    _renderPassDescriptorBigTriangle.needClearColor = false;
+    _commandBuffer->beginRenderPass(_renderPassDescriptorBigTriangle);
     _commandBuffer->setRenderPipeline(quad->renderPipelineNoBlending);
+    _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     float offsetX = 5.f + hsize;
     float offsetY = 5.f + hsize;
@@ -358,9 +364,12 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_INT,
                                  6);
+    _commandBuffer->endRenderPass();
 
     // normal
+    _commandBuffer->beginRenderPass(_renderPassDescriptorBigTriangle);
     _commandBuffer->setRenderPipeline(quad->renderPipelineNormal);
+    _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
@@ -374,9 +383,12 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_INT,
                                  6);
+    _commandBuffer->endRenderPass();
 
     // additive
+    _commandBuffer->beginRenderPass(_renderPassDescriptorBigTriangle);
     _commandBuffer->setRenderPipeline(quad->renderPipelineAddtive);
+    _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
@@ -390,8 +402,12 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_INT,
                                  6);
+    _commandBuffer->endRenderPass();
+    
     // substract
+    _commandBuffer->beginRenderPass(_renderPassDescriptorBigTriangle);
     _commandBuffer->setRenderPipeline(quad->renderPipelineSubstract);
+    _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
@@ -405,9 +421,12 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_INT,
                                  6);
+    _commandBuffer->endRenderPass();
 
     // multiply
+    _commandBuffer->beginRenderPass(_renderPassDescriptorBigTriangle);
     _commandBuffer->setRenderPipeline(quad->renderPipelineMultiply);
+    _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
@@ -423,5 +442,7 @@ void BlendingBackend::tick(float dt)
                                  6);
     // End render pass.
     _commandBuffer->endRenderPass();
+    
+    _commandBuffer->endFrame();
 }
 

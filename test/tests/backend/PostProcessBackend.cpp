@@ -88,14 +88,18 @@ namespace
             auto device = backend::Device::getInstance();
 
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
+            renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::SYSTEM_DEFAULT;
+            renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
+            
             auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.setVertexShaderModule(vs);
-            renderPipelineDescriptor.setFragmentShaderModule(fs);
+            renderPipelineDescriptor.vertexShaderModule = vs;
+            renderPipelineDescriptor.fragmentShaderModule = fs;
+            
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
             vertexLayout.setLayout(2 * sizeof(float), backend::VertexStepMode::VERTEX);
-            renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+            renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
             _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
             
             float vertices[] = {-1, 4, -1, -1, 4, -1};
@@ -154,21 +158,25 @@ namespace
             auto device = backend::Device::getInstance();
             
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
+            renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::R8G8B8A8;
+            renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
+            
             auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.setVertexShaderModule(vs);
-            renderPipelineDescriptor.setFragmentShaderModule(fs);
+            renderPipelineDescriptor.vertexShaderModule = vs;
+            renderPipelineDescriptor.fragmentShaderModule = fs;
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32B32, 0);
             vertexLayout.setLayout(3 * sizeof(float), backend::VertexStepMode::VERTEX);
-            renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+            renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
             
             backend::DepthStencilDescriptor depthStencilDescriptor;
+            depthStencilDescriptor.depthTestEnabled = true;
             depthStencilDescriptor.depthWriteEnabled = true;
             depthStencilDescriptor.depthCompareFunction = backend::CompareFunction::LESS;
             auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
-            renderPipelineDescriptor.setDepthStencilState(depthStencilState);
+            renderPipelineDescriptor.depthStencilState = depthStencilState;
             _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
             
             _vertexBuffer = device->newBuffer(sizeof(bunny_positions),
@@ -219,17 +227,26 @@ PostProcessBackend::PostProcessBackend()
     textureDescriptor2.textureFormat = backend::TextureFormat::D24S8;
     _depthTexture = device->newTexture(textureDescriptor2);
     
-    backend::RenderPassDescriptor renderPassDescriptorBunny;
-    renderPassDescriptorBunny.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptorBunny.setClearDepth(1);
-    renderPassDescriptorBunny.setColorAttachment(0, _colorTexture);
-    renderPassDescriptorBunny.setDepthStencilAttachment(_depthTexture);
-    _renderPassBunny = device->newRenderPass(renderPassDescriptorBunny);
+    _renderPassDescriptorBunny1.clearDepthValue = 1;
+    _renderPassDescriptorBunny1.needClearDepth = true;
+    _renderPassDescriptorBunny1.depthAttachmentTexture = _depthTexture;
+    _renderPassDescriptorBunny1.needDepthAttachment = true;
+    _renderPassDescriptorBunny1.clearColorValue = {0.1f, 0.1f, 0.1f, 1.f};
+    _renderPassDescriptorBunny1.needClearColor = true;
+    _renderPassDescriptorBunny1.needColorAttachment = true;
+    _renderPassDescriptorBunny1.colorAttachmentsTexture[0] = _colorTexture;
     
-    backend::RenderPassDescriptor renderPassDescriptorBg;
-    renderPassDescriptorBg.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptorBg.setClearDepth(1);
-    _renderPassBg = device->newRenderPass(renderPassDescriptorBg);
+    _renderPassDescriptorBunny2.needColorAttachment = true;
+    _renderPassDescriptorBunny2.colorAttachmentsTexture[0] = _colorTexture;
+    _renderPassDescriptorBunny2.depthAttachmentTexture = _depthTexture;
+    _renderPassDescriptorBunny2.needDepthAttachment = true;
+    
+    _renderPassDescriptorBg.clearColorValue = {0.1f, 0.1f, 0.1f, 1.f};
+    _renderPassDescriptorBg.needClearColor = true;
+    _renderPassDescriptorBg.needColorAttachment = true;
+    _renderPassDescriptorBg.clearDepthValue = 1;
+    _renderPassDescriptorBg.needClearDepth = true;
+    _renderPassDescriptorBg.needDepthAttachment = true;
     
     _commandBuffer = device->newCommandBuffer();
     
@@ -245,8 +262,6 @@ PostProcessBackend::~PostProcessBackend()
     CC_SAFE_RELEASE(_commandBuffer);
     CC_SAFE_RELEASE(_colorTexture);
     CC_SAFE_RELEASE(_depthTexture);
-    CC_SAFE_RELEASE(_renderPassBunny);
-    CC_SAFE_RELEASE(_renderPassBg);
 }
 
 void PostProcessBackend::tick(float dt)
@@ -263,7 +278,9 @@ void PostProcessBackend::tick(float dt)
     _projection = utils::getAdjustMatrix() * _projection;
 #endif
     
-    _commandBuffer->beginRenderPass(_renderPassBunny);
+    _commandBuffer->beginFrame();
+    
+    _commandBuffer->beginRenderPass(_renderPassDescriptorBunny1);
     
     // Draw bunny one.
     _model = Mat4::IDENTITY;
@@ -283,8 +300,10 @@ void PostProcessBackend::tick(float dt)
     _commandBuffer->drawElements(backend::PrimitiveType::TRIANGLE,
                                  backend::IndexFormat::U_SHORT,
                                  sizeof(bunny_cells) / sizeof(bunny_cells[0]));
+    _commandBuffer->endRenderPass();
     
     // Draw bunny two.
+    _commandBuffer->beginRenderPass(_renderPassDescriptorBunny2);
     _model = Mat4::IDENTITY;
     _model.translate(-5, 0, 0);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
@@ -306,7 +325,7 @@ void PostProcessBackend::tick(float dt)
     _commandBuffer->endRenderPass();
     
     // Draw bg.
-    _commandBuffer->beginRenderPass(_renderPassBg);
+    _commandBuffer->beginRenderPass(_renderPassDescriptorBg);
     
     _bindGroup.setTexture("texture", 0, _colorTexture);
     _commandBuffer->setBindGroup(&_bindGroup);
@@ -316,4 +335,6 @@ void PostProcessBackend::tick(float dt)
     _commandBuffer->drawArrays(backend::PrimitiveType::TRIANGLE, 0, 3);
     
     _commandBuffer->endRenderPass();
+    
+    _commandBuffer->endFrame();
 }

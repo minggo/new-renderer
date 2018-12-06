@@ -62,13 +62,13 @@ SubImageBackend::SubImageBackend()
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
     auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.setVertexShaderModule(vs);
-    renderPipelineDescriptor.setFragmentShaderModule(fs);
+    renderPipelineDescriptor.vertexShaderModule = vs;
+    renderPipelineDescriptor.fragmentShaderModule = fs;
     
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(2 * sizeof(float), backend::VertexStepMode::VERTEX);
-    renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+    renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
 
     backend::TextureDescriptor textureDescriptor;
@@ -82,7 +82,9 @@ SubImageBackend::SubImageBackend()
     _texture = device->newTexture(textureDescriptor);
 
     _commandBuffer = device->newCommandBuffer();
-
+    
+    _renderPassDescriptor.needClearColor = true;
+    
     float vertexBuf[][2] = {
         {-1, -1},
         {1, -1},
@@ -111,7 +113,9 @@ SubImageBackend::~SubImageBackend()
 
 void SubImageBackend::tick(float dt)
 {
-    _commandBuffer->beginRenderPass(nullptr);
+    _commandBuffer->beginFrame();
+    
+    _commandBuffer->beginRenderPass(_renderPassDescriptor);
     _commandBuffer->setRenderPipeline(_renderPipeline);
     
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
@@ -142,6 +146,8 @@ void SubImageBackend::tick(float dt)
     if (_updatePixelIndex < _texture->getWidth() * _texture->getHeight() ) {
         _updatePixelIndex += 1;
     }
+    
+    _commandBuffer->endFrame();
 }
 
 

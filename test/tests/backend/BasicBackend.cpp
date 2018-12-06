@@ -66,13 +66,13 @@ BasicBackend::BasicBackend()
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     cocos2d::backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.setVertexShaderModule(vs);
-    renderPipelineDescriptor.setFragmentShaderModule(fs);
+    renderPipelineDescriptor.vertexShaderModule = vs;
+    renderPipelineDescriptor.fragmentShaderModule = fs;
     
-    cocos2d::backend::VertexLayout vertexLayout;
+    backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(sizeof(float) * 2, cocos2d::backend::VertexStepMode::VERTEX);
-    renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+    renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
     
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     
@@ -82,10 +82,8 @@ BasicBackend::BasicBackend()
     _vertexBuffer = device->newBuffer(sizeof(data), cocos2d::backend::BufferType::VERTEX, cocos2d::backend::BufferUsage::READ);
     _vertexBuffer->updateData((uint8_t*)data, sizeof(data));
     
-    cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-    renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
+    _renderPassDescriptor.clearColorValue = {0.1f, 0.1f, 0.1f, 0.1f};
+    _renderPassDescriptor.needClearColor = true;
 }
 
 BasicBackend::~BasicBackend()
@@ -93,7 +91,6 @@ BasicBackend::~BasicBackend()
     CC_SAFE_RELEASE(_vertexBuffer);
     CC_SAFE_RELEASE(_renderPipeline);
     CC_SAFE_RELEASE(_commandBuffer);
-    CC_SAFE_RELEASE(_renderPass);
 }
 
 void BasicBackend::tick(float dt)
@@ -101,7 +98,8 @@ void BasicBackend::tick(float dt)
     _time += dt;
     float color[4] = {1.f, std::abs(std::sin(_time)), 0.f, 1.f};
     
-    _commandBuffer->beginRenderPass(_renderPass);
+    _commandBuffer->beginFrame();
+    _commandBuffer->beginRenderPass(_renderPassDescriptor);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(_renderPipeline);
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
@@ -109,4 +107,5 @@ void BasicBackend::tick(float dt)
     _commandBuffer->setBindGroup(&_bindGroup);
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 3);
     _commandBuffer->endRenderPass();
+    _commandBuffer->endFrame();
 }

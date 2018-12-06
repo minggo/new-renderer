@@ -50,6 +50,7 @@ namespace
         if (first)
         {
             tests = {
+                BasicBackend::create,
                 SubImageBackend::create,
                 PostProcessBackend::create,
                 StencilBackend::create,
@@ -57,7 +58,6 @@ namespace
                 DepthTextureBackend::create,
                 Texture2DBackendTest::create,
                 MultiTexturesBackend::create,
-                BasicBackend::create,
                 BunnyBackend::create,
                 ParticleBackend::create,
                 GuiProjectionBackend::create,
@@ -113,8 +113,6 @@ int main(int argc, char * argv[])
         while (!glfwWindowShouldClose(window))
         {
             prevTime = std::chrono::steady_clock::now();
-            cocos2d::backend::DeviceMTL::updateDrawable();
-            // Should invoke after `cocos2d::backend::DeviceMTL::updateDrawable()`.
             initTests();
             test->tick(dt);
             

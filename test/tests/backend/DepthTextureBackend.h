@@ -47,9 +47,9 @@ private:
     cocos2d::Vec3 _up;
     
     cocos2d::backend::Texture* _depthTexture = nullptr;
-    cocos2d::backend::RenderPass* _renderPassBunny1 = nullptr;
-    cocos2d::backend::RenderPass* _renderPassBunny2 = nullptr;
-    cocos2d::backend::RenderPass* _renderPassBigTriangle = nullptr;
+    cocos2d::backend::RenderPassDescriptor _renderPassBunny1;
+    cocos2d::backend::RenderPassDescriptor _renderPassBunny2;
+    cocos2d::backend::RenderPassDescriptor _renderPassBigTriangle;
     cocos2d::backend::BindGroup _bindGroupBunny;
     cocos2d::backend::BindGroup _bindGroupBigTriangle;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;

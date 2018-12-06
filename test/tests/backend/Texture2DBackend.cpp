@@ -119,13 +119,13 @@ Texture2DBackendTest::Texture2DBackendTest()
     RenderPipelineDescriptor renderPipelineDescriptor;
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.setVertexShaderModule(vs);
-    renderPipelineDescriptor.setFragmentShaderModule(fs);
+    renderPipelineDescriptor.vertexShaderModule = vs;
+    renderPipelineDescriptor.fragmentShaderModule = fs;
     
     VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
-    renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+    renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
 
     _transform0.translate(-0.5f, 0, 0);
@@ -144,10 +144,9 @@ Texture2DBackendTest::Texture2DBackendTest()
     _bindGroupdTexture.setUniform("transform", _transform1.m, sizeof(_transform1.m));
     
     // render pass
-    RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-    renderPassDescriptor.setClearDepth(1.f);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
+    _renderPassDescriptor.clearColorValue = {0.1f, 0.1f, 0.1f, 0.1f};
+    _renderPassDescriptor.needClearColor = true;
+    _renderPassDescriptor.needColorAttachment = true;
     
     _commandBuffer = device->newCommandBuffer();
 }
@@ -156,7 +155,6 @@ Texture2DBackendTest::~Texture2DBackendTest()
 {
     CC_SAFE_RELEASE(_renderPipeline);
     CC_SAFE_RELEASE(_commandBuffer);
-    CC_SAFE_RELEASE(_renderPass);
     CC_SAFE_RELEASE(_vertexBuffer);
     CC_SAFE_RELEASE(_canvasTexture);
     CC_SAFE_RELEASE(_texture);
@@ -164,20 +162,23 @@ Texture2DBackendTest::~Texture2DBackendTest()
 
 void Texture2DBackendTest::tick(float dt)
 {
+    _commandBuffer->beginFrame();
     if (_canvasTexture)
     {
-        _commandBuffer->beginRenderPass(_renderPass);
+        _renderPassDescriptor.needClearColor = true;
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
         _commandBuffer->setRenderPipeline(_renderPipeline);
         _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setBindGroup(&_bindGroupCanvas);
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
-//        _commandBuffer->endRenderPass();
+        _commandBuffer->endRenderPass();
     }
     
     if (_texture)
     {
-//        _commandBuffer->beginRenderPass(nullptr);
+        _renderPassDescriptor.needClearColor = false;
+        _commandBuffer->beginRenderPass(_renderPassDescriptor);
         _commandBuffer->setRenderPipeline(_renderPipeline);
         _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
@@ -185,6 +186,7 @@ void Texture2DBackendTest::tick(float dt)
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
         _commandBuffer->endRenderPass();
     }
+    _commandBuffer->endFrame();
 }
 
 

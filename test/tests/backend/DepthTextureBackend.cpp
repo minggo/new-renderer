@@ -77,13 +77,14 @@ namespace
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.setVertexShaderModule(vs);
-            renderPipelineDescriptor.setFragmentShaderModule(fs);
+            renderPipelineDescriptor.vertexShaderModule = vs;
+            renderPipelineDescriptor.fragmentShaderModule = fs;
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
             vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
-            renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+            renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
+            renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
             
             renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
             
@@ -143,21 +144,24 @@ namespace
             // render pipeline
             
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
+            renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
+            renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::NONE;
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.setVertexShaderModule(vs);
-            renderPipelineDescriptor.setFragmentShaderModule(fs);
+            renderPipelineDescriptor.vertexShaderModule = vs;
+            renderPipelineDescriptor.fragmentShaderModule =fs;
 
             backend::VertexLayout vertexLayout;
             vertexLayout.setLayout(3 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32B32, 0);
-            renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+            renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
             
             backend::DepthStencilDescriptor depthStencilDescriptor;
             depthStencilDescriptor.depthWriteEnabled = true;
+            depthStencilDescriptor.depthTestEnabled = true;
             depthStencilDescriptor.depthCompareFunction = backend::CompareFunction::LESS;
             auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
-            renderPipelineDescriptor.setDepthStencilState(depthStencilState);
+            renderPipelineDescriptor.depthStencilState = depthStencilState;
             
             renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
             renderPipeline->retain();
@@ -211,21 +215,24 @@ DepthTextureBackend::DepthTextureBackend()
     _depthTexture = device->newTexture(textureDescriptor);
     
     // render pass Bunny 1
-    backend::RenderPassDescriptor renderPassDescriptorBunny1;
-    renderPassDescriptorBunny1.setClearDepth(1);
-    renderPassDescriptorBunny1.setDepthStencilAttachment(_depthTexture);
-    _renderPassBunny1 = device->newRenderPass(renderPassDescriptorBunny1);
+    _renderPassBunny1.clearDepthValue = 1;
+    _renderPassBunny1.needClearDepth = true;
+    _renderPassBunny1.depthAttachmentTexture = _depthTexture;
+    _renderPassBunny1.needDepthAttachment = true;
+    _renderPassBunny1.needColorAttachment = false;
     
     // render pass 2
-    backend::RenderPassDescriptor renderPassDescriptorBunny2;
-    renderPassDescriptorBunny2.setDepthStencilAttachment(_depthTexture);
-    _renderPassBunny2 = device->newRenderPass(renderPassDescriptorBunny2);
+    _renderPassBunny2.depthAttachmentTexture = _depthTexture;
+    _renderPassBunny2.needDepthAttachment = true;
+    _renderPassBunny2.needColorAttachment = false;
     
     // render pass BigTriangle
-    backend::RenderPassDescriptor renderPassDescriptorBigTriangle;
-    renderPassDescriptorBigTriangle.setClearColor(0.1f, 0.1f, 0.1f, 1);
-    renderPassDescriptorBigTriangle.setClearDepth(1);
-    _renderPassBigTriangle = device->newRenderPass(renderPassDescriptorBigTriangle);
+    _renderPassBigTriangle.clearColorValue = {0.1f, 0.1f, 0.1f, 1};
+    _renderPassBigTriangle.needClearColor = true;
+    _renderPassBigTriangle.clearDepthValue = 1;
+    _renderPassBigTriangle.needClearDepth = true;
+    _renderPassBigTriangle.needDepthAttachment = true;
+    _renderPassBigTriangle.needColorAttachment = true;
     
     _commandBuffer = device->newCommandBuffer();
     
@@ -239,9 +246,6 @@ DepthTextureBackend::~DepthTextureBackend()
     delete bg;
     
     CC_SAFE_RELEASE(_depthTexture);
-    CC_SAFE_RELEASE(_renderPassBunny1);
-    CC_SAFE_RELEASE(_renderPassBunny2);
-    CC_SAFE_RELEASE(_renderPassBigTriangle);
     CC_SAFE_RELEASE(_commandBuffer);
 }
 
@@ -255,6 +259,8 @@ void DepthTextureBackend::tick(float dt)
     Mat4::createLookAt(_eye, _center, _up, &_view);
 
     Mat4::createPerspective(45.f, 1.0f * utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT, 0.1f, 100.f, &_projection);
+    
+    _commandBuffer->beginFrame();
 
     // Draw bunny one.
     _commandBuffer->beginRenderPass(_renderPassBunny1);
@@ -307,4 +313,6 @@ void DepthTextureBackend::tick(float dt)
     
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
     _commandBuffer->endRenderPass();
+    
+    _commandBuffer->endFrame();
 }

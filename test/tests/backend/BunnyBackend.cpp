@@ -66,31 +66,36 @@ BunnyBackend::BunnyBackend()
     // create renderpipeline
 
     cocos2d::backend::RenderPipelineDescriptor renderPipelineDescriptor;
+    renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
     
     cocos2d::backend::VertexLayout vertexLayout;
     vertexLayout.setLayout(3 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32B32, 0);
-    renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+    renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
     
     // depth/stencil state
     cocos2d::backend::DepthStencilDescriptor depthStencilDescriptor;
     depthStencilDescriptor.depthWriteEnabled = true;
+    depthStencilDescriptor.depthTestEnabled = true;
     depthStencilDescriptor.depthCompareFunction = cocos2d::backend::CompareFunction::LESS;
     auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
-    renderPipelineDescriptor.setDepthStencilState(depthStencilState);
+    renderPipelineDescriptor.depthStencilState = depthStencilState;
     
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.setVertexShaderModule(vs);
-    renderPipelineDescriptor.setFragmentShaderModule(fs);
+
+    renderPipelineDescriptor.vertexShaderModule = vs;
+    renderPipelineDescriptor.fragmentShaderModule = fs;
     
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     
     // render pass
-    cocos2d::backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-    renderPassDescriptor.setClearDepth(1.f);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
+    _renderPassDescriptor.clearColorValue = {0.1f, 0.1f, 0.1f, 0.1f};
+    _renderPassDescriptor.needClearColor = true;
+    _renderPassDescriptor.needColorAttachment = true;
+    _renderPassDescriptor.clearDepthValue = 1;
+    _renderPassDescriptor.needClearDepth = true;
+    _renderPassDescriptor.needDepthAttachment = true;
     
     // bind group
     _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
@@ -117,7 +122,6 @@ BunnyBackend::BunnyBackend()
 BunnyBackend::~BunnyBackend()
 {
     CC_SAFE_RELEASE(_commandBuffer);
-    CC_SAFE_RELEASE(_renderPass);
     CC_SAFE_RELEASE(_indexBuffer);
     CC_SAFE_RELEASE(_vertexBuffer);
     CC_SAFE_RELEASE(_renderPipeline);
@@ -129,7 +133,9 @@ void BunnyBackend::tick(float dt)
     Mat4::createLookAt(Vec3(30.0f * std::cos(_time), 20.0f, 30.0f * std::sin(_time)), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
     _bindGroup.setUniform("view", _view.m, sizeof(_view.m));
     
-    _commandBuffer->beginRenderPass(_renderPass);
+    _commandBuffer->beginFrame();
+    
+    _commandBuffer->beginRenderPass(_renderPassDescriptor);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(_renderPipeline);
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
@@ -139,5 +145,7 @@ void BunnyBackend::tick(float dt)
                                  cocos2d::backend::IndexFormat::U_SHORT,
                                  sizeof(bunny_cells) / sizeof(bunny_cells[0]));
     _commandBuffer->endRenderPass();
+    
+    _commandBuffer->endFrame();
 }
 

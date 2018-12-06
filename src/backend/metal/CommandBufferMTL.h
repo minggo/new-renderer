@@ -13,7 +13,8 @@ public:
     CommandBufferMTL(DeviceMTL* deviceMTL);
     ~CommandBufferMTL();
     
-    virtual void beginRenderPass(RenderPass* renderPass) override;
+    virtual void beginFrame() override;
+    virtual void beginRenderPass(const RenderPassDescriptor& descriptor) override;
     virtual void setRenderPipeline(RenderPipeline* renderPipeline) override;
     virtual void setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) override;
     virtual void setCullMode(CullMode mode) override;
@@ -23,6 +24,7 @@ public:
     virtual void drawArrays(PrimitiveType primitiveType, uint32_t start,  uint32_t count) override;
     virtual void drawElements(PrimitiveType primitiveType, IndexFormat indexType, uint32_t count) override;
     virtual void endRenderPass() override;
+    virtual void endFrame() override;
     
 private:
     void prepareDrawing() const;
@@ -40,7 +42,7 @@ private:
     DeviceMTL* _deviceMTL = nullptr;
     RenderPipelineMTL* _renderPipelineMTL = nullptr;
     BindGroup* _bindGroup = nullptr;
-    RenderPass* _renderPass = nullptr; // weak reference
+    RenderPassDescriptor _renderPassDescriptor;
 };
 
 CC_BACKEND_END

@@ -68,8 +68,8 @@ GuiProjectionBackend::GuiProjectionBackend()
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
     auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.setVertexShaderModule(vs);
-    renderPipelineDescriptor.setFragmentShaderModule(fs);
+    renderPipelineDescriptor.vertexShaderModule = vs;
+    renderPipelineDescriptor.fragmentShaderModule = fs;
     
 #define VERTEX_POSITION_SIZE 2
 #define VERTEX_UV_SIZE 2
@@ -80,7 +80,7 @@ GuiProjectionBackend::GuiProjectionBackend()
     vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setAtrribute("a_uv", 1, backend::VertexFormat::FLOAT_R32G32, uvOffset);
     vertexLayout.setLayout(totalOffset, backend::VertexStepMode::VERTEX);
-    renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+    renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
     
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     _commandBuffer = device->newCommandBuffer();
@@ -123,10 +123,9 @@ GuiProjectionBackend::GuiProjectionBackend()
     _scale.translate(10 + _spriteWidth * 4.0f, (utils::WINDOW_HEIGHT - _spriteHeight) / 2.0f, 0);
     _scale.scale(1.2f, 0.5f, 1.0f);
     
-    backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
+    _renderPassDescriptor.clearColorValue = {0.1f, 0.1f, 0.1f, 1.f};
+    _renderPassDescriptor.needClearColor = true;
+    _renderPassDescriptor.needColorAttachment = true;
 }
 
 GuiProjectionBackend::~GuiProjectionBackend()
@@ -135,12 +134,12 @@ GuiProjectionBackend::~GuiProjectionBackend()
     CC_SAFE_RELEASE(_texture);
     CC_SAFE_RELEASE(_commandBuffer);
     CC_SAFE_RELEASE(_renderPipeline);
-    CC_SAFE_RELEASE(_renderPass);
 }
 
 void GuiProjectionBackend::tick(float dt)
 {
-    _commandBuffer->beginRenderPass(_renderPass);
+    _commandBuffer->beginFrame();
+    _commandBuffer->beginRenderPass(_renderPassDescriptor);
     _commandBuffer->setRenderPipeline(_renderPipeline);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     
@@ -185,6 +184,7 @@ void GuiProjectionBackend::tick(float dt)
     }
     
     _commandBuffer->endRenderPass();
+    _commandBuffer->endFrame();
 }
 
 

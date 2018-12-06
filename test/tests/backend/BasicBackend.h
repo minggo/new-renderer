@@ -30,7 +30,6 @@
 #include "backend/CommandBuffer.h"
 #include "backend/RenderPipeline.h"
 #include "backend/BindGroup.h"
-#include "backend/RenderPass.h"
 
 class BasicBackend : public TestBaseI
 {
@@ -45,6 +44,6 @@ private:
     cocos2d::backend::Buffer* _vertexBuffer = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::BindGroup _bindGroup;
-    cocos2d::backend::RenderPass* _renderPass = nullptr;
+    cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
     float _time;
 };

@@ -42,7 +42,7 @@ private:
     cocos2d::backend::Texture* _backgroud = nullptr;
     cocos2d::backend::Texture* _sprite0 = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
-    cocos2d::backend::RenderPass* _renderPassBigTriangle = nullptr;
+    cocos2d::backend::RenderPassDescriptor _renderPassDescriptorBigTriangle;
     cocos2d::backend::BindGroup _bindGroupBigTriangle;
     
     cocos2d::backend::BindGroup _bindGroup;

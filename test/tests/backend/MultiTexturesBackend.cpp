@@ -64,15 +64,18 @@ MultiTexturesBackend::MultiTexturesBackend()
     auto device = backend::Device::getInstance();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
+    renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::SYSTEM_DEFAULT;
+    renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
+    
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.setVertexShaderModule(vs);
-    renderPipelineDescriptor.setFragmentShaderModule(fs);
+    renderPipelineDescriptor.vertexShaderModule = vs;
+    renderPipelineDescriptor.fragmentShaderModule = fs;
     
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
-    renderPipelineDescriptor.setVertexLayout(0, vertexLayout);
+    renderPipelineDescriptor.vertexLayouts.push_back(vertexLayout);
     
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
 
@@ -112,10 +115,12 @@ MultiTexturesBackend::MultiTexturesBackend()
     
     _commandBuffer = device->newCommandBuffer();
     
-    backend::RenderPassDescriptor renderPassDescriptor;
-    renderPassDescriptor.setClearColor(0.1f, 0.1f, 0.1f, 1.f);
-    renderPassDescriptor.setClearDepth(1);
-    _renderPass = device->newRenderPass(renderPassDescriptor);
+    _renderPassDescriptor.clearColorValue = {0.1f, 0.1f, 0.1f, 1.f};
+    _renderPassDescriptor.needClearColor = true;
+    _renderPassDescriptor.needColorAttachment = true;
+    _renderPassDescriptor.clearDepthValue = 1;
+    _renderPassDescriptor.needClearDepth = true;
+    _renderPassDescriptor.needDepthAttachment = true;
 }
 
 MultiTexturesBackend::~MultiTexturesBackend()
@@ -125,12 +130,13 @@ MultiTexturesBackend::~MultiTexturesBackend()
     CC_SAFE_RELEASE(_texture1);
     CC_SAFE_RELEASE(_background);
     CC_SAFE_RELEASE(_vertexBuffer);
-    CC_SAFE_RELEASE(_renderPass);
 }
 
 void MultiTexturesBackend::tick(float dt)
 {
-    _commandBuffer->beginRenderPass(_renderPass);
+    _commandBuffer->beginFrame();
+    
+    _commandBuffer->beginRenderPass(_renderPassDescriptor);
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(_renderPipeline);
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
@@ -146,4 +152,6 @@ void MultiTexturesBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
     _commandBuffer->endRenderPass();
+    
+    _commandBuffer->endFrame();
 }
