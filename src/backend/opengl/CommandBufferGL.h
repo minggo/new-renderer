@@ -19,7 +19,8 @@ public:
     CommandBufferGL();
     ~CommandBufferGL();
     
-    virtual void beginRenderPass(RenderPass* renderPass) override;
+    virtual void beginFrame() override;
+    virtual void beginRenderPass(const RenderPassDescriptor& descriptor) override;
     virtual void setRenderPipeline(RenderPipeline* renderPipeline) override;
     virtual void setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) override;
     virtual void setCullMode(CullMode mode) override;
@@ -29,6 +30,7 @@ public:
     virtual void drawArrays(PrimitiveType primitiveType, uint32_t start,  uint32_t count) override;
     virtual void drawElements(PrimitiveType primitiveType, IndexFormat indexType, uint32_t count) override;
     virtual void endRenderPass() override;
+    virtual void endFrame() override;
     
 private:
     struct Viewport
@@ -44,9 +46,11 @@ private:
     void setUniforms(Program* program) const;
     void setUniform(bool isArray, GLuint location, uint32_t size, GLenum uniformType, void* data) const;
     void cleanResources();
+    void applyRenderPassDescriptor(const RenderPassDescriptor& descirptor);
     
     struct Viewport _viewport;
     GLint _defaultFBO = 0;
+    GLuint _currentFBO = 0;
     std::vector<BufferGL*> _vertexBuffers;
     BindGroup* _bindGroup = nullptr;
     BufferGL* _indexBuffer = nullptr;
