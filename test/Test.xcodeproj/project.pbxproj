@@ -126,7 +126,6 @@
 		4603741B214247D200DC9ED4 /* ShaderModuleGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460373C1212FD9E300DC9ED4 /* ShaderModuleGL.cpp */; };
 		4603741C214247D500DC9ED4 /* RenderPipelineGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460373C9212FF2E800DC9ED4 /* RenderPipelineGL.cpp */; };
 		4603741D214247D800DC9ED4 /* CommandBufferGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460373CE21339EF900DC9ED4 /* CommandBufferGL.cpp */; };
-		4603741F214247E100DC9ED4 /* RenderPassGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46037401213F8B6400DC9ED4 /* RenderPassGL.cpp */; };
 		46037420214247E500DC9ED4 /* TextureGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46037405213FBEFE00DC9ED4 /* TextureGL.cpp */; };
 		46037421214247EC00DC9ED4 /* Texture2DBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460374102142137E00DC9ED4 /* Texture2DBackend.cpp */; };
 		46037422214247F000DC9ED4 /* BasicBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 460373D921363EDD00DC9ED4 /* BasicBackend.cpp */; };
@@ -378,8 +377,6 @@
 		460373DA21363EDD00DC9ED4 /* BasicBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicBackend.h; sourceTree = "<group>"; };
 		460373F9213932AE00DC9ED4 /* BindGroup.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BindGroup.cpp; sourceTree = "<group>"; };
 		460373FA213932AE00DC9ED4 /* BindGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindGroup.h; sourceTree = "<group>"; };
-		46037401213F8B6400DC9ED4 /* RenderPassGL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RenderPassGL.cpp; sourceTree = "<group>"; };
-		46037402213F8B6400DC9ED4 /* RenderPassGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderPassGL.h; sourceTree = "<group>"; };
 		46037404213FAEC600DC9ED4 /* Texture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
 		46037405213FBEFE00DC9ED4 /* TextureGL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureGL.cpp; sourceTree = "<group>"; };
 		46037406213FBEFE00DC9ED4 /* TextureGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureGL.h; sourceTree = "<group>"; };
@@ -873,8 +870,6 @@
 				460373CA212FF2E800DC9ED4 /* RenderPipelineGL.h */,
 				460373CE21339EF900DC9ED4 /* CommandBufferGL.cpp */,
 				460373CF21339EF900DC9ED4 /* CommandBufferGL.h */,
-				46037401213F8B6400DC9ED4 /* RenderPassGL.cpp */,
-				46037402213F8B6400DC9ED4 /* RenderPassGL.h */,
 				46037405213FBEFE00DC9ED4 /* TextureGL.cpp */,
 				46037406213FBEFE00DC9ED4 /* TextureGL.h */,
 				4603744021479AFC00DC9ED4 /* DepthStencilStateGL.cpp */,
@@ -1258,7 +1253,6 @@
 				46037422214247F000DC9ED4 /* BasicBackend.cpp in Sources */,
 				4603744321479AFC00DC9ED4 /* DepthStencilStateGL.cpp in Sources */,
 				1A255E5620034B0D00069420 /* Vec4.cpp in Sources */,
-				4603741F214247E100DC9ED4 /* RenderPassGL.cpp in Sources */,
 				1A255E6420034B0D00069420 /* ZipUtils.cpp in Sources */,
 				4603741C214247D500DC9ED4 /* RenderPipelineGL.cpp in Sources */,
 				46037576214F44CD00DC9ED4 /* BlendingBackend.cpp in Sources */,
