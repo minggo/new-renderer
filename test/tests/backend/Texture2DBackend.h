@@ -55,6 +55,9 @@ private:
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
+    
+    int _transformLocation = -1;
+    int _colorLocation = -1;
 };
 
 

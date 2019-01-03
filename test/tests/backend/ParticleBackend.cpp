@@ -77,8 +77,10 @@ ParticleBackend::ParticleBackend()
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
     auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
+    _viewLocation = renderPipelineDescriptor.program->getUniformLocation("view");
+    _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
     
 #define VERTEX_QUAD_SIZE 2
 #define VERTEX_POS_SIZE 3
@@ -226,9 +228,9 @@ void ParticleBackend::tick(float dt)
     }
     _vertexBuffer->updateData(_vbufferArray, sizeof(_vbufferArray));
     
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroup.setVertexUniform(_modelLocation, "model", _model.m, sizeof(_model.m));
+    _bindGroup.setVertexUniform(_viewLocation, "view", _view.m, sizeof(_view.m));
+    _bindGroup.setVertexUniform(_projectionLocation, "projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("u_texture", 0, _texture);
     _commandBuffer->setBindGroup(&_bindGroup);
     

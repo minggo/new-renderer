@@ -89,10 +89,16 @@ void BindGroup::setTextureArray(const std::string& name, const std::vector<uint3
     _textureInfos[name] = std::move(textureInfo);
 }
 
-void BindGroup::setUniform(const std::string& name, void* data, uint32_t size)
+void BindGroup::setVertexUniform(int location, const std::string& name, void* data, uint32_t size)
 {
     UniformInfo uniform(name, data, size);
-    _uniformInfos[name] = std::move(uniform);
+    _vertexUniformInfos[location] = std::move(uniform);
+}
+
+void BindGroup::setFragmentUniform(int location, const std::string& name, void* data, uint32_t size)
+{
+    UniformInfo uniform(name, data, size);
+    _fragUniformInfos[location] = std::move(uniform);
 }
 
 CC_BACKEND_END

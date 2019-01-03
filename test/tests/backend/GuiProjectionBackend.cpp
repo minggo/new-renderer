@@ -68,8 +68,10 @@ GuiProjectionBackend::GuiProjectionBackend()
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
     auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
+    _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
+    _transformLocation = renderPipelineDescriptor.program->getUniformLocation("transform");
     
 #define VERTEX_POSITION_SIZE 2
 #define VERTEX_UV_SIZE 2
@@ -150,9 +152,9 @@ void GuiProjectionBackend::tick(float dt)
         _commandBuffer->setCullMode(backend::CullMode::NONE);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         float redColor[4] = {1, 0, 0, 1};
-        _bindGroup.setUniform("color", redColor, sizeof(redColor));
-        _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
-        _bindGroup.setUniform("transform", _translantion.m, sizeof(_translantion.m));
+        _bindGroup.setFragmentUniform(_colorLocation, "color", redColor, sizeof(redColor));
+        _bindGroup.setVertexUniform(_projectionLocation, "projection", _projection.m, sizeof(_projection.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _translantion.m, sizeof(_translantion.m));
         
         _commandBuffer->setBindGroup(&_bindGroup);
         _commandBuffer->drawArrays(backend::PrimitiveType::TRIANGLE, 0, _vertexBufferElementCount);
@@ -162,9 +164,9 @@ void GuiProjectionBackend::tick(float dt)
         _commandBuffer->setCullMode(backend::CullMode::NONE);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         float greenColor[4] = {0, 1, 0, 1};
-        _bindGroup.setUniform("color", greenColor, sizeof(greenColor));
-        _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
-        _bindGroup.setUniform("transform", _rotation.m, sizeof(_rotation.m));
+        _bindGroup.setFragmentUniform(_colorLocation, "color", greenColor, sizeof(greenColor));
+        _bindGroup.setVertexUniform(_projectionLocation, "projection", _projection.m, sizeof(_projection.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _rotation.m, sizeof(_rotation.m));
         
         _commandBuffer->setBindGroup(&_bindGroup);
         _commandBuffer->drawArrays(backend::PrimitiveType::TRIANGLE, 0, _vertexBufferElementCount);
@@ -175,9 +177,9 @@ void GuiProjectionBackend::tick(float dt)
         _commandBuffer->setCullMode(backend::CullMode::NONE);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         float blueColor[4] = {0, 0, 1, 1};
-        _bindGroup.setUniform("color", blueColor, sizeof(blueColor));
-        _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
-        _bindGroup.setUniform("transform", _scale.m, sizeof(_scale.m));
+        _bindGroup.setFragmentUniform(_colorLocation, "color", blueColor, sizeof(blueColor));
+        _bindGroup.setVertexUniform(_projectionLocation, "projection", _projection.m, sizeof(_projection.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _scale.m, sizeof(_scale.m));
         
         _commandBuffer->setBindGroup(&_bindGroup);
         _commandBuffer->drawArrays(backend::PrimitiveType::TRIANGLE, 0, _vertexBufferElementCount);

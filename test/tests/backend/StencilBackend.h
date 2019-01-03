@@ -52,6 +52,9 @@ private:
     cocos2d::backend::RenderPipeline* _renderPipelineTextureBackAndFront = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipelineTextureBack = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipelineTextureFront = nullptr;
+    
+    int _transformLocation = -1;
+    int _colorLocation = -1;
 };
 
 

@@ -68,8 +68,9 @@ namespace
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule = fs;
+            renderPipelineDescriptor.program = device->createProgram(vs, fs);
+            _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
+            _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -166,6 +167,9 @@ namespace
             CC_SAFE_RELEASE(indexBuffer);
         }
 
+        inline int getModelLocation() const { return _modelLocation; }
+        inline int getProjectionLocation() const { return _projectionLocation; }
+        
         backend::RenderPipeline* renderPipelineNoBlending = nullptr;
         backend::RenderPipeline* renderPipelineNormal = nullptr;
         backend::RenderPipeline* renderPipelineAddtive = nullptr;
@@ -173,6 +177,9 @@ namespace
         backend::RenderPipeline* renderPipelineMultiply = nullptr;
         backend::Buffer* vertexBuffer = nullptr;
         backend::Buffer* indexBuffer = nullptr;
+        
+        int _modelLocation = -1;
+        int _projectionLocation = -1;
     };
     
     struct BigTriangle
@@ -212,8 +219,8 @@ namespace
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule = fs;
+            renderPipelineDescriptor.program = device->createProgram(vs, fs);
+            _timeLocation = renderPipelineDescriptor.program->getUniformLocation("time");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -239,8 +246,11 @@ namespace
             CC_SAFE_RELEASE(vertexBuffer);
         }
         
+        inline int getTimeLocation() const { return _timeLocation; }
+        
         backend::RenderPipeline* renderPipeline = nullptr;
         backend::Buffer* vertexBuffer = nullptr;
+        int _timeLocation = -1;
     };
     
     // rotation is not used
@@ -330,8 +340,7 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bigTriangle->renderPipeline);
     
-    _bindGroupBigTriangle.setUniform("time", &_dt, sizeof(_dt));
-    _bindGroupBigTriangle.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroupBigTriangle.setFragmentUniform(bigTriangle->getTimeLocation(), "time", &_dt, sizeof(_dt));
     _bindGroupBigTriangle.setTexture("texture", 0, _backgroud);
     _commandBuffer->setBindGroup(&_bindGroupBigTriangle);
     
@@ -354,8 +363,8 @@ void BlendingBackend::tick(float dt)
     float offsetX = 5.f + hsize;
     float offsetY = 5.f + hsize;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
+    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     
@@ -373,8 +382,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
+    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     
@@ -392,8 +401,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
+    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     
@@ -411,8 +420,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
+    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     
@@ -430,8 +439,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
+    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
     _bindGroup.setTexture("texture", 0, _sprite0);
     _commandBuffer->setBindGroup(&_bindGroup);
     

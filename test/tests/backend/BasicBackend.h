@@ -45,5 +45,6 @@ private:
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
+    int _colorLocation = -1;
     float _time;
 };

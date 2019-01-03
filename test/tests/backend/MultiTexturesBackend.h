@@ -46,4 +46,7 @@ private:
     cocos2d::backend::BindGroup _bindGroup;
     
     cocos2d::Mat4 _transform;
+    
+    int _transformLocation = -1;
+    int _colorLocation = -1;
 };

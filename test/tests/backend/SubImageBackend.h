@@ -49,6 +49,9 @@ private:
     uint8_t* _data;
     size_t _dataSize;
     size_t _updatePixelIndex;
+    
+    int _transformLocation = -1;
+    int _colorLocation = -1;
 };
 
 

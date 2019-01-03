@@ -28,6 +28,7 @@
 #include "../Utils.h"
 #include "backend/Device.h"
 #include "backend/VertexLayout.h"
+#include "backend/Program.h"
 
 using namespace cocos2d;
 
@@ -84,8 +85,11 @@ BunnyBackend::BunnyBackend()
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
 
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
+    _viewLocation = renderPipelineDescriptor.program->getUniformLocation("view");
+    _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
+    _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
     
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     
@@ -98,11 +102,11 @@ BunnyBackend::BunnyBackend()
     _renderPassDescriptor.needDepthAttachment = true;
     
     // bind group
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
+    _bindGroup.setVertexUniform(_modelLocation, "model", _model.m, sizeof(_model.m));
     Mat4::createPerspective(60.0f, 1.0f * utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroup.setVertexUniform(_projectionLocation, "projection", _projection.m, sizeof(_projection.m));
     float color[4] = {0.5f, 0.5f, 0.5f, 1.0f};
-    _bindGroup.setUniform("color", color, sizeof(color));
+    _bindGroup.setFragmentUniform(_colorLocation, "color", color, sizeof(color));
 
     // vertex buffer
     _vertexBuffer = device->newBuffer(sizeof(bunny_positions),
@@ -131,7 +135,8 @@ void BunnyBackend::tick(float dt)
 {
     _time += dt;
     Mat4::createLookAt(Vec3(30.0f * std::cos(_time), 20.0f, 30.0f * std::sin(_time)), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
-    _bindGroup.setUniform("view", _view.m, sizeof(_view.m));
+    
+    _bindGroup.setVertexUniform(_viewLocation, "view", _view.m, sizeof(_view.m));
     
     _commandBuffer->beginFrame();
     

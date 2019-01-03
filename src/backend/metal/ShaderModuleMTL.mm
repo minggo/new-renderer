@@ -84,7 +84,7 @@ void ShaderModuleMTL::parseUniform(id<MTLDevice> mtlDevice, glslopt_shader* shad
         glslopt_precision parPrec;
         int parVecSize, parMatSize, parArrSize, location;
         glslopt_shader_get_uniform_desc(shader, i, &parName, &parType, &parPrec, &parVecSize, &parMatSize, &parArrSize, &location);
-        _uniforms.push_back(parName);
+        _uniforms[parName] = location;
     }
 }
 

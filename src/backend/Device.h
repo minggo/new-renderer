@@ -19,6 +19,7 @@ class Buffer;
 class ShaderModule;
 class RenderPipeline;
 class RenderPass;
+class Program;
 
 class Device : public cocos2d::Ref
 {
@@ -41,6 +42,8 @@ public:
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) = 0;
     // Create a render pipeline, not auto released.
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) = 0;
+    virtual Program* createProgram(ShaderModule* vs, ShaderModule* fs) = 0;
+
     
 private:
     static Device* _instance;

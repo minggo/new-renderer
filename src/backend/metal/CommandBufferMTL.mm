@@ -319,17 +319,19 @@ void CommandBufferMTL::setUniformBuffer() const
     {
         // Uniform buffer is bound to index 1.
         const auto& vertexUniformBuffer = _renderPipelineMTL->getVertexUniformBuffer();
+        const auto& vertexUniformInfo = _bindGroup->getVertexUniformInfos();
         if (vertexUniformBuffer)
         {
-            uint32_t size = fillUniformBuffer(vertexUniformBuffer.get(), _renderPipelineMTL->getVertexUniforms());
+            uint32_t size = fillUniformBuffer(vertexUniformBuffer.get(), vertexUniformInfo);
             [_mtlRenderEncoder setVertexBytes:vertexUniformBuffer.get()
                                        length:size atIndex:1];
         }
         
         const auto& fragUniformBuffer = _renderPipelineMTL->getFragmentUniformBuffer();
+        const auto& fragUniformInfo = _bindGroup->getFragUniformInfos();
         if (fragUniformBuffer)
         {
-            uint32_t size = fillUniformBuffer(fragUniformBuffer.get(), _renderPipelineMTL->getFragmentUniforms());
+            uint32_t size = fillUniformBuffer(fragUniformBuffer.get(), fragUniformInfo);
             [_mtlRenderEncoder setFragmentBytes:fragUniformBuffer.get()
                                          length:size
                                         atIndex:1];
@@ -337,19 +339,14 @@ void CommandBufferMTL::setUniformBuffer() const
     }
 }
 
-uint32_t CommandBufferMTL::fillUniformBuffer(uint8_t* buffer, const std::vector<std::string>& uniforms) const
+uint32_t CommandBufferMTL::fillUniformBuffer(uint8_t* buffer, const std::unordered_map<int, BindGroup::UniformInfo>& unifornInfo) const
 {
-    const auto& bindUniformInfos = _bindGroup->getUniformInfos();
     uint32_t offset = 0;
-    for (const auto& uniform : uniforms)
+    for(const auto& iter : unifornInfo)
     {
-        auto iter = bindUniformInfos.find(uniform);
-        if (bindUniformInfos.end() != iter)
-        {
-            const auto& bindUniformInfo = iter->second;
-            memcpy(buffer + offset, bindUniformInfo.data, bindUniformInfo.size);
-            offset += bindUniformInfo.size;
-        }
+        const auto& bindUniformInfo = iter.second;
+        memcpy(buffer + iter.first, bindUniformInfo.data, bindUniformInfo.size);
+        offset += bindUniformInfo.size;
     }
     return offset;
 }

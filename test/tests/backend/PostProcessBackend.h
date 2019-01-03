@@ -44,6 +44,8 @@ private:
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptorBg;
     cocos2d::backend::Texture* _colorTexture = nullptr;
     cocos2d::backend::Texture* _depthTexture = nullptr;
+    cocos2d::backend::Program* _programBigTriangle = nullptr;
+    
     
     float _t;
     

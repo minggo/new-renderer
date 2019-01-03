@@ -44,13 +44,16 @@ public:
     
     void setTexture(const std::string& name, uint32_t index, Texture* texture);
     void setTextureArray(const std::string& name, const std::vector<uint32_t>& indices, const std::vector<Texture*> textures);
-    void setUniform(const std::string& name, void* data, uint32_t size);
+    void setVertexUniform(int location, const std::string& name, void* data, uint32_t size);
+    void setFragmentUniform(int location, const std::string& name, void* data, uint32_t size);
     
-    inline const std::unordered_map<std::string, UniformInfo>& getUniformInfos() const { return _uniformInfos; }
+    inline const std::unordered_map<int, UniformInfo>& getVertexUniformInfos() const { return _vertexUniformInfos; }
+    inline const std::unordered_map<int, UniformInfo>& getFragUniformInfos() const { return _fragUniformInfos; }
     inline const std::unordered_map<std::string, TextureInfo>& getTextureInfos() const { return _textureInfos; }
     
 private:
-    std::unordered_map<std::string, UniformInfo> _uniformInfos;
+    std::unordered_map<int, UniformInfo> _vertexUniformInfos;
+    std::unordered_map<int, UniformInfo> _fragUniformInfos;
     std::unordered_map<std::string, TextureInfo> _textureInfos;
 };
 

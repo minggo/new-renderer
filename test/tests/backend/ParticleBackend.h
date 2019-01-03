@@ -66,5 +66,9 @@ private:
 
 #define particleCount 100
     ParticleData _particles[particleCount];
+    
+    int _modelLocation = -1;
+    int _viewLocation = -1;
+    int _projectionLocation = -1;
 };
 

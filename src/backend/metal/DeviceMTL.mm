@@ -7,6 +7,7 @@
 #include "TextureMTL.h"
 #include "BlendStateMTL.h"
 #include "Utils.h"
+#include "ProgramMTL.h"
 
 
 CC_BACKEND_BEGIN
@@ -89,6 +90,11 @@ BlendState* DeviceMTL::createBlendState(const BlendDescriptor& descriptor)
 RenderPipeline* DeviceMTL::newRenderPipeline(const RenderPipelineDescriptor& descriptor)
 {
     return new (std::nothrow) RenderPipelineMTL(_mtlDevice, descriptor);
+}
+
+Program* DeviceMTL::createProgram(ShaderModule* vs, ShaderModule* fs)
+{
+    return new (std::nothrow) ProgramMTL(vs, fs);
 }
 
 CC_BACKEND_END

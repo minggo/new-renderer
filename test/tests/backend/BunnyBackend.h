@@ -54,5 +54,9 @@ private:
     cocos2d::Mat4 _projection;
 
     float _time = 0.f;
+    int _modelLocation = -1;
+    int _viewLocation = -1;
+    int _projectionLocation = -1;
+    int _colorLocation = -1;
 };
 

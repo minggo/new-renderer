@@ -1,5 +1,6 @@
-#include "Program.h"
+#include "ProgramGL.h"
 #include "ShaderModuleGL.h"
+#include "ccMacros.h"
 
 CC_BACKEND_BEGIN
 
@@ -56,8 +57,21 @@ namespace
     }
 }
 
-Program::Program(const RenderPipelineDescriptor& descriptor)
-: _vertexShaderModule(static_cast<ShaderModuleGL*>(descriptor.vertexShaderModule))
+ProgramGL::ProgramGL(ShaderModule* vs, ShaderModule* fs)
+:Program(vs, fs)
+{
+    _vertexShaderModule = (static_cast<ShaderModuleGL*>(vs));
+    _fragmentShaderModule = (static_cast<ShaderModuleGL*>(fs));
+    CC_SAFE_RETAIN(_vertexShaderModule);
+    CC_SAFE_RETAIN(_fragmentShaderModule);
+    
+    compileProgram();
+    computeUniformInfos();
+}
+
+ProgramGL::ProgramGL(const RenderPipelineDescriptor& descriptor)
+:Program(descriptor.vertexShaderModule, descriptor.fragmentShaderModule)
+, _vertexShaderModule(static_cast<ShaderModuleGL*>(descriptor.vertexShaderModule))
 , _fragmentShaderModule(static_cast<ShaderModuleGL*>(descriptor.fragmentShaderModule))
 {
     assert(_vertexShaderModule != nullptr && _fragmentShaderModule != nullptr);
@@ -70,7 +84,7 @@ Program::Program(const RenderPipelineDescriptor& descriptor)
     computeUniformInfos();
 }
 
-Program::~Program()
+ProgramGL::~ProgramGL()
 {
     CC_SAFE_RELEASE(_vertexShaderModule);
     CC_SAFE_RELEASE(_fragmentShaderModule);
@@ -78,7 +92,7 @@ Program::~Program()
         glDeleteProgram(_program);
 }
 
-void Program::compileProgram()
+void ProgramGL::compileProgram()
 {
     if (_vertexShaderModule == nullptr || _fragmentShaderModule == nullptr)
         return;
@@ -108,7 +122,7 @@ void Program::compileProgram()
     }
 }
 
-void Program::computeAttributeInfos(const RenderPipelineDescriptor& descriptor)
+void ProgramGL::computeAttributeInfos(const RenderPipelineDescriptor& descriptor)
 {
     const auto& vertexLayouts = descriptor.vertexLayouts;
     for (const auto& vertexLayout : vertexLayouts)
@@ -138,7 +152,7 @@ void Program::computeAttributeInfos(const RenderPipelineDescriptor& descriptor)
     }
 }
 
-bool Program::getAttributeLocation(const std::string& attributeName, uint32_t& location)
+bool ProgramGL::getAttributeLocation(const std::string& attributeName, uint32_t& location)
 {
     GLint loc = glGetAttribLocation(_program, attributeName.c_str());
     if (-1 == loc)
@@ -151,7 +165,7 @@ bool Program::getAttributeLocation(const std::string& attributeName, uint32_t& l
     return true;
 }
 
-void Program::computeUniformInfos()
+void ProgramGL::computeUniformInfos()
 {
     if (!_program)
     return;
@@ -186,6 +200,11 @@ void Program::computeUniformInfos()
         _uniformInfos.push_back(uniform);
     }
     free(uniformName);
+}
+
+int ProgramGL::getUniformLocation(const std::string& uniform)
+{
+    return glGetUniformLocation(_program, uniform.c_str());
 }
 
 CC_BACKEND_END

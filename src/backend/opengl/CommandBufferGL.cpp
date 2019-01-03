@@ -4,7 +4,7 @@
 #include "TextureGL.h"
 #include "DepthStencilStateGL.h"
 #include "../BindGroup.h"
-#include "Program.h"
+#include "ProgramGL.h"
 #include "BlendStateGL.h"
 #include "ccMacros.h"
 
@@ -323,7 +323,7 @@ void CommandBufferGL::prepareDrawing() const
     }
 }
 
-void CommandBufferGL::bindVertexBuffer(Program *program) const
+void CommandBufferGL::bindVertexBuffer(ProgramGL *program) const
 {
     // Bind vertex buffers and set the attributes.
     int i = 0;
@@ -351,24 +351,35 @@ void CommandBufferGL::bindVertexBuffer(Program *program) const
     }
 }
 
-void CommandBufferGL::setUniforms(Program* program) const
+void CommandBufferGL::setUniforms(ProgramGL* program) const
 {
     if (_bindGroup)
     {
         const auto& texutreInfos = _bindGroup->getTextureInfos();
-        const auto& bindUniformInfos = _bindGroup->getUniformInfos();
+        const auto& vsUniformInfos = _bindGroup->getVertexUniformInfos();
+        const auto& fsUniformInfos = _bindGroup->getFragUniformInfos();
         const auto& activeUniformInfos = program->getUniformInfos();
         for (const auto& activeUinform : activeUniformInfos)
         {
             // Set normal uniforms.
-            const auto& bindUniformInfo = bindUniformInfos.find(activeUinform.name);
-            if (bindUniformInfos.end() != bindUniformInfo)
+            const auto& vsUniformInfo = vsUniformInfos.find(activeUinform.location);
+            if (vsUniformInfos.end() != vsUniformInfo)
             {
                 setUniform(activeUinform.isArray,
                            activeUinform.location,
                            activeUinform.size,
                            activeUinform.type,
-                           (*bindUniformInfo).second.data);
+                           (*vsUniformInfo).second.data);
+            }
+            
+            const auto& fsUniformInfo = fsUniformInfos.find(activeUinform.location);
+            if (fsUniformInfos.end() != fsUniformInfo)
+            {
+                setUniform(activeUinform.isArray,
+                           activeUinform.location,
+                           activeUinform.size,
+                           activeUinform.type,
+                           (*fsUniformInfo).second.data);
             }
             
             // Bind textures.

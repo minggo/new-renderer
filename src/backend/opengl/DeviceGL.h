@@ -12,6 +12,7 @@ public:
     virtual DepthStencilState* createDepthStencilState(const DepthStencilDescriptor& descriptor) override;
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) override;
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) override;
+    virtual Program* createProgram(ShaderModule* vs, ShaderModule* fs) override;
 };
 
 CC_BACKEND_END

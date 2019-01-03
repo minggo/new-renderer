@@ -77,8 +77,9 @@ namespace
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule = fs;
+            renderPipelineDescriptor.program = device->createProgram(vs, fs);
+            _nearLocation = renderPipelineDescriptor.program->getUniformLocation("near");
+            _farLocation = renderPipelineDescriptor.program->getUniformLocation("far");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -102,8 +103,14 @@ namespace
             CC_SAFE_RELEASE(vertexBuffer);
         }
         
+        inline int getNearLocation() const { return _nearLocation; }
+        inline int getFarLocaiton() const { return _farLocation; }
+        
         backend::RenderPipeline* renderPipeline = nullptr;
         backend::Buffer* vertexBuffer = nullptr;
+        
+        int _nearLocation = -1;
+        int _farLocation = -1;
     };
     
     struct Bunny
@@ -148,8 +155,10 @@ namespace
             renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::NONE;
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule =fs;
+            renderPipelineDescriptor.program = device->createProgram(vs, fs);
+            _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
+            _viewLocation = renderPipelineDescriptor.program->getUniformLocation("view");
+            _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
 
             backend::VertexLayout vertexLayout;
             vertexLayout.setLayout(3 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
@@ -186,9 +195,17 @@ namespace
             CC_SAFE_RELEASE(renderPipeline);
         }
         
+        inline int getModelLocation() const { return _modelLocation; }
+        inline int getViewLocation() const { return _viewLocation; }
+        inline int getProjectionLocation() const { return _projectionLocation; }
+        
         backend::Buffer* vertexBuffer = nullptr;
         backend::Buffer* indexBuffer = nullptr;
         backend::RenderPipeline* renderPipeline = nullptr;
+        
+        int _modelLocation = -1;
+        int _viewLocation = -1;
+        int _projectionLocation = -1;
     };
     
     BigTriangle* bg;
@@ -271,9 +288,9 @@ void DepthTextureBackend::tick(float dt)
     
     _model = Mat4::IDENTITY;
     _model.translate(5, 0, 0);
-    _bindGroupBunny.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroupBunny.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroupBunny.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroupBunny.setVertexUniform(bunny->getModelLocation(), "model", _model.m, sizeof(_model.m));
+    _bindGroupBunny.setVertexUniform(bunny->getViewLocation(), "view", _view.m, sizeof(_view.m));
+    _bindGroupBunny.setVertexUniform(bunny->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
     _commandBuffer->setBindGroup(&_bindGroupBunny);
     
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
@@ -288,9 +305,9 @@ void DepthTextureBackend::tick(float dt)
     
     _model = Mat4::IDENTITY;
     _model.translate(-5, 0, 0);
-    _bindGroupBunny.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroupBunny.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroupBunny.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroupBunny.setVertexUniform(bunny->getModelLocation(), "model", _model.m, sizeof(_model.m));
+    _bindGroupBunny.setVertexUniform(bunny->getViewLocation(), "view", _view.m, sizeof(_view.m));
+    _bindGroupBunny.setVertexUniform(bunny->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
     _commandBuffer->setBindGroup(&_bindGroupBunny);
     
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
@@ -307,8 +324,8 @@ void DepthTextureBackend::tick(float dt)
     _bindGroupBigTriangle.setTexture("texture", 0, _depthTexture);
     float near = 0.1f;
     float far = 100.f;
-    _bindGroupBigTriangle.setUniform("near", &near, sizeof(float));
-    _bindGroupBigTriangle.setUniform("far", &far, sizeof(float));
+    _bindGroupBigTriangle.setFragmentUniform(bg->getNearLocation(), "near", &near, sizeof(float));
+    _bindGroupBigTriangle.setFragmentUniform(bg->getFarLocaiton(), "far", &far, sizeof(float));
     _commandBuffer->setBindGroup(&_bindGroupBigTriangle);
     
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);

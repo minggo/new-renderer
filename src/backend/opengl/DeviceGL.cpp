@@ -6,6 +6,7 @@
 #include "TextureGL.h"
 #include "DepthStencilStateGL.h"
 #include "BlendStateGL.h"
+#include "ProgramGL.h"
 
 CC_BACKEND_BEGIN
 
@@ -62,6 +63,11 @@ BlendState* DeviceGL::createBlendState(const BlendDescriptor& descriptor)
 RenderPipeline* DeviceGL::newRenderPipeline(const RenderPipelineDescriptor& descriptor)
 {
     return new (std::nothrow) RenderPipelineGL(descriptor);
+}
+
+Program* DeviceGL::createProgram(ShaderModule* vs, ShaderModule* fs)
+{
+    return new (std::nothrow) ProgramGL(vs, fs);
 }
 
 CC_BACKEND_END

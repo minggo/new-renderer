@@ -5,6 +5,7 @@
 #include "../RenderPipelineDescriptor.h"
 #include "base/CCRef.h"
 #include "platform/CCGL.h"
+#include "../Program.h"
 
 #include <string>
 
@@ -31,21 +32,24 @@ struct UniformInfo
 };
 
 
-class Program : public cocos2d::Ref
+class ProgramGL : public Program
 {
 public:
     typedef std::vector<AttributeInfo> VertexAttributeArray;
     
-    Program(const RenderPipelineDescriptor& descriptor);
-    ~Program();
+    ProgramGL(ShaderModule* vs, ShaderModule* fs);
+    
+    ProgramGL(const RenderPipelineDescriptor& descriptor);
+    ~ProgramGL();
     
     inline const std::vector<VertexAttributeArray>& getAttributeInfos() const { return _attributeInfos; }
     inline const std::vector<UniformInfo>& getUniformInfos() const { return _uniformInfos; }
     inline GLuint getHandler() const { return _program; }
-    
+    void computeAttributeInfos(const RenderPipelineDescriptor& descriptor);
+    virtual int getUniformLocation(const std::string& uniform) override;
 private:
     void compileProgram();
-    void computeAttributeInfos(const RenderPipelineDescriptor& descriptor);
+//    void computeAttributeInfos(const RenderPipelineDescriptor& descriptor);
     bool getAttributeLocation(const std::string& attributeName, uint32_t& location);
     void computeUniformInfos();
     

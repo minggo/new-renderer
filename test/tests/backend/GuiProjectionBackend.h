@@ -49,6 +49,10 @@ private:
     cocos2d::Mat4 _translantion;
     cocos2d::Mat4 _rotation;
     cocos2d::Mat4 _scale;
+    
+    int _colorLocation = -1;
+    int _projectionLocation = -1;
+    int _transformLocation = -1;
 };
 
 

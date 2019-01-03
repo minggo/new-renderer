@@ -26,6 +26,7 @@
 #include "cocos2d.h"
 #include "../Utils.h"
 #include "backend/Device.h"
+#include "backend/Program.h"
 
 #include <vector>
 
@@ -119,8 +120,9 @@ Texture2DBackendTest::Texture2DBackendTest()
     RenderPipelineDescriptor renderPipelineDescriptor;
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    _transformLocation = renderPipelineDescriptor.program->getUniformLocation("transform");
+    _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
     
     VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -136,12 +138,13 @@ Texture2DBackendTest::Texture2DBackendTest()
     // set uniforms
     _bindGroupCanvas.setTexture("texture", 0, _canvasTexture);
     float color[4] = {1.f, 0.f, 0.f, 1.f};
-    _bindGroupCanvas.setUniform("color", color, sizeof(color));
-    _bindGroupCanvas.setUniform("transform", _transform0.m, sizeof(_transform0.m));
+    
+    _bindGroupCanvas.setFragmentUniform(_colorLocation, "color", color, sizeof(color));
+    _bindGroupCanvas.setVertexUniform(_transformLocation, "transform", _transform0.m, sizeof(_transform0.m));
     
     _bindGroupdTexture.setTexture("texture", 0, _texture);
-    _bindGroupdTexture.setUniform("color", color, sizeof(color));
-    _bindGroupdTexture.setUniform("transform", _transform1.m, sizeof(_transform1.m));
+    _bindGroupdTexture.setFragmentUniform(_colorLocation, "color", color, sizeof(color));
+    _bindGroupdTexture.setVertexUniform(_transformLocation, "transform", _transform1.m, sizeof(_transform1.m));
     
     // render pass
     _renderPassDescriptor.clearColorValue = {0.1f, 0.1f, 0.1f, 0.1f};

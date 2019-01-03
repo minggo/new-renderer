@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #import <Metal/Metal.h>
+#include <unordered_map>
 
 struct glslopt_shader;
 
@@ -18,7 +19,7 @@ public:
     
     inline id<MTLFunction> getMTLFunction() const { return _mtlFunction; }
     inline const std::shared_ptr<uint8_t>& getUniformBuffer() const { return _uniformBuffer; }
-    inline const std::vector<std::string>& getUniforms() const { return _uniforms; }
+    inline const std::unordered_map<std::string, int>& getUniforms() const { return _uniforms; }
     inline const std::vector<std::string>& getTextures() const { return _textures; }
     
 private:
@@ -28,7 +29,7 @@ private:
     id<MTLFunction> _mtlFunction = nil;
     
     std::shared_ptr<uint8_t> _uniformBuffer = nullptr;
-    std::vector<std::string> _uniforms;
+    std::unordered_map<std::string, int> _uniforms;
     
     // Texture index is the same as vector index.
     std::vector<std::string> _textures;

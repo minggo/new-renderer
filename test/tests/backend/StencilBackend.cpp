@@ -25,6 +25,7 @@
 #include "StencilBackend.h"
 #include "cocos2d.h"
 #include "../Utils.h"
+#include "backend/Program.h"
 
 #include <vector>
 
@@ -93,8 +94,10 @@ StencilBackend::StencilBackend()
     renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::SYSTEM_DEFAULT;
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    _transformLocation = renderPipelineDescriptor.program->getUniformLocation("transform");
+    _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
+
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
     vertexLayout.setLayout(2 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
@@ -185,8 +188,9 @@ void StencilBackend::tick(float dt)
         _commandBuffer->setCullMode(backend::CullMode::NONE);
         _commandBuffer->setRenderPipeline(_renderPipeline);
         
-        _bindGroup.setUniform("color", color, sizeof(color));
-        _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
+        
+        _bindGroup.setFragmentUniform(_colorLocation, "color", color, sizeof(color));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _transform0.m, sizeof(_transform0.m));
         _bindGroup.setTexture("texture", 0, _canvasTexture);
         _commandBuffer->setBindGroup(&_bindGroup);
         
@@ -205,8 +209,9 @@ void StencilBackend::tick(float dt)
         _commandBuffer->setRenderPipeline(_renderPipeline);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
         _commandBuffer->setCullMode(backend::CullMode::NONE);
+
         _bindGroup.setTexture("texture", 0, _texture);
-        _bindGroup.setUniform("transform", _transform1.m, sizeof(_transform1.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _transform1.m, sizeof(_transform1.m));
         _commandBuffer->setBindGroup(&_bindGroup);
 
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
@@ -225,7 +230,7 @@ void StencilBackend::tick(float dt)
         _commandBuffer->setStencilReferenceValue(0x1);
         _commandBuffer->setRenderPipeline(_renderPipelineCavasTexture);
 
-        _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _transform0.m, sizeof(_transform0.m));
         _bindGroup.setTexture("texture", 0, _canvasTexture);
         _commandBuffer->setBindGroup(&_bindGroup);
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
@@ -241,7 +246,7 @@ void StencilBackend::tick(float dt)
         _commandBuffer->setCullMode(backend::CullMode::NONE);
 
         _bindGroup.setTexture("texture", 0, _texture);
-        _bindGroup.setUniform("transform", _transform1.m, sizeof(_transform1.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _transform1.m, sizeof(_transform1.m));
         _commandBuffer->setBindGroup(&_bindGroup);
 
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
@@ -259,7 +264,7 @@ void StencilBackend::tick(float dt)
         _commandBuffer->setStencilReferenceValue(0x1);
         _commandBuffer->setRenderPipeline(_renderPipelineCavasTexture);
 
-        _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _transform0.m, sizeof(_transform0.m));
         _bindGroup.setTexture("texture", 0, _canvasTexture);
         _commandBuffer->setBindGroup(&_bindGroup);
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
@@ -275,7 +280,7 @@ void StencilBackend::tick(float dt)
         _commandBuffer->setCullMode(backend::CullMode::NONE);
 
         _bindGroup.setTexture("texture", 0, _texture);
-        _bindGroup.setUniform("transform", _transform1.m, sizeof(_transform1.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _transform1.m, sizeof(_transform1.m));
         _commandBuffer->setBindGroup(&_bindGroup);
 
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
@@ -292,7 +297,7 @@ void StencilBackend::tick(float dt)
         _commandBuffer->setStencilReferenceValue(0x1);
         _commandBuffer->setRenderPipeline(_renderPipelineCavasTexture);
 
-        _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _transform0.m, sizeof(_transform0.m));
         _bindGroup.setTexture("texture", 0, _canvasTexture);
         _commandBuffer->setBindGroup(&_bindGroup);
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
@@ -308,7 +313,7 @@ void StencilBackend::tick(float dt)
         _commandBuffer->setCullMode(backend::CullMode::NONE);
 
         _bindGroup.setTexture("texture", 0, _texture);
-        _bindGroup.setUniform("transform", _transform1.m, sizeof(_transform1.m));
+        _bindGroup.setVertexUniform(_transformLocation, "transform", _transform1.m, sizeof(_transform1.m));
         _commandBuffer->setBindGroup(&_bindGroup);
 
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);

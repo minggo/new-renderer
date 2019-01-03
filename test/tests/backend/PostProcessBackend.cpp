@@ -28,6 +28,7 @@
 #include "PostProcessBackend.h"
 #include "BunnyData.h"
 #include "../Utils.h"
+#include "backend/Program.h"
 
 using namespace cocos2d;
 
@@ -93,9 +94,8 @@ namespace
             
             auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule = fs;
-            
+            renderPipelineDescriptor.program = device->createProgram(vs, fs);
+
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
             vertexLayout.setLayout(2 * sizeof(float), backend::VertexStepMode::VERTEX);
@@ -163,8 +163,12 @@ namespace
             
             auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule = fs;
+            
+            renderPipelineDescriptor.program = device->createProgram(vs, fs);
+            _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
+            _viewLocation = renderPipelineDescriptor.program->getUniformLocation("view");
+            _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
+            _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32B32, 0);
@@ -197,9 +201,19 @@ namespace
             CC_SAFE_RELEASE(_renderPipeline);
         }
         
+        inline int getModelLocaiton() const { return _modelLocation; }
+        inline int getViewLocaiton() const { return _viewLocation; }
+        inline int getProjectionLocaiton() const { return _projectionLocation; }
+        inline int getColorLocaiton() const { return _colorLocation; }
+        
         backend::Buffer* _vertexBuffer = nullptr;
         backend::Buffer* _indexBuffer = nullptr;
         backend::RenderPipeline* _renderPipeline = nullptr;
+        
+        int _modelLocation = -1;
+        int _viewLocation = -1;
+        int _projectionLocation = -1;
+        int _colorLocation = -1;
     };
     
     Bunny* bunny = nullptr;
@@ -290,11 +304,11 @@ void PostProcessBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, bunny->_vertexBuffer);
     _commandBuffer->setIndexBuffer(bunny->_indexBuffer);
     
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroup.setVertexUniform(bunny->getModelLocaiton(), "model", _model.m, sizeof(_model.m));
+    _bindGroup.setVertexUniform(bunny->getViewLocaiton(), "view", _view.m, sizeof(_view.m));
+    _bindGroup.setVertexUniform(bunny->getProjectionLocaiton(), "projection", _projection.m, sizeof(_projection.m));
     float color[4] = {0.1f, 0.1f, 0.1f, 1};
-    _bindGroup.setUniform("color", color, sizeof(color));
+    _bindGroup.setFragmentUniform(bunny->getColorLocaiton(), "color", color, sizeof(color));
     _commandBuffer->setBindGroup(&_bindGroup);
     
     _commandBuffer->drawElements(backend::PrimitiveType::TRIANGLE,
@@ -311,11 +325,11 @@ void PostProcessBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, bunny->_vertexBuffer);
     _commandBuffer->setIndexBuffer(bunny->_indexBuffer);
     
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    _bindGroup.setVertexUniform(bunny->getModelLocaiton(), "model", _model.m, sizeof(_model.m));
+    _bindGroup.setVertexUniform(bunny->getViewLocaiton(), "view", _view.m, sizeof(_view.m));
+    _bindGroup.setVertexUniform(bunny->getProjectionLocaiton(), "projection", _projection.m, sizeof(_projection.m));
     float color2[4] = {0.3f, 0.3f, 0.3f, 1};
-    _bindGroup.setUniform("color", color2 , sizeof(color2));
+    _bindGroup.setFragmentUniform(bunny->getColorLocaiton(), "color", color2 , sizeof(color2));
     _commandBuffer->setBindGroup(&_bindGroup);
     
     _commandBuffer->drawElements(backend::PrimitiveType::TRIANGLE,

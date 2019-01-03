@@ -69,8 +69,9 @@ MultiTexturesBackend::MultiTexturesBackend()
     
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    _transformLocation = renderPipelineDescriptor.program->getUniformLocation("transform");
+    _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
     
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -142,8 +143,8 @@ void MultiTexturesBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     
     float color[4] = {1.f, 0, 0, 1.f};
-    _bindGroup.setUniform("color", color, sizeof(color));
-    _bindGroup.setUniform("transform", _transform.m, sizeof(_transform.m));
+    _bindGroup.setFragmentUniform(_colorLocation, "color", color, sizeof(color));
+    _bindGroup.setVertexUniform(_transformLocation, "transform", _transform.m, sizeof(_transform.m));
 //    _bindGroup.setTextureArray("texture", {6, 7}, {_background, _texture1});
     _bindGroup.setTexture("texture1", 6, _background);
     _bindGroup.setTexture("texture2", 7, _texture1);

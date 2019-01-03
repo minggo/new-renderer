@@ -25,6 +25,7 @@
 #include "SubImageBackend.h"
 #include "cocos2d.h"
 #include "../Utils.h"
+#include "backend/Program.h"
 
 #include <vector>
 
@@ -62,8 +63,9 @@ SubImageBackend::SubImageBackend()
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
     auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    _transformLocation = renderPipelineDescriptor.program->getUniformLocation("transform");
+    _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
     
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
@@ -135,8 +137,8 @@ void SubImageBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     
     float color[4] = {1, 0, 0, 1};
-    _bindGroup.setUniform("color", color, sizeof(color));
-    _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
+    _bindGroup.setFragmentUniform(_colorLocation, "color", color, sizeof(color));
+    _bindGroup.setVertexUniform(_transformLocation, "transform", _transform0.m, sizeof(_transform0.m));
     _bindGroup.setTexture("texture", 0, _texture);
     _commandBuffer->setBindGroup(&_bindGroup);
     

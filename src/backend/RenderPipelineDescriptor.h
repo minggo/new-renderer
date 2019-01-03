@@ -11,9 +11,11 @@ CC_BACKEND_BEGIN
 class ShaderModule;
 class DepthStencilState;
 class BlendState;
+class Program;
 
 struct RenderPipelineDescriptor
 {
+    Program* program = nullptr;
     ShaderModule* vertexShaderModule = nullptr;
     ShaderModule* fragmentShaderModule = nullptr;
     DepthStencilState* depthStencilState = nullptr;
