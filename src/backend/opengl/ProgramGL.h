@@ -38,8 +38,6 @@ public:
     typedef std::vector<AttributeInfo> VertexAttributeArray;
     
     ProgramGL(ShaderModule* vs, ShaderModule* fs);
-    
-    ProgramGL(const RenderPipelineDescriptor& descriptor);
     ~ProgramGL();
     
     inline const std::vector<VertexAttributeArray>& getAttributeInfos() const { return _attributeInfos; }

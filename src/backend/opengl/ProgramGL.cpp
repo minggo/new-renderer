@@ -69,21 +69,6 @@ ProgramGL::ProgramGL(ShaderModule* vs, ShaderModule* fs)
     computeUniformInfos();
 }
 
-ProgramGL::ProgramGL(const RenderPipelineDescriptor& descriptor)
-:Program(descriptor.vertexShaderModule, descriptor.fragmentShaderModule)
-, _vertexShaderModule(static_cast<ShaderModuleGL*>(descriptor.vertexShaderModule))
-, _fragmentShaderModule(static_cast<ShaderModuleGL*>(descriptor.fragmentShaderModule))
-{
-    assert(_vertexShaderModule != nullptr && _fragmentShaderModule != nullptr);
-    
-    CC_SAFE_RETAIN(_vertexShaderModule);
-    CC_SAFE_RETAIN(_fragmentShaderModule);
-    
-    compileProgram();
-    computeAttributeInfos(descriptor);
-    computeUniformInfos();
-}
-
 ProgramGL::~ProgramGL()
 {
     CC_SAFE_RELEASE(_vertexShaderModule);

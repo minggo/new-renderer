@@ -16,8 +16,6 @@ class Program;
 struct RenderPipelineDescriptor
 {
     Program* program = nullptr;
-    ShaderModule* vertexShaderModule = nullptr;
-    ShaderModule* fragmentShaderModule = nullptr;
     DepthStencilState* depthStencilState = nullptr;
     BlendState* blendState = nullptr;
     std::vector<VertexLayout> vertexLayouts;
