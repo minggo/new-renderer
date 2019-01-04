@@ -112,14 +112,14 @@ namespace
 
 ProgramGL::ProgramGL(ShaderModule* vs, ShaderModule* fs)
 :Program(vs, fs)
+,_vertexShaderModule(static_cast<ShaderModuleGL*>(vs))
+,_fragmentShaderModule(static_cast<ShaderModuleGL*>(fs))
 {
-    if(_vertexShaderModule == vs && _fragmentShaderModule == fs)
-        return;
-    
-    _vertexShaderModule = (static_cast<ShaderModuleGL*>(vs));
-    _fragmentShaderModule = (static_cast<ShaderModuleGL*>(fs));
     CC_SAFE_RETAIN(_vertexShaderModule);
     CC_SAFE_RETAIN(_fragmentShaderModule);
+    
+    if(_vertexShaderModule == vs && _fragmentShaderModule == fs)
+        return;
     
     createProgram();
     computeUniformInfos();
