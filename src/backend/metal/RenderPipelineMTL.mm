@@ -67,7 +67,8 @@ namespace
 }
 
 RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipelineDescriptor& descriptor)
-: _mtlDevice(mtlDevice)
+: RenderPipeline(descriptor.program)
+, _mtlDevice(mtlDevice)
 {
     _mtlRenderPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
     
@@ -139,11 +140,13 @@ void RenderPipelineMTL::setShaderModules(const RenderPipelineDescriptor& descrip
     _mtlRenderPipelineDescriptor.vertexFunction = vertexShaderModule->getMTLFunction();
     _vertexUniformBuffer = vertexShaderModule->getUniformBuffer();
     _vertexTextures = vertexShaderModule->getTextures();
+    _vertexUniformBufferSize = vertexShaderModule->getUniformBufferSize();
     
     auto fragShaderModule = static_cast<ShaderModuleMTL*>(descriptor.program->getFragmentShader());
     _mtlRenderPipelineDescriptor.fragmentFunction = fragShaderModule->getMTLFunction();
     _fragementUniformBuffer = fragShaderModule->getUniformBuffer();
     _fragmentTextures = fragShaderModule->getTextures();
+    _fragUniformBufferSize = fragShaderModule->getUniformBufferSize();
 }
 
 void RenderPipelineMTL::setBlendStateAndFormat(const RenderPipelineDescriptor& descriptor)

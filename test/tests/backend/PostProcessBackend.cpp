@@ -115,6 +115,8 @@ namespace
             CC_SAFE_RELEASE(_renderPipeline);
         }
         
+        inline cocos2d::backend::Program* getProgram() { return _renderPipeline->getProgram(); }
+        
         backend::Buffer* _vertexBuffer = nullptr;
         backend::RenderPipeline* _renderPipeline = nullptr;
     };
@@ -205,6 +207,7 @@ namespace
         inline int getViewLocaiton() const { return _viewLocation; }
         inline int getProjectionLocaiton() const { return _projectionLocation; }
         inline int getColorLocaiton() const { return _colorLocation; }
+        inline backend::Program* getProgram() { return _renderPipeline->getProgram(); }
         
         backend::Buffer* _vertexBuffer = nullptr;
         backend::Buffer* _indexBuffer = nullptr;
@@ -223,6 +226,9 @@ namespace
 PostProcessBackend::PostProcessBackend()
 : _t(0.0f)
 {
+    bunny = new Bunny();
+    bg = new BigTriangle();
+    
     auto device = backend::Device::getInstance();
     
     backend::TextureDescriptor textureDescriptor;
@@ -263,9 +269,6 @@ PostProcessBackend::PostProcessBackend()
     _renderPassDescriptorBg.needDepthAttachment = true;
     
     _commandBuffer = device->newCommandBuffer();
-    
-    bunny = new Bunny();
-    bg = new BigTriangle();
 }
 
 PostProcessBackend::~PostProcessBackend()
@@ -304,13 +307,11 @@ void PostProcessBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, bunny->_vertexBuffer);
     _commandBuffer->setIndexBuffer(bunny->_indexBuffer);
     
-    _bindGroup.setVertexUniform(bunny->getModelLocaiton(), "model", _model.m, sizeof(_model.m));
-    _bindGroup.setVertexUniform(bunny->getViewLocaiton(), "view", _view.m, sizeof(_view.m));
-    _bindGroup.setVertexUniform(bunny->getProjectionLocaiton(), "projection", _projection.m, sizeof(_projection.m));
+    bunny->getProgram()->setVertexUniform(bunny->getModelLocaiton(), _model.m, sizeof(_model.m));
+    bunny->getProgram()->setVertexUniform(bunny->getViewLocaiton(), _view.m, sizeof(_view.m));
+    bunny->getProgram()->setVertexUniform(bunny->getProjectionLocaiton(), _projection.m, sizeof(_projection.m));
     float color[4] = {0.1f, 0.1f, 0.1f, 1};
-    _bindGroup.setFragmentUniform(bunny->getColorLocaiton(), "color", color, sizeof(color));
-    _commandBuffer->setBindGroup(&_bindGroup);
-    
+    bunny->getProgram()->setFragmentUniform(bunny->getColorLocaiton(), color, sizeof(color));
     _commandBuffer->drawElements(backend::PrimitiveType::TRIANGLE,
                                  backend::IndexFormat::U_SHORT,
                                  sizeof(bunny_cells) / sizeof(bunny_cells[0]));
@@ -325,12 +326,11 @@ void PostProcessBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, bunny->_vertexBuffer);
     _commandBuffer->setIndexBuffer(bunny->_indexBuffer);
     
-    _bindGroup.setVertexUniform(bunny->getModelLocaiton(), "model", _model.m, sizeof(_model.m));
-    _bindGroup.setVertexUniform(bunny->getViewLocaiton(), "view", _view.m, sizeof(_view.m));
-    _bindGroup.setVertexUniform(bunny->getProjectionLocaiton(), "projection", _projection.m, sizeof(_projection.m));
+    bunny->getProgram()->setVertexUniform(bunny->getModelLocaiton(), _model.m, sizeof(_model.m));
+    bunny->getProgram()->setVertexUniform(bunny->getViewLocaiton(), _view.m, sizeof(_view.m));
+    bunny->getProgram()->setVertexUniform(bunny->getProjectionLocaiton(), _projection.m, sizeof(_projection.m));
     float color2[4] = {0.3f, 0.3f, 0.3f, 1};
-    _bindGroup.setFragmentUniform(bunny->getColorLocaiton(), "color", color2 , sizeof(color2));
-    _commandBuffer->setBindGroup(&_bindGroup);
+    bunny->getProgram()->setFragmentUniform(bunny->getColorLocaiton(), color2 , sizeof(color2));
     
     _commandBuffer->drawElements(backend::PrimitiveType::TRIANGLE,
                                  backend::IndexFormat::U_SHORT,
@@ -340,10 +340,7 @@ void PostProcessBackend::tick(float dt)
     
     // Draw bg.
     _commandBuffer->beginRenderPass(_renderPassDescriptorBg);
-    
-    _bindGroup.setTexture("texture", 0, _colorTexture);
-    _commandBuffer->setBindGroup(&_bindGroup);
-    
+    bg->getProgram()->setTexture("texture", 0, _colorTexture);
     _commandBuffer->setRenderPipeline(bg->_renderPipeline);
     _commandBuffer->setVertexBuffer(0, bg->_vertexBuffer);
     _commandBuffer->drawArrays(backend::PrimitiveType::TRIANGLE, 0, 3);

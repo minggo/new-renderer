@@ -41,7 +41,6 @@ private:
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::Texture* _texture = nullptr;
-    cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
 
     cocos2d::Mat4 _transform0;
@@ -49,9 +48,6 @@ private:
     uint8_t* _data;
     size_t _dataSize;
     size_t _updatePixelIndex;
-    
-    int _transformLocation = -1;
-    int _colorLocation = -1;
 };
 
 

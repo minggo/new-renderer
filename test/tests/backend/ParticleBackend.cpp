@@ -131,6 +131,7 @@ ParticleBackend::ParticleBackend()
     textureDescriptor.samplerDescriptor.mipmapEnabled = true;
     _texture = device->newTexture(textureDescriptor);
     _texture->updateData(imageData.getBytes());
+    _renderPipelineWithBlend->getProgram()->setTexture("u_texture", 0, _texture);
     
     _commandBuffer = device->newCommandBuffer();
     _vertexBuffer = device->newBuffer(sizeof(_vbufferArray), backend::BufferType::VERTEX, backend::BufferUsage::READ);
@@ -227,12 +228,10 @@ void ParticleBackend::tick(float dt)
         }
     }
     _vertexBuffer->updateData(_vbufferArray, sizeof(_vbufferArray));
-    
-    _bindGroup.setVertexUniform(_modelLocation, "model", _model.m, sizeof(_model.m));
-    _bindGroup.setVertexUniform(_viewLocation, "view", _view.m, sizeof(_view.m));
-    _bindGroup.setVertexUniform(_projectionLocation, "projection", _projection.m, sizeof(_projection.m));
-    _bindGroup.setTexture("u_texture", 0, _texture);
-    _commandBuffer->setBindGroup(&_bindGroup);
+    auto program = _renderPipelineWithBlend->getProgram();
+    program->setVertexUniform(_modelLocation, _model.m, sizeof(_model.m));
+    program->setVertexUniform(_viewLocation, _view.m, sizeof(_view.m));
+    program->setVertexUniform(_projectionLocation, _projection.m, sizeof(_projection.m));
     
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     _commandBuffer->setIndexBuffer(_indexBuffer);

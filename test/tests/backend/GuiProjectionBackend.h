@@ -41,7 +41,6 @@ private:
     cocos2d::backend::Texture *_texture = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
-    cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
     
     uint32_t _vertexBufferElementCount = 0;

@@ -29,7 +29,6 @@
 #include "backend/Buffer.h"
 #include "backend/CommandBuffer.h"
 #include "backend/DepthStencilState.h"
-#include "backend/BindGroup.h"
 
 #include "math/Mat4.h"
 
@@ -46,7 +45,6 @@ private:
     cocos2d::backend::Buffer* _indexBuffer = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
-    cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
 
     cocos2d::Mat4 _model;

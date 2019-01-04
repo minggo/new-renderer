@@ -4,7 +4,7 @@
 #include "RenderPipelineMTL.h"
 #include "TextureMTL.h"
 #include "Utils.h"
-#include "../BindGroup.h"
+#include "ProgramMTL.h"
 
 CC_BACKEND_BEGIN
 
@@ -196,13 +196,6 @@ void CommandBufferMTL::setVertexBuffer(uint32_t index, Buffer* buffer)
                                atIndex:0];
 }
 
-void CommandBufferMTL::setBindGroup(BindGroup* bindGroup)
-{
-    CC_SAFE_RETAIN(bindGroup);
-    CC_SAFE_RELEASE(_bindGroup);
-    _bindGroup = bindGroup;
-}
-
 void CommandBufferMTL::setIndexBuffer(Buffer* buffer)
 {
     assert(buffer != nullptr);
@@ -254,7 +247,6 @@ void CommandBufferMTL::afterDraw()
         _mtlIndexBuffer = nullptr;
     }
     
-    CC_SAFE_RELEASE_NULL(_bindGroup);
 }
 
 void CommandBufferMTL::prepareDrawing() const
@@ -273,7 +265,7 @@ void CommandBufferMTL::prepareDrawing() const
 
 void CommandBufferMTL::setTextures() const
 {
-    if (_bindGroup)
+    if (_renderPipelineMTL->getProgram())
     {
         doSetTextures(_renderPipelineMTL->getVertexTextures(), true);
         doSetTextures(_renderPipelineMTL->getFragmentTextures(), false);
@@ -282,7 +274,7 @@ void CommandBufferMTL::setTextures() const
 
 void CommandBufferMTL::doSetTextures(const std::vector<std::string>& textures, bool isVertex) const
 {
-    const auto& bindTextureInfos = _bindGroup->getTextureInfos();
+    const auto& bindTextureInfos = _renderPipelineMTL->getProgram()->getTextureInfos();
     int i = 0;
     for (const auto& texture : textures)
     {
@@ -315,40 +307,26 @@ void CommandBufferMTL::doSetTextures(const std::vector<std::string>& textures, b
 
 void CommandBufferMTL::setUniformBuffer() const
 {
-    if (_bindGroup)
+    if (_renderPipelineMTL->getProgram())
     {
         // Uniform buffer is bound to index 1.
         const auto& vertexUniformBuffer = _renderPipelineMTL->getVertexUniformBuffer();
-        const auto& vertexUniformInfo = _bindGroup->getVertexUniformInfos();
         if (vertexUniformBuffer)
         {
-            uint32_t size = fillUniformBuffer(vertexUniformBuffer.get(), vertexUniformInfo);
+            auto size = _renderPipelineMTL->getVertexUniformBufferSize();
             [_mtlRenderEncoder setVertexBytes:vertexUniformBuffer.get()
                                        length:size atIndex:1];
         }
         
         const auto& fragUniformBuffer = _renderPipelineMTL->getFragmentUniformBuffer();
-        const auto& fragUniformInfo = _bindGroup->getFragUniformInfos();
         if (fragUniformBuffer)
         {
-            uint32_t size = fillUniformBuffer(fragUniformBuffer.get(), fragUniformInfo);
+            auto size = _renderPipelineMTL->getFragUniformBufferSize();
             [_mtlRenderEncoder setFragmentBytes:fragUniformBuffer.get()
                                          length:size
                                         atIndex:1];
         }
     }
-}
-
-uint32_t CommandBufferMTL::fillUniformBuffer(uint8_t* buffer, const std::unordered_map<int, BindGroup::UniformInfo>& unifornInfo) const
-{
-    uint32_t offset = 0;
-    for(const auto& iter : unifornInfo)
-    {
-        const auto& bindUniformInfo = iter.second;
-        memcpy(buffer + iter.first, bindUniformInfo.data, bindUniformInfo.size);
-        offset += bindUniformInfo.size;
-    }
-    return offset;
 }
 
 CC_BACKEND_END

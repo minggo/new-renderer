@@ -42,7 +42,6 @@ private:
     cocos2d::backend::RenderPipeline* _renderPipelineWithBlend = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::Texture* _texture = nullptr;
-    cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
     
     cocos2d::Mat4 _model;

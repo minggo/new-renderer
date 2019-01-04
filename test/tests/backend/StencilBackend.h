@@ -45,7 +45,6 @@ private:
     cocos2d::backend::Buffer* _vertexBuffer = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
-    cocos2d::backend::BindGroup _bindGroup;
     
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipelineCavasTexture = nullptr;

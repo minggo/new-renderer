@@ -29,6 +29,7 @@ struct UniformInfo
     GLuint location = 0;
     GLenum type = GL_FLOAT;
     bool isArray = false;
+    std::shared_ptr<uint8_t> buffer = nullptr;
 };
 
 
@@ -40,13 +41,21 @@ public:
     ProgramGL(ShaderModule* vs, ShaderModule* fs);
     ~ProgramGL();
     
+    virtual void setVertexUniform(int location, void* data, uint32_t size) override;
+    virtual void setFragmentUniform(int location, void* data, uint32_t size) override;
+   
     inline const std::vector<VertexAttributeArray>& getAttributeInfos() const { return _attributeInfos; }
     inline const std::vector<UniformInfo>& getUniformInfos() const { return _uniformInfos; }
     inline GLuint getHandler() const { return _program; }
     void computeAttributeInfos(const RenderPipelineDescriptor& descriptor);
     virtual int getUniformLocation(const std::string& uniform) override;
+    
+protected:
+    void setUniform(int location, void* data, uint32_t size);
+    void setUniform(bool isArray, GLuint location, uint32_t size, GLenum uniformType, void* data) const;
+    
 private:
-    void compileProgram();
+    void createProgram();
 //    void computeAttributeInfos(const RenderPipelineDescriptor& descriptor);
     bool getAttributeLocation(const std::string& attributeName, uint32_t& location);
     void computeUniformInfos();

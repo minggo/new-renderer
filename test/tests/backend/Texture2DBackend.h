@@ -28,7 +28,6 @@
 #include "backend/Buffer.h"
 #include "backend/Texture.h"
 #include "backend/RenderPipeline.h"
-#include "backend/BindGroup.h"
 #include "backend/CommandBuffer.h"
 
 #include "math/Mat4.h"
@@ -50,8 +49,6 @@ private:
     cocos2d::backend::Texture* _canvasTexture = nullptr;
     cocos2d::backend::Texture* _texture = nullptr;
     
-    cocos2d::backend::BindGroup _bindGroupCanvas;
-    cocos2d::backend::BindGroup _bindGroupdTexture;
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;

@@ -94,6 +94,7 @@ MultiTexturesBackend::MultiTexturesBackend()
     textureDescriptor1.textureFormat = backend::TextureFormat::R8G8B8;
     _texture1 = device->newTexture(textureDescriptor1);
     _texture1->updateData(utils::loadData("assets/uv_checker_01.jpg").getBytes());
+    _renderPipeline->getProgram()->setTexture("texture2", 7, _texture1);
     
     int dataSize = 512 * 512 * 3;
     uint8_t data[dataSize];
@@ -109,7 +110,8 @@ MultiTexturesBackend::MultiTexturesBackend()
     textureDescriptor2.textureFormat = backend::TextureFormat::R8G8B8;
     _background = device->newTexture(textureDescriptor2);
     _background->updateData(data);
-    
+    _renderPipeline->getProgram()->setTexture("texture1", 6, _background);
+
     _transform = cocos2d::Mat4::IDENTITY;
     _transform.translate(0, 0, 0);
     _transform.scale(0.5, 0.5, 0.5);
@@ -143,12 +145,9 @@ void MultiTexturesBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     
     float color[4] = {1.f, 0, 0, 1.f};
-    _bindGroup.setFragmentUniform(_colorLocation, "color", color, sizeof(color));
-    _bindGroup.setVertexUniform(_transformLocation, "transform", _transform.m, sizeof(_transform.m));
-//    _bindGroup.setTextureArray("texture", {6, 7}, {_background, _texture1});
-    _bindGroup.setTexture("texture1", 6, _background);
-    _bindGroup.setTexture("texture2", 7, _texture1);
-    _commandBuffer->setBindGroup(&_bindGroup);
+    auto program = _renderPipeline->getProgram();
+    program->setFragmentUniform(_colorLocation, color, sizeof(color));
+    program->setVertexUniform(_transformLocation, _transform.m, sizeof(_transform.m));
     
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);

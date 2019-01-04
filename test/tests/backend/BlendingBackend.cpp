@@ -169,6 +169,7 @@ namespace
 
         inline int getModelLocation() const { return _modelLocation; }
         inline int getProjectionLocation() const { return _projectionLocation; }
+        inline backend::Program* getProgram() { return renderPipelineNoBlending->getProgram(); }
         
         backend::RenderPipeline* renderPipelineNoBlending = nullptr;
         backend::RenderPipeline* renderPipelineNormal = nullptr;
@@ -247,6 +248,7 @@ namespace
         }
         
         inline int getTimeLocation() const { return _timeLocation; }
+        inline backend::Program* getProgram() { return renderPipeline->getProgram(); }
         
         backend::RenderPipeline* renderPipeline = nullptr;
         backend::Buffer* vertexBuffer = nullptr;
@@ -293,6 +295,7 @@ BlendingBackend::BlendingBackend()
     textureDescriptorBackgroud.textureFormat = backend::TextureFormat::R8G8B8A8;
     _backgroud = device->newTexture(textureDescriptorBackgroud);
     _backgroud->updateData(utils::loadData("assets/background.png").getBytes());
+    bigTriangle->getProgram()->setTexture("texture", 0, _backgroud);
     
     backend::TextureDescriptor textureDescriptorSprite0;
     textureDescriptorSprite0.width = 128;
@@ -300,6 +303,7 @@ BlendingBackend::BlendingBackend()
     textureDescriptorSprite0.textureFormat = backend::TextureFormat::R8G8B8A8;
     _sprite0 = device->newTexture(textureDescriptorSprite0);
     _sprite0->updateData(utils::loadData("assets/sprite0.png").getBytes());
+    quad->getProgram()->setTexture("texture", 0, _sprite0);
     
     _commandBuffer = device->newCommandBuffer();
     
@@ -340,9 +344,7 @@ void BlendingBackend::tick(float dt)
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(bigTriangle->renderPipeline);
     
-    _bindGroupBigTriangle.setFragmentUniform(bigTriangle->getTimeLocation(), "time", &_dt, sizeof(_dt));
-    _bindGroupBigTriangle.setTexture("texture", 0, _backgroud);
-    _commandBuffer->setBindGroup(&_bindGroupBigTriangle);
+    bigTriangle->getProgram()->setFragmentUniform(bigTriangle->getTimeLocation(), &_dt, sizeof(_dt));
     
     _commandBuffer->setVertexBuffer(0, bigTriangle->vertexBuffer);
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 3);
@@ -363,10 +365,9 @@ void BlendingBackend::tick(float dt)
     float offsetX = 5.f + hsize;
     float offsetY = 5.f + hsize;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
-    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
-    _bindGroup.setTexture("texture", 0, _sprite0);
-    _commandBuffer->setBindGroup(&_bindGroup);
+    auto programQuad = quad->getProgram();
+    programQuad->setVertexUniform(quad->getModelLocation(), _model.m, sizeof(_model.m));
+    programQuad->setVertexUniform(quad->getProjectionLocation(), _projection.m, sizeof(_projection.m));
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
     _commandBuffer->setIndexBuffer(quad->indexBuffer);
@@ -382,10 +383,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
-    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
-    _bindGroup.setTexture("texture", 0, _sprite0);
-    _commandBuffer->setBindGroup(&_bindGroup);
+    programQuad->setVertexUniform(quad->getModelLocation(), _model.m, sizeof(_model.m));
+    programQuad->setVertexUniform(quad->getProjectionLocation(), _projection.m, sizeof(_projection.m));
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
     _commandBuffer->setIndexBuffer(quad->indexBuffer);
@@ -401,10 +400,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
-    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
-    _bindGroup.setTexture("texture", 0, _sprite0);
-    _commandBuffer->setBindGroup(&_bindGroup);
+    programQuad->setVertexUniform(quad->getModelLocation(), _model.m, sizeof(_model.m));
+    programQuad->setVertexUniform(quad->getProjectionLocation(), _projection.m, sizeof(_projection.m));
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
     _commandBuffer->setIndexBuffer(quad->indexBuffer);
@@ -420,10 +417,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
-    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
-    _bindGroup.setTexture("texture", 0, _sprite0);
-    _commandBuffer->setBindGroup(&_bindGroup);
+    programQuad->setVertexUniform(quad->getModelLocation(), _model.m, sizeof(_model.m));
+    programQuad->setVertexUniform(quad->getProjectionLocation(), _projection.m, sizeof(_projection.m));
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
     _commandBuffer->setIndexBuffer(quad->indexBuffer);
@@ -439,10 +434,8 @@ void BlendingBackend::tick(float dt)
     
     offsetY = offsetY + 5.f + size;
     _model = std::move(createModel(cocos2d::Vec3(offsetX, offsetY, 0), cocos2d::Vec3(size, size, 0)));
-    _bindGroup.setVertexUniform(quad->getModelLocation(), "model", _model.m, sizeof(_model.m));
-    _bindGroup.setVertexUniform(quad->getProjectionLocation(), "projection", _projection.m, sizeof(_projection.m));
-    _bindGroup.setTexture("texture", 0, _sprite0);
-    _commandBuffer->setBindGroup(&_bindGroup);
+    programQuad->setVertexUniform(quad->getModelLocation(), _model.m, sizeof(_model.m));
+    programQuad->setVertexUniform(quad->getProjectionLocation(), _projection.m, sizeof(_projection.m));
     
     _commandBuffer->setVertexBuffer(0, quad->vertexBuffer);
     _commandBuffer->setIndexBuffer(quad->indexBuffer);

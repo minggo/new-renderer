@@ -1,6 +1,10 @@
 #include "ProgramGL.h"
 #include "ShaderModuleGL.h"
 #include "ccMacros.h"
+#include "TextureGL.h"
+#include <string>
+#include <vector>
+#include <memory>
 
 CC_BACKEND_BEGIN
 
@@ -55,17 +59,69 @@ namespace
         }
         return ret;
     }
+    
+    GLsizei getUniformSize(GLenum size)
+    {
+        GLsizei ret = 0;
+        switch (size)
+        {
+            case GL_BOOL:
+            case GL_BYTE:
+            case GL_UNSIGNED_BYTE:
+                ret = sizeof(GLbyte);
+                break;
+            case GL_BOOL_VEC2:
+            case GL_SHORT:
+            case GL_UNSIGNED_SHORT:
+                ret = sizeof(GLshort);
+                break;
+            case GL_BOOL_VEC3:
+                ret = sizeof(GLboolean);
+                break;
+            case GL_BOOL_VEC4:
+            case GL_INT:
+            case GL_UNSIGNED_INT:
+            case GL_FLOAT:
+                ret = sizeof(GLfloat);
+                break;
+            case GL_FLOAT_VEC2:
+            case GL_INT_VEC2:
+                ret = sizeof(GLfloat) * 2;
+                break;
+            case GL_FLOAT_VEC3:
+            case GL_INT_VEC3:
+                ret = sizeof(GLfloat) * 3;
+                break;
+            case GL_FLOAT_MAT2:
+            case GL_FLOAT_VEC4:
+            case GL_INT_VEC4:
+                ret = sizeof(GLfloat) * 4;
+                break;
+            case GL_FLOAT_MAT3:
+                ret = sizeof(GLfloat) * 9;
+                break;
+            case GL_FLOAT_MAT4:
+                ret = sizeof(GLfloat) * 16;
+                break;
+            default:
+                break;
+        }
+        return ret;
+    }
 }
 
 ProgramGL::ProgramGL(ShaderModule* vs, ShaderModule* fs)
 :Program(vs, fs)
 {
+    if(_vertexShaderModule == vs && _fragmentShaderModule == fs)
+        return;
+    
     _vertexShaderModule = (static_cast<ShaderModuleGL*>(vs));
     _fragmentShaderModule = (static_cast<ShaderModuleGL*>(fs));
     CC_SAFE_RETAIN(_vertexShaderModule);
     CC_SAFE_RETAIN(_fragmentShaderModule);
     
-    compileProgram();
+    createProgram();
     computeUniformInfos();
 }
 
@@ -77,7 +133,7 @@ ProgramGL::~ProgramGL()
         glDeleteProgram(_program);
 }
 
-void ProgramGL::compileProgram()
+void ProgramGL::createProgram()
 {
     if (_vertexShaderModule == nullptr || _fragmentShaderModule == nullptr)
         return;
@@ -179,6 +235,13 @@ void ProgramGL::computeUniformInfos()
             }
         }
         
+        if (uniform.size > 0)
+        {
+            auto bufferSize = uniform.size * getUniformSize(uniform.type);
+            std::shared_ptr<uint8_t> sp(new uint8_t[bufferSize], [](uint8_t *p) { delete[] p; });
+            uniform.buffer = sp;
+        }
+        
         uniform.name = uniformName;
         uniform.location = glGetUniformLocation(_program, uniformName);
         
@@ -191,5 +254,128 @@ int ProgramGL::getUniformLocation(const std::string& uniform)
 {
     return glGetUniformLocation(_program, uniform.c_str());
 }
+
+void ProgramGL::setVertexUniform(int location, void* data, uint32_t size)
+{
+    setUniform(location, data, size);
+}
+
+void ProgramGL::setFragmentUniform(int location, void* data, uint32_t size)
+{
+    setUniform(location, data, size);
+}
+
+void ProgramGL::setUniform(int location, void* data, uint32_t size)
+{
+    if(location < 0)
+        return;
+    
+    glUseProgram(_program);
+    for(const auto& uniforn : _uniformInfos)
+    {
+        if(uniforn.location == location)
+        {
+            memcpy(uniforn.buffer.get(), data, size);
+            setUniform(uniforn.isArray, uniforn.location, uniforn.size, uniforn.type, uniforn.buffer.get());
+            break;
+        }
+    }
+    glUseProgram(0);
+}
+
+#define DEF_TO_INT(pointer, index)     (*((GLint*)(pointer) + index))
+#define DEF_TO_FLOAT(pointer, index)   (*((GLfloat*)(pointer) + index))
+void ProgramGL::setUniform(bool isArray, GLuint location, uint32_t size, GLenum uniformType, void* data) const
+{
+    GLsizei count = size;
+    switch (uniformType)
+    {
+        case GL_INT:
+        case GL_BOOL:
+        case GL_SAMPLER_2D:
+        case GL_SAMPLER_CUBE:
+            if (isArray)
+                glUniform1iv(location, count, (GLint*)data);
+            else
+            {
+                glUniform1i(location, DEF_TO_INT(data, 0));
+                cocos2d::log("TextureID = %d\n", DEF_TO_INT(data, 0));
+            }
+            break;
+        case GL_INT_VEC2:
+        case GL_BOOL_VEC2:
+            if (isArray)
+                glUniform2iv(location, count, (GLint*)data);
+            else
+                glUniform2i(location, DEF_TO_INT(data, 0), DEF_TO_INT(data, 1));
+            break;
+        case GL_INT_VEC3:
+        case GL_BOOL_VEC3:
+            if (isArray)
+                glUniform3iv(location, count, (GLint*)data);
+            else
+                glUniform3i(location,
+                            DEF_TO_INT(data, 0),
+                            DEF_TO_INT(data, 1),
+                            DEF_TO_INT(data, 2));
+            break;
+        case GL_INT_VEC4:
+        case GL_BOOL_VEC4:
+            if (isArray)
+                glUniform4iv(location, count, (GLint*)data);
+            else
+                glUniform4i(location,
+                            DEF_TO_INT(data, 0),
+                            DEF_TO_INT(data, 1),
+                            DEF_TO_INT(data, 2),
+                            DEF_TO_INT(data, 4));
+            break;
+        case GL_FLOAT:
+            if (isArray)
+                glUniform1fv(location, count, (GLfloat*)data);
+            else
+                glUniform1f(location, DEF_TO_FLOAT(data, 0));
+            break;
+        case GL_FLOAT_VEC2:
+            if (isArray)
+                glUniform2fv(location, count, (GLfloat*)data);
+            else
+                glUniform2f(location, DEF_TO_FLOAT(data, 0), DEF_TO_FLOAT(data, 1));
+            break;
+        case GL_FLOAT_VEC3:
+            if (isArray)
+                glUniform3fv(location, count, (GLfloat*)data);
+            else
+                glUniform3f(location,
+                            DEF_TO_FLOAT(data, 0),
+                            DEF_TO_FLOAT(data, 1),
+                            DEF_TO_FLOAT(data, 2));
+            break;
+        case GL_FLOAT_VEC4:
+            if (isArray)
+                glUniform4fv(location, count, (GLfloat*)data);
+            else
+                glUniform4f(location,
+                            DEF_TO_FLOAT(data, 0),
+                            DEF_TO_FLOAT(data, 1),
+                            DEF_TO_FLOAT(data, 2),
+                            DEF_TO_FLOAT(data, 3));
+            break;
+        case GL_FLOAT_MAT2:
+            glUniformMatrix2fv(location, count, GL_FALSE, (GLfloat*)data);
+            break;
+        case GL_FLOAT_MAT3:
+            glUniformMatrix3fv(location, count, GL_FALSE, (GLfloat*)data);
+            break;
+        case GL_FLOAT_MAT4:
+            glUniformMatrix4fv(location, count, GL_FALSE, (GLfloat*)data);
+            break;
+            break;
+            
+        default:
+            break;
+    }
+}
+
 
 CC_BACKEND_END

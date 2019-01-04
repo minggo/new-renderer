@@ -102,11 +102,11 @@ BunnyBackend::BunnyBackend()
     _renderPassDescriptor.needDepthAttachment = true;
     
     // bind group
-    _bindGroup.setVertexUniform(_modelLocation, "model", _model.m, sizeof(_model.m));
+    _renderPipeline->getProgram()->setVertexUniform(_modelLocation, _model.m, sizeof(_model.m));
     Mat4::createPerspective(60.0f, 1.0f * utils::WINDOW_WIDTH / utils::WINDOW_HEIGHT, 0.01f, 1000.0f, &_projection);
-    _bindGroup.setVertexUniform(_projectionLocation, "projection", _projection.m, sizeof(_projection.m));
+    _renderPipeline->getProgram()->setVertexUniform(_projectionLocation, _projection.m, sizeof(_projection.m));
     float color[4] = {0.5f, 0.5f, 0.5f, 1.0f};
-    _bindGroup.setFragmentUniform(_colorLocation, "color", color, sizeof(color));
+    _renderPipeline->getProgram()->setFragmentUniform(_colorLocation, color, sizeof(color));
 
     // vertex buffer
     _vertexBuffer = device->newBuffer(sizeof(bunny_positions),
@@ -136,7 +136,7 @@ void BunnyBackend::tick(float dt)
     _time += dt;
     Mat4::createLookAt(Vec3(30.0f * std::cos(_time), 20.0f, 30.0f * std::sin(_time)), Vec3(0.0f, 2.5f, 0.0f), Vec3(0.0f, 1.0f, 0.f), &_view);
     
-    _bindGroup.setVertexUniform(_viewLocation, "view", _view.m, sizeof(_view.m));
+    _renderPipeline->getProgram()->setVertexUniform(_viewLocation, _view.m, sizeof(_view.m));
     
     _commandBuffer->beginFrame();
     
@@ -145,7 +145,6 @@ void BunnyBackend::tick(float dt)
     _commandBuffer->setRenderPipeline(_renderPipeline);
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     _commandBuffer->setIndexBuffer(_indexBuffer);
-    _commandBuffer->setBindGroup(&_bindGroup);
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_SHORT,
                                  sizeof(bunny_cells) / sizeof(bunny_cells[0]));

@@ -33,4 +33,26 @@ int ProgramMTL::getUniformLocation(const std::string& uniform)
     return -1;
 }
 
+void ProgramMTL::setVertexUniform(int location, void* data, uint32_t size)
+{
+    if(location < 0)
+        return;
+    
+    const auto& vertexUniformBuffer = _vertexShader->getUniformBuffer();
+    fillUniformBuffer(vertexUniformBuffer.get(), location, data, size);
+}
+
+void ProgramMTL::setFragmentUniform(int location, void* data, uint32_t size)
+{
+    if(location < 0)
+        return;
+    
+    const auto& fragUniformBuffer = _fragmentShader->getUniformBuffer();
+    fillUniformBuffer(fragUniformBuffer.get(), location, data, size);
+}
+
+void ProgramMTL::fillUniformBuffer(uint8_t* buffer, uint32_t offset, void* uniformData, uint32_t uniformSize) const
+{
+    memcpy(buffer + offset, uniformData, uniformSize);
+}
 CC_BACKEND_END

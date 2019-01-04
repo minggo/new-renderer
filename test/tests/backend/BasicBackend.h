@@ -29,7 +29,6 @@
 #include "backend/Buffer.h"
 #include "backend/CommandBuffer.h"
 #include "backend/RenderPipeline.h"
-#include "backend/BindGroup.h"
 
 class BasicBackend : public TestBaseI
 {
@@ -43,7 +42,6 @@ private:
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::Buffer* _vertexBuffer = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
-    cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
     int _colorLocation = -1;
     float _time;

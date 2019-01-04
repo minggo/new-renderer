@@ -13,7 +13,6 @@ CC_BACKEND_BEGIN
 class RenderPass;
 class RenderPipeline;
 class Buffer;
-class BindGroup;
 
 class CommandBuffer : public cocos2d::Ref
 {
@@ -24,7 +23,6 @@ public:
     virtual void setViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h) = 0;
     virtual void setCullMode(CullMode mode) = 0;
     virtual void setVertexBuffer(uint32_t index, Buffer* buffer) = 0;
-    virtual void setBindGroup(BindGroup* bindGroup) = 0;
     virtual void setIndexBuffer(Buffer* buffer) = 0;
     virtual void drawArrays(PrimitiveType primitiveType, uint32_t start,  uint32_t count) = 0;
     virtual void drawElements(PrimitiveType primitiveType, IndexFormat indexType, uint32_t count) = 0;

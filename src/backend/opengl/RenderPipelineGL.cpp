@@ -9,6 +9,7 @@
 CC_BACKEND_BEGIN
 
 RenderPipelineGL::RenderPipelineGL(const RenderPipelineDescriptor& descriptor)
+: RenderPipeline(descriptor.program)
 {
     _programGL = static_cast<ProgramGL*>(descriptor.program);
     _programGL->computeAttributeInfos(descriptor);

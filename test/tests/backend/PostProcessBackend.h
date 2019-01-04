@@ -38,7 +38,6 @@ public:
     
 private:
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
-    cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptorBunny1;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptorBunny2;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptorBg;
