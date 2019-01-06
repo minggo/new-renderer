@@ -78,8 +78,9 @@ namespace
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
             renderPipelineDescriptor.program = device->createProgram(vs, fs);
-            _nearLocation = renderPipelineDescriptor.program->getUniformLocation("near");
-            _farLocation = renderPipelineDescriptor.program->getUniformLocation("far");
+            _nearLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("near");
+            _farLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("far");
+            _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -112,6 +113,7 @@ namespace
         
         int _nearLocation = -1;
         int _farLocation = -1;
+        int _textureLocation = -1;
     };
     
     struct Bunny
@@ -157,9 +159,9 @@ namespace
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
             renderPipelineDescriptor.program = device->createProgram(vs, fs);
-            _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
-            _viewLocation = renderPipelineDescriptor.program->getUniformLocation("view");
-            _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
+            _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
+            _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
+            _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
 
             backend::VertexLayout vertexLayout;
             vertexLayout.setLayout(3 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
@@ -234,7 +236,7 @@ DepthTextureBackend::DepthTextureBackend()
     textureDescriptor.samplerDescriptor = samplerDescriptor;
     textureDescriptor.textureFormat = backend::TextureFormat::D24S8;
     _depthTexture = device->newTexture(textureDescriptor);
-    bg->getProgram()->setTexture("texture", 0, _depthTexture);
+    bg->getProgram()->setFragmentTexture(bg->_textureLocation, 0, _depthTexture);
     
     // render pass Bunny 1
     _renderPassBunny1.clearDepthValue = 1;

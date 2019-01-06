@@ -94,7 +94,11 @@ RenderPipeline* DeviceMTL::newRenderPipeline(const RenderPipelineDescriptor& des
 
 Program* DeviceMTL::createProgram(ShaderModule* vs, ShaderModule* fs)
 {
-    return new (std::nothrow) ProgramMTL(vs, fs);
+    auto ret = new (std::nothrow) ProgramMTL(vs, fs);
+    if (ret)
+        ret->autorelease();
+    
+    return ret;
 }
 
 CC_BACKEND_END

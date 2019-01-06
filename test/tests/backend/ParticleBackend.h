@@ -69,5 +69,6 @@ private:
     int _modelLocation = -1;
     int _viewLocation = -1;
     int _projectionLocation = -1;
+    int _textureLocation = -1;
 };
 

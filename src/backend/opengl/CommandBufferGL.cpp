@@ -347,16 +347,18 @@ void CommandBufferGL::setUniforms(ProgramGL* program) const
 {
     if (program)
     {
-        const auto& texutreInfos = program->getTextureInfos();
+        const auto& texutreInfos = program->getFragmentTextureInfos();
         const auto& activeUniformInfos = program->getUniformInfos();
         for (const auto& activeUinform : activeUniformInfos)
         {
             // Bind textures.
-            const auto& bindUniformTextureInfo = texutreInfos.find(activeUinform.name);
-            if (texutreInfos.end() != bindUniformTextureInfo)
+            for(const auto& textureInfo : texutreInfos)
             {
-                const auto& textures = (*bindUniformTextureInfo).second.textures;
-                const auto& indices = (*bindUniformTextureInfo).second.indices;
+                if(activeUinform.location != textureInfo.location)
+                    continue;
+                
+                const auto& textures = textureInfo.textures;
+                const auto& indices = textureInfo.slot;
                 
                 int i = 0;
                 for (const auto& texture: textures)

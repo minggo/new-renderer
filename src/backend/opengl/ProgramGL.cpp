@@ -111,18 +111,26 @@ namespace
 }
 
 ProgramGL::ProgramGL(ShaderModule* vs, ShaderModule* fs)
-:Program(vs, fs)
-,_vertexShaderModule(static_cast<ShaderModuleGL*>(vs))
-,_fragmentShaderModule(static_cast<ShaderModuleGL*>(fs))
 {
+    if(_vertexShaderModule == vs && _fragmentShaderModule == fs)
+    {
+        CC_SAFE_RETAIN(_vertexShaderModule);
+        CC_SAFE_RETAIN(_fragmentShaderModule);
+        return;
+    }
+    
+    _vertexShaderModule = (static_cast<ShaderModuleGL*>(vs));
+    _fragmentShaderModule = (static_cast<ShaderModuleGL*>(fs));
     CC_SAFE_RETAIN(_vertexShaderModule);
     CC_SAFE_RETAIN(_fragmentShaderModule);
     
-    if(_vertexShaderModule == vs && _fragmentShaderModule == fs)
-        return;
-    
     createProgram();
     computeUniformInfos();
+    
+    _vertexTextureInfos.reserve(_maxTextureLocation);
+    _vertexTextureInfos.resize(_maxTextureLocation);
+    _fragTextureInfos.reserve(_maxTextureLocation);
+    _fragTextureInfos.resize(_maxTextureLocation);
 }
 
 ProgramGL::~ProgramGL()
@@ -206,6 +214,19 @@ bool ProgramGL::getAttributeLocation(const std::string& attributeName, uint32_t&
     return true;
 }
 
+void ProgramGL::setMaxTextureLocation(GLenum type, int location)
+{
+    switch (type) {
+        case GL_SAMPLER_2D:
+        case GL_SAMPLER_CUBE:
+            _maxTextureLocation = location < _maxTextureLocation ? _maxTextureLocation : location + 1 ;
+            break;
+            
+        default:
+            break;
+    }
+}
+
 void ProgramGL::computeUniformInfos()
 {
     if (!_program)
@@ -244,13 +265,18 @@ void ProgramGL::computeUniformInfos()
         
         uniform.name = uniformName;
         uniform.location = glGetUniformLocation(_program, uniformName);
-        
+        setMaxTextureLocation(uniform.type, uniform.location);
         _uniformInfos.push_back(uniform);
     }
     free(uniformName);
 }
 
-int ProgramGL::getUniformLocation(const std::string& uniform)
+int ProgramGL::getVertexUniformLocation(const std::string& uniform) const
+{
+    return glGetUniformLocation(_program, uniform.c_str());
+}
+
+int ProgramGL::getFragmentUniformLocation(const std::string& uniform) const
 {
     return glGetUniformLocation(_program, uniform.c_str());
 }

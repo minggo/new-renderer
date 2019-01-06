@@ -70,8 +70,10 @@ MultiTexturesBackend::MultiTexturesBackend()
     auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.program = device->createProgram(vs, fs);
-    _transformLocation = renderPipelineDescriptor.program->getUniformLocation("transform");
-    _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
+    _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");
+    _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
+    _texture1Location = renderPipelineDescriptor.program->getFragmentUniformLocation("texture1");
+    _texture2Location = renderPipelineDescriptor.program->getFragmentUniformLocation("texture2");
     
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -94,7 +96,7 @@ MultiTexturesBackend::MultiTexturesBackend()
     textureDescriptor1.textureFormat = backend::TextureFormat::R8G8B8;
     _texture1 = device->newTexture(textureDescriptor1);
     _texture1->updateData(utils::loadData("assets/uv_checker_01.jpg").getBytes());
-    _renderPipeline->getProgram()->setTexture("texture2", 7, _texture1);
+    _renderPipeline->getProgram()->setFragmentTexture(_texture2Location, 7, _texture1);
     
     int dataSize = 512 * 512 * 3;
     uint8_t data[dataSize];
@@ -110,8 +112,8 @@ MultiTexturesBackend::MultiTexturesBackend()
     textureDescriptor2.textureFormat = backend::TextureFormat::R8G8B8;
     _background = device->newTexture(textureDescriptor2);
     _background->updateData(data);
-    _renderPipeline->getProgram()->setTexture("texture1", 6, _background);
-
+    _renderPipeline->getProgram()->setFragmentTexture(_texture1Location, 6, _background);
+    
     _transform = cocos2d::Mat4::IDENTITY;
     _transform.translate(0, 0, 0);
     _transform.scale(0.5, 0.5, 0.5);

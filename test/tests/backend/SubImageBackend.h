@@ -48,6 +48,8 @@ private:
     uint8_t* _data;
     size_t _dataSize;
     size_t _updatePixelIndex;
+    
+    int _textureLocation = 0;
 };
 
 

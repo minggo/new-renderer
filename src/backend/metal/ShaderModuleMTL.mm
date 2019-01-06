@@ -90,15 +90,15 @@ void ShaderModuleMTL::parseUniform(id<MTLDevice> mtlDevice, glslopt_shader* shad
 
 void ShaderModuleMTL::parseTexture(id<MTLDevice> mtlDevice, glslopt_shader* shader)
 {
-    const int textureCount = glslopt_shader_get_texture_count(shader);
-    for (int i = 0; i < textureCount; ++i)
+    _uniformTextureCount = glslopt_shader_get_texture_count(shader);
+    for (int i = 0; i < _uniformTextureCount; ++i)
     {
         const char* parName;
         glslopt_basic_type parType;
         glslopt_precision parPrec;
         int parVecSize, parMatSize, parArrSize, location;
         glslopt_shader_get_texture_desc(shader, i, &parName, &parType, &parPrec, &parVecSize, &parMatSize, &parArrSize, &location);
-        _textures.push_back(parName);
+        _uniforms[parName] = location;
     }
 }
 

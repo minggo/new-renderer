@@ -267,41 +267,37 @@ void CommandBufferMTL::setTextures() const
 {
     if (_renderPipelineMTL->getProgram())
     {
-        doSetTextures(_renderPipelineMTL->getVertexTextures(), true);
-        doSetTextures(_renderPipelineMTL->getFragmentTextures(), false);
+        doSetTextures(true);
+        doSetTextures(false);
     }
 }
 
-void CommandBufferMTL::doSetTextures(const std::vector<std::string>& textures, bool isVertex) const
+void CommandBufferMTL::doSetTextures(bool isVertex) const
 {
-    const auto& bindTextureInfos = _renderPipelineMTL->getProgram()->getTextureInfos();
-    int i = 0;
-    for (const auto& texture : textures)
+    const auto& bindTextureInfos = (isVertex)?_renderPipelineMTL->getProgram()->getVertexTextureInfos():_renderPipelineMTL->getProgram()->getFragmentTextureInfos();
+    for(const auto& textureInfo : bindTextureInfos)
     {
-        auto iter = bindTextureInfos.find(texture);
-        if (bindTextureInfos.end() != iter)
+        int i = 0;
+        //FIXME: should support texture array.
+        const auto& textures = textureInfo.textures;
+        const auto& mtlTexture = static_cast<TextureMTL*>(textures[i]);
+        
+        if (isVertex)
         {
-            //FIXME: should support texture array.
-            const auto& textures = iter->second.textures;
-            const auto& mtlTexture = static_cast<TextureMTL*>(textures[0]);
-            
-            if (isVertex)
-            {
-                [_mtlRenderEncoder setVertexTexture:mtlTexture->getMTLTexture()
-                                            atIndex:i];
-                [_mtlRenderEncoder setVertexSamplerState:mtlTexture->getMTLSamplerState()
-                                                 atIndex:i];
-            }
-            else
-            {
-                [_mtlRenderEncoder setFragmentTexture:mtlTexture->getMTLTexture()
-                                              atIndex:i];
-                [_mtlRenderEncoder setFragmentSamplerState:mtlTexture->getMTLSamplerState()
-                                                   atIndex:i];
-            }
-            
-            ++i;
+            [_mtlRenderEncoder setVertexTexture:mtlTexture->getMTLTexture()
+                                        atIndex:textureInfo.location];
+            [_mtlRenderEncoder setVertexSamplerState:mtlTexture->getMTLSamplerState()
+                                             atIndex:textureInfo.location];
         }
+        else
+        {
+            [_mtlRenderEncoder setFragmentTexture:mtlTexture->getMTLTexture()
+                                          atIndex:textureInfo.location];
+            [_mtlRenderEncoder setFragmentSamplerState:mtlTexture->getMTLSamplerState()
+                                               atIndex:textureInfo.location];
+        }
+        
+        ++i;
     }
 }
 

@@ -55,6 +55,7 @@ private:
     
     int _transformLocation = -1;
     int _colorLocation = -1;
+    int _textureLocation = -1;
 };
 
 

@@ -86,10 +86,10 @@ BunnyBackend::BunnyBackend()
     auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
 
     renderPipelineDescriptor.program = device->createProgram(vs, fs);
-    _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
-    _viewLocation = renderPipelineDescriptor.program->getUniformLocation("view");
-    _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
-    _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
+    _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
+    _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
+    _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
+    _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     
     _renderPipeline = device->newRenderPipeline(renderPipelineDescriptor);
     

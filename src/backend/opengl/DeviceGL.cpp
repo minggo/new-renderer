@@ -67,7 +67,11 @@ RenderPipeline* DeviceGL::newRenderPipeline(const RenderPipelineDescriptor& desc
 
 Program* DeviceGL::createProgram(ShaderModule* vs, ShaderModule* fs)
 {
-    return new (std::nothrow) ProgramGL(vs, fs);
+    auto ret = new (std::nothrow) ProgramGL(vs, fs);
+    if (ret)
+        ret->autorelease();
+    
+    return ret;
 }
 
 CC_BACKEND_END

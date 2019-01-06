@@ -62,6 +62,7 @@ SubImageBackend::SubImageBackend()
     auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
     
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
@@ -131,7 +132,7 @@ void SubImageBackend::tick(float dt)
 
 
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
-    _renderPipeline->getProgram()->setTexture("texture", 0, _texture);
+    _renderPipeline->getProgram()->setFragmentTexture(_textureLocation, 0, _texture);
     
     _commandBuffer->drawArrays(backend::PrimitiveType::TRIANGLE, 0, 6);
     _commandBuffer->endRenderPass();

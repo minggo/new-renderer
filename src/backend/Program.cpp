@@ -4,50 +4,15 @@
 
 CC_BACKEND_BEGIN
 
-Program::Program(ShaderModule* vs, ShaderModule* fs)
-: _vertexShader(vs)
-, _fragmentShader(fs)
-{
-    CC_SAFE_RETAIN(_vertexShader);
-    CC_SAFE_RETAIN(_fragmentShader);
-}
-
 Program::~Program()
 {
-    CC_SAFE_RELEASE(_vertexShader);
-    CC_SAFE_RELEASE(_fragmentShader);
-    _textureInfos.clear();
-}
-
-Program::TextureInfo::TextureInfo(const std::string& _name, const std::vector<uint32_t>& _indices, const std::vector<Texture*> _textures)
-: name(_name)
-, indices(_indices)
-, textures(_textures)
-{
-    retainTextures();
+    _vertexTextureInfos.clear();
+    _fragTextureInfos.clear();
 }
 
 Program::TextureInfo::~TextureInfo()
 {
     releaseTextures();
-}
-
-Program::TextureInfo& Program::TextureInfo::operator=(TextureInfo&& rhs)
-{
-    if (this != &rhs)
-    {
-        name = rhs.name;
-        indices = rhs.indices;
-        
-        rhs.retainTextures();
-        releaseTextures();
-        textures = rhs.textures;
-        
-        //release the textures before cleaning the vertor
-        rhs.releaseTextures();
-        rhs.textures.clear();
-    }
-    return *this;
 }
 
 void Program::TextureInfo::retainTextures()
@@ -62,18 +27,48 @@ void Program::TextureInfo::releaseTextures()
         CC_SAFE_RELEASE(texture);
 }
 
-void Program::setTexture(const std::string &name, uint32_t index, Texture *texture)
+void Program::setVertexTexture(int location, uint32_t slot, Texture* texture)
 {
-    TextureInfo textureInfo(name, {index}, {texture});
-    _textureInfos[name] = std::move(textureInfo);
+    setTexture(location, slot, texture, _vertexTextureInfos);
 }
 
-void Program::setTextureArray(const std::string& name, const std::vector<uint32_t>& indices, const std::vector<Texture*> textures)
+void Program::setFragmentTexture(int location, uint32_t slot, Texture* texture)
 {
-    assert(indices.size() == textures.size());
-    
-    TextureInfo textureInfo(name, indices, textures);
-    _textureInfos[name] = std::move(textureInfo);
+    setTexture(location, slot, texture, _fragTextureInfos);
+}
+
+void Program::setVertexTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures)
+{
+    setTextureArray(location, slots, textures, _vertexTextureInfos);
+}
+
+void Program::setFragmentTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures)
+{
+    setTextureArray(location, slots, textures, _fragTextureInfos);
+}
+
+void Program::setTexture(int location, uint32_t slot, Texture* texture, std::vector<TextureInfo>& textureInfo)
+{
+    if(location < 0)
+        return;
+
+    TextureInfo info;
+    info.location = location;
+    info.slot = {slot};
+    info.textures = {texture};
+    info.retainTextures();
+    textureInfo.at(location) = info;
+}
+
+void Program::setTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures, std::vector<TextureInfo>& textureInfo)
+{
+    assert(slots.size() == textures.size());
+    TextureInfo info;
+    info.location = location;
+    info.slot = slots;
+    info.textures = textures;
+    info.retainTextures();
+    textureInfo.at(location) = info;
 }
 
 CC_BACKEND_END

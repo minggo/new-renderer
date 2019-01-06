@@ -69,9 +69,10 @@ GuiProjectionBackend::GuiProjectionBackend()
     auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.program = device->createProgram(vs, fs);
-    _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
-    _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
-    _transformLocation = renderPipelineDescriptor.program->getUniformLocation("transform");
+    _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
+    _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
+    _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");
+    _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
     
 #define VERTEX_POSITION_SIZE 2
 #define VERTEX_UV_SIZE 2
@@ -100,7 +101,7 @@ GuiProjectionBackend::GuiProjectionBackend()
     textureDescriptor.height = img->getHeight();
     _texture = device->newTexture(textureDescriptor);
     _texture->updateData(data.getBytes());
-    _renderPipeline->getProgram()->setTexture("texture", 0, _texture);
+    _renderPipeline->getProgram()->setFragmentTexture(_textureLocation, 0, _texture);
 
     img->release();
 

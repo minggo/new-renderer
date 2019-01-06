@@ -5,7 +5,6 @@
 #include "platform/CCPlatformMacros.h"
 #include <string>
 #include <vector>
-#include <unordered_map>
 
 CC_BACKEND_BEGIN
 
@@ -17,37 +16,39 @@ class Program : public Ref
 public:
     struct TextureInfo
     {
-        TextureInfo(const std::string& _name, const std::vector<uint32_t>& _indices, const std::vector<Texture*> _textures);
-        TextureInfo() = default;
         ~TextureInfo();
-        TextureInfo& operator =(TextureInfo&& rhs);
-        
+
         void retainTextures();
         void releaseTextures();
-        
-        std::string name;
-        std::vector<uint32_t> indices;
+
+        int location = 0;
+        std::vector<uint32_t> slot;
         std::vector<Texture*> textures;
     };
     
-    virtual int getUniformLocation(const std::string& uniform) = 0;
+    virtual int getVertexUniformLocation(const std::string& uniform) const = 0;
+    virtual int getFragmentUniformLocation(const std::string& uniform) const = 0;
     virtual void setVertexUniform(int location, void* data, uint32_t size) = 0;
     virtual void setFragmentUniform(int location, void* data, uint32_t size) = 0;
-    virtual void setTexture(const std::string& name, uint32_t index, Texture* texture);
-    virtual void setTextureArray(const std::string& name, const std::vector<uint32_t>& indices, const std::vector<Texture*> textures);
+    virtual void setVertexTexture(int location, uint32_t slot, Texture* texture);
+    virtual void setFragmentTexture(int location, uint32_t slot, Texture* texture);
+    virtual void setVertexTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures);
+    virtual void setFragmentTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures);
     
-    inline ShaderModule* getVertexShader() const { return _vertexShader; }
-    inline ShaderModule* getFragmentShader() const { return _fragmentShader; }
-    inline const std::unordered_map<std::string, TextureInfo>& getTextureInfos() const { return _textureInfos; }
+    inline const std::vector<TextureInfo>& getVertexTextureInfos() const { return _vertexTextureInfos; }
+    inline const std::vector<TextureInfo>& getFragmentTextureInfos() const { return _fragTextureInfos; }
     
 protected:
-    Program(ShaderModule* vs, ShaderModule* fs);
+    Program() = default;
     virtual ~Program();
     
-private:
-    backend::ShaderModule* _vertexShader = nullptr;
-    backend::ShaderModule* _fragmentShader = nullptr;
-    std::unordered_map<std::string, TextureInfo> _textureInfos;
+    void setTexture(int location, uint32_t slot, Texture* texture, std::vector<TextureInfo>& textureInfo);
+    void setTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures, std::vector<TextureInfo>& textureInfo);
+    
+    ShaderModule* _vertexShader = nullptr;
+    ShaderModule* _fragmentShader = nullptr;
+    std::vector<TextureInfo> _vertexTextureInfos;
+    std::vector<TextureInfo> _fragTextureInfos;
 };
 
 CC_BACKEND_END

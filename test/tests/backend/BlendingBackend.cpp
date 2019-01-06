@@ -69,8 +69,9 @@ namespace
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
             renderPipelineDescriptor.program = device->createProgram(vs, fs);
-            _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
-            _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
+            _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
+            _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
+            _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -181,6 +182,7 @@ namespace
         
         int _modelLocation = -1;
         int _projectionLocation = -1;
+        int _textureLocation = -1;
     };
     
     struct BigTriangle
@@ -221,7 +223,8 @@ namespace
             auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
             renderPipelineDescriptor.program = device->createProgram(vs, fs);
-            _timeLocation = renderPipelineDescriptor.program->getUniformLocation("time");
+            _timeLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("time");
+            _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -253,6 +256,7 @@ namespace
         backend::RenderPipeline* renderPipeline = nullptr;
         backend::Buffer* vertexBuffer = nullptr;
         int _timeLocation = -1;
+        int _textureLocation = -1;
     };
     
     // rotation is not used
@@ -295,7 +299,7 @@ BlendingBackend::BlendingBackend()
     textureDescriptorBackgroud.textureFormat = backend::TextureFormat::R8G8B8A8;
     _backgroud = device->newTexture(textureDescriptorBackgroud);
     _backgroud->updateData(utils::loadData("assets/background.png").getBytes());
-    bigTriangle->getProgram()->setTexture("texture", 0, _backgroud);
+    bigTriangle->getProgram()->setFragmentTexture(bigTriangle->_textureLocation, 0, _backgroud);
     
     backend::TextureDescriptor textureDescriptorSprite0;
     textureDescriptorSprite0.width = 128;
@@ -303,7 +307,7 @@ BlendingBackend::BlendingBackend()
     textureDescriptorSprite0.textureFormat = backend::TextureFormat::R8G8B8A8;
     _sprite0 = device->newTexture(textureDescriptorSprite0);
     _sprite0->updateData(utils::loadData("assets/sprite0.png").getBytes());
-    quad->getProgram()->setTexture("texture", 0, _sprite0);
+    quad->getProgram()->setFragmentTexture(quad->_textureLocation, 0, _sprite0);
     
     _commandBuffer = device->newCommandBuffer();
     

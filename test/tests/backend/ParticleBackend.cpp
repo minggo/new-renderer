@@ -78,9 +78,10 @@ ParticleBackend::ParticleBackend()
     auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
     auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
     renderPipelineDescriptor.program = device->createProgram(vs, fs);
-    _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
-    _viewLocation = renderPipelineDescriptor.program->getUniformLocation("view");
-    _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
+    _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
+    _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
+    _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
+    _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("u_texture");
     
 #define VERTEX_QUAD_SIZE 2
 #define VERTEX_POS_SIZE 3
@@ -131,7 +132,7 @@ ParticleBackend::ParticleBackend()
     textureDescriptor.samplerDescriptor.mipmapEnabled = true;
     _texture = device->newTexture(textureDescriptor);
     _texture->updateData(imageData.getBytes());
-    _renderPipelineWithBlend->getProgram()->setTexture("u_texture", 0, _texture);
+    _renderPipelineWithBlend->getProgram()->setFragmentTexture(_textureLocation, 0, _texture);
     
     _commandBuffer = device->newCommandBuffer();
     _vertexBuffer = device->newBuffer(sizeof(_vbufferArray), backend::BufferType::VERTEX, backend::BufferUsage::READ);

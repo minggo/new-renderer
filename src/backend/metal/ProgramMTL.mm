@@ -4,12 +4,16 @@
 CC_BACKEND_BEGIN
 
 ProgramMTL::ProgramMTL(ShaderModule* vs, ShaderModule* fs)
-: Program(vs, fs)
-, _vertexShader(static_cast<ShaderModuleMTL*>(vs))
+: _vertexShader(static_cast<ShaderModuleMTL*>(vs))
 , _fragmentShader(static_cast<ShaderModuleMTL*>(fs))
 {
     CC_SAFE_RETAIN(_vertexShader);
     CC_SAFE_RETAIN(_fragmentShader);
+    
+    _vertexTextureInfos.reserve(_vertexShader->getUniformTextureCount());
+    _vertexTextureInfos.resize(_vertexShader->getUniformTextureCount());
+    _fragTextureInfos.reserve(_fragmentShader->getUniformTextureCount());
+    _fragTextureInfos.resize(_fragmentShader->getUniformTextureCount());
 }
 
 ProgramMTL::~ProgramMTL()
@@ -18,17 +22,23 @@ ProgramMTL::~ProgramMTL()
     CC_SAFE_RELEASE(_fragmentShader);
 }
 
-int ProgramMTL::getUniformLocation(const std::string& uniform)
+int ProgramMTL::getVertexUniformLocation(const std::string& uniform) const
 {
-    const auto& vsUniforms = _vertexShader->getUniforms();
-    const auto& fsUniforms = _fragmentShader->getUniforms();
-    const auto& vsIter = vsUniforms.find(uniform);
-    if(vsIter != vsUniforms.end())
-        return vsIter->second;
-    
-    const auto& fsIter = fsUniforms.find(uniform);
-    if(fsIter != fsUniforms.end())
-        return fsIter->second;
+    const auto& uniforms = _vertexShader->getUniforms();
+    return getUniformLcation(uniforms, uniform);
+}
+
+int ProgramMTL::getFragmentUniformLocation(const std::string& uniform) const
+{
+    const auto& uniforms = _fragmentShader->getUniforms();
+    return getUniformLcation(uniforms, uniform);
+}
+
+int ProgramMTL::getUniformLcation(const std::unordered_map<std::string, int>& uniformsInfo, const std::string& uniform) const
+{
+    const auto& iter = uniformsInfo.find(uniform);
+    if(iter != uniformsInfo.end())
+        return iter->second;
     
     return -1;
 }
@@ -51,8 +61,9 @@ void ProgramMTL::setFragmentUniform(int location, void* data, uint32_t size)
     fillUniformBuffer(fragUniformBuffer.get(), location, data, size);
 }
 
-void ProgramMTL::fillUniformBuffer(uint8_t* buffer, uint32_t offset, void* uniformData, uint32_t uniformSize) const
+void ProgramMTL::fillUniformBuffer(uint8_t* buffer, uint32_t offset, void* uniformData, uint32_t uniformSize)
 {
     memcpy(buffer + offset, uniformData, uniformSize);
 }
+
 CC_BACKEND_END

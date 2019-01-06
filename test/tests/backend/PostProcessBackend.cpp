@@ -95,6 +95,7 @@ namespace
             auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
             auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
             renderPipelineDescriptor.program = device->createProgram(vs, fs);
+            _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
 
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
@@ -119,6 +120,7 @@ namespace
         
         backend::Buffer* _vertexBuffer = nullptr;
         backend::RenderPipeline* _renderPipeline = nullptr;
+        int _textureLocation = -1;
     };
     
     struct Bunny
@@ -167,10 +169,10 @@ namespace
             auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
             
             renderPipelineDescriptor.program = device->createProgram(vs, fs);
-            _modelLocation = renderPipelineDescriptor.program->getUniformLocation("model");
-            _viewLocation = renderPipelineDescriptor.program->getUniformLocation("view");
-            _projectionLocation = renderPipelineDescriptor.program->getUniformLocation("projection");
-            _colorLocation = renderPipelineDescriptor.program->getUniformLocation("color");
+            _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
+            _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
+            _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
+            _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32B32, 0);
@@ -340,7 +342,7 @@ void PostProcessBackend::tick(float dt)
     
     // Draw bg.
     _commandBuffer->beginRenderPass(_renderPassDescriptorBg);
-    bg->getProgram()->setTexture("texture", 0, _colorTexture);
+    bg->getProgram()->setFragmentTexture(bg->_textureLocation, 0, _colorTexture);
     _commandBuffer->setRenderPipeline(bg->_renderPipeline);
     _commandBuffer->setVertexBuffer(0, bg->_vertexBuffer);
     _commandBuffer->drawArrays(backend::PrimitiveType::TRIANGLE, 0, 3);
