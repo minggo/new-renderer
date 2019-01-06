@@ -45,8 +45,6 @@ protected:
     void setTexture(int location, uint32_t slot, Texture* texture, std::vector<TextureInfo>& textureInfo);
     void setTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures, std::vector<TextureInfo>& textureInfo);
     
-    ShaderModule* _vertexShader = nullptr;
-    ShaderModule* _fragmentShader = nullptr;
     std::vector<TextureInfo> _vertexTextureInfos;
     std::vector<TextureInfo> _fragTextureInfos;
 };

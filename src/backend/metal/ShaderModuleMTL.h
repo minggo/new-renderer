@@ -32,8 +32,6 @@ private:
     std::shared_ptr<uint8_t> _uniformBuffer = nullptr;
     std::unordered_map<std::string, int> _uniforms;
     uint32_t _uniformBufferSize = 0;
-    
-    // Texture index is the same as vector index.
     uint32_t _uniformTextureCount = 0;
 };
 
