@@ -26,7 +26,7 @@
 #include "cocos2d.h"
 #include "../Utils.h"
 #include "backend/Device.h"
-#include "backend/Program.h"
+#include "backend/ProgramCache.h"
 
 #include <vector>
 
@@ -118,9 +118,7 @@ Texture2DBackendTest::Texture2DBackendTest()
     // create render pipeline
     
     RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
     _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");
     _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");

@@ -22,6 +22,7 @@
 #include "../tests/backend/SubImageBackend.h"
 #include "../tests/backend/ParticleBackend.h"
 #include "../tests/backend/GuiProjectionBackend.h"
+#include "backend/ProgramCache.h"
 
 namespace
 {
@@ -110,6 +111,7 @@ int main(int argc, char * argv[])
         std::chrono::steady_clock::time_point prevTime;
         std::chrono::steady_clock::time_point now;
         float dt = 0.f;
+        cocos2d::backend::ProgramCache::getInstance();
         while (!glfwWindowShouldClose(window))
         {
             prevTime = std::chrono::steady_clock::now();
@@ -121,7 +123,7 @@ int main(int argc, char * argv[])
             now = std::chrono::steady_clock::now();
             dt = std::chrono::duration_cast<std::chrono::microseconds>(now - prevTime).count() / 1000000.f;
         }
-        
+        cocos2d::backend::ProgramCache::destroyInstance();
         glfwDestroyWindow(window);
         glfwTerminate();
     }

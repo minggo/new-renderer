@@ -75,9 +75,7 @@ namespace
             // render pipeline
             
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
-            auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.program = device->createProgram(vs, fs);
+            renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
             _nearLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("near");
             _farLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("far");
             _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
@@ -156,9 +154,7 @@ namespace
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
             renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
             renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::NONE;
-            auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.program = device->createProgram(vs, fs);
+            renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
             _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
             _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
             _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");

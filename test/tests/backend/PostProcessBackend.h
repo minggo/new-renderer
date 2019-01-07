@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "backend/backend.h"
+#include "backend/Backend.h"
 #include "math/Mat4.h"
 #include "../TestBase.h"
 

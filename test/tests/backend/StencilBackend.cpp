@@ -25,7 +25,6 @@
 #include "StencilBackend.h"
 #include "cocos2d.h"
 #include "../Utils.h"
-#include "backend/Program.h"
 
 #include <vector>
 
@@ -92,9 +91,7 @@ StencilBackend::StencilBackend()
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
     renderPipelineDescriptor.stencilAttachmentFormat = backend::TextureFormat::D24S8;
     renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::SYSTEM_DEFAULT;
-    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
     _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");
     _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");

@@ -188,6 +188,8 @@
 		46F9B75121B66D7E009DF858 /* SubImageBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461F45B12178570700D83671 /* SubImageBackend.cpp */; };
 		46F9B75221B66DA3009DF858 /* PostProcessBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 461F45AC217719F700D83671 /* PostProcessBackend.cpp */; };
 		46F9B75321B67334009DF858 /* StencilBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46233BEB2176C978000F1F21 /* StencilBackend.cpp */; };
+		ED1B08F721E3011500E1191B /* ProgramCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED1B08F621E3011500E1191B /* ProgramCache.cpp */; };
+		ED1B08F821E3011500E1191B /* ProgramCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED1B08F621E3011500E1191B /* ProgramCache.cpp */; };
 		ED3B4C43217E15C000D982A0 /* GuiProjectionBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */; };
 		ED3B4C45217E15C000D982A0 /* ParticleBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED3B4C41217E15C000D982A0 /* ParticleBackend.cpp */; };
 		ED8D614121DE2BEC00EFB946 /* RenderPipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED8D614021DE2BEC00EFB946 /* RenderPipeline.cpp */; };
@@ -471,6 +473,8 @@
 		4694927F1FE252E3008D19CC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		469492811FE252FB008D19CC /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		469492831FE2530E008D19CC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		ED1B08F521E2FDA000E1191B /* ProgramCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgramCache.h; sourceTree = "<group>"; };
+		ED1B08F621E3011500E1191B /* ProgramCache.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ProgramCache.cpp; sourceTree = "<group>"; };
 		ED3B4C3E217E15BF00D982A0 /* GuiProjectionBackend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuiProjectionBackend.cpp; sourceTree = "<group>"; };
 		ED3B4C3F217E15BF00D982A0 /* ParticleBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParticleBackend.h; sourceTree = "<group>"; };
 		ED3B4C40217E15C000D982A0 /* GuiProjectionBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiProjectionBackend.h; sourceTree = "<group>"; };
@@ -835,6 +839,8 @@
 		460373AF212FA9EB00DC9ED4 /* backend */ = {
 			isa = PBXGroup;
 			children = (
+				ED1B08F521E2FDA000E1191B /* ProgramCache.h */,
+				ED1B08F621E3011500E1191B /* ProgramCache.cpp */,
 				EDC86F4B21DCBAE10086A0CA /* Program.cpp */,
 				EDC86F4A21DCBAE10086A0CA /* Program.h */,
 				460374512148F78600DC9ED4 /* Backend.h */,
@@ -1230,6 +1236,7 @@
 				1A255E6C20034B0D00069420 /* TGAlib.cpp in Sources */,
 				1A255E5220034B0D00069420 /* Quaternion.cpp in Sources */,
 				460375822150C91D00DC9ED4 /* MultiTexturesBackend.cpp in Sources */,
+				ED1B08F821E3011500E1191B /* ProgramCache.cpp in Sources */,
 				1A255E3220034B0D00069420 /* CCDirectorCaller-ios.mm in Sources */,
 				1A255E6A20034B0D00069420 /* ccTypes.cpp in Sources */,
 				1A255E6820034B0D00069420 /* CCRef.cpp in Sources */,
@@ -1353,6 +1360,7 @@
 				46E21B4021B8F8E400430A43 /* GuiProjectionBackend.cpp in Sources */,
 				1A255E4D20034B0D00069420 /* Mat4.cpp in Sources */,
 				EDC86F5321DDA3F00086A0CA /* ProgramMTL.mm in Sources */,
+				ED1B08F721E3011500E1191B /* ProgramCache.cpp in Sources */,
 				461DD0ED21538B0100A8E43F /* CommandBuffer.cpp in Sources */,
 				1A255E5D20034B0D00069420 /* CCAffineTransform.cpp in Sources */,
 				46E21B3D21B8F4BC00430A43 /* Texture2DBackend.cpp in Sources */,

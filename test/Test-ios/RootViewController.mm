@@ -18,7 +18,7 @@
 #include "backend/ParticleBackend.h"
 #include "backend/GuiProjectionBackend.h"
 
-#include "../Tests/Utils.h"
+#include "../tests/Utils.h"
 
 namespace
 {

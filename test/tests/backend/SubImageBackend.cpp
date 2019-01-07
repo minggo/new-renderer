@@ -25,7 +25,6 @@
 #include "SubImageBackend.h"
 #include "cocos2d.h"
 #include "../Utils.h"
-#include "backend/Program.h"
 
 #include <vector>
 
@@ -59,9 +58,7 @@ SubImageBackend::SubImageBackend()
     auto device = backend::Device::getInstance();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
     _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
     
     backend::VertexLayout vertexLayout;

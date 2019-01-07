@@ -75,9 +75,7 @@ ParticleBackend::ParticleBackend()
     auto device = backend::Device::getInstance();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
     _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
     _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
     _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");

@@ -66,9 +66,7 @@ GuiProjectionBackend::GuiProjectionBackend()
 
     auto device = backend::Device::getInstance();
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
     _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
     _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");

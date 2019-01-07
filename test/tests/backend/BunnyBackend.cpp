@@ -28,7 +28,7 @@
 #include "../Utils.h"
 #include "backend/Device.h"
 #include "backend/VertexLayout.h"
-#include "backend/Program.h"
+#include "backend/ProgramCache.h"
 
 using namespace cocos2d;
 
@@ -82,10 +82,7 @@ BunnyBackend::BunnyBackend()
     auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.depthStencilState = depthStencilState;
     
-    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-
-    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
     _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
     _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
     _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");

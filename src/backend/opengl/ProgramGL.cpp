@@ -111,7 +111,8 @@ namespace
 }
 
 ProgramGL::ProgramGL(ShaderModule* vs, ShaderModule* fs)
-: _vertexShaderModule(static_cast<ShaderModuleGL*>(vs))
+: Program(vs, fs)
+, _vertexShaderModule(static_cast<ShaderModuleGL*>(vs))
 , _fragmentShaderModule(static_cast<ShaderModuleGL*>(fs))
 {
     CC_SAFE_RETAIN(_vertexShaderModule);

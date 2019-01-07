@@ -67,9 +67,7 @@ MultiTexturesBackend::MultiTexturesBackend()
     renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::SYSTEM_DEFAULT;
     renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
     
-    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
     _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");
     _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     _texture1Location = renderPipelineDescriptor.program->getFragmentUniformLocation("texture1");

@@ -4,7 +4,8 @@
 CC_BACKEND_BEGIN
 
 ProgramMTL::ProgramMTL(ShaderModule* vs, ShaderModule* fs)
-: _vertexShader(static_cast<ShaderModuleMTL*>(vs))
+: Program(vs, fs)
+, _vertexShader(static_cast<ShaderModuleMTL*>(vs))
 , _fragmentShader(static_cast<ShaderModuleMTL*>(fs))
 {
     CC_SAFE_RETAIN(_vertexShader);

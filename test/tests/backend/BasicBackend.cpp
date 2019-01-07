@@ -29,9 +29,8 @@
 
 #include "backend/RenderPipelineDescriptor.h"
 #include "backend/RenderPassDescriptor.h"
-#include "backend/ShaderModule.h"
 #include "backend/VertexLayout.h"
-#include "backend/Program.h"
+#include "backend/ProgramCache.h"
 
 std::string test_unrollLoops(const std::string& text);
 
@@ -63,11 +62,8 @@ BasicBackend::BasicBackend()
     )";
     
     auto device = cocos2d::backend::Device::getInstance();
-    
-    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     cocos2d::backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.program = device->createProgram(vs, fs);
+    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
     _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     
     backend::VertexLayout vertexLayout;

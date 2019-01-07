@@ -24,9 +24,9 @@
 
 #pragma once
 
-#include "math/mat4.h"
+#include "math/Mat4.h"
 #include "TestBase.h"
-#include "backend/backend.h"
+#include "backend/Backend.h"
 
 class SubImageBackend : public TestBaseI
 {
