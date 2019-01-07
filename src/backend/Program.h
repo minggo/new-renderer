@@ -39,11 +39,8 @@ public:
     inline const std::unordered_map<int, TextureInfo>& getVertexTextureInfos() const { return _vertexTextureInfos; }
     inline const std::unordered_map<int, TextureInfo>& getFragmentTextureInfos() const { return _fragmentTextureInfos; }
     
-    inline const ShaderModule* getVertexShaderModule() const { return _vertexShader; }
-    inline const ShaderModule* getFragmentShaderModule() const { return _fragmentShader; }
-    
 protected:
-    Program(ShaderModule* vs, ShaderModule* fs);
+    Program() = default;
     virtual ~Program();
     
     void setTexture(int location, uint32_t slot, Texture* texture, std::unordered_map<int, TextureInfo>& textureInfo);
@@ -51,9 +48,6 @@ protected:
     
     std::unordered_map<int, TextureInfo> _vertexTextureInfos;
     std::unordered_map<int, TextureInfo> _fragmentTextureInfos;
-    
-    ShaderModule* _vertexShader = nullptr;
-    ShaderModule* _fragmentShader = nullptr;
 };
 
 CC_BACKEND_END
