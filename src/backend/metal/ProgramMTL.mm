@@ -9,11 +9,6 @@ ProgramMTL::ProgramMTL(ShaderModule* vs, ShaderModule* fs)
 {
     CC_SAFE_RETAIN(_vertexShader);
     CC_SAFE_RETAIN(_fragmentShader);
-    
-    _vertexTextureInfos.reserve(_vertexShader->getUniformTextureCount());
-    _vertexTextureInfos.resize(_vertexShader->getUniformTextureCount());
-    _fragTextureInfos.reserve(_fragmentShader->getUniformTextureCount());
-    _fragTextureInfos.resize(_fragmentShader->getUniformTextureCount());
 }
 
 ProgramMTL::~ProgramMTL()

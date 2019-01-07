@@ -10,12 +10,13 @@ class Program;
 class RenderPipeline : public cocos2d::Ref
 {
 public:
-    RenderPipeline(Program* program);
     virtual ~RenderPipeline();
     
-    virtual Program* getProgram() { return _program; }
+    virtual Program* getProgram() const { return _program; }
     
 protected:
+    RenderPipeline(Program* program);
+    
     Program* _program = nullptr;
 };
 

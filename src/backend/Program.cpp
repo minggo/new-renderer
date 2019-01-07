@@ -7,7 +7,7 @@ CC_BACKEND_BEGIN
 Program::~Program()
 {
     _vertexTextureInfos.clear();
-    _fragTextureInfos.clear();
+    _fragmentTextureInfos.clear();
 }
 
 Program::TextureInfo::~TextureInfo()
@@ -34,7 +34,7 @@ void Program::setVertexTexture(int location, uint32_t slot, Texture* texture)
 
 void Program::setFragmentTexture(int location, uint32_t slot, Texture* texture)
 {
-    setTexture(location, slot, texture, _fragTextureInfos);
+    setTexture(location, slot, texture, _fragmentTextureInfos);
 }
 
 void Program::setVertexTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures)
@@ -44,10 +44,10 @@ void Program::setVertexTextureArray(int location, const std::vector<uint32_t>& s
 
 void Program::setFragmentTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures)
 {
-    setTextureArray(location, slots, textures, _fragTextureInfos);
+    setTextureArray(location, slots, textures, _fragmentTextureInfos);
 }
 
-void Program::setTexture(int location, uint32_t slot, Texture* texture, std::vector<TextureInfo>& textureInfo)
+void Program::setTexture(int location, uint32_t slot, Texture* texture, std::unordered_map<int, TextureInfo>& textureInfo)
 {
     if(location < 0)
         return;
@@ -57,10 +57,10 @@ void Program::setTexture(int location, uint32_t slot, Texture* texture, std::vec
     info.slot = {slot};
     info.textures = {texture};
     info.retainTextures();
-    textureInfo.at(location) = info;
+    textureInfo[location] = info;
 }
 
-void Program::setTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures, std::vector<TextureInfo>& textureInfo)
+void Program::setTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures, std::unordered_map<int, TextureInfo>& textureInfo)
 {
     assert(slots.size() == textures.size());
     TextureInfo info;
@@ -68,7 +68,7 @@ void Program::setTextureArray(int location, const std::vector<uint32_t>& slots, 
     info.slot = slots;
     info.textures = textures;
     info.retainTextures();
-    textureInfo.at(location) = info;
+    textureInfo[location] = info;
 }
 
 CC_BACKEND_END

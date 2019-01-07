@@ -8,6 +8,7 @@
 #include "../Program.h"
 
 #include <string>
+#include <unordered_map>
 
 CC_BACKEND_BEGIN
 
@@ -47,7 +48,7 @@ public:
     virtual int getFragmentUniformLocation(const std::string& uniform) const override;
     
     inline const std::vector<VertexAttributeArray>& getAttributeInfos() const { return _attributeInfos; }
-    inline const std::vector<UniformInfo>& getUniformInfos() const { return _uniformInfos; }
+    inline const std::unordered_map<int, UniformInfo>& getUniformInfos() const { return _uniformInfos; }
     inline GLuint getHandler() const { return _program; }
     void computeAttributeInfos(const RenderPipelineDescriptor& descriptor);
     
@@ -57,15 +58,13 @@ private:
     void computeUniformInfos();
     void setUniform(int location, void* data, uint32_t size);
     void setUniform(bool isArray, GLuint location, uint32_t size, GLenum uniformType, void* data) const;
-    void setMaxTextureLocation(GLenum type, int location);
     
     GLuint _program = 0;
     ShaderModuleGL* _vertexShaderModule = nullptr;
     ShaderModuleGL* _fragmentShaderModule = nullptr;
     
     std::vector<VertexAttributeArray> _attributeInfos;
-    std::vector<UniformInfo> _uniformInfos;
-    uint32_t _maxTextureLocation = 0;
+    std::unordered_map<int, UniformInfo> _uniformInfos;
 };
 
 CC_BACKEND_END

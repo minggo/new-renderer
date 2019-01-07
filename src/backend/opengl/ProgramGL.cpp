@@ -111,26 +111,14 @@ namespace
 }
 
 ProgramGL::ProgramGL(ShaderModule* vs, ShaderModule* fs)
+: _vertexShaderModule(static_cast<ShaderModuleGL*>(vs))
+, _fragmentShaderModule(static_cast<ShaderModuleGL*>(fs))
 {
-    if(_vertexShaderModule == vs && _fragmentShaderModule == fs)
-    {
-        CC_SAFE_RETAIN(_vertexShaderModule);
-        CC_SAFE_RETAIN(_fragmentShaderModule);
-        return;
-    }
-    
-    _vertexShaderModule = (static_cast<ShaderModuleGL*>(vs));
-    _fragmentShaderModule = (static_cast<ShaderModuleGL*>(fs));
     CC_SAFE_RETAIN(_vertexShaderModule);
     CC_SAFE_RETAIN(_fragmentShaderModule);
     
     createProgram();
     computeUniformInfos();
-    
-    _vertexTextureInfos.reserve(_maxTextureLocation);
-    _vertexTextureInfos.resize(_maxTextureLocation);
-    _fragTextureInfos.reserve(_maxTextureLocation);
-    _fragTextureInfos.resize(_maxTextureLocation);
 }
 
 ProgramGL::~ProgramGL()
@@ -214,19 +202,6 @@ bool ProgramGL::getAttributeLocation(const std::string& attributeName, uint32_t&
     return true;
 }
 
-void ProgramGL::setMaxTextureLocation(GLenum type, int location)
-{
-    switch (type) {
-        case GL_SAMPLER_2D:
-        case GL_SAMPLER_CUBE:
-            _maxTextureLocation = location < _maxTextureLocation ? _maxTextureLocation : location + 1 ;
-            break;
-            
-        default:
-            break;
-    }
-}
-
 void ProgramGL::computeUniformInfos()
 {
     if (!_program)
@@ -265,8 +240,7 @@ void ProgramGL::computeUniformInfos()
         
         uniform.name = uniformName;
         uniform.location = glGetUniformLocation(_program, uniformName);
-        setMaxTextureLocation(uniform.type, uniform.location);
-        _uniformInfos.push_back(uniform);
+        _uniformInfos[uniform.location] = uniform;
     }
     free(uniformName);
 }
@@ -297,16 +271,9 @@ void ProgramGL::setUniform(int location, void* data, uint32_t size)
         return;
     
     glUseProgram(_program);
-    for(const auto& uniforn : _uniformInfos)
-    {
-        if(uniforn.location == location)
-        {
-            memcpy(uniforn.buffer.get(), data, size);
-            setUniform(uniforn.isArray, uniforn.location, uniforn.size, uniforn.type, uniforn.buffer.get());
-            break;
-        }
-    }
-    glUseProgram(0);
+    const auto& uniform = _uniformInfos[location];
+    memcpy(uniform.buffer.get(), data, size);
+    setUniform(uniform.isArray, uniform.location, uniform.size, uniform.type, uniform.buffer.get());
 }
 
 #define DEF_TO_INT(pointer, index)     (*((GLint*)(pointer) + index))

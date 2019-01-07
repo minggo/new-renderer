@@ -284,7 +284,7 @@ void CommandBufferGL::prepareDrawing() const
 {
     glViewport(_viewport.x, _viewport.y, _viewport.w, _viewport.h);
     
-    const auto& program = _renderPipeline->getProgram();
+    const auto& program = _renderPipeline->getGLProgram();
     glUseProgram(program->getHandler());
     
     bindVertexBuffer(program);
@@ -315,7 +315,7 @@ void CommandBufferGL::prepareDrawing() const
     }
 }
 
-void CommandBufferGL::bindVertexBuffer(ProgramGL *program) const
+void CommandBufferGL::bindVertexBuffer(const ProgramGL *program) const
 {
     // Bind vertex buffers and set the attributes.
     int i = 0;
@@ -343,41 +343,40 @@ void CommandBufferGL::bindVertexBuffer(ProgramGL *program) const
     }
 }
 
-void CommandBufferGL::setUniforms(ProgramGL* program) const
+void CommandBufferGL::setUniforms(const ProgramGL* program) const
 {
     if (program)
     {
         const auto& texutreInfos = program->getFragmentTextureInfos();
         const auto& activeUniformInfos = program->getUniformInfos();
-        for (const auto& activeUinform : activeUniformInfos)
+
+        // Bind textures.
+        for(const auto& textureInfo : texutreInfos)
         {
-            // Bind textures.
-            for(const auto& textureInfo : texutreInfos)
+            int location = textureInfo.first;
+            const auto& activeUniform = activeUniformInfos.at(location);
+            assert(location == activeUniform.location);
+            
+            const auto& textures = textureInfo.second.textures;
+            const auto& indices = textureInfo.second.slot;
+            
+            int i = 0;
+            for (const auto& texture: textures)
             {
-                if(activeUinform.location != textureInfo.location)
-                    continue;
-                
-                const auto& textures = textureInfo.textures;
-                const auto& indices = textureInfo.slot;
-                
-                int i = 0;
-                for (const auto& texture: textures)
-                {
-                    static_cast<TextureGL*>(texture)->apply(indices[i]);
-                    ++i;
-                }
-                
-                switch (activeUinform.type) {
-                    case GL_SAMPLER_2D:
-                    case GL_SAMPLER_CUBE:
-                        if (activeUinform.isArray)
-                            glUniform1iv(activeUinform.location, activeUinform.size, (GLint*)indices.data());
-                        else
-                            glUniform1i(activeUinform.location, *((GLint*)(indices.data())));
-                        break;
-                    default:
-                        break;
-                }
+                static_cast<TextureGL*>(texture)->apply(indices[i]);
+                ++i;
+            }
+            
+            switch (activeUniform.type) {
+                case GL_SAMPLER_2D:
+                case GL_SAMPLER_CUBE:
+                    if (activeUniform.isArray)
+                        glUniform1iv(activeUniform.location, activeUniform.size, (GLint*)indices.data());
+                    else
+                        glUniform1i(activeUniform.location, *((GLint*)(indices.data())));
+                    break;
+                default:
+                    break;
             }
         }
     }

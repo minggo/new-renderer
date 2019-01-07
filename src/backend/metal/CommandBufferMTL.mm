@@ -278,23 +278,25 @@ void CommandBufferMTL::doSetTextures(bool isVertex) const
     for(const auto& textureInfo : bindTextureInfos)
     {
         int i = 0;
+        int location = textureInfo.second.location;
+        
         //FIXME: should support texture array.
-        const auto& textures = textureInfo.textures;
+        const auto& textures = textureInfo.second.textures;
         const auto& mtlTexture = static_cast<TextureMTL*>(textures[i]);
         
         if (isVertex)
         {
             [_mtlRenderEncoder setVertexTexture:mtlTexture->getMTLTexture()
-                                        atIndex:textureInfo.location];
+                                        atIndex:location];
             [_mtlRenderEncoder setVertexSamplerState:mtlTexture->getMTLSamplerState()
-                                             atIndex:textureInfo.location];
+                                             atIndex:location];
         }
         else
         {
             [_mtlRenderEncoder setFragmentTexture:mtlTexture->getMTLTexture()
-                                          atIndex:textureInfo.location];
+                                          atIndex:location];
             [_mtlRenderEncoder setFragmentSamplerState:mtlTexture->getMTLSamplerState()
-                                               atIndex:textureInfo.location];
+                                               atIndex:location];
         }
         
         ++i;

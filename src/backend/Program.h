@@ -5,6 +5,7 @@
 #include "platform/CCPlatformMacros.h"
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 CC_BACKEND_BEGIN
 
@@ -35,18 +36,18 @@ public:
     virtual void setVertexTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures);
     virtual void setFragmentTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures);
     
-    inline const std::vector<TextureInfo>& getVertexTextureInfos() const { return _vertexTextureInfos; }
-    inline const std::vector<TextureInfo>& getFragmentTextureInfos() const { return _fragTextureInfos; }
+    inline const std::unordered_map<int, TextureInfo>& getVertexTextureInfos() const { return _vertexTextureInfos; }
+    inline const std::unordered_map<int, TextureInfo>& getFragmentTextureInfos() const { return _fragmentTextureInfos; }
     
 protected:
     Program() = default;
     virtual ~Program();
     
-    void setTexture(int location, uint32_t slot, Texture* texture, std::vector<TextureInfo>& textureInfo);
-    void setTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures, std::vector<TextureInfo>& textureInfo);
+    void setTexture(int location, uint32_t slot, Texture* texture, std::unordered_map<int, TextureInfo>& textureInfo);
+    void setTextureArray(int location, const std::vector<uint32_t>& slots, const std::vector<Texture*> textures, std::unordered_map<int, TextureInfo>& textureInfo);
     
-    std::vector<TextureInfo> _vertexTextureInfos;
-    std::vector<TextureInfo> _fragTextureInfos;
+    std::unordered_map<int, TextureInfo> _vertexTextureInfos;
+    std::unordered_map<int, TextureInfo> _fragmentTextureInfos;
 };
 
 CC_BACKEND_END

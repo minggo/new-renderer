@@ -41,8 +41,8 @@ private:
     };
     
     void prepareDrawing() const;
-    void bindVertexBuffer(ProgramGL* program) const;
-    void setUniforms(ProgramGL* program) const;
+    void bindVertexBuffer(const ProgramGL* program) const;
+    void setUniforms(const ProgramGL* program) const;
     void cleanResources();
     void applyRenderPassDescriptor(const RenderPassDescriptor& descirptor);
     

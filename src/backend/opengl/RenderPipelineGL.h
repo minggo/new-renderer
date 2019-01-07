@@ -19,7 +19,7 @@ public:
     RenderPipelineGL(const RenderPipelineDescriptor& descriptor);
     ~RenderPipelineGL();
     
-    inline ProgramGL* getProgram() const { return _programGL; }
+    inline ProgramGL* getGLProgram() const { return _programGL; }
     inline DepthStencilStateGL* getDepthStencilState() const { return _depthStencilState; }
     inline BlendStateGL* getBlendState() const { return _blendState; }
     
