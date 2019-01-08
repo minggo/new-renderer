@@ -26,6 +26,7 @@
 #include "cocos2d.h"
 #include "../Utils.h"
 #include "backend/Device.h"
+#include "backend/ProgramCache.h"
 
 #include <vector>
 
@@ -117,10 +118,10 @@ Texture2DBackendTest::Texture2DBackendTest()
     // create render pipeline
     
     RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
+    _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");
+    _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
+    _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
     
     VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -132,16 +133,6 @@ Texture2DBackendTest::Texture2DBackendTest()
     _transform0.scale(0.5f);
     _transform1.translate(0.5f, 0, 0);
     _transform1.scale(0.5f);
-    
-    // set uniforms
-    _bindGroupCanvas.setTexture("texture", 0, _canvasTexture);
-    float color[4] = {1.f, 0.f, 0.f, 1.f};
-    _bindGroupCanvas.setUniform("color", color, sizeof(color));
-    _bindGroupCanvas.setUniform("transform", _transform0.m, sizeof(_transform0.m));
-    
-    _bindGroupdTexture.setTexture("texture", 0, _texture);
-    _bindGroupdTexture.setUniform("color", color, sizeof(color));
-    _bindGroupdTexture.setUniform("transform", _transform1.m, sizeof(_transform1.m));
     
     // render pass
     _renderPassDescriptor.clearColorValue = {0.1f, 0.1f, 0.1f, 0.1f};
@@ -163,6 +154,8 @@ Texture2DBackendTest::~Texture2DBackendTest()
 void Texture2DBackendTest::tick(float dt)
 {
     _commandBuffer->beginFrame();
+    float color[4] = {1.f, 0.f, 0.f, 1.f};
+    _renderPipeline->getProgram()->setFragmentUniform(_colorLocation, color, sizeof(color));
     if (_canvasTexture)
     {
         _renderPassDescriptor.needClearColor = true;
@@ -170,7 +163,9 @@ void Texture2DBackendTest::tick(float dt)
         _commandBuffer->setRenderPipeline(_renderPipeline);
         _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
-        _commandBuffer->setBindGroup(&_bindGroupCanvas);
+        _renderPipeline->getProgram()->setVertexUniform(_transformLocation, _transform0.m, sizeof(_transform0.m));
+        _renderPipeline->getProgram()->setFragmentTexture(_textureLocation, 0, _canvasTexture);
+        
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
         _commandBuffer->endRenderPass();
     }
@@ -182,7 +177,10 @@ void Texture2DBackendTest::tick(float dt)
         _commandBuffer->setRenderPipeline(_renderPipeline);
         _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
         _commandBuffer->setVertexBuffer(0, _vertexBuffer);
-        _commandBuffer->setBindGroup(&_bindGroupdTexture);
+        
+        _renderPipeline->getProgram()->setVertexUniform(_transformLocation, _transform1.m, sizeof(_transform1.m));
+        _renderPipeline->getProgram()->setFragmentTexture(_textureLocation, 0, _texture);
+        
         _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
         _commandBuffer->endRenderPass();
     }

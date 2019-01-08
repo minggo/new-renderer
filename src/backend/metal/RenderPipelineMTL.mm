@@ -3,6 +3,7 @@
 #include "ShaderModuleMTL.h"
 #include "DepthStencilStateMTL.h"
 #include "Utils.h"
+#include "ProgramMTL.h"
 
 CC_BACKEND_BEGIN
 
@@ -66,7 +67,8 @@ namespace
 }
 
 RenderPipelineMTL::RenderPipelineMTL(id<MTLDevice> mtlDevice, const RenderPipelineDescriptor& descriptor)
-: _mtlDevice(mtlDevice)
+: RenderPipeline(descriptor.program)
+, _mtlDevice(mtlDevice)
 {
     _mtlRenderPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
     
@@ -134,17 +136,15 @@ void RenderPipelineMTL::setBlendState(MTLRenderPipelineColorAttachmentDescriptor
 
 void RenderPipelineMTL::setShaderModules(const RenderPipelineDescriptor& descriptor)
 {
-    auto vertexShaderModule = static_cast<ShaderModuleMTL*>(descriptor.vertexShaderModule);
+    auto vertexShaderModule = static_cast<ProgramMTL*>(descriptor.program)->getVertexShaderModule();
     _mtlRenderPipelineDescriptor.vertexFunction = vertexShaderModule->getMTLFunction();
-    _vertexUniforms = vertexShaderModule->getUniforms();
     _vertexUniformBuffer = vertexShaderModule->getUniformBuffer();
-    _vertexTextures = vertexShaderModule->getTextures();
+    _vertexUniformBufferSize = vertexShaderModule->getUniformBufferSize();
     
-    auto fragShaderModule = static_cast<ShaderModuleMTL*>(descriptor.fragmentShaderModule);
+    auto fragShaderModule = static_cast<ProgramMTL*>(descriptor.program)->getFragmentShaderModule();
     _mtlRenderPipelineDescriptor.fragmentFunction = fragShaderModule->getMTLFunction();
-    _fragmentUniforms = fragShaderModule->getUniforms();
     _fragementUniformBuffer = fragShaderModule->getUniformBuffer();
-    _fragmentTextures = fragShaderModule->getTextures();
+    _fragUniformBufferSize = fragShaderModule->getUniformBufferSize();
 }
 
 void RenderPipelineMTL::setBlendStateAndFormat(const RenderPipelineDescriptor& descriptor)

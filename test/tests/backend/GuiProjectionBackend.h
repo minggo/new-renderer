@@ -41,7 +41,6 @@ private:
     cocos2d::backend::Texture *_texture = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
-    cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
     
     uint32_t _vertexBufferElementCount = 0;
@@ -49,6 +48,11 @@ private:
     cocos2d::Mat4 _translantion;
     cocos2d::Mat4 _rotation;
     cocos2d::Mat4 _scale;
+    
+    int _colorLocation = -1;
+    int _projectionLocation = -1;
+    int _transformLocation = -1;
+    int _textureLocation = -1;
 };
 
 

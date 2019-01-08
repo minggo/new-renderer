@@ -90,12 +90,10 @@ namespace
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
             renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::SYSTEM_DEFAULT;
             renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
-            
-            auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule = fs;
-            
+           
+            renderPipelineDescriptor.program = device->createProgram(vert, frag);
+            _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
+
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
             vertexLayout.setLayout(2 * sizeof(float), backend::VertexStepMode::VERTEX);
@@ -115,8 +113,11 @@ namespace
             CC_SAFE_RELEASE(_renderPipeline);
         }
         
+        inline cocos2d::backend::Program* getProgram() { return _renderPipeline->getProgram(); }
+        
         backend::Buffer* _vertexBuffer = nullptr;
         backend::RenderPipeline* _renderPipeline = nullptr;
+        int _textureLocation = -1;
     };
     
     struct Bunny
@@ -161,10 +162,11 @@ namespace
             renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::R8G8B8A8;
             renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
             
-            auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule = fs;
+            renderPipelineDescriptor.program = device->createProgram(vert, frag);
+            _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
+            _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
+            _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
+            _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32B32, 0);
@@ -197,9 +199,20 @@ namespace
             CC_SAFE_RELEASE(_renderPipeline);
         }
         
+        inline int getModelLocaiton() const { return _modelLocation; }
+        inline int getViewLocaiton() const { return _viewLocation; }
+        inline int getProjectionLocaiton() const { return _projectionLocation; }
+        inline int getColorLocaiton() const { return _colorLocation; }
+        inline backend::Program* getProgram() { return _renderPipeline->getProgram(); }
+        
         backend::Buffer* _vertexBuffer = nullptr;
         backend::Buffer* _indexBuffer = nullptr;
         backend::RenderPipeline* _renderPipeline = nullptr;
+        
+        int _modelLocation = -1;
+        int _viewLocation = -1;
+        int _projectionLocation = -1;
+        int _colorLocation = -1;
     };
     
     Bunny* bunny = nullptr;
@@ -209,6 +222,9 @@ namespace
 PostProcessBackend::PostProcessBackend()
 : _t(0.0f)
 {
+    bunny = new Bunny();
+    bg = new BigTriangle();
+    
     auto device = backend::Device::getInstance();
     
     backend::TextureDescriptor textureDescriptor;
@@ -249,9 +265,6 @@ PostProcessBackend::PostProcessBackend()
     _renderPassDescriptorBg.needDepthAttachment = true;
     
     _commandBuffer = device->newCommandBuffer();
-    
-    bunny = new Bunny();
-    bg = new BigTriangle();
 }
 
 PostProcessBackend::~PostProcessBackend()
@@ -290,13 +303,11 @@ void PostProcessBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, bunny->_vertexBuffer);
     _commandBuffer->setIndexBuffer(bunny->_indexBuffer);
     
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    bunny->getProgram()->setVertexUniform(bunny->getModelLocaiton(), _model.m, sizeof(_model.m));
+    bunny->getProgram()->setVertexUniform(bunny->getViewLocaiton(), _view.m, sizeof(_view.m));
+    bunny->getProgram()->setVertexUniform(bunny->getProjectionLocaiton(), _projection.m, sizeof(_projection.m));
     float color[4] = {0.1f, 0.1f, 0.1f, 1};
-    _bindGroup.setUniform("color", color, sizeof(color));
-    _commandBuffer->setBindGroup(&_bindGroup);
-    
+    bunny->getProgram()->setFragmentUniform(bunny->getColorLocaiton(), color, sizeof(color));
     _commandBuffer->drawElements(backend::PrimitiveType::TRIANGLE,
                                  backend::IndexFormat::U_SHORT,
                                  sizeof(bunny_cells) / sizeof(bunny_cells[0]));
@@ -311,12 +322,11 @@ void PostProcessBackend::tick(float dt)
     _commandBuffer->setVertexBuffer(0, bunny->_vertexBuffer);
     _commandBuffer->setIndexBuffer(bunny->_indexBuffer);
     
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
+    bunny->getProgram()->setVertexUniform(bunny->getModelLocaiton(), _model.m, sizeof(_model.m));
+    bunny->getProgram()->setVertexUniform(bunny->getViewLocaiton(), _view.m, sizeof(_view.m));
+    bunny->getProgram()->setVertexUniform(bunny->getProjectionLocaiton(), _projection.m, sizeof(_projection.m));
     float color2[4] = {0.3f, 0.3f, 0.3f, 1};
-    _bindGroup.setUniform("color", color2 , sizeof(color2));
-    _commandBuffer->setBindGroup(&_bindGroup);
+    bunny->getProgram()->setFragmentUniform(bunny->getColorLocaiton(), color2 , sizeof(color2));
     
     _commandBuffer->drawElements(backend::PrimitiveType::TRIANGLE,
                                  backend::IndexFormat::U_SHORT,
@@ -326,10 +336,7 @@ void PostProcessBackend::tick(float dt)
     
     // Draw bg.
     _commandBuffer->beginRenderPass(_renderPassDescriptorBg);
-    
-    _bindGroup.setTexture("texture", 0, _colorTexture);
-    _commandBuffer->setBindGroup(&_bindGroup);
-    
+    bg->getProgram()->setFragmentTexture(bg->_textureLocation, 0, _colorTexture);
     _commandBuffer->setRenderPipeline(bg->_renderPipeline);
     _commandBuffer->setVertexBuffer(0, bg->_vertexBuffer);
     _commandBuffer->drawArrays(backend::PrimitiveType::TRIANGLE, 0, 3);

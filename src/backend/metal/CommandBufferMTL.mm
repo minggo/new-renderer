@@ -4,7 +4,7 @@
 #include "RenderPipelineMTL.h"
 #include "TextureMTL.h"
 #include "Utils.h"
-#include "../BindGroup.h"
+#include "ProgramMTL.h"
 
 CC_BACKEND_BEGIN
 
@@ -196,13 +196,6 @@ void CommandBufferMTL::setVertexBuffer(uint32_t index, Buffer* buffer)
                                atIndex:0];
 }
 
-void CommandBufferMTL::setBindGroup(BindGroup* bindGroup)
-{
-    CC_SAFE_RETAIN(bindGroup);
-    CC_SAFE_RELEASE(_bindGroup);
-    _bindGroup = bindGroup;
-}
-
 void CommandBufferMTL::setIndexBuffer(Buffer* buffer)
 {
     assert(buffer != nullptr);
@@ -254,7 +247,6 @@ void CommandBufferMTL::afterDraw()
         _mtlIndexBuffer = nullptr;
     }
     
-    CC_SAFE_RELEASE_NULL(_bindGroup);
 }
 
 void CommandBufferMTL::prepareDrawing() const
@@ -273,55 +265,53 @@ void CommandBufferMTL::prepareDrawing() const
 
 void CommandBufferMTL::setTextures() const
 {
-    if (_bindGroup)
+    if (_renderPipelineMTL->getProgram())
     {
-        doSetTextures(_renderPipelineMTL->getVertexTextures(), true);
-        doSetTextures(_renderPipelineMTL->getFragmentTextures(), false);
+        doSetTextures(true);
+        doSetTextures(false);
     }
 }
 
-void CommandBufferMTL::doSetTextures(const std::vector<std::string>& textures, bool isVertex) const
+void CommandBufferMTL::doSetTextures(bool isVertex) const
 {
-    const auto& bindTextureInfos = _bindGroup->getTextureInfos();
-    int i = 0;
-    for (const auto& texture : textures)
+    const auto& bindTextureInfos = (isVertex)?_renderPipelineMTL->getProgram()->getVertexTextureInfos():_renderPipelineMTL->getProgram()->getFragmentTextureInfos();
+    for(const auto& textureInfo : bindTextureInfos)
     {
-        auto iter = bindTextureInfos.find(texture);
-        if (bindTextureInfos.end() != iter)
+        int i = 0;
+        int location = textureInfo.second.location;
+        
+        //FIXME: should support texture array.
+        const auto& textures = textureInfo.second.textures;
+        const auto& mtlTexture = static_cast<TextureMTL*>(textures[i]);
+        
+        if (isVertex)
         {
-            //FIXME: should support texture array.
-            const auto& textures = iter->second.textures;
-            const auto& mtlTexture = static_cast<TextureMTL*>(textures[0]);
-            
-            if (isVertex)
-            {
-                [_mtlRenderEncoder setVertexTexture:mtlTexture->getMTLTexture()
-                                            atIndex:i];
-                [_mtlRenderEncoder setVertexSamplerState:mtlTexture->getMTLSamplerState()
-                                                 atIndex:i];
-            }
-            else
-            {
-                [_mtlRenderEncoder setFragmentTexture:mtlTexture->getMTLTexture()
-                                              atIndex:i];
-                [_mtlRenderEncoder setFragmentSamplerState:mtlTexture->getMTLSamplerState()
-                                                   atIndex:i];
-            }
-            
-            ++i;
+            [_mtlRenderEncoder setVertexTexture:mtlTexture->getMTLTexture()
+                                        atIndex:location];
+            [_mtlRenderEncoder setVertexSamplerState:mtlTexture->getMTLSamplerState()
+                                             atIndex:location];
         }
+        else
+        {
+            [_mtlRenderEncoder setFragmentTexture:mtlTexture->getMTLTexture()
+                                          atIndex:location];
+            [_mtlRenderEncoder setFragmentSamplerState:mtlTexture->getMTLSamplerState()
+                                               atIndex:location];
+        }
+        
+        ++i;
     }
 }
 
 void CommandBufferMTL::setUniformBuffer() const
 {
-    if (_bindGroup)
+    if (_renderPipelineMTL->getProgram())
     {
         // Uniform buffer is bound to index 1.
         const auto& vertexUniformBuffer = _renderPipelineMTL->getVertexUniformBuffer();
         if (vertexUniformBuffer)
         {
-            uint32_t size = fillUniformBuffer(vertexUniformBuffer.get(), _renderPipelineMTL->getVertexUniforms());
+            auto size = _renderPipelineMTL->getVertexUniformBufferSize();
             [_mtlRenderEncoder setVertexBytes:vertexUniformBuffer.get()
                                        length:size atIndex:1];
         }
@@ -329,29 +319,12 @@ void CommandBufferMTL::setUniformBuffer() const
         const auto& fragUniformBuffer = _renderPipelineMTL->getFragmentUniformBuffer();
         if (fragUniformBuffer)
         {
-            uint32_t size = fillUniformBuffer(fragUniformBuffer.get(), _renderPipelineMTL->getFragmentUniforms());
+            auto size = _renderPipelineMTL->getFragUniformBufferSize();
             [_mtlRenderEncoder setFragmentBytes:fragUniformBuffer.get()
                                          length:size
                                         atIndex:1];
         }
     }
-}
-
-uint32_t CommandBufferMTL::fillUniformBuffer(uint8_t* buffer, const std::vector<std::string>& uniforms) const
-{
-    const auto& bindUniformInfos = _bindGroup->getUniformInfos();
-    uint32_t offset = 0;
-    for (const auto& uniform : uniforms)
-    {
-        auto iter = bindUniformInfos.find(uniform);
-        if (bindUniformInfos.end() != iter)
-        {
-            const auto& bindUniformInfo = iter->second;
-            memcpy(buffer + offset, bindUniformInfo.data, bindUniformInfo.size);
-            offset += bindUniformInfo.size;
-        }
-    }
-    return offset;
 }
 
 CC_BACKEND_END

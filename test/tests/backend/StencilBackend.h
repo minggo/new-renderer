@@ -45,13 +45,16 @@ private:
     cocos2d::backend::Buffer* _vertexBuffer = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
-    cocos2d::backend::BindGroup _bindGroup;
     
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipelineCavasTexture = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipelineTextureBackAndFront = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipelineTextureBack = nullptr;
     cocos2d::backend::RenderPipeline* _renderPipelineTextureFront = nullptr;
+    
+    int _transformLocation = -1;
+    int _colorLocation = -1;
+    int _textureLocation = -1;
 };
 
 

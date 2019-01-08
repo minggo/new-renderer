@@ -9,6 +9,7 @@
 #import <Metal/Metal.h>
 
 CC_BACKEND_BEGIN
+class ProgramMTL;
 
 class RenderPipelineMTL : public RenderPipeline
 {
@@ -21,10 +22,8 @@ public:
     
     inline const std::shared_ptr<uint8_t>& getVertexUniformBuffer() const { return _vertexUniformBuffer; }
     inline const std::shared_ptr<uint8_t>& getFragmentUniformBuffer() const { return _fragementUniformBuffer; }
-    inline const std::vector<std::string>& getVertexUniforms() const { return _vertexUniforms; }
-    inline const std::vector<std::string>& getFragmentUniforms() const { return _fragmentUniforms; }
-    inline const std::vector<std::string>& getVertexTextures() const { return _vertexTextures; }
-    inline const std::vector<std::string>& getFragmentTextures() const { return _fragmentTextures; }
+    inline uint32_t getVertexUniformBufferSize() const { return _vertexUniformBufferSize; }
+    inline uint32_t getFragUniformBufferSize() const { return _fragUniformBufferSize; }
     
 private:
     void setVertexLayout(MTLRenderPipelineDescriptor*, const RenderPipelineDescriptor&);
@@ -36,13 +35,10 @@ private:
     id<MTLDepthStencilState> _mtlDepthStencilState = nil;
     id<MTLDevice> _mtlDevice = nil;
     
+    uint32_t _vertexUniformBufferSize = 0;
+    uint32_t _fragUniformBufferSize = 0;
     std::shared_ptr<uint8_t> _vertexUniformBuffer = nullptr;
-    std::vector<std::string> _vertexUniforms;
-    std::vector<std::string> _vertexTextures;
-    
     std::shared_ptr<uint8_t> _fragementUniformBuffer = nullptr;
-    std::vector<std::string> _fragmentUniforms;
-    std::vector<std::string> _fragmentTextures;
     
     MTLRenderPipelineDescriptor* _mtlRenderPipelineDescriptor = nil;
     BlendDescriptorMTL _blendDescriptorMTL;

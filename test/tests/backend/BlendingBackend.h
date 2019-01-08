@@ -43,9 +43,6 @@ private:
     cocos2d::backend::Texture* _sprite0 = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptorBigTriangle;
-    cocos2d::backend::BindGroup _bindGroupBigTriangle;
-    
-    cocos2d::backend::BindGroup _bindGroup;
     
     cocos2d::Mat4 _projection;
     cocos2d::Mat4 _model;

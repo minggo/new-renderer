@@ -24,9 +24,9 @@
 
 #pragma once
 
-#include "math/mat4.h"
+#include "math/Mat4.h"
 #include "TestBase.h"
-#include "backend/backend.h"
+#include "backend/Backend.h"
 
 class SubImageBackend : public TestBaseI
 {
@@ -41,7 +41,6 @@ private:
     cocos2d::backend::RenderPipeline* _renderPipeline = nullptr;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
     cocos2d::backend::Texture* _texture = nullptr;
-    cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptor;
 
     cocos2d::Mat4 _transform0;
@@ -49,6 +48,8 @@ private:
     uint8_t* _data;
     size_t _dataSize;
     size_t _updatePixelIndex;
+    
+    int _textureLocation = 0;
 };
 
 

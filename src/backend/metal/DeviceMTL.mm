@@ -7,6 +7,7 @@
 #include "TextureMTL.h"
 #include "BlendStateMTL.h"
 #include "Utils.h"
+#include "ProgramMTL.h"
 
 
 CC_BACKEND_BEGIN
@@ -38,10 +39,12 @@ DeviceMTL::DeviceMTL()
 {
     _mtlDevice = DeviceMTL::_metalLayer.device;
     _mtlCommandQueue = [_mtlDevice newCommandQueue];
+    ProgramCache::getInstance();
 }
 
 DeviceMTL::~DeviceMTL()
 {
+    ProgramCache::destroyInstance();
 }
 
 CommandBuffer* DeviceMTL::newCommandBuffer()
@@ -57,15 +60,6 @@ Buffer* DeviceMTL::newBuffer(uint32_t size, BufferType type, BufferUsage usage)
 Texture* DeviceMTL::newTexture(const TextureDescriptor& descriptor)
 {
     return new (std::nothrow) TextureMTL(_mtlDevice, descriptor);
-}
-
-ShaderModule* DeviceMTL::createShaderModule(ShaderStage stage, const std::string& source)
-{
-    auto ret = new (std::nothrow) ShaderModuleMTL(_mtlDevice, stage, source);
-    if (ret)
-        ret->autorelease();
-    
-    return ret;
 }
 
 DepthStencilState* DeviceMTL::createDepthStencilState(const DepthStencilDescriptor& descriptor)
@@ -89,6 +83,21 @@ BlendState* DeviceMTL::createBlendState(const BlendDescriptor& descriptor)
 RenderPipeline* DeviceMTL::newRenderPipeline(const RenderPipelineDescriptor& descriptor)
 {
     return new (std::nothrow) RenderPipelineMTL(_mtlDevice, descriptor);
+}
+
+Program* DeviceMTL::createProgram(const std::string& vertexShader, const std::string& fragmentShader)
+{
+    auto program = ProgramCache::getInstance()->getProgram(vertexShader, fragmentShader);
+    if(!program)
+    {
+        program = new (std::nothrow) ProgramMTL(_mtlDevice, vertexShader, fragmentShader);
+        if (program)
+        {
+            program->autorelease();
+            ProgramCache::getInstance()->addProgram(program);
+        }
+    }
+    return program;
 }
 
 CC_BACKEND_END

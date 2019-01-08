@@ -36,11 +36,10 @@ SubImageBackend::SubImageBackend()
 #ifdef GL_ES
     precision highp float;
 #endif
-    uniform mat4 transform;
     attribute vec2 a_position;
     varying vec2 v_texcoord;
     void main () {
-        gl_Position = transform * vec4(a_position, 0, 1);
+        gl_Position = vec4(a_position, 0, 1);
         v_texcoord = a_position * 0.5 + 0.5;
     }
     )";
@@ -50,7 +49,6 @@ SubImageBackend::SubImageBackend()
     precision highp float;
 #endif
     uniform sampler2D texture;
-    uniform vec4 color;
     varying vec2 v_texcoord;
     void main () {
         gl_FragColor = texture2D(texture, v_texcoord);
@@ -60,10 +58,8 @@ SubImageBackend::SubImageBackend()
     auto device = backend::Device::getInstance();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
+    _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
     
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, backend::VertexFormat::FLOAT_R32G32, 0);
@@ -133,12 +129,7 @@ void SubImageBackend::tick(float dt)
 
 
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
-    
-    float color[4] = {1, 0, 0, 1};
-    _bindGroup.setUniform("color", color, sizeof(color));
-    _bindGroup.setUniform("transform", _transform0.m, sizeof(_transform0.m));
-    _bindGroup.setTexture("texture", 0, _texture);
-    _commandBuffer->setBindGroup(&_bindGroup);
+    _renderPipeline->getProgram()->setFragmentTexture(_textureLocation, 0, _texture);
     
     _commandBuffer->drawArrays(backend::PrimitiveType::TRIANGLE, 0, 6);
     _commandBuffer->endRenderPass();

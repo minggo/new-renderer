@@ -75,10 +75,11 @@ ParticleBackend::ParticleBackend()
     auto device = backend::Device::getInstance();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    auto vs = device->createShaderModule(backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(backend::ShaderStage::FRAGMENT, frag);
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
+    _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
+    _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
+    _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
+    _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("u_texture");
     
 #define VERTEX_QUAD_SIZE 2
 #define VERTEX_POS_SIZE 3
@@ -129,6 +130,7 @@ ParticleBackend::ParticleBackend()
     textureDescriptor.samplerDescriptor.mipmapEnabled = true;
     _texture = device->newTexture(textureDescriptor);
     _texture->updateData(imageData.getBytes());
+    _renderPipelineWithBlend->getProgram()->setFragmentTexture(_textureLocation, 0, _texture);
     
     _commandBuffer = device->newCommandBuffer();
     _vertexBuffer = device->newBuffer(sizeof(_vbufferArray), backend::BufferType::VERTEX, backend::BufferUsage::READ);
@@ -225,12 +227,10 @@ void ParticleBackend::tick(float dt)
         }
     }
     _vertexBuffer->updateData(_vbufferArray, sizeof(_vbufferArray));
-    
-    _bindGroup.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroup.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroup.setUniform("projection", _projection.m, sizeof(_projection.m));
-    _bindGroup.setTexture("u_texture", 0, _texture);
-    _commandBuffer->setBindGroup(&_bindGroup);
+    auto program = _renderPipelineWithBlend->getProgram();
+    program->setVertexUniform(_modelLocation, _model.m, sizeof(_model.m));
+    program->setVertexUniform(_viewLocation, _view.m, sizeof(_view.m));
+    program->setVertexUniform(_projectionLocation, _projection.m, sizeof(_projection.m));
     
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
     _commandBuffer->setIndexBuffer(_indexBuffer);

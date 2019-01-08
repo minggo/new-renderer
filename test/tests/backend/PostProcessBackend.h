@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "backend/backend.h"
+#include "backend/Backend.h"
 #include "math/Mat4.h"
 #include "../TestBase.h"
 
@@ -38,12 +38,13 @@ public:
     
 private:
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
-    cocos2d::backend::BindGroup _bindGroup;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptorBunny1;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptorBunny2;
     cocos2d::backend::RenderPassDescriptor _renderPassDescriptorBg;
     cocos2d::backend::Texture* _colorTexture = nullptr;
     cocos2d::backend::Texture* _depthTexture = nullptr;
+    cocos2d::backend::Program* _programBigTriangle = nullptr;
+    
     
     float _t;
     

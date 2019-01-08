@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #import <Metal/Metal.h>
+#include <unordered_map>
 
 struct glslopt_shader;
 
@@ -18,8 +19,9 @@ public:
     
     inline id<MTLFunction> getMTLFunction() const { return _mtlFunction; }
     inline const std::shared_ptr<uint8_t>& getUniformBuffer() const { return _uniformBuffer; }
-    inline const std::vector<std::string>& getUniforms() const { return _uniforms; }
-    inline const std::vector<std::string>& getTextures() const { return _textures; }
+    inline const std::unordered_map<std::string, int>& getUniforms() const { return _uniforms; }
+    inline uint32_t getUniformBufferSize() const { return _uniformBufferSize; }
+    inline uint32_t getUniformTextureCount() const { return _uniformTextureCount; }
     
 private:
     void parseUniform(id<MTLDevice> mtlDevice, glslopt_shader* shader);
@@ -28,10 +30,9 @@ private:
     id<MTLFunction> _mtlFunction = nil;
     
     std::shared_ptr<uint8_t> _uniformBuffer = nullptr;
-    std::vector<std::string> _uniforms;
-    
-    // Texture index is the same as vector index.
-    std::vector<std::string> _textures;
+    std::unordered_map<std::string, int> _uniforms;
+    uint32_t _uniformBufferSize = 0;
+    uint32_t _uniformTextureCount = 0;
 };
 
 CC_BACKEND_END

@@ -29,8 +29,8 @@
 
 #include "backend/RenderPipelineDescriptor.h"
 #include "backend/RenderPassDescriptor.h"
-#include "backend/ShaderModule.h"
 #include "backend/VertexLayout.h"
+#include "backend/ProgramCache.h"
 
 std::string test_unrollLoops(const std::string& text);
 
@@ -62,12 +62,9 @@ BasicBackend::BasicBackend()
     )";
     
     auto device = cocos2d::backend::Device::getInstance();
-    
-    auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-    auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
     cocos2d::backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.vertexShaderModule = vs;
-    renderPipelineDescriptor.fragmentShaderModule = fs;
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
+    _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     
     backend::VertexLayout vertexLayout;
     vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -103,8 +100,7 @@ void BasicBackend::tick(float dt)
     _commandBuffer->setViewport(0, 0, utils::WINDOW_WIDTH, utils::WINDOW_HEIGHT);
     _commandBuffer->setRenderPipeline(_renderPipeline);
     _commandBuffer->setVertexBuffer(0, _vertexBuffer);
-    _bindGroup.setUniform("color", color, sizeof(color));
-    _commandBuffer->setBindGroup(&_bindGroup);
+    _renderPipeline->getProgram()->setFragmentUniform(_colorLocation, color, sizeof(color));
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 3);
     _commandBuffer->endRenderPass();
     _commandBuffer->endFrame();

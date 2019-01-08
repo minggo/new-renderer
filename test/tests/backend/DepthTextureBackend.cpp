@@ -75,10 +75,10 @@ namespace
             // render pipeline
             
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
-            auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule = fs;
+            renderPipelineDescriptor.program = device->createProgram(vert, frag);
+            _nearLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("near");
+            _farLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("far");
+            _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
             
             backend::VertexLayout vertexLayout;
             vertexLayout.setAtrribute("a_position", 0, cocos2d::backend::VertexFormat::FLOAT_R32G32, 0);
@@ -102,8 +102,16 @@ namespace
             CC_SAFE_RELEASE(vertexBuffer);
         }
         
+        inline int getNearLocation() const { return _nearLocation; }
+        inline int getFarLocaiton() const { return _farLocation; }
+        inline backend::Program* getProgram() { return renderPipeline->getProgram(); }
+        
         backend::RenderPipeline* renderPipeline = nullptr;
         backend::Buffer* vertexBuffer = nullptr;
+        
+        int _nearLocation = -1;
+        int _farLocation = -1;
+        int _textureLocation = -1;
     };
     
     struct Bunny
@@ -146,10 +154,10 @@ namespace
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
             renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
             renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::NONE;
-            auto vs = device->createShaderModule(cocos2d::backend::ShaderStage::VERTEX, vert);
-            auto fs = device->createShaderModule(cocos2d::backend::ShaderStage::FRAGMENT, frag);
-            renderPipelineDescriptor.vertexShaderModule = vs;
-            renderPipelineDescriptor.fragmentShaderModule =fs;
+            renderPipelineDescriptor.program = device->createProgram(vert, frag);
+            _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
+            _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
+            _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
 
             backend::VertexLayout vertexLayout;
             vertexLayout.setLayout(3 * sizeof(float), cocos2d::backend::VertexStepMode::VERTEX);
@@ -186,9 +194,18 @@ namespace
             CC_SAFE_RELEASE(renderPipeline);
         }
         
+        inline int getModelLocation() const { return _modelLocation; }
+        inline int getViewLocation() const { return _viewLocation; }
+        inline int getProjectionLocation() const { return _projectionLocation; }
+        inline backend::Program* getProgram() { return renderPipeline->getProgram(); }
+        
         backend::Buffer* vertexBuffer = nullptr;
         backend::Buffer* indexBuffer = nullptr;
         backend::RenderPipeline* renderPipeline = nullptr;
+        
+        int _modelLocation = -1;
+        int _viewLocation = -1;
+        int _projectionLocation = -1;
     };
     
     BigTriangle* bg;
@@ -198,6 +215,8 @@ namespace
 DepthTextureBackend::DepthTextureBackend()
 : _t(0.0f)
 {
+    bunny = new Bunny();
+    bg = new BigTriangle();
     auto device = backend::Device::getInstance();
     
     // depth texture
@@ -213,6 +232,7 @@ DepthTextureBackend::DepthTextureBackend()
     textureDescriptor.samplerDescriptor = samplerDescriptor;
     textureDescriptor.textureFormat = backend::TextureFormat::D24S8;
     _depthTexture = device->newTexture(textureDescriptor);
+    bg->getProgram()->setFragmentTexture(bg->_textureLocation, 0, _depthTexture);
     
     // render pass Bunny 1
     _renderPassBunny1.clearDepthValue = 1;
@@ -235,9 +255,6 @@ DepthTextureBackend::DepthTextureBackend()
     _renderPassBigTriangle.needColorAttachment = true;
     
     _commandBuffer = device->newCommandBuffer();
-    
-    bunny = new Bunny();
-    bg = new BigTriangle();
 }
 
 DepthTextureBackend::~DepthTextureBackend()
@@ -271,10 +288,10 @@ void DepthTextureBackend::tick(float dt)
     
     _model = Mat4::IDENTITY;
     _model.translate(5, 0, 0);
-    _bindGroupBunny.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroupBunny.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroupBunny.setUniform("projection", _projection.m, sizeof(_projection.m));
-    _commandBuffer->setBindGroup(&_bindGroupBunny);
+    
+    bunny->getProgram()->setVertexUniform(bunny->getModelLocation(), _model.m, sizeof(_model.m));
+    bunny->getProgram()->setVertexUniform(bunny->getViewLocation(),  _view.m, sizeof(_view.m));
+    bunny->getProgram()->setVertexUniform(bunny->getProjectionLocation(), _projection.m, sizeof(_projection.m));
     
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_SHORT,
@@ -288,10 +305,9 @@ void DepthTextureBackend::tick(float dt)
     
     _model = Mat4::IDENTITY;
     _model.translate(-5, 0, 0);
-    _bindGroupBunny.setUniform("model", _model.m, sizeof(_model.m));
-    _bindGroupBunny.setUniform("view", _view.m, sizeof(_view.m));
-    _bindGroupBunny.setUniform("projection", _projection.m, sizeof(_projection.m));
-    _commandBuffer->setBindGroup(&_bindGroupBunny);
+    bunny->getProgram()->setVertexUniform(bunny->getModelLocation(), _model.m, sizeof(_model.m));
+    bunny->getProgram()->setVertexUniform(bunny->getViewLocation(), _view.m, sizeof(_view.m));
+    bunny->getProgram()->setVertexUniform(bunny->getProjectionLocation(), _projection.m, sizeof(_projection.m));
     
     _commandBuffer->drawElements(cocos2d::backend::PrimitiveType::TRIANGLE,
                                  cocos2d::backend::IndexFormat::U_SHORT,
@@ -304,12 +320,10 @@ void DepthTextureBackend::tick(float dt)
     _commandBuffer->setRenderPipeline(bg->renderPipeline);
     _commandBuffer->setVertexBuffer(0, bg->vertexBuffer);
     
-    _bindGroupBigTriangle.setTexture("texture", 0, _depthTexture);
     float near = 0.1f;
     float far = 100.f;
-    _bindGroupBigTriangle.setUniform("near", &near, sizeof(float));
-    _bindGroupBigTriangle.setUniform("far", &far, sizeof(float));
-    _commandBuffer->setBindGroup(&_bindGroupBigTriangle);
+    bg->getProgram()->setFragmentUniform(bg->getNearLocation(), &near, sizeof(float));
+    bg->getProgram()->setFragmentUniform(bg->getFarLocaiton(), &far, sizeof(float));
     
     _commandBuffer->drawArrays(cocos2d::backend::PrimitiveType::TRIANGLE, 0, 6);
     _commandBuffer->endRenderPass();

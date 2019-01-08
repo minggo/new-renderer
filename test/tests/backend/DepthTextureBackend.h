@@ -50,7 +50,5 @@ private:
     cocos2d::backend::RenderPassDescriptor _renderPassBunny1;
     cocos2d::backend::RenderPassDescriptor _renderPassBunny2;
     cocos2d::backend::RenderPassDescriptor _renderPassBigTriangle;
-    cocos2d::backend::BindGroup _bindGroupBunny;
-    cocos2d::backend::BindGroup _bindGroupBigTriangle;
     cocos2d::backend::CommandBuffer* _commandBuffer = nullptr;
 };

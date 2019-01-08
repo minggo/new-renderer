@@ -3,8 +3,7 @@
 #include "RenderPipelineGL.h"
 #include "TextureGL.h"
 #include "DepthStencilStateGL.h"
-#include "../BindGroup.h"
-#include "Program.h"
+#include "ProgramGL.h"
 #include "BlendStateGL.h"
 #include "ccMacros.h"
 
@@ -256,13 +255,6 @@ void CommandBufferGL::setVertexBuffer(uint32_t index, Buffer* buffer)
     _vertexBuffers[index] = static_cast<BufferGL*>(buffer);
 }
 
-void CommandBufferGL::setBindGroup(BindGroup* bindGroup)
-{
-    CC_SAFE_RETAIN(bindGroup);
-    CC_SAFE_RELEASE(_bindGroup);
-    _bindGroup = bindGroup;
-}
-
 void CommandBufferGL::drawArrays(PrimitiveType primitiveType, uint32_t start,  uint32_t count)
 {
     prepareDrawing();
@@ -292,7 +284,7 @@ void CommandBufferGL::prepareDrawing() const
 {
     glViewport(_viewport.x, _viewport.y, _viewport.w, _viewport.h);
     
-    const auto& program = _renderPipeline->getProgram();
+    const auto& program = _renderPipeline->getGLProgram();
     glUseProgram(program->getHandler());
     
     bindVertexBuffer(program);
@@ -323,7 +315,7 @@ void CommandBufferGL::prepareDrawing() const
     }
 }
 
-void CommandBufferGL::bindVertexBuffer(Program *program) const
+void CommandBufferGL::bindVertexBuffer(const ProgramGL *program) const
 {
     // Bind vertex buffers and set the attributes.
     int i = 0;
@@ -351,138 +343,42 @@ void CommandBufferGL::bindVertexBuffer(Program *program) const
     }
 }
 
-void CommandBufferGL::setUniforms(Program* program) const
+void CommandBufferGL::setUniforms(const ProgramGL* program) const
 {
-    if (_bindGroup)
+    if (program)
     {
-        const auto& texutreInfos = _bindGroup->getTextureInfos();
-        const auto& bindUniformInfos = _bindGroup->getUniformInfos();
+        const auto& texutreInfos = program->getFragmentTextureInfos();
         const auto& activeUniformInfos = program->getUniformInfos();
-        for (const auto& activeUinform : activeUniformInfos)
+
+        // Bind textures.
+        for(const auto& textureInfo : texutreInfos)
         {
-            // Set normal uniforms.
-            const auto& bindUniformInfo = bindUniformInfos.find(activeUinform.name);
-            if (bindUniformInfos.end() != bindUniformInfo)
+            int location = textureInfo.first;
+            const auto& activeUniform = activeUniformInfos.at(location);
+            assert(location == activeUniform.location);
+            
+            const auto& textures = textureInfo.second.textures;
+            const auto& indices = textureInfo.second.slot;
+            
+            int i = 0;
+            for (const auto& texture: textures)
             {
-                setUniform(activeUinform.isArray,
-                           activeUinform.location,
-                           activeUinform.size,
-                           activeUinform.type,
-                           (*bindUniformInfo).second.data);
+                static_cast<TextureGL*>(texture)->apply(indices[i]);
+                ++i;
             }
             
-            // Bind textures.
-            const auto& bindUniformTextureInfo = texutreInfos.find(activeUinform.name);
-            if (texutreInfos.end() != bindUniformTextureInfo)
-            {
-                const auto& textures = (*bindUniformTextureInfo).second.textures;
-                const auto& indices = (*bindUniformTextureInfo).second.indices;
-                
-                int i = 0;
-                for (const auto& texture: textures)
-                {
-                    static_cast<TextureGL*>(texture)->apply(indices[i]);
-                    ++i;
-                }
-                
-                setUniform(activeUinform.isArray,
-                           activeUinform.location,
-                           activeUinform.size,
-                           activeUinform.type,
-                           (void*)indices.data());
+            switch (activeUniform.type) {
+                case GL_SAMPLER_2D:
+                case GL_SAMPLER_CUBE:
+                    if (activeUniform.isArray)
+                        glUniform1iv(activeUniform.location, activeUniform.size, (GLint*)indices.data());
+                    else
+                        glUniform1i(activeUniform.location, *((GLint*)(indices.data())));
+                    break;
+                default:
+                    break;
             }
         }
-    }
-}
-
-#define DEF_TO_INT(pointer, index)     (*((GLint*)(pointer) + index))
-#define DEF_TO_FLOAT(pointer, index)   (*((GLfloat*)(pointer) + index))
-void CommandBufferGL::setUniform(bool isArray, GLuint location, uint32_t size, GLenum uniformType, void* data) const
-{
-    GLsizei count = size;
-    switch (uniformType)
-    {
-        case GL_INT:
-        case GL_BOOL:
-        case GL_SAMPLER_2D:
-        case GL_SAMPLER_CUBE:
-            if (isArray)
-                glUniform1iv(location, count, (GLint*)data);
-            else
-                glUniform1i(location, DEF_TO_INT(data, 0));
-            break;
-        case GL_INT_VEC2:
-        case GL_BOOL_VEC2:
-            if (isArray)
-                glUniform2iv(location, count, (GLint*)data);
-            else
-                glUniform2i(location, DEF_TO_INT(data, 0), DEF_TO_INT(data, 1));
-            break;
-        case GL_INT_VEC3:
-        case GL_BOOL_VEC3:
-            if (isArray)
-                glUniform3iv(location, count, (GLint*)data);
-            else
-                glUniform3i(location,
-                            DEF_TO_INT(data, 0),
-                            DEF_TO_INT(data, 1),
-                            DEF_TO_INT(data, 2));
-            break;
-        case GL_INT_VEC4:
-        case GL_BOOL_VEC4:
-            if (isArray)
-                glUniform4iv(location, count, (GLint*)data);
-            else
-                glUniform4i(location,
-                            DEF_TO_INT(data, 0),
-                            DEF_TO_INT(data, 1),
-                            DEF_TO_INT(data, 2),
-                            DEF_TO_INT(data, 4));
-            break;
-        case GL_FLOAT:
-            if (isArray)
-                glUniform1fv(location, count, (GLfloat*)data);
-            else
-                glUniform1f(location, DEF_TO_FLOAT(data, 0));
-            break;
-        case GL_FLOAT_VEC2:
-            if (isArray)
-                glUniform2fv(location, count, (GLfloat*)data);
-            else
-                glUniform2f(location, DEF_TO_FLOAT(data, 0), DEF_TO_FLOAT(data, 1));
-            break;
-        case GL_FLOAT_VEC3:
-            if (isArray)
-                glUniform3fv(location, count, (GLfloat*)data);
-            else
-                glUniform3f(location,
-                            DEF_TO_FLOAT(data, 0),
-                            DEF_TO_FLOAT(data, 1),
-                            DEF_TO_FLOAT(data, 2));
-            break;
-        case GL_FLOAT_VEC4:
-            if (isArray)
-                glUniform4fv(location, count, (GLfloat*)data);
-            else
-                glUniform4f(location,
-                            DEF_TO_FLOAT(data, 0),
-                            DEF_TO_FLOAT(data, 1),
-                            DEF_TO_FLOAT(data, 2),
-                            DEF_TO_FLOAT(data, 3));
-            break;
-        case GL_FLOAT_MAT2:
-            glUniformMatrix2fv(location, count, GL_FALSE, (GLfloat*)data);
-            break;
-        case GL_FLOAT_MAT3:
-            glUniformMatrix3fv(location, count, GL_FALSE, (GLfloat*)data);
-            break;
-        case GL_FLOAT_MAT4:
-            glUniformMatrix4fv(location, count, GL_FALSE, (GLfloat*)data);
-            break;
-        break;
-        
-        default:
-        break;
     }
 }
 
@@ -490,7 +386,6 @@ void CommandBufferGL::cleanResources()
 {
     CC_SAFE_RELEASE_NULL(_indexBuffer);
     CC_SAFE_RELEASE_NULL(_renderPipeline);
-    CC_SAFE_RELEASE_NULL(_bindGroup);
       
     for (const auto& vertexBuffer : _vertexBuffers)
         CC_SAFE_RELEASE(vertexBuffer);
