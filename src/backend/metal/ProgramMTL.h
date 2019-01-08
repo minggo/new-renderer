@@ -2,6 +2,7 @@
 
 #include "../Program.h"
 #include <unordered_map>
+#import <Metal/Metal.h>
 
 CC_BACKEND_BEGIN
 
@@ -10,7 +11,7 @@ class ShaderModuleMTL;
 class ProgramMTL : public Program
 {
 public:
-    ProgramMTL(ShaderModule* vs, ShaderModule* fs);
+    ProgramMTL(id<MTLDevice> mtlDevice, const std::string& vertexShader, const std::string& fragmentShader);
     ~ProgramMTL();
     
     virtual int getVertexUniformLocation(const std::string& uniform) const override;

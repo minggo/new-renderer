@@ -20,8 +20,11 @@ public:
     
     /** purges the cache. It releases the retained instance. */
     static void destroyInstance();
-    
-    backend::Program* newProgram(const std::string& vertexShader, const std::string& fragmentShader);
+   
+    backend::Program* getProgram(const std::string& vertexShader, const std::string& fragmentShader) const;
+    void addProgram(backend::Program* program);
+    void removeProgram(backend::Program* program);
+    void removeAllProgram();
     
 protected:
     ProgramCache() = default;

@@ -27,6 +27,8 @@ public:
         std::vector<Texture*> textures;
     };
     
+    Program(const std::string& vertexShader, const std::string& fragmentShader);
+    
     virtual int getVertexUniformLocation(const std::string& uniform) const = 0;
     virtual int getFragmentUniformLocation(const std::string& uniform) const = 0;
     virtual void setVertexUniform(int location, void* data, uint32_t size) = 0;
@@ -38,6 +40,7 @@ public:
     
     inline const std::unordered_map<int, TextureInfo>& getVertexTextureInfos() const { return _vertexTextureInfos; }
     inline const std::unordered_map<int, TextureInfo>& getFragmentTextureInfos() const { return _fragmentTextureInfos; }
+    inline std::size_t getKey() const { return _key; }
     
 protected:
     Program() = default;
@@ -48,6 +51,8 @@ protected:
     
     std::unordered_map<int, TextureInfo> _vertexTextureInfos;
     std::unordered_map<int, TextureInfo> _fragmentTextureInfos;
+    
+    std::size_t _key = 0;
 };
 
 CC_BACKEND_END

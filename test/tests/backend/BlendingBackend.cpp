@@ -66,7 +66,7 @@ namespace
             auto device = backend::Device::getInstance();
             
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
-            renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+            renderPipelineDescriptor.program = device->createProgram(vert, frag);
             _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
             _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
             _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
@@ -218,7 +218,7 @@ namespace
             auto device = backend::Device::getInstance();
             
             backend::RenderPipelineDescriptor renderPipelineDescriptor;
-            renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+            renderPipelineDescriptor.program = device->createProgram(vert, frag);
             _timeLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("time");
             _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
             

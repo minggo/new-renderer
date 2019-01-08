@@ -91,7 +91,7 @@ namespace
             renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::SYSTEM_DEFAULT;
             renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
            
-            renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+            renderPipelineDescriptor.program = device->createProgram(vert, frag);
             _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
 
             backend::VertexLayout vertexLayout;
@@ -162,7 +162,7 @@ namespace
             renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::R8G8B8A8;
             renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
             
-            renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+            renderPipelineDescriptor.program = device->createProgram(vert, frag);
             _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
             _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
             _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");

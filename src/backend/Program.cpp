@@ -4,6 +4,12 @@
 
 CC_BACKEND_BEGIN
 
+Program::Program(const std::string& vertexShader, const std::string& fragmentShader)
+{
+    std::string shaderSource = vertexShader + fragmentShader;
+    _key = std::hash<std::string>{}(shaderSource);
+}
+
 Program::~Program()
 {
     _vertexTextureInfos.clear();

@@ -66,7 +66,7 @@ GuiProjectionBackend::GuiProjectionBackend()
 
     auto device = backend::Device::getInstance();
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
     _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");
     _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");

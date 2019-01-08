@@ -110,12 +110,11 @@ namespace
     }
 }
 
-ProgramGL::ProgramGL(ShaderModule* vs, ShaderModule* fs)
-: _vertexShaderModule(static_cast<ShaderModuleGL*>(vs))
-, _fragmentShaderModule(static_cast<ShaderModuleGL*>(fs))
+ProgramGL::ProgramGL(const std::string& vertexShader, const std::string& fragmentShader)
+: Program(vertexShader, fragmentShader)
 {
-    CC_SAFE_RETAIN(_vertexShaderModule);
-    CC_SAFE_RETAIN(_fragmentShaderModule);
+    _vertexShaderModule = new (std::nothrow) ShaderModuleGL(backend::ShaderStage::VERTEX, vertexShader);
+    _fragmentShaderModule = new (std::nothrow) ShaderModuleGL(backend::ShaderStage::FRAGMENT, fragmentShader);
     
     createProgram();
     computeUniformInfos();

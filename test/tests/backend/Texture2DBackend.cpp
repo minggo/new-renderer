@@ -118,7 +118,7 @@ Texture2DBackendTest::Texture2DBackendTest()
     // create render pipeline
     
     RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
     _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");
     _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");

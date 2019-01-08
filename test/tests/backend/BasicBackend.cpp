@@ -63,7 +63,7 @@ BasicBackend::BasicBackend()
     
     auto device = cocos2d::backend::Device::getInstance();
     cocos2d::backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
     _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     
     backend::VertexLayout vertexLayout;

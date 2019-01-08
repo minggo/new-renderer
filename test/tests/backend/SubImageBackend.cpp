@@ -58,7 +58,7 @@ SubImageBackend::SubImageBackend()
     auto device = backend::Device::getInstance();
     
     backend::RenderPipelineDescriptor renderPipelineDescriptor;
-    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
     _textureLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("texture");
     
     backend::VertexLayout vertexLayout;

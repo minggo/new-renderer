@@ -67,7 +67,7 @@ MultiTexturesBackend::MultiTexturesBackend()
     renderPipelineDescriptor.colorAttachmentsFormat[0] = backend::TextureFormat::SYSTEM_DEFAULT;
     renderPipelineDescriptor.depthAttachmentFormat = backend::TextureFormat::D24S8;
     
-    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
     _transformLocation = renderPipelineDescriptor.program->getVertexUniformLocation("transform");
     _colorLocation = renderPipelineDescriptor.program->getFragmentUniformLocation("color");
     _texture1Location = renderPipelineDescriptor.program->getFragmentUniformLocation("texture1");

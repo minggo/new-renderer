@@ -82,7 +82,7 @@ BunnyBackend::BunnyBackend()
     auto depthStencilState = device->createDepthStencilState(depthStencilDescriptor);
     renderPipelineDescriptor.depthStencilState = depthStencilState;
     
-    renderPipelineDescriptor.program = backend::ProgramCache::getInstance()->newProgram(vert, frag);
+    renderPipelineDescriptor.program = device->createProgram(vert, frag);
     _modelLocation = renderPipelineDescriptor.program->getVertexUniformLocation("model");
     _viewLocation = renderPipelineDescriptor.program->getVertexUniformLocation("view");
     _projectionLocation = renderPipelineDescriptor.program->getVertexUniformLocation("projection");

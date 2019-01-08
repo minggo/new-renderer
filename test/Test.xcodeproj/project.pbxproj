@@ -197,7 +197,6 @@
 		EDC86F4C21DCBAE10086A0CA /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDC86F4B21DCBAE10086A0CA /* Program.cpp */; };
 		EDC86F4D21DCBAE10086A0CA /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDC86F4B21DCBAE10086A0CA /* Program.cpp */; };
 		EDC86F5321DDA3F00086A0CA /* ProgramMTL.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC86F5221DDA3F00086A0CA /* ProgramMTL.mm */; };
-		EDC86F5421DDA3F00086A0CA /* ProgramMTL.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC86F5221DDA3F00086A0CA /* ProgramMTL.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1269,7 +1268,6 @@
 				46037422214247F000DC9ED4 /* BasicBackend.cpp in Sources */,
 				4603744321479AFC00DC9ED4 /* DepthStencilStateGL.cpp in Sources */,
 				1A255E5620034B0D00069420 /* Vec4.cpp in Sources */,
-				EDC86F5421DDA3F00086A0CA /* ProgramMTL.mm in Sources */,
 				1A255E6420034B0D00069420 /* ZipUtils.cpp in Sources */,
 				EDC86F4D21DCBAE10086A0CA /* Program.cpp in Sources */,
 				4603741C214247D500DC9ED4 /* RenderPipelineGL.cpp in Sources */,
@@ -1403,7 +1401,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NQ596S94Q5;
+				DEVELOPMENT_TEAM = FJYDD5W27C;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1436,7 +1434,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NQ596S94Q5;
+				DEVELOPMENT_TEAM = FJYDD5W27C;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Test-ios/Info.plist";

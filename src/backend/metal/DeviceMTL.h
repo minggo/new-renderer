@@ -22,11 +22,10 @@ public:
     virtual CommandBuffer* newCommandBuffer() override;
     virtual Buffer* newBuffer(uint32_t size, BufferType type, BufferUsage usage) override;
     virtual Texture* newTexture(const TextureDescriptor& descriptor) override;
-    virtual ShaderModule* createShaderModule(ShaderStage stage, const std::string& source) override;
     virtual DepthStencilState* createDepthStencilState(const DepthStencilDescriptor& descriptor) override;
     virtual BlendState* createBlendState(const BlendDescriptor& descriptor) override;
     virtual RenderPipeline* newRenderPipeline(const RenderPipelineDescriptor& descriptor) override;
-    virtual Program* createProgram(ShaderModule* vs, ShaderModule* fs) override;
+    virtual Program* createProgram(const std::string& vertexShader, const std::string& fragmentShader) override;
         
     inline id<MTLDevice> getMTLDevice() const { return _mtlDevice; }
     inline id<MTLCommandQueue> getMTLCommandQueue() const { return _mtlCommandQueue; }

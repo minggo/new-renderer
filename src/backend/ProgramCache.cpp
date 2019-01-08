@@ -35,24 +35,51 @@ ProgramCache::~ProgramCache()
     CCLOGINFO("deallocing ProgramCache: %p", this);
 }
 
-backend::Program* ProgramCache::newProgram(const std::string &vertexShader, const std::string &fragmentShader)
+backend::Program* ProgramCache::getProgram(const std::string& vertexShader, const std::string& fragmentShader) const
 {
     std::string shaderSource = vertexShader + fragmentShader;
-    std::size_t key = std::hash<std::string>{}(shaderSource);
+    auto key = std::hash<std::string>{}(shaderSource);
     const auto& iter = ProgramCache::_cachedPrograms.find(key);
     if (ProgramCache::_cachedPrograms.end() != iter)
     {
         return iter->second;
     }
+    
+    return nullptr;
+}
 
-    auto vertexShaderModule = backend::Device::getInstance()->createShaderModule(backend::ShaderStage::VERTEX, vertexShader);
-    auto fragmentShaderModule = backend::Device::getInstance()->createShaderModule(backend::ShaderStage::FRAGMENT, fragmentShader);
-    auto program = backend::Device::getInstance()->createProgram(vertexShaderModule, fragmentShaderModule);
+void ProgramCache::addProgram(backend::Program* program)
+{
     CC_SAFE_RETAIN(program);
+    ProgramCache::_cachedPrograms.emplace(program->getKey(), program);
+}
+
+void ProgramCache::removeProgram(backend::Program* program)
+{
+    if (!program)
+    {
+        return;
+    }
     
-    ProgramCache::_cachedPrograms.emplace(key, program);
-    
-    return program;
+    for (auto it = _cachedPrograms.cbegin(); it != _cachedPrograms.cend();)
+    {
+        if (it->second == program)
+        {
+            it->second->release();
+            it = _cachedPrograms.erase(it);
+            break;
+        }
+        else
+            ++it;
+    }
+}
+
+void ProgramCache::removeAllProgram()
+{
+    for (auto& program : _cachedPrograms) {
+        program.second->release();
+    }
+    _cachedPrograms.clear();
 }
 
 CC_BACKEND_END

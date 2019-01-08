@@ -39,7 +39,7 @@ class ProgramGL : public Program
 public:
     typedef std::vector<AttributeInfo> VertexAttributeArray;
     
-    ProgramGL(ShaderModule* vs, ShaderModule* fs);
+    ProgramGL(const std::string& vertexShader, const std::string& fragmentShader);
     ~ProgramGL();
     
     virtual void setVertexUniform(int location, void* data, uint32_t size) override;

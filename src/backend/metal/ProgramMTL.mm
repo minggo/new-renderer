@@ -3,12 +3,11 @@
 
 CC_BACKEND_BEGIN
 
-ProgramMTL::ProgramMTL(ShaderModule* vs, ShaderModule* fs)
-: _vertexShader(static_cast<ShaderModuleMTL*>(vs))
-, _fragmentShader(static_cast<ShaderModuleMTL*>(fs))
+ProgramMTL::ProgramMTL(id<MTLDevice> mtlDevice, const std::string& vertexShader, const std::string& fragmentShader)
+: Program(vertexShader, fragmentShader)
 {
-    CC_SAFE_RETAIN(_vertexShader);
-    CC_SAFE_RETAIN(_fragmentShader);
+    _vertexShader = new (std::nothrow) ShaderModuleMTL(mtlDevice, backend::ShaderStage::VERTEX, vertexShader);
+    _fragmentShader = new (std::nothrow) ShaderModuleMTL(mtlDevice, backend::ShaderStage::FRAGMENT, fragmentShader);
 }
 
 ProgramMTL::~ProgramMTL()
